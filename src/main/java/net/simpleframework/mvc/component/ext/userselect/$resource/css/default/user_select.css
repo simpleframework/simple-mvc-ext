@@ -1,0 +1,66 @@
+.user_select .tablepager {
+  margin: 0 !important;
+}
+
+.user_select .tablepager .thead,
+.user_select .tablepager .tfilter,
+.user_select .tablepager .tbody {
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+.user_select .pager .pager_block_top {
+  border: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  height: 28px;
+  padding: 0;
+  background: none;
+}
+
+.user_select .pager .pager_head {
+  margin: 3px 6px 0 0;
+}
+
+.user_select .b {
+  background-color: #F1F1F1;
+  border-top: 1px solid #AAAAAA;
+  bottom: 0;
+  padding: 6px;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  width: 100%;
+}
+
+.user_select .ttop {
+  border-bottom: 1px solid #ccc;
+  height: 27px;
+}
+
+.user_select .tafelTree {
+  padding-top: 3px;   
+  overflow-y: auto; 
+}
+
+.user_select select.vtype {
+  position: absolute;
+  height: 23px;
+  left: 7px;
+  top: 2px;
+  display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
+.user_select .check_all {
+  position: absolute;
+  top: 31px;
+}
+
+.user_select .check_tree_all {
+  position: absolute;
+  top: 4px;
+  left: 90px;
+}

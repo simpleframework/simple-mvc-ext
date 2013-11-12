@@ -1,0 +1,73 @@
+.messageWindow_no_result {
+	text-align: center;
+	color: #CF460C;
+	font-size: large;
+	font-weight: bold;
+}
+
+.messageWindow {
+	padding: 2px 6px;
+}
+
+.messageWindow .tb {
+	border-bottom: 3px double #ddd;
+	padding-bottom: 3px;
+}
+
+.messageWindow .tb .icon {
+	background: url("images/mn.png") no-repeat center center;
+	width: 40px;
+	height: 32px;
+}
+
+.messageWindow .tb .pre,
+.messageWindow .tb .pre2 {
+	width: 19px;
+	height: 19px;
+	float: right;
+	cursor: pointer;
+}
+
+.messageWindow .tb .pre {
+	background: url("images/pre.png") no-repeat center center;
+}
+
+.messageWindow .tb .pre2 {
+	background: url("images/pre_d.png") no-repeat center center;
+}
+
+.messageWindow .tb .pre:hover {
+	background-image: url("images/pre_hover.png");
+}
+
+.messageWindow .tb .next,
+.messageWindow .tb .next2 {
+	width: 19px;
+	height: 19px;
+	float: right;
+	cursor: pointer;
+}
+
+.messageWindow .tb .next {
+	background: url("images/next.png") no-repeat center center;
+}
+
+.messageWindow .tb .next2 {
+	background: url("images/next_d.png") no-repeat center center;
+}
+
+.messageWindow .tb .next:hover {
+	background-image: url("images/next_hover.png");
+}
+
+.messageWindow .tb .subject {
+	color: #1ca101;
+	font-size: 11pt;
+	font-weight: bold;
+	padding: 0px 4px;
+}
+
+.messageWindow .c {
+	padding: 4px 0px;
+	color: #404040;
+}

@@ -1,0 +1,66 @@
+<div class="t1_head">
+  <div class="l1">
+    <div class="l1l">
+      <span class="icon"></span>
+      <span class="reply"></span>
+    </div>
+    <div class="l1r">
+      #(Comment.html.0)<span class="num">${count}</span>#(Comment.html.1)
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="l2">
+    <textarea id="textarea_${hashId}" name="comment" rows="5"></textarea>
+    <input type="hidden" name="parentId" />
+  </div>
+  <div class="l3">
+    <div class="l3l">
+      $if{showSmiley == true}
+      <a class="smiley" onclick="$Actions['${name}_smiley']();">#(Comment.html.3)</a>
+      $end{}
+    </div>
+    <div class="l3r">
+      <a id="submit_${hashId}" class="simple_btn simple_btn_all"
+        onclick="$Actions['${name}_submit']($Form(this.up('.t1_head')));">#(Comment.html.2)</a>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div class="t1_comments">
+  <div id="pager_${hashId}"></div>
+</div>
+<script type="text/javascript">
+  (function() {
+    var ta = $("textarea_${hashId}");
+    var h = ta.up(".t1_head");
+    var parent = ta.next();
+    var reply = h.down(".reply");
+    var num = h.down(".num");
+
+    window.$COMMENT = {
+      reply : function(val, txt) {
+        parent.value = val;
+        reply.innerHTML = 
+          		"<span class='reply_1'>" +
+        				txt +
+            		"<span class='del'></span>" +
+            	"</span>";
+        reply.down(".del").observe("click", function(evn) {
+          reply.innerHTML = "";
+          parent.value = "";
+        });
+        reply.scrollTo();
+        ta.focus();
+      },
+
+      doCallback : function(n) {
+        ta.clear();
+        ta.next().clear();
+        reply.innerHTML = "";
+        num.innerHTML = n;
+
+        $Actions['${name}_pager']();
+      }
+    };
+  })();
+</script>

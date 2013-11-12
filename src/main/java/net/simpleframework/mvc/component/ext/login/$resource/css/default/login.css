@@ -1,0 +1,61 @@
+#_loginForm {
+	text-align: left;
+}
+
+#_accountMenu,
+#_loginForm .lm {
+  display: inline-block;
+  *display: inline;
+	*zoom: 1;
+}
+
+#_accountMenu {
+	background-repeat: no-repeat;  
+  background-position: 0 center;
+  padding-left: 20px;
+  height: 16px;
+  line-height: 16px;
+}
+
+#_accountMenu:hover {
+  text-decoration: none;
+}
+
+#_loginForm .right_down_menu {
+  margin: 0 0 2px 4px;  
+}
+
+#_loginForm .lm:hover .right_down_menu {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+  -moz-transition: all 0.6s;
+	-webkit-transition: all 0.6s;
+	-ms-transition: all 0.6s;
+	transition: all 0.6s;
+}
+
+#_loginForm div {
+	margin: 4px 0;
+}
+
+#_accountName,
+#_passwordName {
+	width: 99%;
+	width: 98%\9;
+	height: 18px;
+	line-height: 18px;
+}
+
+.login_icon_normal {
+	background-image: url(images/normal.png);
+}
+
+.login_icon_email {
+	background-image: url(images/email.png);
+}
+
+.login_icon_mobile {
+	background-image: url(images/mobile.png);
+}

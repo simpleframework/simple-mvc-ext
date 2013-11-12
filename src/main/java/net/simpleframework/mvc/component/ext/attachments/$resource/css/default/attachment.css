@@ -1,0 +1,57 @@
+.Comp_Attachment .swfupload .item,
+.Comp_Attachment .swfupload .message {
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+}
+
+.Comp_Attachment .fitem {
+  line-height: 19px;
+	padding: 8px;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+	_zoom: 1;
+}
+
+.Comp_Attachment .fitem:hover {
+	background-color: #f2f9f2;
+}
+
+.Comp_Attachment input,
+.Comp_Attachment label,
+.Comp_Attachment span {
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.Comp_Attachment .size {
+	color: #999;
+	font-family: Candara;
+	margin-left: 4px;
+}
+
+.Comp_Attachment .l_attach {
+	padding-left: 12px;
+}
+
+.Comp_Attachment .l_add {
+	background: url("images/add.gif") no-repeat 0 50%;
+	color: blue;
+}
+
+.Comp_Attachment .l_delete {
+	background: url('images/delete.gif') no-repeat 0 50%;
+	color: red;
+}
+
+.Comp_Attachment .b_attach {
+	padding: 8px 8px 8px 20px;
+	overflow: hidden;
+}
+
+.Comp_Attachment .b_attach .rbtn {
+	float: right;
+}
+
+.form_tbl .v .Comp_Attachment {
+  margin: -2px -2px -3px;
+}

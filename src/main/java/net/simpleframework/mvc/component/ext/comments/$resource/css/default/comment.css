@@ -1,0 +1,176 @@
+.Comp_Comment .t1_head {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 0 8px;
+}
+
+.Comp_Comment .t1_head .icon,
+.Comp_Comment .t1_head .reply,
+.Comp_Comment .t1_head .reply_1,
+.Comp_Comment .t1_head .del {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.Comp_Comment .t1_head .l1l,
+.Comp_Comment .t1_head .l3l {
+  float: left;
+}
+
+.Comp_Comment .t1_head .l1r,
+.Comp_Comment .t1_head .l3r {
+  float: right;
+}
+
+.Comp_Comment .t1_head .l1 {
+  padding: 0 4px 8px 0;
+}
+
+.Comp_Comment .t1_head .l3 {
+  padding: 8px 0 8px 4px;
+}
+
+.Comp_Comment .t1_head .reply {
+  margin-left: 40px;
+}
+
+.Comp_Comment .t1_head .reply_1 {
+  margin-top: 7px;
+  cursor: default;
+  border: 1px solid #aaa;
+  padding: 0 6px;
+  height: 20px;
+  line-height: 19px;
+  background-color: #ddd;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+.Comp_Comment .t1_head .l1 {
+  position: relative;
+}
+
+.Comp_Comment .t1_head .icon {
+  background: url("images/comment.png") no-repeat;
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  top: 2px;
+  left: 0;
+}
+
+.Comp_Comment .t1_head .del {
+  background: url("images/delete.png") no-repeat;
+  width: 9px;
+  height: 9px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.Comp_Comment .t1_head .reply_1:hover .del {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+  -moz-transition: all 0.6s;
+  -webkit-transition: all 0.6s;
+  -ms-transition: all 0.6s;
+  transition: all 0.6s;
+}
+
+.Comp_Comment .t1_head .num {
+  color: #900;
+  font-family: Georgia;
+  font-size: 18pt;
+  font-weight: bold;
+  margin: 0 4px;
+}
+
+.Comp_Comment .t1_head .l2 {
+  border: 1px solid #ccc;
+  padding: 6px;
+  background: #fff;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+.Comp_Comment .t1_head .l2 textarea {
+  background: #fff;
+  border: 0;
+  width: 100%;
+}
+  
+.Comp_Comment .t1_comments {
+  border: 1px solid #ccc;
+  background: #fefefe;
+  margin-top: -1px;
+}
+
+.Comp_Comment .t1_comments .pager_block_bottom {
+	margin: 8px !important;
+}
+
+.Comp_Comment .t1_comments .oitem {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 6px 2px;
+}
+
+.Comp_Comment .t1_comments .oitem:hover {
+	background: #f4f4f4;
+}
+
+.Comp_Comment .t1_comments .oitem table {
+	width: 100%;
+	border-spacing: 0;
+}
+
+.Comp_Comment .t1_comments .oitem td.icon {
+	text-align: center;
+	width: 80px;
+}
+
+.Comp_Comment .t1_comments .oitem .photo_icon {
+	width: 36px;
+	height: 36px;
+}
+
+.Comp_Comment .t1_comments .oitem .icon_d {
+	margin-top: 4px;
+	text-align: center;
+	color: #888;
+}
+
+.Comp_Comment .t1_comments .oitem .mc {
+	font-size: 9.5pt;
+	line-height: 1.6;
+}
+	
+.Comp_Comment .t1_comments .oitem .rc {
+	background: #f9f9f9;
+	border: 1px solid #ddd;
+	margin: -12px 0 8px -12px;
+	padding: 12px;
+	-moz-border-radius: 0 0 9px 9px;
+	-webkit-border-radius: 0 0 9px 9px;
+	border-radius: 0 0 9px 9px;
+	color: #666;
+}
+
+.Comp_Comment .t1_comments .oitem .r_desc {
+	border-bottom: 1px dashed #ccc;
+	padding-bottom: 5px;
+	margin-bottom: 4px;
+}
+
+.Comp_Comment .t1_comments .oitem .desc {
+	margin: 8px 8px 0 0;
+	text-align: right;
+	color: #888;
+}
+
+.Comp_Comment .pager_no_result {
+  border: 0;
+}
