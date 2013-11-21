@@ -5,7 +5,6 @@ import static net.simpleframework.common.I18n.$m;
 import java.util.Map;
 
 import net.simpleframework.ado.ADOException;
-import net.simpleframework.ado.EOrder;
 import net.simpleframework.ado.bean.IDescriptionBeanAware;
 import net.simpleframework.ado.bean.IIdBeanAware;
 import net.simpleframework.ado.bean.INameBeanAware;
@@ -41,13 +40,11 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 	public JavascriptForward onCategoryMove(final ComponentParameter cp, final TreeBean treeBean,
 			final Object form, final Object to, final boolean up) {
 		final JavascriptForward js = super.onCategoryMove(cp, treeBean, form, to, up);
-		final TableColumn oorder = new TableColumn("oorder");
-		oorder.setOrder(EOrder.desc);
 		final IDbBeanService<T> mgr = getBeanService();
 		mgr.getEntityManager().doExecuteTransaction(new TransactionVoidCallback() {
 			@Override
 			protected void doTransactionVoidCallback() throws ADOException {
-				mgr.exchange((T) form, (T) to, oorder, up);
+				mgr.exchange((T) form, (T) to, new TableColumn("oorder"), up);
 			}
 		});
 		return js;
