@@ -11,7 +11,6 @@ import net.simpleframework.ado.bean.INameBeanAware;
 import net.simpleframework.ado.bean.IOrderBeanAware;
 import net.simpleframework.ado.bean.ITextBeanAware;
 import net.simpleframework.ado.bean.ITreeBeanAware;
-import net.simpleframework.ado.db.common.TableColumn;
 import net.simpleframework.ado.trans.TransactionVoidCallback;
 import net.simpleframework.ctx.service.ado.IADOTreeBeanServiceAware;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
@@ -44,7 +43,7 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 		mgr.getEntityManager().doExecuteTransaction(new TransactionVoidCallback() {
 			@Override
 			protected void doTransactionVoidCallback() throws ADOException {
-				mgr.exchange((T) form, (T) to, new TableColumn("oorder"), up);
+				mgr.exchange((T) form, (T) to, up);
 			}
 		});
 		return js;
