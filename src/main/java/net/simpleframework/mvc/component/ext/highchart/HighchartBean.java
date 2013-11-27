@@ -19,6 +19,8 @@ public class HighchartBean extends AbstractContainerBean {
 
 	private HcChart chart;
 
+	private String[] colors;
+
 	private HcTitle title;
 
 	private HcSubtitle subtitle;
@@ -45,6 +47,15 @@ public class HighchartBean extends AbstractContainerBean {
 
 	public HighchartBean setChart(final HcChart chart) {
 		this.chart = chart;
+		return this;
+	}
+
+	public String[] getColors() {
+		return colors;
+	}
+
+	public HighchartBean setColors(final String[] colors) {
+		this.colors = colors;
 		return this;
 	}
 

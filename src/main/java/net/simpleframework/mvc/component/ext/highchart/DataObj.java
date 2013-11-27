@@ -17,6 +17,8 @@ public class DataObj implements IDataVal {
 
 	private Number x, y;
 
+	private String color;
+
 	public DataObj(final String name, final Number y) {
 		this.name = name;
 		this.y = y;
@@ -67,6 +69,15 @@ public class DataObj implements IDataVal {
 		return this;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
+	public DataObj setColor(final String color) {
+		this.color = color;
+		return this;
+	}
+
 	@Override
 	public Object toVal() {
 		final KVMap kv = new KVMap();
@@ -85,6 +96,9 @@ public class DataObj implements IDataVal {
 		}
 		if ((val = getY()) != null) {
 			kv.add("y", val);
+		}
+		if ((val = getColor()) != null) {
+			kv.add("color", val);
 		}
 		return kv;
 	}
