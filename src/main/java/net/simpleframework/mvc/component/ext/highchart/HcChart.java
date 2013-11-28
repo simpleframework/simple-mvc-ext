@@ -23,6 +23,8 @@ public class HcChart extends AbstractHcElement<HcChart> {
 
 	private EZoomType zoomType;
 
+	private Integer height;
+
 	public HcChart(final XmlElement beanElement) {
 		super(beanElement);
 	}
@@ -94,10 +96,22 @@ public class HcChart extends AbstractHcElement<HcChart> {
 		return this;
 	}
 
+	public Integer getHeight() {
+		return height;
+	}
+
+	public HcChart setHeight(final Integer height) {
+		this.height = height;
+		return this;
+	}
+
 	@Override
 	protected KVMap toMap() {
 		final KVMap kv = super.toMap().add("backgroundColor", getBackgroundColor());
 		Object val;
+		if ((val = getHeight()) != null) {
+			kv.add("height", val);
+		}
 		if ((val = getType()) != null) {
 			kv.add("type", val);
 		}
