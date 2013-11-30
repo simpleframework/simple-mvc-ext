@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.permission.DepartmentWrapper;
 import net.simpleframework.mvc.DefaultPageHandler;
@@ -126,7 +127,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 					final ComponentParameter nCP = UserSelectUtils.get(cp);
 					final IUserSelectHandler uHandler = (IUserSelectHandler) nCP.getComponentHandler();
 					final KVMap kv = new KVMap();
-					kv.put("text", dataObject.toString());
+					kv.put("text", new SpanElement(dataObject).setTitle((String) BeanUtils.getProperty(
+							dataObject, "email")));
 					final Object dept = uHandler.getDepartment(dataObject);
 					if (dept != null) {
 						kv.put("departmentText", dept);
