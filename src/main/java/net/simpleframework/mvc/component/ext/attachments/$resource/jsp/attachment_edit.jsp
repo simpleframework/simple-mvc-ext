@@ -3,7 +3,7 @@
 <%@ page import="net.simpleframework.mvc.component.ext.attachments.AttachmentUtils"%>
 <%
 	final ComponentParameter cp = AttachmentUtils
-	.get(request, response);
+			.get(request, response);
 	final String attachmentName = (String) cp.getComponentName();
 	final String beanId = cp.hashId();
 %>
