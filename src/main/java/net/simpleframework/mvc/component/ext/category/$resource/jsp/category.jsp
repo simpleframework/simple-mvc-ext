@@ -4,13 +4,11 @@
 <%@ page import="net.simpleframework.mvc.component.ComponentRenderUtils"%>
 <%@ page import="net.simpleframework.common.Convert"%>
 <%
-	final ComponentParameter nCP = CategoryUtils.get(
-	request, response);
+	final ComponentParameter nCP = CategoryUtils.get(request, response);
 	final String beanId = nCP.hashId();
-	final String categoryName = (String) nCP
-	.getComponentName();
+	final String categoryName = (String) nCP.getComponentName();
 	final boolean runImmediately = Convert.toBool(nCP
-	.getBeanProperty("runImmediately"));
+			.getBeanProperty("runImmediately"));
 %>
 <div class="Category">
   <%=ComponentRenderUtils.genParameters(nCP)%>

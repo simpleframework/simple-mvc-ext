@@ -5,7 +5,7 @@
 <%@ page import="net.simpleframework.common.Convert"%>
 <%
 	final ComponentParameter cp = UserSelectUtils
-	.get(request, response);
+			.get(request, response);
 	final String hashId = cp.hashId();
 	final String componentName = (String) cp.getComponentName();
 %>

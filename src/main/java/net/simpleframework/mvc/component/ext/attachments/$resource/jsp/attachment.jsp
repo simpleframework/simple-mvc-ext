@@ -7,9 +7,9 @@
 <%
 	final ComponentParameter cp = AttachmentUtils
 			.get(request, response);
-	final String beanId = cp.hashId();
 	final IAttachmentHandler handle = (IAttachmentHandler) cp
 			.getComponentHandler();
+	final String beanId = cp.hashId();
 	final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 %>
 <div class="Comp_Attachment">

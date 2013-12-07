@@ -4,8 +4,8 @@
 <%
 	final ComponentParameter cp = AttachmentUtils
 			.get(request, response);
-	final String attachmentName = (String) cp.getComponentName();
 	final String beanId = cp.hashId();
+	final String attachmentName = (String) cp.getComponentName();
 %>
 <div class="simple_window_tcb">
   <div class="c" id="af_<%=beanId%>">

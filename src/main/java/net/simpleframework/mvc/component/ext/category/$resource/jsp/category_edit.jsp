@@ -2,11 +2,9 @@
 <%@ page import="net.simpleframework.mvc.component.ext.category.CategoryUtils"%>
 <%@ page import="net.simpleframework.mvc.component.ComponentParameter"%>
 <%
-	final ComponentParameter nCP = CategoryUtils.get(
-	request, response);
+	final ComponentParameter nCP = CategoryUtils.get(request, response);
 	final String beanId = nCP.hashId();
-	final String categoryName = (String) nCP
-	.getComponentName();
+	final String categoryName = (String) nCP.getComponentName();
 %>
 <div class="CategoryEdit simple_window_tcb">
   <div class="c">

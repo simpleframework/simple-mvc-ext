@@ -12,10 +12,6 @@
 			response);
 	final IMessageWindowHandle mh = (IMessageWindowHandle) nCP
 			.getComponentHandler();
-	if (mh == null) {
-		return;
-	}
-
 	final Collection<MessageNotification> l = mh
 			.getMessageNotifications(nCP);
 	if (l == null || l.size() == 0) {
