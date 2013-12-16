@@ -16,9 +16,9 @@ import net.simpleframework.ado.bean.ITextBeanAware;
 import net.simpleframework.ado.bean.ITreeBeanAware;
 import net.simpleframework.ado.db.DbDataQuery;
 import net.simpleframework.ado.db.DbDataQuery.ResultSetMetaDataCallback;
+import net.simpleframework.ado.db.DbTableColumn;
 import net.simpleframework.ado.db.common.ExpressionValue;
 import net.simpleframework.ado.db.common.SqlUtils;
-import net.simpleframework.ado.db.common.TableColumn;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
@@ -78,13 +78,11 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 
 	@Override
 	protected ColumnData createColumnData(final TablePagerColumn oCol) {
-		final TableColumn dbColumn = new TableColumn(oCol.getColumnName());
-		dbColumn.setSqlName(oCol.getColumnSqlName());
-		return dbColumn;
+		return new DbTableColumn(oCol.getColumnName()).setAlias(oCol.getColumnAlias());
 	}
 
 	protected void doSortSQL(final ComponentParameter cp, final DbDataQuery<?> qs) {
-		final TableColumn dbColumn = (TableColumn) getSortColumn(cp);
+		final DbTableColumn dbColumn = (DbTableColumn) getSortColumn(cp);
 		if (dbColumn != null) {
 			qs.addOrderBy(dbColumn);
 		}
@@ -113,12 +111,12 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 				continue;
 			}
 			final StringBuilder sb = new StringBuilder();
-			final String columnSqlName = oCol.getColumnSqlName();
+			final String columnAlias = oCol.getColumnAlias();
 			final FilterItem item = items.next();
-			sb.append(columnSqlName).append(filterItemExpr(item, params));
+			sb.append(columnAlias).append(filterItemExpr(item, params));
 			if (items.hasNext()) {
 				sb.append(" ").append(item.getOpe()).append(" ");
-				sb.append(columnSqlName).append(filterItemExpr(items.next(), params));
+				sb.append(columnAlias).append(filterItemExpr(items.next(), params));
 				sb.insert(0, "(");
 				sb.append(")");
 			}
