@@ -2,11 +2,11 @@ package net.simpleframework.mvc.component.ext.messagewindow;
 
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.component.AbstractComponentRegistry;
 import net.simpleframework.mvc.component.ComponentBean;
 import net.simpleframework.mvc.component.ComponentName;
 import net.simpleframework.mvc.component.ComponentRender;
 import net.simpleframework.mvc.component.ComponentResourceProvider;
+import net.simpleframework.mvc.component.ComponentUtils;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.window.WindowRegistry;
 
@@ -32,7 +32,7 @@ public class MessageWindowRegistry extends WindowRegistry {
 		if (!StringUtils.hasText(messageWindowBean.getContent())
 				&& !StringUtils.hasText(messageWindowBean.getContentRef())) {
 			final String ajaxRequestName = "ajaxRequest2_" + beanId;
-			messageWindowBean.setContent(AbstractComponentRegistry.getLoadingContent());
+			messageWindowBean.setContent(ComponentUtils.getLoadingContent());
 			messageWindowBean.setContentRef(ajaxRequestName);
 			pp.addComponentBean(ajaxRequestName, AjaxRequestBean.class)
 					.setShowLoading(false)

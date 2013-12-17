@@ -9,7 +9,6 @@ import net.simpleframework.common.JsonUtils;
 import net.simpleframework.mvc.component.AbstractComponentRender.ComponentJavascriptRender;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentRenderUtils;
-import net.simpleframework.mvc.component.IComponentRegistry;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -20,10 +19,6 @@ import net.simpleframework.mvc.component.IComponentRegistry;
  *         http://www.simpleframework.net
  */
 public class HighchartRender extends ComponentJavascriptRender {
-
-	public HighchartRender(final IComponentRegistry componentRegistry) {
-		super(componentRegistry);
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override

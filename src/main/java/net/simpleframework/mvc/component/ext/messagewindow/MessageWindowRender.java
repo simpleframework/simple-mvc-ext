@@ -2,7 +2,6 @@ package net.simpleframework.mvc.component.ext.messagewindow;
 
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentRenderUtils;
-import net.simpleframework.mvc.component.IComponentRegistry;
 import net.simpleframework.mvc.component.ui.window.WindowRender;
 
 /**
@@ -12,10 +11,6 @@ import net.simpleframework.mvc.component.ui.window.WindowRender;
  *         http://www.simpleframework.net
  */
 public class MessageWindowRender extends WindowRender {
-
-	public MessageWindowRender(final IComponentRegistry componentRegistry) {
-		super(componentRegistry);
-	}
 
 	@Override
 	public String getJavascriptCode(final ComponentParameter cp) {
