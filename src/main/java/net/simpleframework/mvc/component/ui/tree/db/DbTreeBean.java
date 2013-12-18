@@ -1,8 +1,6 @@
 package net.simpleframework.mvc.component.ui.tree.db;
 
 import net.simpleframework.common.StringUtils;
-import net.simpleframework.ctx.common.xml.XmlElement;
-import net.simpleframework.mvc.PageDocument;
 import net.simpleframework.mvc.component.ui.tree.TreeBean;
 
 /**
@@ -18,16 +16,6 @@ public class DbTreeBean extends TreeBean {
 	private String idName, parentIdName;
 
 	private String textName;
-
-	public DbTreeBean(final PageDocument pageDocument, final XmlElement xmlElement) {
-		super(pageDocument, xmlElement);
-		setDynamicLoading(true);
-		setHandleClass(DbTreeHandler.class);
-	}
-
-	public DbTreeBean(final PageDocument pageDocument) {
-		this(pageDocument, null);
-	}
 
 	public String getTableName() {
 		return tableName;
@@ -59,5 +47,10 @@ public class DbTreeBean extends TreeBean {
 
 	public void setTextName(final String textName) {
 		this.textName = textName;
+	}
+
+	{
+		setDynamicLoading(true);
+		setHandleClass(DbTreeHandler.class);
 	}
 }

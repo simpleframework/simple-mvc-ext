@@ -2,8 +2,6 @@ package net.simpleframework.mvc.component.ext.login;
 
 import net.simpleframework.common.ClassUtils;
 import net.simpleframework.ctx.common.bean.BeanDefaults;
-import net.simpleframework.ctx.common.xml.XmlElement;
-import net.simpleframework.mvc.PageDocument;
 import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.component.AbstractContainerBean;
 
@@ -27,20 +25,6 @@ public class LoginBean extends AbstractContainerBean {
 	private String passwordGetUrl;
 
 	private String jsLoginCallback;
-
-	public LoginBean(final PageDocument pageDocument, final XmlElement element) {
-		super(pageDocument, element);
-		setSelector("#_loginForm");
-		try {
-			setHandleClass(ClassUtils
-					.forName("net.simpleframework.organization.web.component.login.DefaultLoginHandler"));
-		} catch (final ClassNotFoundException e) {
-		}
-	}
-
-	public LoginBean(final PageDocument pageDocument) {
-		this(pageDocument, null);
-	}
 
 	public boolean isShowAutoLogin() {
 		return showAutoLogin;
@@ -99,5 +83,14 @@ public class LoginBean extends AbstractContainerBean {
 	@Override
 	protected String[] elementAttributes() {
 		return new String[] { "loginForward", "jsLoginCallback" };
+	}
+
+	{
+		setSelector("#_loginForm");
+		try {
+			setHandleClass(ClassUtils
+					.forName("net.simpleframework.organization.web.component.login.DefaultLoginHandler"));
+		} catch (final ClassNotFoundException e) {
+		}
 	}
 }

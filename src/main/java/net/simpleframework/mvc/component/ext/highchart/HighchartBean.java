@@ -3,8 +3,6 @@ package net.simpleframework.mvc.component.ext.highchart;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.simpleframework.ctx.common.xml.XmlElement;
-import net.simpleframework.mvc.PageDocument;
 import net.simpleframework.mvc.component.AbstractContainerBean;
 
 /**
@@ -36,10 +34,6 @@ public class HighchartBean extends AbstractContainerBean {
 	private HcTooltip tooltip;
 
 	private List<HcSeries> series;
-
-	public HighchartBean(final PageDocument pageDocument, final XmlElement xmlElement) {
-		super(pageDocument, xmlElement);
-	}
 
 	public HcChart getChart() {
 		return chart;

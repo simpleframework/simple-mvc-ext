@@ -2,8 +2,6 @@ package net.simpleframework.mvc.component.ext.userselect;
 
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.common.ClassUtils;
-import net.simpleframework.ctx.common.xml.XmlElement;
-import net.simpleframework.mvc.PageDocument;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
 
 /**
@@ -18,8 +16,7 @@ public class UserSelectBean extends DictionaryBean {
 
 	private boolean treeMode = true;
 
-	public UserSelectBean(final PageDocument pageDocument, final XmlElement xmlElement) {
-		super(pageDocument, xmlElement);
+	public UserSelectBean() {
 		setShowHelpTooltip(false);
 		setTitle($m("UserSelectBean.0"));
 		setMinWidth(360);

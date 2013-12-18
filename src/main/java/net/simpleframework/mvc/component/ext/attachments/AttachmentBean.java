@@ -1,8 +1,6 @@
 package net.simpleframework.mvc.component.ext.attachments;
 
 import net.simpleframework.ctx.common.bean.BeanDefaults;
-import net.simpleframework.ctx.common.xml.XmlElement;
-import net.simpleframework.mvc.PageDocument;
 import net.simpleframework.mvc.component.AbstractContainerBean;
 
 /**
@@ -16,10 +14,6 @@ public class AttachmentBean extends AbstractContainerBean {
 	private String insertTextarea;
 
 	private boolean readonly = BeanDefaults.getBool(getClass(), "readonly", false);
-
-	public AttachmentBean(final PageDocument pageDocument, final XmlElement xmlElement) {
-		super(pageDocument, xmlElement);
-	}
 
 	public String getInsertTextarea() {
 		return insertTextarea;

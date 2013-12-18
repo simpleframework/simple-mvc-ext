@@ -1,8 +1,6 @@
 package net.simpleframework.mvc.component.ext.category;
 
 import net.simpleframework.ctx.common.bean.BeanDefaults;
-import net.simpleframework.ctx.common.xml.XmlElement;
-import net.simpleframework.mvc.PageDocument;
 import net.simpleframework.mvc.component.AbstractContainerBean;
 
 /**
@@ -23,10 +21,6 @@ public class CategoryBean extends AbstractContainerBean {
 	private boolean showContextMenu = BeanDefaults.getBool(getClass(), "showContextMenu", true);
 
 	private String jsLoadedCallback;
-
-	public CategoryBean(final PageDocument pageDocument, final XmlElement xmlElement) {
-		super(pageDocument, xmlElement);
-	}
 
 	public boolean isCookies() {
 		return cookies;

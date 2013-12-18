@@ -1,8 +1,6 @@
 package net.simpleframework.mvc.component.ext.comments;
 
 import net.simpleframework.ctx.common.bean.BeanDefaults;
-import net.simpleframework.ctx.common.xml.XmlElement;
-import net.simpleframework.mvc.PageDocument;
 import net.simpleframework.mvc.component.AbstractContainerBean;
 
 /**
@@ -21,10 +19,6 @@ public class CommentBean extends AbstractContainerBean {
 
 	/* 操作角色 */
 	private String role;
-
-	public CommentBean(final PageDocument pageDocument, final XmlElement xmlElement) {
-		super(pageDocument, xmlElement);
-	}
 
 	public boolean isShowSmiley() {
 		return showSmiley;
