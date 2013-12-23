@@ -104,12 +104,13 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 			sb.append(JavascriptUtils.escape(htmlContent)).append("\");");
 		}
 
+		final String componentName = cp.getComponentName();
 		// for SyntaxHighlighter
-		sb.append(actionFunc).append(".editor.syntaxhighlighter = 'sh_").append(cp.hashId())
+		sb.append(actionFunc).append(".editor.syntaxhighlighter = 'sh_").append(componentName)
 				.append("';");
 
 		final StringBuilder sb2 = new StringBuilder();
-		sb2.append("var act = $Actions[\"").append(cp.getComponentName()).append("\"];");
+		sb2.append("var act = $Actions[\"").append(componentName).append("\"];");
 		sb2.append("if (act && act.editor) { CKEDITOR.remove(act.editor); }");
 		return ComponentRenderUtils.genActionWrapper(cp, sb.toString(), sb2.toString());
 	}

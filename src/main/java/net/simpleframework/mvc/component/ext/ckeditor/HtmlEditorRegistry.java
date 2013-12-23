@@ -29,7 +29,7 @@ public class HtmlEditorRegistry extends AbstractComponentRegistry {
 
 		// 添加语法高亮组件
 		if ((Boolean) nCP.getBeanProperty("codeEnabled")) {
-			pp.addComponentBean("sh_" + nCP.hashId(), SyntaxHighlighterBean.class);
+			pp.addComponentBean("sh_" + nCP.getComponentName(), SyntaxHighlighterBean.class);
 		}
 		return htmlEditor;
 	}
