@@ -227,12 +227,12 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 
 	protected AbstractComponentBean categoryEdit_createDictTree(final ComponentParameter cp) {
 		final String categoryName = cp.getComponentName();
-		return cp.addComponentBean(categoryName + "_dict_tree", TreeBean.class)
+		final TreeBean dict = (TreeBean) cp
+				.addComponentBean(categoryName + "_dict_tree", TreeBean.class)
 				.setDynamicLoading((Boolean) cp.getBeanProperty("dynamicTree"))
-				.setCookies((Boolean) cp.getBeanProperty("cookies"))
-				.setImgHome((String) cp.getBeanProperty("imgHome"))
-				.setJsLoadedCallback((String) cp.getBeanProperty("jsLoadedCallback"))
 				.setHandleClass(CategoryDictTree.class);
+		setTreeBean(cp, dict);
+		return dict;
 	}
 
 	protected AbstractComponentBean categoryEdit_createDict(final ComponentParameter cp) {

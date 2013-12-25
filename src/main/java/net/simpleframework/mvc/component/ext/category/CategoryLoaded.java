@@ -30,9 +30,9 @@ public class CategoryLoaded extends DefaultPageHandler {
 					CategoryContextMenu.class);
 		}
 
-		treeBean.setContainerId("category_" + categoryBean.hashId())
-				.setHandleClass(CategoryTree.class).setRunImmediately(false)
-				.setAttr("$category", categoryBean);
+		treeBean.setDynamicLoading((Boolean) cp.getBeanProperty("dynamicTree"))
+				.setContainerId("category_" + categoryBean.hashId()).setHandleClass(CategoryTree.class)
+				.setRunImmediately(false).setAttr("$category", categoryBean);
 		((ICategoryHandler) cp.getComponentHandler()).setTreeBean(cp, treeBean);
 		categoryBean.setAttr("$tree", treeBean);
 	}

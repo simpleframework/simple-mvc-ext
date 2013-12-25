@@ -11,6 +11,8 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  */
 public class CategoryBean extends AbstractContainerBean {
 
+	private boolean dynamicTree = BeanDefaults.getBool(getClass(), "dynamicTree", false);
+
 	private boolean draggable = BeanDefaults.getBool(getClass(), "draggable", true);
 
 	private boolean showContextMenu = BeanDefaults.getBool(getClass(), "showContextMenu", true);
@@ -30,6 +32,15 @@ public class CategoryBean extends AbstractContainerBean {
 
 	public CategoryBean setShowContextMenu(final boolean showContextMenu) {
 		this.showContextMenu = showContextMenu;
+		return this;
+	}
+
+	public boolean isDynamicTree() {
+		return dynamicTree;
+	}
+
+	public CategoryBean setDynamicTree(final boolean dynamicTree) {
+		this.dynamicTree = dynamicTree;
 		return this;
 	}
 
