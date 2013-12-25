@@ -272,4 +272,8 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 			final Class<? extends AbstractMVCPage> pageClass) {
 		return AbstractMVCPage.get(pageClass).getCssResourceHomePath(cp) + "/images/";
 	}
+
+	@Override
+	public void setTreeBean(final ComponentParameter cp, final TreeBean treeBean) {
+	}
 }

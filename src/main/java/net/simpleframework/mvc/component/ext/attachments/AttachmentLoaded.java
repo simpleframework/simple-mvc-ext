@@ -58,7 +58,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 					.setJsCompleteCallback("$Actions['" + attachmentName + "_list']();")
 					.setContainerId("attachment_" + attachmentBean.hashId())
 					.setHandleClass(SwfUploadAction.class).setAttr("$attachment", attachmentBean);
-			((IAttachmentHandler) cp.getComponentHandler()).setSwfUploadBean(swfUpload);
+			((IAttachmentHandler) cp.getComponentHandler()).setSwfUploadBean(cp, swfUpload);
 		}
 
 		final String attachmentListId = "attachment_list_" + beanId;

@@ -116,4 +116,12 @@ public interface ICategoryHandler extends IComponentHandler {
 	 * @param cParameter
 	 */
 	void categoryEdit_doInit(ComponentParameter cp);
+
+	/**
+	 * 设置树组件的属性
+	 * 
+	 * @param cp
+	 * @param treeBean
+	 */
+	void setTreeBean(ComponentParameter cp, TreeBean treeBean);
 }

@@ -96,9 +96,10 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	/**
 	 * 设置上传组件的属性
 	 * 
+	 * @param cp
 	 * @param swfUpload
 	 */
-	void setSwfUploadBean(SwfUploadBean swfUpload);
+	void setSwfUploadBean(ComponentParameter cp, SwfUploadBean swfUpload);
 
 	/**
 	 * 附件列表输出HTML

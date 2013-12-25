@@ -33,7 +33,7 @@ import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
 public abstract class AbstractAttachmentHandler extends ComponentHandlerEx implements
 		IAttachmentHandler {
 	@Override
-	public void setSwfUploadBean(final SwfUploadBean swfUpload) {
+	public void setSwfUploadBean(final ComponentParameter cp, final SwfUploadBean swfUpload) {
 		swfUpload.setFileSizeLimit("10MB").setMultiFileSelected(true);
 	}
 
