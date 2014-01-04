@@ -10,17 +10,20 @@ import java.util.Map;
 import java.util.Set;
 
 import net.simpleframework.common.FileUtils;
+import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
+import net.simpleframework.common.web.html.HtmlConst;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
-import net.simpleframework.ctx.script.MVEL2Template;
 import net.simpleframework.mvc.IMultipartFile;
+import net.simpleframework.mvc.JavascriptForward;
+import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
 import net.simpleframework.mvc.common.element.Checkbox;
+import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentHandlerEx;
-import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
 
@@ -54,23 +57,23 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	}
 
 	@Override
-	public void doSave(final ComponentParameter cp, final IAttachmentSaveCallback callback) {
-		callback.save(getUploadCache(cp), getDeleteCache(cp));
+	public JavascriptForward doSave(final ComponentParameter cp,
+			final IAttachmentSaveCallback callback) {
+		if (callback != null) {
+			callback.save(getUploadCache(cp), getDeleteCache(cp));
+		}
 		// 清除
 		clearCache(cp);
+		return null;
 	}
 
 	@Override
 	public void doSave(final ComponentParameter cp, final String id, final String topic,
-			final String description) {
-		try {
-			final AttachmentFile af = getAttachmentById(cp, id);
-			if (af != null) {
-				af.setTopic(topic);
-				af.setDescription(description);
-			}
-		} catch (final IOException e) {
-			throw ComponentHandlerException.of(e);
+			final String description) throws IOException {
+		final AttachmentFile af = getAttachmentById(cp, id);
+		if (af != null) {
+			af.setTopic(topic);
+			af.setDescription(description);
 		}
 	}
 
@@ -123,7 +126,6 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	@Override
 	public String toAttachmentListHTML(final ComponentParameter cp) throws IOException {
 		final String name = cp.getComponentName();
-		final boolean showInsert = StringUtils.hasText((String) cp.getBeanProperty("insertTextarea"));
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		final Set<String> deleteQueue = getDeleteCache(cp);
 		final StringBuilder sb = new StringBuilder();
@@ -157,29 +159,75 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 				sb.append(ButtonElement.editBtn().setStyle("float: right;")
 						.setOnclick("$Actions['" + name + "_editWin']('id=" + id + "');"));
 			}
-			if (showInsert) {
+
+			final boolean insertTextarea = StringUtils.hasText((String) cp
+					.getBeanProperty("insertTextarea"));
+			if (insertTextarea) {
 				sb.append(new Checkbox(id, attachment.getTopic() + fileSize));
 			} else {
 				// params for tooltip
 				sb.append(
-						new LinkElement(attachment.getTopic()).addAttribute("params", "id=" + id)
-								.setOnclick("$Actions['" + name + "_download']('id=" + id + "');")).append(
-						fileSize);
+						new LinkElement(attachment.getTopic()).setOnclick(
+								"$Actions['" + name + "_download']('id=" + id + "');").addAttribute(
+								"params", "id=" + id)).append(fileSize);
 			}
 			sb.append("</div></div>");
 		}
 		return sb.toString();
 	}
 
+	protected boolean showCheckbox() {
+		return false;
+	}
+
 	@Override
-	public String toInsertHTML(final ComponentParameter cp) {
-		final boolean showInsert = StringUtils.hasText((String) cp.getBeanProperty("insertTextarea"));
-		if (!showInsert) {
+	public String toBottomHTML(final ComponentParameter cp) {
+		final boolean insertTextarea = StringUtils.hasText((String) cp
+				.getBeanProperty("insertTextarea"));
+		final boolean showSubmit = (Boolean) cp.getBeanProperty("showSubmit");
+		if (!insertTextarea && !showSubmit) {
 			return "";
 		}
-		final KVMap variables = new KVMap().add("name", cp.getComponentName()).add("beanId",
-				cp.hashId());
-		return MVEL2Template.replace(variables, IAttachmentHandler.class, "AttachmentInsert.html");
+
+		final StringBuilder sb = new StringBuilder();
+		final String hashId = cp.hashId();
+		sb.append("<div class='b_attach' id='cc_").append(hashId).append("'>");
+		sb.append(" <span class='rbtn'>");
+		sb.append(
+				LinkButton.corner(insertTextarea ? $m("AbstractAttachmentHandler.0")
+						: $m("AbstractAttachmentHandler.3"))).append("</span>");
+		if (insertTextarea) {
+			sb.append(new Checkbox("checkAll_" + hashId, $m("AbstractAttachmentHandler.1")));
+		}
+		sb.append("</div>");
+
+		sb.append(HtmlConst.TAG_SCRIPT_START);
+		sb.append("$ready(function() {");
+		sb.append(" var cc = $('cc_").append(hashId).append("');");
+		sb.append(" var attach = cc.previous();");
+		if (insertTextarea) {
+			sb.append(" cc.down('input[type=checkbox]').observe('click', function(evn) {");
+			sb.append("   var _box = this;");
+			sb.append("   attach.select('input[type=checkbox]').each(function(box) { box.checked = _box.checked; });");
+			sb.append(" });");
+			sb.append(" cc.down('.simple_btn').observe('click', function(evn) {");
+			sb.append("   var idArr = attach.select('input[type=checkbox]').inject([], function(r, box) {");
+			sb.append("     if (box.checked) r.push(box.id);");
+			sb.append("     return r;");
+			sb.append("   });");
+			sb.append("   if (idArr.length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
+			sb.append("   $Actions['").append(cp.getComponentName())
+					.append("_selected']('ids=' + idArr.join(';'));");
+			sb.append(" });");
+		} else {
+			sb.append(" cc.down('.simple_btn').observe('click', function(evn) {");
+			sb.append("  if (attach.select('.fitem').length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
+			sb.append("  $Actions['").append(cp.getComponentName()).append("_submit']();");
+			sb.append(" });");
+		}
+		sb.append("});");
+		sb.append(HtmlConst.TAG_SCRIPT_END);
+		return sb.toString();
 	}
 
 	@Override
@@ -187,6 +235,18 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		return null;
 	}
 
+	@Override
+	public AbstractElement<?> getDownloadLink(final ComponentParameter cp,
+			final AttachmentFile attachmentFile, final String id) {
+		return null;
+	}
+
+	@Override
+	public ID getOwnerId(final ComponentParameter cp) {
+		return null;
+	}
+
+	// IDownloadHandler
 	@Override
 	public void onDownloaded(final Object beanId, final String topic, final File oFile) {
 	}

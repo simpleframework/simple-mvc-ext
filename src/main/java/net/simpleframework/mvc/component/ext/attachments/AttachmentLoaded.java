@@ -18,7 +18,6 @@ import net.simpleframework.mvc.common.DownloadUtils;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.EElementEvent;
 import net.simpleframework.mvc.common.element.LinkElement;
-import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
@@ -92,6 +91,14 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				pp.addComponentBean(attachmentName + "_selected", AjaxRequestBean.class)
 						.setHandleMethod("doSelect").setHandleClass(AttachmentAction.class)
 						.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
+			} else {
+				// 提交模式
+				final boolean showSubmit = (Boolean) cp.getBeanProperty("showSubmit");
+				if (showSubmit) {
+					pp.addComponentBean(attachmentName + "_submit", AjaxRequestBean.class)
+							.setHandleMethod("doSubmit").setHandleClass(AttachmentAction.class)
+							.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
+				}
 			}
 		}
 
@@ -161,64 +168,61 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			return new JavascriptForward("$Actions['" + attachmentName + "_list']();");
 		}
 
-		public IForward doList(final ComponentParameter cp) {
+		public IForward doList(final ComponentParameter cp) throws IOException {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
-			try {
-				return new TextForward(
-						((IAttachmentHandler) nCP.getComponentHandler()).toAttachmentListHTML(nCP));
-			} catch (final IOException e) {
-				throw ComponentHandlerException.of(e);
-			}
+			return new TextForward(
+					((IAttachmentHandler) nCP.getComponentHandler()).toAttachmentListHTML(nCP));
 		}
 
-		public IForward doDownload(final ComponentParameter cp) {
+		public IForward doDownload(final ComponentParameter cp) throws IOException {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final JavascriptForward js = new JavascriptForward();
-			try {
-				final IAttachmentHandler handler = (IAttachmentHandler) nCP.getComponentHandler();
-				final AttachmentFile af = handler.getAttachmentById(nCP, nCP.getParameter("id"));
-				if (af != null) {
-					js.append("$Actions.loc('")
-							.append(DownloadUtils.getDownloadHref(af, handler.getClass())).append("');");
-				} else {
-					js.append("alert(\"").append($m("AttachmentLoaded.0")).append("\");");
-				}
-			} catch (final IOException e) {
-				throw ComponentHandlerException.of(e);
+			final IAttachmentHandler handler = (IAttachmentHandler) nCP.getComponentHandler();
+			final AttachmentFile af = handler.getAttachmentById(nCP, nCP.getParameter("id"));
+			if (af != null) {
+				js.append("$Actions.loc('")
+						.append(DownloadUtils.getDownloadHref(af, handler.getClass())).append("');");
+			} else {
+				js.append("alert(\"").append($m("AttachmentLoaded.0")).append("\");");
 			}
 			return js;
 		}
 
-		public IForward doSelect(final ComponentParameter cp) {
+		public IForward doSelect(final ComponentParameter cp) throws IOException {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final JavascriptForward js = new JavascriptForward();
-			final String insertTextarea = (String) nCP.getBeanProperty("insertTextarea");
-			final String[] idArr = StringUtils.split(nCP.getParameter("ids"), ";");
 			final StringBuilder sb = new StringBuilder();
+			final String[] idArr = StringUtils.split(nCP.getParameter("ids"), ";");
 			if (idArr != null) {
-				try {
-					final IAttachmentHandler attachmentHdl = (IAttachmentHandler) nCP
-							.getComponentHandler();
-					for (final String id : idArr) {
-						final AttachmentFile af = attachmentHdl.getAttachmentById(nCP, id);
-						final AbstractElement<?> element = attachmentHdl.getDownloadLink(nCP, af, id);
-						if (element != null) {
-							if (!StringUtils.hasText(element.getText())) {
-								element.setText(af.getTopic());
-							}
-							if (element instanceof LinkElement) {
-								((LinkElement) element).addStyle("line-height:21px;");
-							}
-							sb.append(element).append("<br />");
+				final IAttachmentHandler attachmentHdl = (IAttachmentHandler) nCP.getComponentHandler();
+				for (final String id : idArr) {
+					final AttachmentFile af = attachmentHdl.getAttachmentById(nCP, id);
+					final AbstractElement<?> element = attachmentHdl.getDownloadLink(nCP, af, id);
+					if (element != null) {
+						if (!StringUtils.hasText(element.getText())) {
+							element.setText(af.getTopic());
 						}
+						if (element instanceof LinkElement) {
+							((LinkElement) element).addStyle("line-height:21px;");
+						}
+						sb.append(element).append("<br />");
 					}
-				} catch (final IOException e) {
-					throw ComponentHandlerException.of(e);
 				}
 			}
 			js.append("$win($Actions['").append(cp.getComponentName()).append("'].trigger).close();");
-			js.append("$Actions.setValue(\"").append(insertTextarea).append("\", \"")
-					.append(JavascriptUtils.escape(sb.toString())).append("\", true);");
+			js.append("$Actions.setValue(\"").append(nCP.getBeanProperty("insertTextarea"))
+					.append("\", \"").append(JavascriptUtils.escape(sb.toString())).append("\", true);");
+			return js;
+		}
+
+		public IForward doSubmit(final ComponentParameter cp) throws IOException {
+			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
+			final IAttachmentHandler attachmentHdl = (IAttachmentHandler) nCP.getComponentHandler();
+			JavascriptForward js = attachmentHdl.doSave(nCP, null);
+			if (js == null) {
+				js = new JavascriptForward();
+			}
+			js.append("$win($Actions['").append(cp.getComponentName()).append("'].trigger).close();");
 			return js;
 		}
 	}

@@ -54,7 +54,7 @@ public class AttachmentEditLoaded extends DefaultPageHandler {
 
 	public static class SaveAction extends DefaultAjaxRequestHandler {
 		@Override
-		public IForward ajaxProcess(final ComponentParameter cp) {
+		public IForward ajaxProcess(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = AttachmentUtils.get(cp);
 			final String attachmentName = nCP.getComponentName();
 			((IAttachmentHandler) nCP.getComponentHandler()).doSave(nCP, cp.getParameter("attach_id"),

@@ -16,5 +16,5 @@
   <%=readonly ? ComponentRenderUtils.genParameters(cp)
 					: "<div id=\"attachment_" + beanId + "\"></div>"%>
   <div id="attachment_list_<%=beanId%>"><%=handle.toAttachmentListHTML(cp)%></div>
-  <%=handle.toInsertHTML(cp)%>
+  <%=handle.toBottomHTML(cp)%>
 </div>

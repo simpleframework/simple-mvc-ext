@@ -6,6 +6,7 @@ import java.util.Map;
 import net.simpleframework.common.ID;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
 import net.simpleframework.mvc.IMultipartFile;
+import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.common.IDownloadHandler;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -62,7 +63,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cParameter
 	 * @param callback
 	 */
-	void doSave(ComponentParameter cp, IAttachmentSaveCallback callback);
+	JavascriptForward doSave(ComponentParameter cp, IAttachmentSaveCallback callback);
 
 	/**
 	 * 更改标题
@@ -72,7 +73,8 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param topic
 	 * @param description
 	 */
-	void doSave(ComponentParameter cp, String id, String topic, String description);
+	void doSave(ComponentParameter cp, String id, String topic, String description)
+			throws IOException;
 
 	/**
 	 * 删除上传的附件
@@ -115,7 +117,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cParameter
 	 * @return
 	 */
-	String toInsertHTML(ComponentParameter cp);
+	String toBottomHTML(ComponentParameter cp);
 
 	/**
 	 * 获取tooltip的路径

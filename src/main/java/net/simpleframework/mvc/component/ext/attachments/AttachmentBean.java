@@ -11,7 +11,11 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  */
 public class AttachmentBean extends AbstractContainerBean {
 
+	/* 插入到文本域中，插入模式 */
 	private String insertTextarea;
+
+	/* 提交模式 */
+	private boolean showSubmit = BeanDefaults.getBool(getClass(), "showSubmit", false);
 
 	private boolean readonly = BeanDefaults.getBool(getClass(), "readonly", false);
 
@@ -21,6 +25,15 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public AttachmentBean setInsertTextarea(final String insertTextarea) {
 		this.insertTextarea = insertTextarea;
+		return this;
+	}
+
+	public boolean isShowSubmit() {
+		return showSubmit;
+	}
+
+	public AttachmentBean setShowSubmit(final boolean showSubmit) {
+		this.showSubmit = showSubmit;
 		return this;
 	}
 
