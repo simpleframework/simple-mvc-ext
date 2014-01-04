@@ -63,7 +63,8 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cParameter
 	 * @param callback
 	 */
-	JavascriptForward doSave(ComponentParameter cp, IAttachmentSaveCallback callback);
+	JavascriptForward doSave(ComponentParameter cp, IAttachmentSaveCallback callback)
+			throws IOException;
 
 	/**
 	 * 更改标题

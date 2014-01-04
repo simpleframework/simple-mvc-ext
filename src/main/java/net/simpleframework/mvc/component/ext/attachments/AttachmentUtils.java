@@ -28,7 +28,8 @@ public abstract class AttachmentUtils {
 		return ComponentParameter.get(rRequest, BEAN_ID);
 	}
 
-	public static void doSave(final ComponentParameter cp, final IAttachmentSaveCallback callback) {
+	public static void doSave(final ComponentParameter cp, final IAttachmentSaveCallback callback)
+			throws IOException {
 		((IAttachmentHandler) cp.getComponentHandler()).doSave(cp, callback);
 	}
 
