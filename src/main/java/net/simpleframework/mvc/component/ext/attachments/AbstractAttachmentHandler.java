@@ -147,8 +147,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 			final SpanElement fileSize = new SpanElement("("
 					+ FileUtils.toFileSize(attachment.getSize()) + ")").setClassName("size");
 			if (!readonly) {
-				final ButtonElement del = new ButtonElement().setStyle(
-						"float: right; margin-left: 3px;").setOnclick(
+				final ButtonElement del = new ButtonElement().setStyle("float: right;").setOnclick(
 						"$Actions['" + name + "_delete']('id=" + id + "');");
 				if (deleteQueue != null && deleteQueue.contains(id)) {
 					del.setText($m("Button.Cancel"));
@@ -156,8 +155,10 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 					del.setText($m("Delete"));
 				}
 				sb.append(del);
-				sb.append(ButtonElement.editBtn().setStyle("float: right;")
-						.setOnclick("$Actions['" + name + "_editWin']('id=" + id + "');"));
+				if ((Boolean) cp.getBeanProperty("showEdit")) {
+					sb.append(ButtonElement.editBtn().setStyle("float: right; margin-right: 3px;")
+							.setOnclick("$Actions['" + name + "_editWin']('id=" + id + "');"));
+				}
 			}
 
 			final boolean insertTextarea = StringUtils.hasText((String) cp

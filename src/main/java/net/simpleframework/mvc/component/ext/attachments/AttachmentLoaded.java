@@ -75,15 +75,17 @@ public class AttachmentLoaded extends DefaultPageHandler {
 					.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 
 			// 编辑
-			final AjaxRequestBean editPage = pp.addComponentBean(attachmentName + "_editPage",
-					AjaxRequestBean.class).setUrlForward(
-					pp.getResourceHomePath(AttachmentLoaded.class) + "/jsp/attachment_edit.jsp");
-			if (swfUpload != null) {
-				editPage.setSelector(swfUpload.getSelector());
+			if ((Boolean) cp.getBeanProperty("showEdit")) {
+				final AjaxRequestBean editPage = pp.addComponentBean(attachmentName + "_editPage",
+						AjaxRequestBean.class).setUrlForward(
+						pp.getResourceHomePath(AttachmentLoaded.class) + "/jsp/attachment_edit.jsp");
+				if (swfUpload != null) {
+					editPage.setSelector(swfUpload.getSelector());
+				}
+				pp.addComponentBean(attachmentName + "_editWin", WindowBean.class)
+						.setContentRef(attachmentName + "_editPage").setHeight(240).setWidth(420)
+						.setTitle($m("AttachmentLoaded.3"));
 			}
-			pp.addComponentBean(attachmentName + "_editWin", WindowBean.class)
-					.setContentRef(attachmentName + "_editPage").setHeight(240).setWidth(420)
-					.setTitle($m("AttachmentLoaded.3"));
 
 			// 选取
 			final String insertTextarea = (String) cp.getBeanProperty("insertTextarea");
@@ -217,13 +219,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 		public IForward doSubmit(final ComponentParameter cp) throws IOException {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
-			final IAttachmentHandler attachmentHdl = (IAttachmentHandler) nCP.getComponentHandler();
-			JavascriptForward js = attachmentHdl.doSave(nCP, null);
-			if (js == null) {
-				js = new JavascriptForward();
-			}
-			js.append("$win($Actions['").append(cp.getComponentName()).append("'].trigger).close();");
-			return js;
+			return ((IAttachmentHandler) nCP.getComponentHandler()).doSave(nCP, null);
 		}
 	}
 }

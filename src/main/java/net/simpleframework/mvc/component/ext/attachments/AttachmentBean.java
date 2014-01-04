@@ -17,6 +17,9 @@ public class AttachmentBean extends AbstractContainerBean {
 	/* 提交模式 */
 	private boolean showSubmit = BeanDefaults.getBool(getClass(), "showSubmit", false);
 
+	/* 显示编辑按钮 */
+	private boolean showEdit = BeanDefaults.getBool(getClass(), "showEdit", true);
+
 	private boolean readonly = BeanDefaults.getBool(getClass(), "readonly", false);
 
 	public String getInsertTextarea() {
@@ -43,6 +46,15 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public AttachmentBean setReadonly(final boolean readonly) {
 		this.readonly = readonly;
+		return this;
+	}
+
+	public boolean isShowEdit() {
+		return showEdit;
+	}
+
+	public AttachmentBean setShowEdit(final boolean showEdit) {
+		this.showEdit = showEdit;
 		return this;
 	}
 }

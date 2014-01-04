@@ -1,10 +1,13 @@
 package net.simpleframework.mvc.component.ext.attachments;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.simpleframework.mvc.PageRequestResponse;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ComponentRenderUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -27,5 +30,25 @@ public abstract class AttachmentUtils {
 
 	public static void doSave(final ComponentParameter cp, final IAttachmentSaveCallback callback) {
 		((IAttachmentHandler) cp.getComponentHandler()).doSave(cp, callback);
+	}
+
+	public static String toAttachmentHTML(final HttpServletRequest request,
+			final HttpServletResponse response) throws IOException {
+		final ComponentParameter cp = AttachmentUtils.get(request, response);
+		final String beanId = cp.hashId();
+		final IAttachmentHandler aHandle = (IAttachmentHandler) cp.getComponentHandler();
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<div class='Comp_Attachment'>");
+		if ((Boolean) cp.getBeanProperty("readonly")) {
+			sb.append(ComponentRenderUtils.genParameters(cp));
+		} else {
+			sb.append("<div id=\"attachment_").append(beanId).append("\"></div>");
+		}
+		sb.append("<div id='attachment_list_").append(beanId).append("'>");
+		sb.append(aHandle.toAttachmentListHTML(cp));
+		sb.append("</div>");
+		sb.append(aHandle.toBottomHTML(cp));
+		sb.append("</div>");
+		return sb.toString();
 	}
 }
