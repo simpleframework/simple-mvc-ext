@@ -7,7 +7,7 @@
 	final String beanId = cp.hashId();
 	final String attachmentName = (String) cp.getComponentName();
 %>
-<div class="simple_window_tcb">
+<div class="attachment_edit">
   <div class="c" id="af_<%=beanId%>">
     <table class="form_tbl">
       <tr>
@@ -16,7 +16,7 @@
           type="text" id="attach_topic" name="attach_topic" /></td>
       </tr>
     </table>
-    <table class="form_tbl" style="margin-top: -1px;">
+    <table class="form_tbl">
       <tr>
         <td class="l">#(attachment_edit.1)</td>
         <td class="v"><textarea rows="4" id="attach_desc" name="attach_desc"></textarea></td>
@@ -24,10 +24,8 @@
     </table>
   </div>
   <div class="b">
-    <div style="text-align: right; margin-top: 6px;">
-      <input type="button" id="btn_<%=beanId%>" value="#(Button.Ok)" class="button2"
-        onclick="$Actions['<%=attachmentName%>_edit_Save']();" /> <input type="button"
-        value="#(Button.Cancel)" onclick="$win(this).close();" />
-    </div>
+    <input type="button" id="btn_<%=beanId%>" value="#(Button.Ok)" class="button2"
+      onclick="$Actions['<%=attachmentName%>_edit_Save']();" /> <input type="button"
+      value="#(Button.Cancel)" onclick="$win(this).close();" />
   </div>
 </div>

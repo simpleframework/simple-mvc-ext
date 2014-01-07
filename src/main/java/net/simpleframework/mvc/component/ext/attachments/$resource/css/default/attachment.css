@@ -55,3 +55,16 @@
 .form_tbl .v .Comp_Attachment {
   margin: -2px -2px -3px;
 }
+
+.attachment_edit .c {
+  margin: 6px;
+}
+
+.attachment_edit .form_tbl {
+  margin-top: -1px;
+}
+
+.attachment_edit .b {
+  text-align: right;
+  margin: 6px 6px 0 0;
+}

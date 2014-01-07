@@ -6,7 +6,7 @@
 	final String beanId = nCP.hashId();
 	final String categoryName = (String) nCP.getComponentName();
 %>
-<div class="CategoryEdit simple_window_tcb">
+<div class="CategoryEdit">
   <div class="c">
     <form id="idCategoryEdit_<%=beanId%>"></form>
   </div>
@@ -16,16 +16,3 @@
       onclick="$win(this).close();" />
   </div>
 </div>
-<style type="text/css">
-.CategoryEdit .formeditor {
-	border: 0;
-	border-bottom: 1px solid #bbb;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
-	border-radius: 0;
-}
-
-.CategoryEdit .c {
-	padding: 0;
-}
-</style>

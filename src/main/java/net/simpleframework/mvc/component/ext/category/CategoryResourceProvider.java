@@ -15,4 +15,9 @@ public class CategoryResourceProvider extends AbstractComponentResourceProvider 
 	public String[] getJavascriptPath(final PageParameter pp) {
 		return new String[] { getResourceHomePath() + "/js/category.js" };
 	}
+
+	@Override
+	public String[] getCssPath(final PageParameter pp) {
+		return new String[] { getCssResourceHomePath(pp) + "/category.css" };
+	}
 }
