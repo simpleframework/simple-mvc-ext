@@ -3,7 +3,6 @@ package net.simpleframework.mvc.component.ext.highchart;
 import net.simpleframework.common.JsonUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.common.xml.AbstractElementBean;
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.lib.net.minidev.json.JSONStyle;
 
 /**
@@ -18,10 +17,6 @@ import net.simpleframework.lib.net.minidev.json.JSONStyle;
 public abstract class AbstractHcElement<T extends AbstractHcElement<T>> extends AbstractElementBean {
 
 	protected AbstractElementBean parent;
-
-	public AbstractHcElement(final XmlElement beanElement) {
-		super(beanElement);
-	}
 
 	public AbstractElementBean getParent() {
 		return parent;

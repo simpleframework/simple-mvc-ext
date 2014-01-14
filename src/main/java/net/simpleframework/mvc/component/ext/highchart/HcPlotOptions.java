@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.component.ext.highchart.EChart.EHcDashStyle;
 
 /**
@@ -22,12 +21,7 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 
 	private HcOptSeries series;
 
-	public HcPlotOptions(final XmlElement beanElement) {
-		super(beanElement);
-	}
-
 	public HcPlotOptions() {
-		this(null);
 	}
 
 	public HcOptPie getPie() {
@@ -87,14 +81,6 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	public static class HcOptLine extends HcPlotOption<HcOptLine> {
 		private HcOptMarker marker;
 
-		public HcOptLine(final XmlElement beanElement) {
-			super(beanElement);
-		}
-
-		public HcOptLine() {
-			this(null);
-		}
-
 		public HcOptMarker getMarker() {
 			return marker;
 		}
@@ -117,26 +103,13 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 
 	public static class HcOptPie extends HcPlotOption<HcOptPie> {
 
-		public HcOptPie(final XmlElement beanElement) {
-			super(beanElement);
-		}
-
 		public HcOptPie() {
-			this(null);
 		}
 	}
 
 	public static class HcOptColumn extends HcPlotOption<HcOptColumn> {
 
 		private Integer borderRadius, borderWidth;
-
-		public HcOptColumn(final XmlElement beanElement) {
-			super(beanElement);
-		}
-
-		public HcOptColumn() {
-			this(null);
-		}
 
 		public Integer getBorderRadius() {
 			return borderRadius;
@@ -173,12 +146,7 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	public static class HcOptSeries extends HcPlotOption<HcOptSeries> {
 		private HcOptMarker marker;
 
-		public HcOptSeries(final XmlElement beanElement) {
-			super(beanElement);
-		}
-
 		public HcOptSeries() {
-			this(null);
 		}
 
 		public HcOptMarker getMarker() {
@@ -214,10 +182,6 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 		private String point_onClick;
 
 		private HcDataLabels dataLabels;
-
-		public HcPlotOption(final XmlElement beanElement) {
-			super(beanElement);
-		}
 
 		public Boolean getAllowPointSelect() {
 			return allowPointSelect;
@@ -313,12 +277,7 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 
 		private HcOptMarkerState select;
 
-		public HcOptMarker(final XmlElement beanElement) {
-			super(beanElement);
-		}
-
 		public HcOptMarker() {
-			this(null);
 		}
 
 		public String getSymbol() {
@@ -371,12 +330,7 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 
 	public static class HcOptMarkerState extends _HcOptMarkerBase<HcOptMarkerState> {
 
-		public HcOptMarkerState(final XmlElement beanElement) {
-			super(beanElement);
-		}
-
 		public HcOptMarkerState() {
-			this(null);
 		}
 	}
 
@@ -392,10 +346,6 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 		private String lineColor;
 
 		private Integer lineWidth;
-
-		public _HcOptMarkerBase(final XmlElement beanElement) {
-			super(beanElement);
-		}
 
 		public Boolean getEnabled() {
 			return enabled;

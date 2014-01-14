@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.component.ext.highchart.EChart.EHcType;
 import net.simpleframework.mvc.component.ext.highchart.EChart.EZoomType;
 
@@ -25,12 +24,7 @@ public class HcChart extends AbstractHcElement<HcChart> {
 
 	private Integer height;
 
-	public HcChart(final XmlElement beanElement) {
-		super(beanElement);
-	}
-
 	public HcChart() {
-		this(null);
 	}
 
 	public EHcType getType() {

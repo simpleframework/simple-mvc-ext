@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.component.ext.highchart.EChart.EHcType;
 
 /**
@@ -23,12 +22,7 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 
 	private List<Object> data;
 
-	public HcSeries(final XmlElement beanElement) {
-		super(beanElement);
-	}
-
 	public HcSeries() {
-		this(null);
 	}
 
 	public String getName() {

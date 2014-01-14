@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.common.element.ETextAlign;
 
 /**
@@ -20,10 +19,6 @@ public abstract class AbstractHcText<T extends AbstractHcText<T>> extends Abstra
 	private ETextAlign align;
 
 	private String style;
-
-	public AbstractHcText(final XmlElement beanElement) {
-		super(beanElement);
-	}
 
 	public String getText() {
 		return text;
@@ -74,10 +69,6 @@ public abstract class AbstractHcText<T extends AbstractHcText<T>> extends Abstra
 		private Number y;
 
 		private Boolean useHTML;
-
-		public _HcSubtitle(final XmlElement beanElement) {
-			super(beanElement);
-		}
 
 		public Number getX() {
 			return x;

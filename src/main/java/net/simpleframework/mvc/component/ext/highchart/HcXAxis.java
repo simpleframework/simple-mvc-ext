@@ -1,7 +1,5 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
-import net.simpleframework.ctx.common.xml.XmlElement;
-
 /**
  * Licensed under the Apache License, Version 2.0
  * 
@@ -12,11 +10,6 @@ import net.simpleframework.ctx.common.xml.XmlElement;
  */
 public class HcXAxis extends AbstractAxis<HcXAxis> {
 
-	public HcXAxis(final XmlElement beanElement) {
-		super(beanElement);
-	}
-
 	public HcXAxis() {
-		this(null);
 	}
 }

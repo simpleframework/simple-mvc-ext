@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -15,12 +14,7 @@ public class HcDataLabels extends AbstractHcLabels<HcDataLabels> {
 
 	private String color;
 
-	public HcDataLabels(final XmlElement beanElement) {
-		super(beanElement);
-	}
-
 	public HcDataLabels() {
-		this(null);
 	}
 
 	public String getColor() {

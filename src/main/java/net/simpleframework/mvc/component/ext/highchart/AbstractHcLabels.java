@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -20,10 +19,6 @@ public class AbstractHcLabels<T extends AbstractHcLabels<T>> extends AbstractHcE
 	private String format, formatter;
 
 	private Integer rotation;
-
-	public AbstractHcLabels(final XmlElement beanElement) {
-		super(beanElement);
-	}
 
 	public Boolean getEnabled() {
 		return enabled;

@@ -1,6 +1,5 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.component.ext.highchart.AbstractHcText._HcSubtitle;
 
 /**
@@ -13,12 +12,7 @@ import net.simpleframework.mvc.component.ext.highchart.AbstractHcText._HcSubtitl
  */
 public class HcTitle extends _HcSubtitle<HcTitle> {
 
-	public HcTitle(final XmlElement beanElement) {
-		super(beanElement);
-		setY(15);
-	}
-
 	public HcTitle() {
-		this(null);
+		setY(15);
 	}
 }

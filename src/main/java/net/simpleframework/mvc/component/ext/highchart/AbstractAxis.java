@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.component.ext.highchart.EChart.EAxisType;
 
 /**
@@ -26,10 +25,6 @@ public abstract class AbstractAxis<T extends AbstractAxis<T>> extends AbstractHc
 	private Integer tickInterval;
 
 	private HcLabels labels;
-
-	public AbstractAxis(final XmlElement beanElement) {
-		super(beanElement);
-	}
 
 	public String[] getCategories() {
 		return categories;
@@ -131,12 +126,8 @@ public abstract class AbstractAxis<T extends AbstractAxis<T>> extends AbstractHc
 	}
 
 	public static class AxisTitle extends AbstractHcText<AxisTitle> {
-		public AxisTitle() {
-			this(null);
-		}
 
-		public AxisTitle(final XmlElement beanElement) {
-			super(beanElement);
+		public AxisTitle() {
 		}
 	}
 }

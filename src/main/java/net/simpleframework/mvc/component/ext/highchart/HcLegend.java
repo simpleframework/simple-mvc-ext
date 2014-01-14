@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.common.element.ELayout;
 import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.EVerticalAlign;
@@ -28,12 +27,7 @@ public class HcLegend extends AbstractHcElement<HcLegend> {
 
 	private Boolean enabled;
 
-	public HcLegend(final XmlElement beanElement) {
-		super(beanElement);
-	}
-
 	public HcLegend() {
-		this(null);
 	}
 
 	public ELayout getLayout() {

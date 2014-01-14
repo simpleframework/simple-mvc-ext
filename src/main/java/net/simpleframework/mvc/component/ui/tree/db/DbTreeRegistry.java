@@ -1,6 +1,5 @@
 package net.simpleframework.mvc.component.ui.tree.db;
 
-import net.simpleframework.ctx.common.xml.XmlElement;
 import net.simpleframework.mvc.component.ComponentBean;
 import net.simpleframework.mvc.component.ComponentName;
 import net.simpleframework.mvc.component.ui.tree.AbstractTreeRegistry;
@@ -19,8 +18,7 @@ public class DbTreeRegistry extends AbstractTreeRegistry {
 	public static final String DBTREE = "dbTree";
 
 	@Override
-	protected TreeNode createTreeNode(final XmlElement xmlElement, final TreeBean treeBean,
-			final TreeNode parent) {
+	protected TreeNode createTreeNode(final TreeBean treeBean, final TreeNode parent) {
 		return null;
 	}
 }

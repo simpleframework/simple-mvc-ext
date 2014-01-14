@@ -1,7 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.common.xml.XmlElement;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -21,12 +20,7 @@ public class HcTooltip extends AbstractHcElement<HcTooltip> {
 
 	private String valuePrefix, valueSuffix;
 
-	public HcTooltip(final XmlElement beanElement) {
-		super(beanElement);
-	}
-
 	public HcTooltip() {
-		this(null);
 	}
 
 	public Boolean getShared() {
