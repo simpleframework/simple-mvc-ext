@@ -238,7 +238,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@Override
 	public AbstractElement<?> getDownloadLink(final ComponentParameter cp,
-			final AttachmentFile attachmentFile, final String id) {
+			final AttachmentFile attachmentFile, final String id) throws IOException {
 		return null;
 	}
 

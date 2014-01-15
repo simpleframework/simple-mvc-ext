@@ -94,7 +94,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @return
 	 */
 	AbstractElement<?> getDownloadLink(ComponentParameter cp, AttachmentFile attachmentFile,
-			String id);
+			String id) throws IOException;
 
 	/**
 	 * 设置上传组件的属性
