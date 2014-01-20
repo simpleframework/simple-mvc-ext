@@ -18,11 +18,25 @@ import net.simpleframework.mvc.component.ui.pager.IGroupTablePagerHandler;
 public abstract class GroupDbTablePagerHandler extends AbstractDbTablePagerHandler implements
 		IGroupTablePagerHandler {
 
+	public static void setDefaultGroupVal(final PageParameter pp, final String tblAction,
+			final String defaultGroupVal) {
+		String groupVal = pp.getCookie("group_" + tblAction);
+		if (!StringUtils.hasText(groupVal)) {
+			groupVal = defaultGroupVal;
+		}
+		pp.putParameter(G, groupVal);
+	}
+
 	public static InputElement createGroupElement(final PageParameter pp, final String tblAction,
 			final Option... opts) {
 		final String g = pp.getParameter(G);
+
+		final StringBuilder sb = new StringBuilder();
+		sb.append("var val = $F(this); $Actions['").append(tblAction)
+				.append("']('g=' + val); document.setCookie('group_").append(tblAction)
+				.append("', val);");
 		final InputElement select = InputElement.select("InputElement_group").setOnchange(
-				"$Actions['" + tblAction + "']('g=' + $F(this));");
+				sb.toString());
 		if (opts != null) {
 			for (final Option opt : opts) {
 				final String name = opt.getName();
@@ -39,7 +53,7 @@ public abstract class GroupDbTablePagerHandler extends AbstractDbTablePagerHandl
 	public Map<String, Object> getFormParameters(final ComponentParameter cp) {
 		final Map<String, Object> params = super.getFormParameters(cp);
 		final String g = cp.getParameter(G);
-		if (StringUtils.hasText(g)) {
+		if (StringUtils.hasText(g) && !"none".equals(g)) {
 			params.put(G, g);
 		}
 		return params;
@@ -49,7 +63,7 @@ public abstract class GroupDbTablePagerHandler extends AbstractDbTablePagerHandl
 	public Object getBeanProperty(final ComponentParameter cp, final String beanProperty) {
 		if ("groupColumn".equals(beanProperty)) {
 			final String g = cp.getParameter(G);
-			if (StringUtils.hasText(g)) {
+			if (StringUtils.hasText(g) && !"none".equals(g)) {
 				return g;
 			}
 		}
