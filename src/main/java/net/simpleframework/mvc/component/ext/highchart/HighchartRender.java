@@ -2,10 +2,10 @@ package net.simpleframework.mvc.component.ext.highchart;
 
 import static net.simpleframework.common.I18n.$m;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.simpleframework.common.JsonUtils;
+import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.mvc.component.AbstractComponentRender.ComponentJavascriptRender;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentRenderUtils;
@@ -43,7 +43,7 @@ public class HighchartRender extends ComponentJavascriptRender {
 		sb.append(" chart: _chart,");
 		final String[] colors = (String[]) cp.getBeanProperty("colors");
 		if (colors != null && colors.length > 0) {
-			sb.append("colors: ").append(JsonUtils.toJSON(Arrays.asList(colors))).append(",");
+			sb.append("colors: ").append(JsonUtils.toJSON(ArrayUtils.asList(colors))).append(",");
 		}
 		final HcTitle title = (HcTitle) cp.getBeanProperty("title");
 		if (title != null) {

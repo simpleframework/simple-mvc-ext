@@ -1,6 +1,5 @@
 package net.simpleframework.mvc.component.ext.ckeditor;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 import net.simpleframework.common.I18n;
@@ -87,7 +86,7 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 				if (sArr.length == 0) {
 					sb.append("'/'");
 				} else {
-					sb.append(JsonUtils.toJSON(Arrays.asList(sArr)));
+					sb.append(JsonUtils.toJSON(ArrayUtils.asList(sArr)));
 				}
 			}
 			sb.append("];");
