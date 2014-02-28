@@ -51,6 +51,6 @@ public class DbTreeBean extends TreeBean {
 
 	{
 		setDynamicLoading(true);
-		setHandleClass(DbTreeHandler.class);
+		setHandlerClass(DbTreeHandler.class);
 	}
 }

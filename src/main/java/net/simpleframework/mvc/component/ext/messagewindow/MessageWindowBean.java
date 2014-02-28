@@ -19,7 +19,7 @@ public class MessageWindowBean extends WindowBean {
 		setTitle($m("MessageWindowBean.0"));
 		setHeight(210);
 		setWidth(350);
-		setHandleClass(DefaultMessageWindowHandler.class);
+		setHandlerClass(DefaultMessageWindowHandler.class);
 	}
 
 	public int getFrequency() {

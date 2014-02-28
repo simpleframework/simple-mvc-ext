@@ -35,7 +35,7 @@ public class AttachmentEditLoaded extends DefaultPageHandler {
 				.addValidators(new Validator(EValidatorMethod.required, "#attach_topic"));
 
 		pp.addComponentBean(attachmentName + "_edit_Save", AjaxRequestBean.class)
-				.setSelector("#af_" + beanId).setHandleClass(SaveAction.class);
+				.setSelector("#af_" + beanId).setHandlerClass(SaveAction.class);
 	}
 
 	@Override

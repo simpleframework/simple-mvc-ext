@@ -24,7 +24,7 @@ public class UserSelectBean extends DictionaryBean {
 		setHeight(445);
 		setPageItems(100);
 		try {
-			setHandleClass(ClassUtils
+			setHandlerClass(ClassUtils
 					.forName("net.simpleframework.organization.web.component.userselect.DefaultUserSelectHandler"));
 		} catch (final ClassNotFoundException e) {
 		}

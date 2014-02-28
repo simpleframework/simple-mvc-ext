@@ -46,7 +46,7 @@ public class MessageWindowRegistry extends WindowRegistry {
 				.setJsCompleteCallback(
 						"$Actions['" + messageWindowBean.getName() + "'].ajaxRequestCallback(json);")
 				.setParameters(MessageWindowUtils.BEAN_ID + "=" + beanId)
-				.setHandleClass(MessageAction.class);
+				.setHandlerClass(MessageAction.class);
 		return messageWindowBean;
 	}
 }

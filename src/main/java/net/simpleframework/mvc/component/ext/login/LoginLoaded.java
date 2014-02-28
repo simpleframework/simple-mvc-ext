@@ -33,8 +33,8 @@ public class LoginLoaded extends DefaultPageHandler {
 		final ComponentParameter nCP = LoginUtils.get(pp);
 
 		pp.addComponentBean("arLogin", AjaxRequestBean.class)
-				.setRole(IPermissionConst.ROLE_ANONYMOUS).setHandleMethod("login")
-				.setHandleClass(LoginAction.class)
+				.setRole(IPermissionConst.ROLE_ANONYMOUS).setHandlerMethod("login")
+				.setHandlerClass(LoginAction.class)
 				.setSelector((String) nCP.getBeanProperty("selector"));
 
 		final ComponentParameter cp = LoginUtils.get(pp);

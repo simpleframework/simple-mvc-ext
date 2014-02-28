@@ -35,6 +35,6 @@ public class SyntaxHighlighterBean extends AbstractComponentBean {
 	}
 
 	{
-		setHandleClass(DefaultSyntaxHighlighterHandler.class);
+		setHandlerClass(DefaultSyntaxHighlighterHandler.class);
 	}
 }

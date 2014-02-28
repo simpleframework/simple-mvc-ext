@@ -42,20 +42,20 @@ public class CategoryRegistry extends AbstractComponentRegistry {
 
 		// 编辑
 		pp.addComponentBean(categoryName + "_edit_page", AjaxRequestBean.class)
-				.setHandleMethod("editUrl").setHandleClass(CategoryAction.class);
+				.setHandlerMethod("editUrl").setHandlerClass(CategoryAction.class);
 		final WindowBean window = (WindowBean) pp
 				.addComponentBean(categoryName + "_edit", WindowBean.class)
-				.setContentRef(categoryName + "_edit_page").setHandleClass(CategoryEditWindow.class);
+				.setContentRef(categoryName + "_edit_page").setHandlerClass(CategoryEditWindow.class);
 		window.setAttr("@category", categoryBean);
 
 		// 删除
 		pp.addComponentBean(categoryName + "_delete", AjaxRequestBean.class)
-				.setConfirmMessage($m("Confirm.Delete")).setHandleMethod("doDelete")
-				.setHandleClass(CategoryAction.class);
+				.setConfirmMessage($m("Confirm.Delete")).setHandlerMethod("doDelete")
+				.setHandlerClass(CategoryAction.class);
 
 		// 移动
-		pp.addComponentBean(categoryName + "_move", AjaxRequestBean.class).setHandleMethod("doMove")
-				.setHandleClass(CategoryAction.class);
+		pp.addComponentBean(categoryName + "_move", AjaxRequestBean.class).setHandlerMethod("doMove")
+				.setHandlerClass(CategoryAction.class);
 		return categoryBean;
 	}
 

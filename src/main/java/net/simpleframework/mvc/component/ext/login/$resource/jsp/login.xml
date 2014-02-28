@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://simpleframework.net/xsd/default/simple.xsd">
-  <handleClass>
+  <handlerClass>
     net.simpleframework.mvc.component.ext.login.LoginLoaded
-  </handleClass>
+  </handlerClass>
 
   <components>
     <validation name="loginValidation" triggerSelector="#_loginBtn" warnType="insertAfter">

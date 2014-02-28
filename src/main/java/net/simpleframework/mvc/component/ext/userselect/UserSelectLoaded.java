@@ -54,14 +54,14 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		final String containerId = "users_" + userSelect.hashId();
 		if (UserSelectUtils.VT_TREE.equals(vtype)) {
 			pp.addComponentBean(userSelectName + "_tree", TreeBean.class).setCookies(false)
-					.setContainerId(containerId).setHandleClass(UserTree.class);
+					.setContainerId(containerId).setHandlerClass(UserTree.class);
 		} else {
 			final TablePagerBean tablePager = (TablePagerBean) pp
 					.addComponentBean(userSelectName + "_tablePager", TablePagerBean.class)
 					.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);")
 					.setShowHead(false).setPagerBarLayout(EPagerBarLayout.top)
 					.setShowEditPageItems(false).setExportAction("false").setIndexPages(4)
-					.setContainerId(containerId).setHandleClass(UserList.class);
+					.setContainerId(containerId).setHandlerClass(UserList.class);
 			final boolean multiple = (Boolean) cp.getBeanProperty("multiple");
 			if (!multiple) {
 				tablePager.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);");

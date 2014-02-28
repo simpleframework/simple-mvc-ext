@@ -230,7 +230,7 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 		final TreeBean dict = (TreeBean) cp
 				.addComponentBean(categoryName + "_dict_tree", TreeBean.class)
 				.setDynamicLoading((Boolean) cp.getBeanProperty("dynamicTree"))
-				.setHandleClass(CategoryDictTree.class);
+				.setHandlerClass(CategoryDictTree.class);
 		setTreeBean(cp, dict);
 		return dict;
 	}
@@ -250,7 +250,7 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 		final String categoryName = cp.getComponentName();
 		final String selector = (String) cp.getBeanProperty("selector");
 		return cp.addComponentBean(categoryName + "_save", AjaxRequestBean.class)
-				.setHandleMethod("doSave").setHandleClass(CategoryAction.class)
+				.setHandlerMethod("doSave").setHandlerClass(CategoryAction.class)
 				.setSelector(selector + ", #idCategoryEdit_" + cp.hashId());
 	}
 

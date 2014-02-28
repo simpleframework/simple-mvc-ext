@@ -56,7 +56,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 					.addComponentBean(attachmentName + "_swfUpload", SwfUploadBean.class)
 					.setJsCompleteCallback("$Actions['" + attachmentName + "_list']();")
 					.setContainerId("attachment_" + attachmentBean.hashId())
-					.setHandleClass(SwfUploadAction.class).setAttr("$attachment", attachmentBean);
+					.setHandlerClass(SwfUploadAction.class).setAttr("$attachment", attachmentBean);
 			((IAttachmentHandler) cp.getComponentHandler()).setSwfUploadBean(cp, swfUpload);
 		}
 
@@ -64,14 +64,14 @@ public class AttachmentLoaded extends DefaultPageHandler {
 		// 附件列表
 		pp.addComponentBean(attachmentName + "_list", AjaxRequestBean.class)
 				.setJsCompleteCallback("$Actions['AttachmentLoaded_Tip']();")
-				.setUpdateContainerId(attachmentListId).setHandleMethod("doList")
-				.setHandleClass(AttachmentAction.class).setAttr("$attachment", attachmentBean)
+				.setUpdateContainerId(attachmentListId).setHandlerMethod("doList")
+				.setHandlerClass(AttachmentAction.class).setAttr("$attachment", attachmentBean)
 				.setAttr("$swfupload", swfUpload);
 
 		if (!readonly) {
 			// 删除附件条目
 			pp.addComponentBean(attachmentName + "_delete", AjaxRequestBean.class)
-					.setHandleMethod("doDelete").setHandleClass(AttachmentAction.class)
+					.setHandlerMethod("doDelete").setHandlerClass(AttachmentAction.class)
 					.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 
 			// 编辑
@@ -91,14 +91,14 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final String insertTextarea = (String) cp.getBeanProperty("insertTextarea");
 			if (StringUtils.hasText(insertTextarea)) {
 				pp.addComponentBean(attachmentName + "_selected", AjaxRequestBean.class)
-						.setHandleMethod("doSelect").setHandleClass(AttachmentAction.class)
+						.setHandlerMethod("doSelect").setHandlerClass(AttachmentAction.class)
 						.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 			} else {
 				// 提交模式
 				final boolean showSubmit = (Boolean) cp.getBeanProperty("showSubmit");
 				if (showSubmit) {
 					pp.addComponentBean(attachmentName + "_submit", AjaxRequestBean.class)
-							.setHandleMethod("doSubmit").setHandleClass(AttachmentAction.class)
+							.setHandlerMethod("doSubmit").setHandlerClass(AttachmentAction.class)
 							.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 				}
 			}
@@ -106,7 +106,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 		// 下载
 		pp.addComponentBean(attachmentName + "_download", AjaxRequestBean.class)
-				.setHandleMethod("doDownload").setHandleClass(AttachmentAction.class)
+				.setHandlerMethod("doDownload").setHandlerClass(AttachmentAction.class)
 				.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 
 		final IAttachmentHandler aHandler = (IAttachmentHandler) cp.getComponentHandler();

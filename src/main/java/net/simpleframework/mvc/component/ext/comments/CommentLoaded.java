@@ -51,7 +51,7 @@ public class CommentLoaded extends DefaultPageHandler {
 								.setMessage($m("CommentLoaded.0")));
 		pp.addComponentBean(commentName + "_submit", AjaxRequestBean.class)
 				.setRole(IPermissionConst.ROLE_ALL_ACCOUNT).setConfirmMessage($m("Confirm.Post"))
-				.setHandleMethod("addComment").setHandleClass(CommentAction.class)
+				.setHandlerMethod("addComment").setHandlerClass(CommentAction.class)
 				.setAttr("$comment", commentBean);
 
 		if ((Boolean) cp.getBeanProperty("showSmiley")) {
@@ -62,14 +62,14 @@ public class CommentLoaded extends DefaultPageHandler {
 
 		if (cp.getLogin().isMember(cp.getBeanProperty("role"))) {
 			pp.addComponentBean(commentName + "_delete", AjaxRequestBean.class)
-					.setConfirmMessage($m("Confirm.Delete")).setHandleMethod("doDelete")
-					.setHandleClass(CommentAction.class).setAttr("$comment", commentBean);
+					.setConfirmMessage($m("Confirm.Delete")).setHandlerMethod("doDelete")
+					.setHandlerClass(CommentAction.class).setAttr("$comment", commentBean);
 		}
 
 		// pager
 		pp.addComponentBean(commentName + "_pager", PagerBean.class)
 				.setNoResultDesc($m("CommentList.1")).setPagerBarLayout(EPagerBarLayout.bottom)
-				.setContainerId("pager_" + hashId).setHandleClass(CommentList.class)
+				.setContainerId("pager_" + hashId).setHandlerClass(CommentList.class)
 				.setAttr("$comment", commentBean);
 	}
 
