@@ -95,7 +95,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 					final String name = nCP.getComponentName();
 					typeHTML += new BlockElement()
 							.setClassName("check_all")
-							.setStyle(UserSelectUtils.VT_LIST.equals(vtype) ? "left: 5px;" : "left: 19px;")
+							.addStyle(UserSelectUtils.VT_LIST.equals(vtype) ? "left: 5px;" : "left: 19px;")
 							.addElements(InputElement.checkbox(name + "_check_all"));
 				}
 				return typeHTML;
