@@ -36,8 +36,10 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 			sb.append(actionFunc).append(".editor = CKEDITOR.appendTo(")
 					.append(ComponentRenderUtils.VAR_CONTAINER).append(", {");
 		}
-		sb.append("contentsCss: [\"").append(ComponentUtils.getCssResourceHomePath(cp))
-				.append("/contents.css").append("\"],");
+
+		sb.append("contentsCss: [\"").append(cp.getPageResourceProvider().getCssResourceHomePath(cp))
+				.append("/default-base.css\", \"").append(cp.getCssResourceHomePath())
+				.append("/contents.css\"],");
 		sb.append("smiley_path: \"").append(ComponentUtils.getResourceHomePath(DictionaryBean.class))
 				.append("/smiley/\",");
 
