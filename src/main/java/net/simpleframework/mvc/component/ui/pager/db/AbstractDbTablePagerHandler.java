@@ -20,6 +20,7 @@ import net.simpleframework.ado.db.DbTableColumn;
 import net.simpleframework.ado.db.common.ExpressionValue;
 import net.simpleframework.ado.db.common.SqlUtils;
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.mvc.common.element.ETextAlign;
@@ -53,7 +54,8 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 		public TablePagerColumns getTablePagerColumns(final ComponentParameter cp) {
 			final TablePagerColumns columns = super.getTablePagerColumns(cp);
 			IDataQuery<?> dQuery;
-			if (columns.size() == 0 && (dQuery = getDataObjectQuery(cp)) instanceof DbDataQuery) {
+			if (columns.size() == 0
+					&& (dQuery = getRawDataQuery(getDataObjectQuery(cp))) instanceof DbDataQuery) {
 				((DbDataQuery<?>) dQuery).doResultSetMetaData(new ResultSetMetaDataCallback() {
 
 					@Override
@@ -141,8 +143,16 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 		return sb.toString();
 	}
 
+	protected IDataQuery<?> getRawDataQuery(final IDataQuery<?> dataQuery) {
+		if (dataQuery instanceof IteratorDataQuery) {
+			return ((IteratorDataQuery<?>) dataQuery).getRawDataQuery();
+		}
+		return dataQuery;
+	}
+
 	@Override
-	protected void doCount(final ComponentParameter cp, final IDataQuery<?> dataQuery) {
+	protected void doCount(final ComponentParameter cp, IDataQuery<?> dataQuery) {
+		dataQuery = getRawDataQuery(dataQuery);
 		if (dataQuery instanceof DbDataQuery) {
 			doFilterSQL(cp, (DbDataQuery<?>) dataQuery);
 		}
@@ -151,7 +161,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 
 	@Override
 	protected List<?> getData(final ComponentParameter cp, final int start) {
-		final IDataQuery<?> dataQuery = (IDataQuery<?>) cp.getRequestAttr(DATA_QUERY);
+		final IDataQuery<?> dataQuery = getRawDataQuery((IDataQuery<?>) cp.getRequestAttr(DATA_QUERY));
 		if (dataQuery instanceof DbDataQuery) {
 			doSortSQL(cp, (DbDataQuery<?>) dataQuery);
 		}
