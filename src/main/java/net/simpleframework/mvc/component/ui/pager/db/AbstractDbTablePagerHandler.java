@@ -22,7 +22,6 @@ import net.simpleframework.ado.db.common.SqlUtils;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.Convert;
-import net.simpleframework.common.StringUtils;
 import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LabelElement;
@@ -32,7 +31,6 @@ import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumns;
-import net.simpleframework.mvc.component.ui.pager.TablePagerUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -93,40 +91,38 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 	protected void doFilterSQL(final ComponentParameter cp, final DbDataQuery<?> qs) {
 		final Map<String, ColumnData> filterColumns = getFilterColumns(cp);
 		if (filterColumns != null && filterColumns.size() > 0) {
-			doFilterSQLInternal(cp, qs, filterColumns);
+			final TablePagerColumns columns = getTablePagerSchema(cp).getTablePagerColumns(cp);
+			for (final Map.Entry<String, ColumnData> entry : filterColumns.entrySet()) {
+				final TablePagerColumn oCol = columns.get(entry.getKey());
+				if (oCol == null) {
+					continue;
+				}
+				final Iterator<FilterItem> it = entry.getValue().getFilterItems().iterator();
+				if (!it.hasNext()) {
+					continue;
+				}
+				final ExpressionValue ev = createFilterExpressionValue(qs, oCol, it);
+				if (ev != null) {
+					qs.addCondition(ev);
+				}
+			}
 		}
 	}
 
-	protected void doFilterSQLInternal(final ComponentParameter cp, final DbDataQuery<?> qs,
-			final Map<String, ColumnData> filterColumns) {
+	protected ExpressionValue createFilterExpressionValue(final DbDataQuery<?> qs,
+			final TablePagerColumn oCol, final Iterator<FilterItem> it) {
 		final ArrayList<Object> params = new ArrayList<Object>();
-		final ArrayList<String> lExpr = new ArrayList<String>();
-		final TablePagerColumns columns = TablePagerUtils.getTablePagerData(cp).getTablePagerColumns(
-				cp);
-		for (final Map.Entry<String, ColumnData> entry : filterColumns.entrySet()) {
-			final TablePagerColumn oCol = columns.get(entry.getKey());
-			if (oCol == null) {
-				continue;
-			}
-			final Iterator<FilterItem> items = entry.getValue().getFilterItems().iterator();
-			if (!items.hasNext()) {
-				continue;
-			}
-			final StringBuilder sb = new StringBuilder();
-			final String columnAlias = oCol.getColumnAlias();
-			final FilterItem item = items.next();
-			sb.append(columnAlias).append(filterItemExpr(item, params));
-			if (items.hasNext()) {
-				sb.append(" ").append(item.getOpe()).append(" ");
-				sb.append(columnAlias).append(filterItemExpr(items.next(), params));
-				sb.insert(0, "(");
-				sb.append(")");
-			}
-			lExpr.add(sb.toString());
+		final StringBuilder sb = new StringBuilder();
+		final String columnAlias = oCol.getColumnAlias();
+		final FilterItem item = it.next();
+		sb.append(columnAlias).append(filterItemExpr(item, params));
+		if (it.hasNext()) {
+			sb.append(" ").append(item.getOpe()).append(" ");
+			sb.append(columnAlias).append(filterItemExpr(it.next(), params));
+			sb.insert(0, "(");
+			sb.append(")");
 		}
-		if (lExpr.size() > 0) {
-			qs.addCondition(new ExpressionValue(StringUtils.join(lExpr, " and "), params.toArray()));
-		}
+		return new ExpressionValue(sb.toString(), params.toArray());
 	}
 
 	protected String filterItemExpr(final FilterItem item, final Collection<Object> params) {
