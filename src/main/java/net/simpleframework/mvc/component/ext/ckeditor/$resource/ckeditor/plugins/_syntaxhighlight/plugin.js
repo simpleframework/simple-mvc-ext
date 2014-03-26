@@ -1,4 +1,4 @@
-CKEDITOR.plugins.add('syntaxhighlight', {
+CKEDITOR.plugins.add('_syntaxhighlight', {
 
   lang : [ 'zh-cn', 'en' ],
 
@@ -51,7 +51,7 @@ CKEDITOR.plugins.add('syntaxhighlight', {
     });
 
     editor.ui.addButton('Code', {
-      label : editor.lang.syntaxhighlight.addCode,
+      label : editor.lang._syntaxhighlight.addCode,
       command : 'Code',
       icon : this.path + 'icons/code.png',
     });

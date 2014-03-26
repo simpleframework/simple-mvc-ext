@@ -19,5 +19,5 @@ CKEDITOR.editorConfig = function(config) {
   config.allowedContent = true;
   
   // 代码编辑
-  config.extraPlugins = 'syntaxhighlight';
+  config.extraPlugins = '_syntaxhighlight,_attach';
 };
