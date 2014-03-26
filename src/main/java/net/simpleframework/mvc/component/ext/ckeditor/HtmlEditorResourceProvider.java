@@ -13,7 +13,7 @@ public class HtmlEditorResourceProvider extends AbstractComponentResourceProvide
 
 	@Override
 	public String[] getJavascriptPath(final PageParameter pp) {
-		return new String[] { getResourceHomePath() + "/ckeditor/ckeditor.js?v=4.2.2" };
+		return new String[] { getResourceHomePath() + "/ckeditor/ckeditor.js?v=4.3.4" };
 	}
 
 	@Override
