@@ -12,3 +12,8 @@
 .cke_reset_all a:hover {
 	text-decoration: none !important;
 }
+
+.cke_button__code_label {
+  display: inline-block !important;
+  line-height: 16px !important;
+}
