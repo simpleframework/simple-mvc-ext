@@ -13,7 +13,8 @@
 	text-decoration: none !important;
 }
 
-.cke_button__code_label {
+.cke_button__code_label,
+.cke_button__attach_label {
   display: inline-block !important;
   line-height: 16px !important;
 }

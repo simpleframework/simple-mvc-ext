@@ -106,6 +106,14 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 		}
 
 		final String componentName = cp.getComponentName();
+
+		// for Attach
+		final String attachAction = (String) cp.getBeanProperty("attachAction");
+		if (StringUtils.hasText(attachAction)) {
+			sb.append(actionFunc).append(".editor.attachAction = \"")
+					.append(JavascriptUtils.escape(attachAction)).append("\";");
+		}
+
 		// for SyntaxHighlighter
 		sb.append(actionFunc).append(".editor.syntaxhighlighter = 'sh_").append(componentName)
 				.append("';");

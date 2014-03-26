@@ -30,6 +30,8 @@ public class HtmlEditorBean extends AbstractContainerBean {
 
 	private Toolbar toolbar;
 
+	private String attachAction;
+
 	private String jsLoadedCallback;
 
 	public Toolbar getToolbar() {
@@ -113,12 +115,12 @@ public class HtmlEditorBean extends AbstractContainerBean {
 		return this;
 	}
 
-	public String getHtmlContent() {
-		return htmlContent;
+	public String getAttachAction() {
+		return attachAction;
 	}
 
-	public HtmlEditorBean setHtmlContent(final String htmlContent) {
-		this.htmlContent = htmlContent;
+	public HtmlEditorBean setAttachAction(final String attachAction) {
+		this.attachAction = attachAction;
 		return this;
 	}
 
@@ -131,8 +133,17 @@ public class HtmlEditorBean extends AbstractContainerBean {
 		return this;
 	}
 
+	public String getHtmlContent() {
+		return htmlContent;
+	}
+
+	public HtmlEditorBean setHtmlContent(final String htmlContent) {
+		this.htmlContent = htmlContent;
+		return this;
+	}
+
 	@Override
 	protected String[] elementAttributes() {
-		return new String[] { "htmlContent", "jsLoadedCallback" };
+		return new String[] { "jsLoadedCallback", "htmlContent" };
 	}
 }
