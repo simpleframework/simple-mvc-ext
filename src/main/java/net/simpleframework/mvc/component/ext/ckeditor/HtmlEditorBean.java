@@ -18,7 +18,7 @@ public class HtmlEditorBean extends AbstractContainerBean {
 
 	private boolean elementsPath = BeanDefaults.getBool(getClass(), "elementsPath", false);
 
-	private boolean startupFocus = BeanDefaults.getBool(getClass(), "startupFocus", true);
+	private boolean startupFocus = BeanDefaults.getBool(getClass(), "startupFocus", false);
 
 	private EEditorLineMode enterMode, shiftEnterMode;
 
