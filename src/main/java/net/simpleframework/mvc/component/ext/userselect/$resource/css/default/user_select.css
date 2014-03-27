@@ -45,10 +45,10 @@
 }
 
 .user_select select.vtype {
-  position: absolute;
+  position: absolute !important;
+  top: 2px !important;
   height: 23px;
   left: 7px;
-  top: 2px;
   display: inline-block;
 	*display: inline;
 	*zoom: 1;
