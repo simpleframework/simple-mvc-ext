@@ -194,23 +194,22 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final JavascriptForward js = new JavascriptForward();
 			final StringBuilder sb = new StringBuilder();
-			final String[] idArr = StringUtils.split(nCP.getParameter("ids"), ";");
-			if (idArr != null) {
-				final IAttachmentHandler attachmentHdl = (IAttachmentHandler) nCP.getComponentHandler();
-				for (final String id : idArr) {
-					final AttachmentFile af = attachmentHdl.getAttachmentById(nCP, id);
-					final AbstractElement<?> element = attachmentHdl.getDownloadLink(nCP, af, id);
-					if (element != null) {
-						if (!StringUtils.hasText(element.getText())) {
-							element.setText(af.getTopic());
-						}
-						if (element instanceof LinkElement) {
-							((LinkElement) element).addStyle("line-height:21px;");
-						}
-						sb.append(element).append("<br />");
+
+			final IAttachmentHandler attachmentHdl = (IAttachmentHandler) nCP.getComponentHandler();
+			for (final String id : StringUtils.split(nCP.getParameter("ids"), ";")) {
+				final AttachmentFile af = attachmentHdl.getAttachmentById(nCP, id);
+				final AbstractElement<?> element = attachmentHdl.getDownloadLink(nCP, af, id);
+				if (element != null) {
+					if (!StringUtils.hasText(element.getText())) {
+						element.setText(af.getTopic());
 					}
+					if (element instanceof LinkElement) {
+						((LinkElement) element).addStyle("line-height:21px;");
+					}
+					sb.append(element).append("<br />");
 				}
 			}
+
 			js.append("$win($Actions['").append(cp.getComponentName()).append("'].trigger).close();");
 			js.append("$Actions.setValue(\"").append(nCP.getBeanProperty("insertTextarea"))
 					.append("\", \"").append(JavascriptUtils.escape(sb.toString())).append("\", true);");
