@@ -24,7 +24,7 @@
   <div>
     <input id="_passwordName" name="_passwordName" type="password" class="ifocus" />
   </div>
-  <div><%=lHdl.getToolbarHTML(nCP)%></div>
+  <div class="login_toolbar"><%=lHdl.getToolbarHTML(nCP)%></div>
   <div style="text-align: <%=nCP.getBeanProperty("actionAlign")%>">
     <input id="_loginBtn" class="button2" type="submit" value="#(login.3)"
       onclick="$Actions['arLogin']();" />

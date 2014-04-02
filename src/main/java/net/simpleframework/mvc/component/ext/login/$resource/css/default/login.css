@@ -48,6 +48,10 @@
 	line-height: 18px;
 }
 
+.login_toolbar { 
+  line-height: 21px;
+}
+
 .login_icon_normal {
 	background-image: url(images/normal.png);
 }
