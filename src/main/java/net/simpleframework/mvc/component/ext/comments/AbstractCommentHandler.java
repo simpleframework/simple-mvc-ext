@@ -57,7 +57,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			final Object userId = getProperty(cp, o, ATTRI_USERID);
 			sb.append("<div class='oitem'><table><tr>");
 			sb.append("<td class='icon'>");
-			final IPagePermissionHandler permission = ctx.getPermission();
+			final IPagePermissionHandler permission = mvcContext.getPermission();
 			sb.append(new PhotoImage(permission.getPhotoUrl(cp, userId)));
 			final Object oUser = permission.getUser(userId);
 			sb.append("<div class='icon_d'>").append(oUser).append("</div>");
