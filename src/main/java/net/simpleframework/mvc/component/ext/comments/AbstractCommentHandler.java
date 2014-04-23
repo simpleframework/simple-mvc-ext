@@ -52,7 +52,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final StringBuilder sb = new StringBuilder();
 		for (final Object o : data) {
 			final Object id = getProperty(cp, o, ATTRI_ID);
-			final String content = Convert.toString(getProperty(cp, o, ATTRI_CONTENT));
+			final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
 			final Date createDate = (Date) getProperty(cp, o, ATTRI_CREATEDATE);
 			final Object userId = getProperty(cp, o, ATTRI_USERID);
 			sb.append("<div class='oitem'><table><tr>");
@@ -64,7 +64,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append("</td><td>");
 			final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
 			if (p != null) {
-				final String reply = (String) getProperty(cp, p, ATTRI_CONTENT);
+				final String reply = (String) getProperty(cp, p, ATTRI_COMMENT);
 				sb.append("<div class='rc'>");
 				final Object userId2 = getProperty(cp, p, ATTRI_USERID);
 				final Date createDate2 = (Date) getProperty(cp, p, ATTRI_CREATEDATE);
