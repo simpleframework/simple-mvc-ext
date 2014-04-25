@@ -16,7 +16,7 @@ public class HcChart extends AbstractHcElement<HcChart> {
 
 	private EHcType type;
 
-	private String backgroundColor;
+	private String backgroundColor = "transparent";
 
 	private Integer marginTop, marginRight, marginBottom, marginLeft;
 
