@@ -12,7 +12,7 @@ import net.simpleframework.ado.bean.IOrderBeanAware;
 import net.simpleframework.ado.bean.ITextBeanAware;
 import net.simpleframework.ado.bean.ITreeBeanAware;
 import net.simpleframework.ado.trans.TransactionVoidCallback;
-import net.simpleframework.ctx.service.ado.IADOTreeBeanServiceAware;
+import net.simpleframework.ctx.service.ado.ITreeBeanServiceAware;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
 import net.simpleframework.mvc.IPageHandler.PageSelector;
 import net.simpleframework.mvc.JavascriptForward;
@@ -88,7 +88,7 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 				parent = mgr.getBean(((ITreeBeanAware) t).getParentId());
 			}
 		}
-		if (parent == null && mgr instanceof IADOTreeBeanServiceAware) {
+		if (parent == null && mgr instanceof ITreeBeanServiceAware) {
 			parent = mgr.getBean(cp.getParameter(PARAM_CATEGORY_PARENTID));
 		}
 		if (parent != null) {
@@ -151,8 +151,8 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 	@SuppressWarnings("unchecked")
 	protected <M extends ITreeBeanAware> void onDelete_assert(final ComponentParameter cp, final T t) {
 		final IDbBeanService<T> mgr = getBeanService();
-		if (mgr instanceof IADOTreeBeanServiceAware
-				&& ((IADOTreeBeanServiceAware<M>) mgr).queryChildren((M) t).getCount() > 0) {
+		if (mgr instanceof ITreeBeanServiceAware
+				&& ((ITreeBeanServiceAware<M>) mgr).queryChildren((M) t).getCount() > 0) {
 			throw ComponentHandlerException.of($m("BeanCategoryHandle.0"));
 		}
 	}
