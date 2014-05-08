@@ -4,7 +4,6 @@ import static net.simpleframework.common.I18n.$m;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
@@ -23,6 +22,7 @@ import net.simpleframework.mvc.component.ComponentUtils;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryTreeHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.EPagerBarLayout;
+import net.simpleframework.mvc.component.ui.pager.GroupWrapper;
 import net.simpleframework.mvc.component.ui.pager.IGroupTablePagerHandler;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
@@ -152,9 +152,10 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		}
 
 		@Override
-		public Collection<Object> doGroups(final ComponentParameter cp, final Set<Object> groups) {
+		public Collection<Object> doGroups(final ComponentParameter cp,
+				final Map<Object, GroupWrapper> groups) {
 			final ComponentParameter nCP = UserSelectUtils.get(cp);
-			return ((IUserSelectHandler) nCP.getComponentHandler()).doSort(nCP, groups);
+			return ((IUserSelectHandler) nCP.getComponentHandler()).doSort(nCP, groups.keySet());
 		}
 
 		@Override
