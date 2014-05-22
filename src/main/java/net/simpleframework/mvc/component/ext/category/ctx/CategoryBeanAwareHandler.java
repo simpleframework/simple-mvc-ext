@@ -11,6 +11,7 @@ import net.simpleframework.ado.bean.INameBeanAware;
 import net.simpleframework.ado.bean.IOrderBeanAware;
 import net.simpleframework.ado.bean.ITextBeanAware;
 import net.simpleframework.ado.bean.ITreeBeanAware;
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.trans.TransactionVoidCallback;
 import net.simpleframework.ctx.service.ado.ITreeBeanServiceAware;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
@@ -33,6 +34,17 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 		DefaultCategoryHandler {
 
 	protected abstract IDbBeanService<T> getBeanService();
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected IDataQuery<?> categoryBeans(final ComponentParameter cp, final Object categoryId) {
+		final IDbBeanService<T> bService = getBeanService();
+		if (bService instanceof ITreeBeanServiceAware) {
+			return ((ITreeBeanServiceAware<ITreeBeanAware>) bService)
+					.queryChildren((ITreeBeanAware) bService.getBean(categoryId));
+		}
+		return super.categoryBeans(cp, categoryId);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
