@@ -30,7 +30,7 @@ public class HtmlEditorBean extends AbstractContainerBean {
 
 	private Toolbar toolbar;
 
-	private String attachAction;
+	private String attachAction, attachLbl;
 
 	private String jsLoadedCallback;
 
@@ -121,6 +121,15 @@ public class HtmlEditorBean extends AbstractContainerBean {
 
 	public HtmlEditorBean setAttachAction(final String attachAction) {
 		this.attachAction = attachAction;
+		return this;
+	}
+
+	public String getAttachLbl() {
+		return attachLbl;
+	}
+
+	public HtmlEditorBean setAttachLbl(final String attachLbl) {
+		this.attachLbl = attachLbl;
 		return this;
 	}
 

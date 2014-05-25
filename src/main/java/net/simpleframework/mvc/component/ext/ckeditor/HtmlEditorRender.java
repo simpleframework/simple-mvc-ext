@@ -110,8 +110,13 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 		// for Attach
 		final String attachAction = (String) cp.getBeanProperty("attachAction");
 		if (StringUtils.hasText(attachAction)) {
-			sb.append(actionFunc).append(".editor.attachAction = \"")
+			sb.append(actionFunc).append(".editor._action = \"")
 					.append(JavascriptUtils.escape(attachAction)).append("\";");
+		}
+		final String attachLbl = (String) cp.getBeanProperty("attachLbl");
+		if (StringUtils.hasText(attachLbl)) {
+			sb.append(actionFunc).append(".editor._label = \"")
+					.append(JavascriptUtils.escape(attachLbl)).append("\";");
 		}
 
 		// for SyntaxHighlighter
