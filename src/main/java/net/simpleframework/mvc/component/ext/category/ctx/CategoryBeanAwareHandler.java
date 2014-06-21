@@ -144,7 +144,7 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 			((ITreeBeanAware) t).setParentId(parent == null ? null : parent.getId());
 		}
 		if (insert && t instanceof IOrderBeanAware) {
-			((IOrderBeanAware) t).setOorder(mgr.max("oorder") + 1);
+			((IOrderBeanAware) t).setOorder(mgr.max("oorder").intValue() + 1);
 		}
 		final T t2 = t;
 		mgr.getEntityManager().doExecuteTransaction(new TransactionVoidCallback() {
