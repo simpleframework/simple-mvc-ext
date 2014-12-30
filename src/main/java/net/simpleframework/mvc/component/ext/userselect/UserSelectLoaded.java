@@ -8,7 +8,7 @@ import java.util.Map;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.coll.KVMap;
-import net.simpleframework.ctx.permission.DepartmentWrapper;
+import net.simpleframework.ctx.permission.Dept;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
@@ -184,8 +184,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		public TreeNodes getTreenodes(final ComponentParameter cp, final TreeNode parent) {
 			final ComponentParameter nCP = UserSelectUtils.get(cp);
 			final IUserSelectHandler uHandler = (IUserSelectHandler) nCP.getComponentHandler();
-			Collection<DepartmentWrapper> wrappers = (Collection<DepartmentWrapper>) cp
-					.getRequestAttr(REQUEST_WRAPPERS);
+			Collection<Dept> wrappers = (Collection<Dept>) cp.getRequestAttr(REQUEST_WRAPPERS);
 			if (wrappers == null) {
 				cp.setRequestAttr(REQUEST_WRAPPERS, wrappers = uHandler.getDepartmentWrappers(nCP));
 			}
@@ -194,7 +193,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			final TreeBean treeBean = (TreeBean) cp.componentBean;
 			final TreeNodes nodes = TreeNodes.of();
 			if (parent == null) {
-				for (final DepartmentWrapper wrapper : wrappers) {
+				for (final Dept wrapper : wrappers) {
 					if (!wrapper.hasUser()) {
 						continue;
 					}
@@ -208,15 +207,15 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				final Object data = parent.getDataObject();
 				final String imgPath = ComponentUtils.getCssResourceHomePath(cp, UserSelectBean.class)
 						+ "/images/";
-				if (data instanceof DepartmentWrapper) {
-					final DepartmentWrapper wrapper = (DepartmentWrapper) data;
+				if (data instanceof Dept) {
+					final Dept wrapper = (Dept) data;
 					for (final Object o : wrapper.getUsers()) {
 						final TreeNode tn = new TreeNode(treeBean, o);
 						tn.setImage(imgPath + "users.png");
 						tn.setJsDblclickCallback("$Actions['" + userSelectName + "'].doDblclick(branch);");
 						nodes.add(tn);
 					}
-					for (final DepartmentWrapper w2 : wrapper.getChildren()) {
+					for (final Dept w2 : wrapper.getChildren()) {
 						if (!w2.hasUser()) {
 							continue;
 						}
