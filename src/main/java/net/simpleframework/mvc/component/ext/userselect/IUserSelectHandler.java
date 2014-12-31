@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ctx.permission.Dept;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.dictionary.IDictionaryHandle;
 
@@ -49,5 +48,5 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @param cp
 	 * @return
 	 */
-	Collection<Dept> getDepartmentWrappers(ComponentParameter cp);
+	Collection<DepartmentW> getDepartmentWrappers(ComponentParameter cp);
 }
