@@ -30,7 +30,7 @@
       onclick="$Actions['arLogin']();" />
     <%
     	if ((Boolean) nCP.getBeanProperty("showResetAction")) {
-    		out.append("<input type='reset' onclick=\"this.up('form').reset();\" />");
+    		out.write("<input type='reset' onclick=\"this.up('form').reset();\" />");
     	}
     %>
   </div>
