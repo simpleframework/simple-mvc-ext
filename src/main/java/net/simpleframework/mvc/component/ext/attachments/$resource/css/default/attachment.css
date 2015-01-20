@@ -56,6 +56,12 @@
   margin: -2px -2px -3px;
 }
 
+.form_tbl .v .Comp_Attachment .fitem {
+  border-bottom: 0;
+  border-top: 1px dashed #ccc;
+  margin-top: -1px;
+}
+
 .attachment_edit .c {
   margin: 6px;
 }
