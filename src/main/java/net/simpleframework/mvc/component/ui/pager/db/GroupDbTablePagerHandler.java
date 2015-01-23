@@ -3,9 +3,6 @@ package net.simpleframework.mvc.component.ui.pager.db;
 import java.util.Map;
 
 import net.simpleframework.common.StringUtils;
-import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.InputElement;
-import net.simpleframework.mvc.common.element.Option;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.IGroupTablePagerHandler;
 
@@ -17,37 +14,6 @@ import net.simpleframework.mvc.component.ui.pager.IGroupTablePagerHandler;
  */
 public abstract class GroupDbTablePagerHandler extends AbstractDbTablePagerHandler implements
 		IGroupTablePagerHandler {
-
-	public static void setDefaultGroupVal(final PageParameter pp, final String tblAction,
-			final String defaultGroupVal) {
-		String groupVal = pp.getCookie("group_" + tblAction);
-		if (!StringUtils.hasText(groupVal)) {
-			groupVal = defaultGroupVal;
-		}
-		pp.putParameter(G, groupVal);
-	}
-
-	public static InputElement createGroupElement(final PageParameter pp, final String tblAction,
-			final Option... opts) {
-		final String g = pp.getParameter(G);
-
-		final StringBuilder sb = new StringBuilder();
-		sb.append("var val = $F(this); $Actions['").append(tblAction)
-				.append("']('g=' + val); document.setCookie('group_").append(tblAction)
-				.append("', val);");
-		final InputElement select = InputElement.select("InputElement_group").setOnchange(
-				sb.toString());
-		if (opts != null) {
-			for (final Option opt : opts) {
-				final String name = opt.getName();
-				if (name == null) {
-					continue;
-				}
-				select.addElements(opt.setSelected(name.equals(g)));
-			}
-		}
-		return select;
-	}
 
 	@Override
 	public Map<String, Object> getFormParameters(final ComponentParameter cp) {
