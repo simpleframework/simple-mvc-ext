@@ -59,7 +59,14 @@
 .form_tbl .v .Comp_Attachment .fitem {
   border-bottom: 0;
   border-top: 1px dashed #ccc;
-  margin-top: -1px;
+}
+
+.form_tbl .v .swfupload .swf_btns {
+  margin: 8px 12px;
+}
+
+.form_tbl .v .swfupload .queue {
+  border-top: 0;
 }
 
 .attachment_edit .c {
