@@ -22,9 +22,9 @@ import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
  */
 public abstract class AbstractCommentHandler extends ComponentHandlerEx implements ICommentHandler {
 
-	protected static String PARAM_COMMENT = "comment";
+	protected static String PARAM_COMMENT = ATTRI_COMMENT;
 
-	protected static String PARAM_PARENTID = "parentId";
+	protected static String PARAM_PARENTID = ATTRI_PARENTID;
 
 	@Override
 	public JavascriptForward addComment(final ComponentParameter cp) {

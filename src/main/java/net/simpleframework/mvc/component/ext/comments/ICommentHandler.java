@@ -58,7 +58,7 @@ public interface ICommentHandler extends IComponentHandler {
 	 */
 	JavascriptForward deleteComment(ComponentParameter cp, Object id);
 
-	static final String ATTRI_COMMENT = "comment";
+	static final String ATTRI_COMMENT = "ccomment";
 
 	static final String ATTRI_USERID = "userId";
 
