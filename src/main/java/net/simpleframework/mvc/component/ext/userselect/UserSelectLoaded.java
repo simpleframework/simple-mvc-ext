@@ -71,7 +71,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				tablePager.setGroupColumn("departmentId");
 			} else {
 				tablePager.addColumn(new TablePagerColumn("departmentText", $m("UserSelectLoaded.1"))
-						.setSort(false).setFilter(false).setTextAlign(ETextAlign.left));
+						.setFilterSort(false).setTextAlign(ETextAlign.left));
 			}
 		}
 	}
