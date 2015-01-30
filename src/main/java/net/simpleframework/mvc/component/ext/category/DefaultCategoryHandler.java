@@ -198,7 +198,7 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 
 		final PropEditorBean propEditor = (PropEditorBean) cp.addComponentBean(
 				categoryName + "_propEditor", PropEditorBean.class).setContainerId(
-				"idCategoryEdit_" + category.hashId());
+				"idCategoryForm_" + category.hashId());
 		final PropField f1 = new PropField($m("category_edit.0")).addComponents(new InputComp(
 				"category_id").setType(EInputCompType.hidden), new InputComp("category_text"));
 		final PropField f2 = new PropField($m("category_edit.1")).addComponents(new InputComp(

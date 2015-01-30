@@ -1,9 +1,7 @@
 /**
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-
 function $category_action(item) {
   var o = function(ele, c) {
     return ele.hasClassName(c) ? ele : ele.up("." + c);
@@ -20,12 +18,11 @@ function $category_action(item) {
 }
 
 function $category_addMethods(pa, categoryName) {
-
   pa.getId = function() {
     var branch = pa.currentBranch;
     return branch ? branch.getId() : "";
   };
-  
+
   pa.add = function(params) {
     var act = $Actions[categoryName + "_edit"];
     act.selector = pa.selector;
@@ -52,10 +49,7 @@ function $category_addMethods(pa, categoryName) {
   };
 
   pa.expand = function() { pa.currentBranch.expand(); };
-
   pa.expandAll = function() { pa.treeAction.expandAll(); };
-
   pa.collapse = function() { pa.currentBranch.collapse(); };
-
   pa.collapseAll = function() { pa.treeAction.collapseAll(); };
 }
