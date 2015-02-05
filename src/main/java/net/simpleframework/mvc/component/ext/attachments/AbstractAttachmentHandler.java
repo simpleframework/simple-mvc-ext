@@ -125,56 +125,75 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@Override
 	public String toAttachmentListHTML(final ComponentParameter cp) throws IOException {
-		final String name = cp.getComponentName();
-		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
-		final Set<String> deleteQueue = getDeleteCache(cp);
 		final StringBuilder sb = new StringBuilder();
 		for (final Map.Entry<String, AttachmentFile> entry : attachments(cp).entrySet()) {
-			final String id = entry.getKey();
-			final AttachmentFile attachment = entry.getValue();
-			sb.append("<div class='fitem'>");
-			sb.append("<div class='l_attach");
-			if (!readonly) {
-				if (getUploadCache(cp).containsKey(id)) {
-					sb.append(" l_add' title='").append($m("DefaultAttachmentHandle.0"));
-				} else {
-					if (deleteQueue != null && deleteQueue.contains(id)) {
-						sb.append(" l_delete' title='").append($m("DefaultAttachmentHandle.1"));
-					}
-				}
-			}
-			sb.append("'>");
-			final SpanElement fileSize = new SpanElement("("
-					+ FileUtils.toFileSize(attachment.getSize()) + ")").setClassName("size");
-			if (!readonly) {
-				final ButtonElement del = new ButtonElement().addStyle("float: right;").setOnclick(
-						"$Actions['" + name + "_delete']('id=" + id + "');");
-				if (deleteQueue != null && deleteQueue.contains(id)) {
-					del.setText($m("Button.Cancel"));
-				} else {
-					del.setText($m("Delete"));
-				}
-				sb.append(del);
-				if ((Boolean) cp.getBeanProperty("showEdit")) {
-					sb.append(ButtonElement.editBtn().addStyle("float: right; margin-right: 3px;")
-							.setOnclick("$Actions['" + name + "_editWin']('id=" + id + "');"));
-				}
-			}
-
-			final boolean insertTextarea = StringUtils.hasText((String) cp
-					.getBeanProperty("insertTextarea"));
-			if (insertTextarea) {
-				sb.append(new Checkbox(id, attachment.getTopic() + fileSize));
-			} else {
-				// params for tooltip
-				sb.append(
-						new LinkElement(attachment.getTopic()).setOnclick(
-								"$Actions['" + name + "_download']('id=" + id + "');").addAttribute(
-								"params", "id=" + id)).append(fileSize);
-			}
-			sb.append("</div></div>");
+			sb.append(toAttachmentItemHTML(cp, entry.getKey(), entry.getValue()));
 		}
 		return sb.toString();
+	}
+
+	protected String toAttachmentItemHTML(final ComponentParameter cp, final String id,
+			final AttachmentFile attachment) throws IOException {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<div class='fitem'>");
+		sb.append("<div class='l_attach");
+		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		if (!readonly) {
+			if (getUploadCache(cp).containsKey(id)) {
+				sb.append(" l_add' title='").append($m("DefaultAttachmentHandle.0"));
+			} else {
+				final Set<String> deleteQueue = getDeleteCache(cp);
+				if (deleteQueue != null && deleteQueue.contains(id)) {
+					sb.append(" l_delete' title='").append($m("DefaultAttachmentHandle.1"));
+				}
+			}
+		}
+		sb.append("'>");
+		if (!readonly) {
+			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
+			if ((Boolean) cp.getBeanProperty("showEdit")) {
+				sb.append(createAttachmentItem_EditBtn(cp, id, attachment));
+			}
+		}
+
+		final SpanElement fileSize = new SpanElement("(" + FileUtils.toFileSize(attachment.getSize())
+				+ ")").setClassName("size");
+		final boolean insertTextarea = StringUtils.hasText((String) cp
+				.getBeanProperty("insertTextarea"));
+		if (insertTextarea) {
+			sb.append(new Checkbox(id, attachment.getTopic() + fileSize));
+		} else {
+			// params for tooltip
+			sb.append(createAttachmentItem_Topic(cp, id, attachment)).append(fileSize);
+		}
+		sb.append("</div></div>");
+		return sb.toString();
+	}
+
+	protected AbstractElement<?> createAttachmentItem_DelBtn(final ComponentParameter cp,
+			final String id, final AttachmentFile attachment) {
+		final ButtonElement del = new ButtonElement().addStyle("float: right;").setOnclick(
+				"$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');");
+		final Set<String> deleteQueue = getDeleteCache(cp);
+		if (deleteQueue != null && deleteQueue.contains(id)) {
+			del.setText($m("Button.Cancel"));
+		} else {
+			del.setText($m("Delete"));
+		}
+		return del;
+	}
+
+	protected AbstractElement<?> createAttachmentItem_EditBtn(final ComponentParameter cp,
+			final String id, final AttachmentFile attachment) {
+		return ButtonElement.editBtn().addStyle("float: right; margin-right: 3px;")
+				.setOnclick("$Actions['" + cp.getComponentName() + "_editWin']('id=" + id + "');");
+	}
+
+	protected LinkElement createAttachmentItem_Topic(final ComponentParameter cp, final String id,
+			final AttachmentFile attachment) {
+		return new LinkElement(attachment.getTopic()).setOnclick(
+				"$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');").addAttribute(
+				"params", "id=" + id);
 	}
 
 	protected boolean showCheckbox() {
