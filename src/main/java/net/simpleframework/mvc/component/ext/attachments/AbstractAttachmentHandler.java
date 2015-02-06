@@ -24,6 +24,7 @@ import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentHandlerEx;
+import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
 
@@ -61,6 +62,10 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 			final IAttachmentSaveCallback callback) throws IOException {
 		if (callback != null) {
 			callback.save(getUploadCache(cp), getDeleteCache(cp));
+		}
+		final int attachmentsLimit = (Integer) cp.getBeanProperty("attachmentsLimit");
+		if (attachmentsLimit > 0 && attachments(cp).size() > attachmentsLimit) {
+			throw ComponentHandlerException.of($m("AbstractAttachmentHandler.4", attachmentsLimit));
 		}
 		// 清除
 		clearCache(cp);

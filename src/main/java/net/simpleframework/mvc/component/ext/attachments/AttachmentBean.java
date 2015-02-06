@@ -10,13 +10,14 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  *         http://www.simpleframework.net
  */
 public class AttachmentBean extends AbstractContainerBean {
-
 	/* 插入到文本域中，插入模式 */
 	private String insertTextarea;
 
+	/* 列表大小 */
+	private int attachmentsLimit = BeanDefaults.getInt(getClass(), "attachmentsLimit", 0);
+
 	/* 提交模式 */
 	private boolean showSubmit = BeanDefaults.getBool(getClass(), "showSubmit", false);
-
 	/* 显示编辑按钮 */
 	private boolean showEdit = BeanDefaults.getBool(getClass(), "showEdit", true);
 
@@ -28,6 +29,15 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public AttachmentBean setInsertTextarea(final String insertTextarea) {
 		this.insertTextarea = insertTextarea;
+		return this;
+	}
+
+	public int getAttachmentsLimit() {
+		return attachmentsLimit;
+	}
+
+	public AttachmentBean setAttachmentsLimit(final int attachmentsLimit) {
+		this.attachmentsLimit = attachmentsLimit;
 		return this;
 	}
 
