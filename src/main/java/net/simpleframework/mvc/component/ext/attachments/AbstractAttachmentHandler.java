@@ -65,11 +65,15 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		}
 		final int attachmentsLimit = (Integer) cp.getBeanProperty("attachmentsLimit");
 		if (attachmentsLimit > 0 && attachments(cp).size() > attachmentsLimit) {
-			throw ComponentHandlerException.of($m("AbstractAttachmentHandler.4", attachmentsLimit));
+			throwAttachmentsLimit(attachmentsLimit);
 		}
 		// 清除
 		clearCache(cp);
 		return null;
+	}
+
+	protected void throwAttachmentsLimit(final int attachmentsLimit) {
+		throw ComponentHandlerException.of($m("AbstractAttachmentHandler.4", attachmentsLimit));
 	}
 
 	@Override
