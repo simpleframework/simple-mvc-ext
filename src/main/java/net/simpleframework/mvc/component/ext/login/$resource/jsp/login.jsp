@@ -10,24 +10,24 @@
 	final String beanId = nCP.hashId();
 %>
 <form id="_loginForm">
-  <input type="hidden" id="<%=LoginUtils.BEAN_ID%>" name="<%=LoginUtils.BEAN_ID%>"
-    value="<%=beanId%>" /> <input type="hidden" id="_accountType" name="_accountType" />
-  <div class="lm">
+  <input type="hidden" id="<%=LoginUtils.BEAN_ID%>" name="<%=LoginUtils.BEAN_ID%>" value="<%=beanId%>" /> <input type="hidden" id="_accountType"
+    name="_accountType" />
+  <div class="block">
     <a id="_accountMenu"></a><span class="right_down_menu"></span>
   </div>
-  <div>
+  <div class="block">
     <input id="_accountName" name="_accountName" type="text" class="ifocus" />
   </div>
-  <div>
+  <div class="block">
     <label>#(login.0)</label>
   </div>
-  <div>
+  <div class="block">
     <input id="_passwordName" name="_passwordName" type="password" class="ifocus" />
   </div>
-  <div class="login_toolbar"><%=lHdl.getToolbarHTML(nCP)%></div>
-  <div style="text-align: <%=nCP.getBeanProperty("actionAlign")%>">
-    <input id="_loginBtn" class="button2" type="submit" value="#(login.3)"
-      onclick="$Actions['arLogin']();" />
+  <div id="idLoginLoaded_vcode"></div>
+  <div class="login_toolbar block"><%=lHdl.getToolbarHTML(nCP)%></div>
+  <div class="block" style="text-align: <%=nCP.getBeanProperty("actionAlign")%>">
+    <input id="_loginBtn" class="button2" type="submit" value="#(login.3)" onclick="$Actions['arLogin']();" />
     <%
     	if ((Boolean) nCP.getBeanProperty("showResetAction")) {
     		out.write("<input type='reset' onclick=\"this.up('form').reset();\" />");

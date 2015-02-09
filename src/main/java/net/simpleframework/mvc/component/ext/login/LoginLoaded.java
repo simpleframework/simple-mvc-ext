@@ -8,6 +8,7 @@ import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
+import net.simpleframework.mvc.component.ui.validatecode.ValidateCodeBean;
 import net.simpleframework.mvc.component.ui.window.WindowBean;
 
 /**
@@ -46,6 +47,11 @@ public class LoginLoaded extends DefaultPageHandler {
 					.setContentRef("ajaxGetPassword").setTitle($m("login.7"))
 					.setWidth(Convert.toInt(pp.getParameter("width"), 420))
 					.setHeight(Convert.toInt(pp.getParameter("height"), 320));
+		}
+		final boolean showValidateCode = (Boolean) cp.getBeanProperty("showValidateCode");
+		if (showValidateCode) {
+			pp.addComponentBean("LoginLoaded_vcode", ValidateCodeBean.class).setInputName("vcode")
+					.setContainerId("idLoginLoaded_vcode");
 		}
 	}
 }

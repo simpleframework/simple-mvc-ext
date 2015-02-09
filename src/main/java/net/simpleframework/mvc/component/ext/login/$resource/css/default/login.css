@@ -2,8 +2,7 @@
 	text-align: left;
 }
 
-#_accountMenu,
-#_loginForm .lm {
+#_accountMenu {
   display: inline-block;
   *display: inline;
 	*zoom: 1;
@@ -36,8 +35,8 @@
 	transition: all 0.6s;
 }
 
-#_loginForm div {
-	margin: 4px 0;
+#_loginForm .block {
+	margin: 5px 0;
 }
 
 #_accountName,
@@ -62,4 +61,9 @@
 
 .login_icon_mobile {
 	background-image: url(images/mobile.png);
+}
+
+#idLoginLoaded_vcode .b2 a {
+  display: inline-block;
+  vertical-align: top;
 }

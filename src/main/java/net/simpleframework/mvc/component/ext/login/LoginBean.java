@@ -17,6 +17,8 @@ public class LoginBean extends AbstractContainerBean {
 
 	private boolean showResetAction = BeanDefaults.getBool(getClass(), "showResetAction", true);
 
+	private boolean showValidateCode = BeanDefaults.getBool(getClass(), "showValidateCode", false);
+
 	private ETextAlign actionAlign = (ETextAlign) BeanDefaults.get(getClass(), "actionAlign",
 			ETextAlign.right);
 
@@ -42,6 +44,14 @@ public class LoginBean extends AbstractContainerBean {
 	public LoginBean setShowResetAction(final boolean showResetAction) {
 		this.showResetAction = showResetAction;
 		return this;
+	}
+
+	public boolean isShowValidateCode() {
+		return showValidateCode;
+	}
+
+	public void setShowValidateCode(final boolean showValidateCode) {
+		this.showValidateCode = showValidateCode;
 	}
 
 	public String getLoginForward() {
