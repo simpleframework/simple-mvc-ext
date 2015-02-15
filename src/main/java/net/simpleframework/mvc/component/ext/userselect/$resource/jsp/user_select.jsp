@@ -21,8 +21,7 @@
   %>
   <div id="users_<%=hashId%>">#(user_select.4)</div>
   <div class="b">
-    <input type="button" class="button2" value="#(Button.Ok)"
-      onclick="$Actions['<%=componentName%>'].doDblclick();" /> <input type="button"
+    <input type="button" class="button2" value="#(Button.Ok)" onclick="$Actions['<%=componentName%>'].doDblclick();" /> <input type="button"
       value="#(Button.Cancel)" onclick="$Actions['<%=componentName%>'].close();" />
   </div>
 </div>
@@ -33,7 +32,7 @@
     w.content.setStyle("overflow:hidden;");
     
     var tAct, tp;
-    <% if (bTree) { %>
+    <%if (bTree) {%>
     var tree = $("users_<%=hashId%>");
     var s = function() {
       tree.setStyle("height:" + (w.content.getHeight() - 68) + "px;");
@@ -44,7 +43,7 @@
       var selects = $tree_getSelects(tAct.tree, branch);
       <%=DictionaryRender.genSelectCallback(cp, "selects")%>
     };
-    <% } else {%>
+    <%} else {%>
    	tp = $Actions["<%=componentName + "_tablePager"%>"];
     var s = function() {
       tp.setHeight(w.content.getHeight() - 95);
@@ -72,7 +71,7 @@
       }
       <%=DictionaryRender.genSelectCallback(cp, "selects")%>
     };
-    <% } %>
+    <%}%>
     s();
     w.observe("resize:ended", s);
     
@@ -83,7 +82,7 @@
         if (tAct) {
           tAct.checkAll(me.checked);
         } else if (tp) {
-        	tp.checkAll(me);
+          tp.checkAll(me);
         }
       });
     }
