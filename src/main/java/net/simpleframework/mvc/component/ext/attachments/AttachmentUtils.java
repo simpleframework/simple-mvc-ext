@@ -39,8 +39,13 @@ public abstract class AttachmentUtils {
 		final String beanId = cp.hashId();
 		final IAttachmentHandler aHandle = (IAttachmentHandler) cp.getComponentHandler();
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<div class='Comp_Attachment'>");
-		if ((Boolean) cp.getBeanProperty("readonly")) {
+		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		sb.append("<div class='Comp_Attachment");
+		if (readonly) {
+			sb.append(" readonly");
+		}
+		sb.append("'>");
+		if (readonly) {
 			sb.append(ComponentRenderUtils.genParameters(cp));
 		} else {
 			sb.append("<div id=\"attachment_").append(beanId).append("\"></div>");
