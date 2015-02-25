@@ -30,16 +30,16 @@
 }
 
 .Comp_Attachment .l_attach {
-  padding-left: 12px;
+  padding-left: 14px;
 }
 
 .Comp_Attachment .l_add {
-  background: url("images/add.gif") no-repeat 0 50%;
+  background: url("images/add.png") no-repeat 0 55%;
   color: blue;
 }
 
 .Comp_Attachment .l_delete {
-  background: url('images/delete.gif') no-repeat 0 50%;
+  background: url('images/delete.png') no-repeat 0 55%;
   color: red;
 }
 
