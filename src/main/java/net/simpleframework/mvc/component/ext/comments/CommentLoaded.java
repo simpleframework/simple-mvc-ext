@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ctx.permission.IPermissionConst;
+import net.simpleframework.ctx.permission.PermissionConst;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.PageParameter;
@@ -50,7 +50,7 @@ public class CommentLoaded extends DefaultPageHandler {
 						new Validator(EValidatorMethod.min_length, idTa, 8)
 								.setMessage($m("CommentLoaded.0")));
 		pp.addComponentBean(commentName + "_submit", AjaxRequestBean.class)
-				.setRole(IPermissionConst.ROLE_ALL_ACCOUNT).setConfirmMessage($m("Confirm.Post"))
+				.setRole(PermissionConst.ROLE_ALL_ACCOUNT).setConfirmMessage($m("Confirm.Post"))
 				.setHandlerMethod("addComment").setHandlerClass(CommentAction.class)
 				.setAttr("$comment", commentBean);
 

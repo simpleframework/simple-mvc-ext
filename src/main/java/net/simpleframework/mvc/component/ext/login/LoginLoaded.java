@@ -3,7 +3,7 @@ package net.simpleframework.mvc.component.ext.login;
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
-import net.simpleframework.ctx.permission.IPermissionConst;
+import net.simpleframework.ctx.permission.PermissionConst;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -22,7 +22,7 @@ public class LoginLoaded extends DefaultPageHandler {
 	@Override
 	public Object getBeanProperty(final PageParameter pp, final String beanProperty) {
 		if ("role".equals(beanProperty)) {
-			return IPermissionConst.ROLE_ANONYMOUS;
+			return PermissionConst.ROLE_ANONYMOUS;
 		}
 		return super.getBeanProperty(pp, beanProperty);
 	}
@@ -33,16 +33,15 @@ public class LoginLoaded extends DefaultPageHandler {
 
 		final ComponentParameter nCP = LoginUtils.get(pp);
 
-		pp.addComponentBean("arLogin", AjaxRequestBean.class)
-				.setRole(IPermissionConst.ROLE_ANONYMOUS).setHandlerMethod("login")
-				.setHandlerClass(LoginAction.class)
+		pp.addComponentBean("arLogin", AjaxRequestBean.class).setRole(PermissionConst.ROLE_ANONYMOUS)
+				.setHandlerMethod("login").setHandlerClass(LoginAction.class)
 				.setSelector((String) nCP.getBeanProperty("selector"));
 
 		final ComponentParameter cp = LoginUtils.get(pp);
 		final String passwordGetUrl = (String) cp.getBeanProperty("passwordGetUrl");
 		if (StringUtils.hasText(passwordGetUrl)) {
 			pp.addComponentBean("ajaxGetPassword", AjaxRequestBean.class)
-					.setRole(IPermissionConst.ROLE_ANONYMOUS).setUrlForward(passwordGetUrl);
+					.setRole(PermissionConst.ROLE_ANONYMOUS).setUrlForward(passwordGetUrl);
 			pp.addComponentBean("getPasswordWindow", WindowBean.class)
 					.setContentRef("ajaxGetPassword").setTitle($m("login.7"))
 					.setWidth(Convert.toInt(pp.getParameter("width"), 420))
