@@ -12,7 +12,6 @@ import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.BlockElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
@@ -65,13 +64,12 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			if (!multiple) {
 				tablePager.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);");
 			}
-			tablePager.addColumn(new TablePagerColumn("text", $m("UserSelectLoaded.0")).setTextAlign(
-					ETextAlign.left).setWidth(135));
+			tablePager.addColumn(new TablePagerColumn("text", $m("UserSelectLoaded.0")).setWidth(135));
 			if (UserSelectUtils.VT_GROUP.equals(vtype)) {
 				tablePager.setGroupColumn("departmentId");
 			} else {
 				tablePager.addColumn(new TablePagerColumn("departmentText", $m("UserSelectLoaded.1"))
-						.setFilterSort(false).setTextAlign(ETextAlign.left));
+						.setFilterSort(false));
 			}
 		}
 	}
