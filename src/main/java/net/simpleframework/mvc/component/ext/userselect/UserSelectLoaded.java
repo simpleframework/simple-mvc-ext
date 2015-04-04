@@ -64,10 +64,13 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			if (!multiple) {
 				tablePager.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);");
 			}
-			tablePager.addColumn(new TablePagerColumn("text", $m("UserSelectLoaded.0")).setWidth(135));
+
+			final TablePagerColumn txtColumn = new TablePagerColumn("text", $m("UserSelectLoaded.0"));
 			if (UserSelectUtils.VT_GROUP.equals(vtype)) {
 				tablePager.setGroupColumn("departmentId");
+				tablePager.addColumn(txtColumn);
 			} else {
+				tablePager.addColumn(txtColumn.setWidth(110));
 				tablePager.addColumn(new TablePagerColumn("departmentText", $m("UserSelectLoaded.1"))
 						.setFilterSort(false));
 			}
@@ -84,15 +87,13 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			} else if ("showCheckbox".equals(beanProperty)) {
 				return UserSelectUtils.get(cp).getBeanProperty("multiple");
 			} else if ("title".equals(beanProperty)) {
-				final String vtype = cp.getParameter(UserSelectUtils.VTYPE);
+				// final String vtype = cp.getParameter(UserSelectUtils.VTYPE);
 				final ComponentParameter nCP = UserSelectUtils.get(cp);
 				String typeHTML = UserSelectUtils.toTypeHTML(nCP);
 				final boolean multiple = (Boolean) UserSelectUtils.get(cp).getBeanProperty("multiple");
 				if (multiple) {
 					final String name = nCP.getComponentName();
-					typeHTML += new BlockElement()
-							.setClassName("check_all")
-							.addStyle(UserSelectUtils.VT_LIST.equals(vtype) ? "left: 8px;" : "left: 21px;")
+					typeHTML += new BlockElement().setClassName("check_all").addStyle("left: 8px;")
 							.addElements(InputElement.checkbox(name + "_check_all"));
 				}
 				return typeHTML;
