@@ -59,7 +59,7 @@ public abstract class UserSelectUtils {
 		if ((Boolean) cp.getBeanProperty("treeMode")) {
 			final boolean selected = VT_TREE.equals(vtype);
 			input.addElements(new Option(VT_TREE, "#(user_select.3)").setSelected(selected));
-			if (selected) {
+			if (selected && (Boolean) cp.getBeanProperty("multiple")) {
 				final String name = cp.getComponentName();
 				block = new BlockElement().setClassName("check_tree_all").addElements(
 						new Checkbox(name + "_check_all", $m("UserSelectUtils.0")));
