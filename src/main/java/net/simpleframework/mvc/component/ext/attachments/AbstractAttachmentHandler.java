@@ -18,7 +18,6 @@ import net.simpleframework.ctx.common.bean.AttachmentFile;
 import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.common.element.AbstractElement;
-import net.simpleframework.mvc.common.element.ButtonElement;
 import net.simpleframework.mvc.common.element.Checkbox;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
@@ -179,23 +178,26 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		return sb.toString();
 	}
 
+	protected LinkElement createAttachmentItem_Btn(final String text) {
+		return new LinkElement().setClassName("simple_btn2").addStyle("float: right;").setText(text);
+	}
+
 	protected AbstractElement<?> createAttachmentItem_DelBtn(final ComponentParameter cp,
 			final String id, final AttachmentFile attachment) {
-		final ButtonElement del = new ButtonElement().addStyle("float: right;").setOnclick(
-				"$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');");
 		final Set<String> deleteQueue = getDeleteCache(cp);
+		LinkElement del;
 		if (deleteQueue != null && deleteQueue.contains(id)) {
-			del.setText($m("Button.Cancel"));
+			del = createAttachmentItem_Btn($m("Button.Cancel"));
 		} else {
-			del.setText($m("Delete"));
+			del = createAttachmentItem_Btn($m("Delete"));
 		}
-		return del;
+		return del.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');");
 	}
 
 	protected AbstractElement<?> createAttachmentItem_EditBtn(final ComponentParameter cp,
 			final String id, final AttachmentFile attachment) {
-		return ButtonElement.editBtn().addStyle("float: right; margin-right: 3px;")
-				.setOnclick("$Actions['" + cp.getComponentName() + "_editWin']('id=" + id + "');");
+		return createAttachmentItem_Btn($m("Edit")).setOnclick(
+				"$Actions['" + cp.getComponentName() + "_editWin']('id=" + id + "');");
 	}
 
 	protected LinkElement createAttachmentItem_Topic(final ComponentParameter cp, final String id,

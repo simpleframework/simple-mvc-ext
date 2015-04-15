@@ -46,7 +46,7 @@
     <%} else {%>
    	tp = $Actions["<%=componentName + "_tablePager"%>"];
     var s = function() {
-      tp.setHeight(w.content.getHeight() - 95);
+      tp.setHeight(w.content.getHeight() - 93);
     };
     us.doDblclick = function(d) {
       var selects = new Array();
