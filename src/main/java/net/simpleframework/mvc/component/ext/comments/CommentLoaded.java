@@ -60,7 +60,7 @@ public class CommentLoaded extends DefaultPageHandler {
 					.setBindingId("textarea_" + hashId).addSmiley(pp);
 		}
 
-		if (cp.getLogin().isMember(cp.getBeanProperty("role"))) {
+		if (cp.isLmember(cp.getBeanProperty("role"))) {
 			pp.addComponentBean(commentName + "_delete", AjaxRequestBean.class)
 					.setConfirmMessage($m("Confirm.Delete")).setHandlerMethod("doDelete")
 					.setHandlerClass(CommentAction.class).setAttr("$comment", commentBean);

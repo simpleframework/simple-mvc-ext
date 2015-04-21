@@ -46,7 +46,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	@Override
 	public String toListHTML(final ComponentParameter cp, final List<?> data) {
-		final boolean mgr = cp.getLogin().isMember(cp.getBeanProperty("role"));
+		final boolean mgr = cp.isLmember(cp.getBeanProperty("role"));
 
 		final StringBuilder sb = new StringBuilder();
 		for (final Object o : data) {
