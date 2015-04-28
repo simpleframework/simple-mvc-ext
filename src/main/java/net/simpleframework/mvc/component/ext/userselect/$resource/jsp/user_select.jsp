@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="net.simpleframework.mvc.component.ComponentParameter"%>
 <%@ page import="net.simpleframework.mvc.component.ext.userselect.UserSelectUtils"%>
+<%@ page import="net.simpleframework.mvc.component.ext.userselect.UserSelectBean"%>
 <%@ page import="net.simpleframework.mvc.component.ui.dictionary.DictionaryRender"%>
-<%@ page import="net.simpleframework.common.Convert"%>
 <%
 	final ComponentParameter cp = UserSelectUtils
 			.get(request, response);
-	final String hashId = cp.hashId();
 	final String componentName = (String) cp.getComponentName();
+	final String hashId = cp.hashId();
 %>
 <div class="user_select">
   <%
-  	String vtype = cp.getParameter(UserSelectUtils.VTYPE);
-  	boolean bTree = UserSelectUtils.VT_TREE.equals(vtype);
+  	String vtype = cp.getParameter("vtype");
+  	boolean bTree = UserSelectBean.VT_TREE.equals(vtype);
   	if (bTree) {
   %>
   <div class="ttop"><%=UserSelectUtils.toTypeHTML(cp)%></div>
@@ -75,16 +75,21 @@
     s();
     w.observe("resize:ended", s);
     
-    var allBox = $("<%=componentName%>_check_all");
-    if (allBox) {
-      allBox.observe("click", function(ev) {
-        var me = this;
-        if (tAct) {
-          tAct.checkAll(me.checked);
-        } else if (tp) {
-          tp.checkAll(me);
-        }
-      });
+    var _evn = function(ev) {
+      if (tp) {
+        tp.checkAll(this);
+      } else if (tAct) {
+        tAct.checkAll(this.checked);
+      }
+    };
+    var _click = function() {
+      var checkAll = $("<%=componentName%>_check_all");
+      if (checkAll)
+        checkAll.observe("click", _evn);
+    };
+    _click();
+    if (tp) {
+      tp.jsLoadedCallback = _click;
     }
   });
 </script>

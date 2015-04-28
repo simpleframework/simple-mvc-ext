@@ -11,8 +11,6 @@ import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
-import net.simpleframework.mvc.common.element.BlockElement;
-import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -44,13 +42,13 @@ public class UserSelectLoaded extends DefaultPageHandler {
 
 		final String userSelectName = cp.getComponentName();
 
-		String vtype = pp.getParameter(UserSelectUtils.VTYPE);
+		String vtype = pp.getParameter("vtype");
 		if (vtype == null) {
-			vtype = UserSelectUtils.VT_GROUP;
+			vtype = (String) cp.getBeanProperty("vtype");
 		}
 
 		final String containerId = "users_" + userSelect.hashId();
-		if (UserSelectUtils.VT_TREE.equals(vtype)) {
+		if (UserSelectBean.VT_TREE.equals(vtype)) {
 			pp.addComponentBean(userSelectName + "_tree", TreeBean.class).setCookies(false)
 					.setContainerId(containerId).setHandlerClass(UserTree.class);
 		} else {
@@ -66,7 +64,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			}
 
 			final TablePagerColumn txtColumn = new TablePagerColumn("text", $m("UserSelectLoaded.0"));
-			if (UserSelectUtils.VT_GROUP.equals(vtype)) {
+			if (UserSelectBean.VT_GROUP.equals(vtype)) {
 				tablePager.setGroupColumn("departmentId");
 				tablePager.addColumn(txtColumn);
 			} else {
@@ -87,16 +85,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			} else if ("showCheckbox".equals(beanProperty)) {
 				return UserSelectUtils.get(cp).getBeanProperty("multiple");
 			} else if ("title".equals(beanProperty)) {
-				// final String vtype = cp.getParameter(UserSelectUtils.VTYPE);
-				final ComponentParameter nCP = UserSelectUtils.get(cp);
-				String typeHTML = UserSelectUtils.toTypeHTML(nCP);
-				final boolean multiple = (Boolean) UserSelectUtils.get(cp).getBeanProperty("multiple");
-				if (multiple) {
-					final String name = nCP.getComponentName();
-					typeHTML += new BlockElement().setClassName("check_all").addStyle("left: 8px;")
-							.addElements(InputElement.checkbox(name + "_check_all"));
-				}
-				return typeHTML;
+				return UserSelectUtils.toTypeHTML(UserSelectUtils.get(cp));
 			}
 			return super.getBeanProperty(cp, beanProperty);
 		}
@@ -106,7 +95,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			final KVMap kv = (KVMap) super.getFormParameters(cp);
 			kv.putAll(ComponentUtils.toFormParameters(UserSelectUtils.get(cp)));
 			return kv.add(UserSelectUtils.BEAN_ID, cp.getParameter(UserSelectUtils.BEAN_ID)).add(
-					UserSelectUtils.VTYPE, cp.getParameter(UserSelectUtils.VTYPE));
+					"vtype", cp.getParameter("vtype"));
 		}
 
 		@Override

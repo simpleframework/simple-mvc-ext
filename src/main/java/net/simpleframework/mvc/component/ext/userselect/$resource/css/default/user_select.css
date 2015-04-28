@@ -57,6 +57,7 @@
 .user_select .check_all {
   position: absolute;
   top: 35px;
+  left: 8px;
 }
 
 .user_select .check_tree_all {

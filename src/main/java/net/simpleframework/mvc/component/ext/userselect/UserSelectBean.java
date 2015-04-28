@@ -11,10 +11,20 @@ import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
  *         http://www.simpleframework.net
  */
 public class UserSelectBean extends DictionaryBean {
+	public static final String VT_GROUP = "group";
+	public static final String VT_LIST = "list";
+	public static final String VT_TREE = "tree";
 
+	/* 每页的数据数量 */
 	private int pageItems;
 
-	private boolean treeMode = true;
+	/* 是否显示分组模式 */
+	private boolean showGroupOpt = true;
+	/* 是否显示树模式 */
+	private boolean showTreeOpt = true;
+
+	/* 缺省模式 */
+	private String vtype = VT_GROUP;
 
 	public UserSelectBean() {
 		setShowHelpTooltip(false);
@@ -39,12 +49,30 @@ public class UserSelectBean extends DictionaryBean {
 		return this;
 	}
 
-	public boolean isTreeMode() {
-		return treeMode;
+	public String getVtype() {
+		return (!showGroupOpt && !showTreeOpt) ? VT_LIST : vtype;
 	}
 
-	public UserSelectBean setTreeMode(final boolean treeMode) {
-		this.treeMode = treeMode;
+	public UserSelectBean setVtype(final String vtype) {
+		this.vtype = vtype;
+		return this;
+	}
+
+	public boolean isShowGroupOpt() {
+		return showGroupOpt;
+	}
+
+	public UserSelectBean setShowGroupOpt(final boolean showGroupOpt) {
+		this.showGroupOpt = showGroupOpt;
+		return this;
+	}
+
+	public boolean isShowTreeOpt() {
+		return showTreeOpt;
+	}
+
+	public UserSelectBean setShowTreeOpt(final boolean showTreeOpt) {
+		this.showTreeOpt = showTreeOpt;
 		return this;
 	}
 }
