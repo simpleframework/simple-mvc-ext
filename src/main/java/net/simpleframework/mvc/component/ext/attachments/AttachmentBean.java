@@ -15,6 +15,8 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	/* 列表大小 */
 	private int attachmentsLimit = BeanDefaults.getInt(getClass(), "attachmentsLimit", 0);
+	/* 列表队列大小 */
+	private int attachmentsQueueLimit = BeanDefaults.getInt(getClass(), "attachmentsQueueLimit", 0);
 
 	/* 提交模式 */
 	private boolean showSubmit = BeanDefaults.getBool(getClass(), "showSubmit", false);
@@ -38,6 +40,15 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public AttachmentBean setAttachmentsLimit(final int attachmentsLimit) {
 		this.attachmentsLimit = attachmentsLimit;
+		return this;
+	}
+
+	public int getAttachmentsQueueLimit() {
+		return attachmentsQueueLimit;
+	}
+
+	public AttachmentBean setAttachmentsQueueLimit(final int attachmentsQueueLimit) {
+		this.attachmentsQueueLimit = attachmentsQueueLimit;
 		return this;
 	}
 

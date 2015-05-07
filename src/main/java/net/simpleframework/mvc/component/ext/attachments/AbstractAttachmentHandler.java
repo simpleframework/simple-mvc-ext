@@ -107,8 +107,16 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	@Override
 	public void upload(final ComponentParameter cp, final IMultipartFile multipartFile,
 			final Map<String, Object> variables) throws IOException {
+		final int attachmentsQueueLimit = (Integer) cp.getBeanProperty("attachmentsQueueLimit");
+		if (attachmentsQueueLimit > 0 && attachments(cp).size() >= attachmentsQueueLimit) {
+			throwAttachmentsQueueLimit(attachmentsQueueLimit);
+		}
 		final AttachmentFile af = new AttachmentFile(multipartFile.getFile());
 		getUploadCache(cp).put(af.getId(), af);
+	}
+
+	protected void throwAttachmentsQueueLimit(final int attachmentsQueueLimit) {
+		throw ComponentHandlerException.of($m("AbstractAttachmentHandler.5", attachmentsQueueLimit));
 	}
 
 	@SuppressWarnings("unchecked")
