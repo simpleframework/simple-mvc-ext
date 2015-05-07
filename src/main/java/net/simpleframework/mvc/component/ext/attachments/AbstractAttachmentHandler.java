@@ -157,25 +157,56 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 			}
 		}
 		sb.append("'>");
+		// btns
+		sb.append(createAttachmentItem_Btns(cp, id, attachment, readonly));
+		// topic
+		final boolean insertTextarea = StringUtils.hasText((String) cp
+				.getBeanProperty("insertTextarea"));
+		if (insertTextarea) {
+			sb.append(new Checkbox(id, createAttachmentItem_Topic(cp, id, attachment, false)));
+		} else {
+			// params for tooltip
+			sb.append(createAttachmentItem_Topic(cp, id, attachment, true));
+		}
+		sb.append("</div></div>");
+		return sb.toString();
+	}
+
+	protected String createAttachmentItem_Topic(final ComponentParameter cp, final String id,
+			final AttachmentFile attachment, final boolean showlink) throws IOException {
+		final StringBuilder sb = new StringBuilder();
+		if (showlink) {
+			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment));
+		} else {
+			sb.append(attachment.getTopic());
+		}
+		sb.append(createAttachmentItem_fileSizeElement(attachment));
+		return sb.toString();
+	}
+
+	protected String createAttachmentItem_Btns(final ComponentParameter cp, final String id,
+			final AttachmentFile attachment, final boolean readonly) throws IOException {
+		final StringBuilder sb = new StringBuilder();
 		if (!readonly) {
 			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
 			if ((Boolean) cp.getBeanProperty("showEdit")) {
 				sb.append(createAttachmentItem_EditBtn(cp, id, attachment));
 			}
 		}
-
-		final SpanElement fileSize = new SpanElement("(" + FileUtils.toFileSize(attachment.getSize())
-				+ ")").setClassName("size");
-		final boolean insertTextarea = StringUtils.hasText((String) cp
-				.getBeanProperty("insertTextarea"));
-		if (insertTextarea) {
-			sb.append(new Checkbox(id, attachment.getTopic() + fileSize));
-		} else {
-			// params for tooltip
-			sb.append(createAttachmentItem_Topic(cp, id, attachment)).append(fileSize);
-		}
-		sb.append("</div></div>");
 		return sb.toString();
+	}
+
+	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,
+			final String id, final AttachmentFile attachment) {
+		return new LinkElement(attachment.getTopic()).setOnclick(
+				"$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');").addAttribute(
+				"params", "id=" + id);
+	}
+
+	protected SpanElement createAttachmentItem_fileSizeElement(final AttachmentFile attachment)
+			throws IOException {
+		return new SpanElement("(" + FileUtils.toFileSize(attachment.getSize()) + ")")
+				.setClassName("size");
 	}
 
 	protected LinkElement createAttachmentItem_Btn(final String text) {
@@ -198,13 +229,6 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 			final String id, final AttachmentFile attachment) {
 		return createAttachmentItem_Btn($m("Edit")).setOnclick(
 				"$Actions['" + cp.getComponentName() + "_editWin']('id=" + id + "');");
-	}
-
-	protected LinkElement createAttachmentItem_Topic(final ComponentParameter cp, final String id,
-			final AttachmentFile attachment) {
-		return new LinkElement(attachment.getTopic()).setOnclick(
-				"$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');").addAttribute(
-				"params", "id=" + id);
 	}
 
 	protected boolean showCheckbox() {
