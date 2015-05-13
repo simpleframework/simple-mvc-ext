@@ -157,7 +157,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 
 	@Override
 	protected List<?> getData(final ComponentParameter cp, final int start) {
-		final IDataQuery<?> dataQuery = getRawDataQuery((IDataQuery<?>) cp.getRequestAttr(DATA_QUERY));
+		final IDataQuery<?> dataQuery = getRawDataQuery(getDataObjectQuery(cp));
 		if (dataQuery instanceof DbDataQuery) {
 			doSortSQL(cp, (DbDataQuery<?>) dataQuery);
 		}
