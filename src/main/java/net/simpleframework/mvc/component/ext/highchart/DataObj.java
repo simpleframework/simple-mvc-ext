@@ -19,6 +19,8 @@ public class DataObj implements IDataVal {
 
 	private String color;
 
+	private KVMap attris;
+
 	public DataObj(final String name, final Number y) {
 		this.name = name;
 		this.y = y;
@@ -78,6 +80,13 @@ public class DataObj implements IDataVal {
 		return this;
 	}
 
+	public DataObj addAttribute(final String key, final Object val) {
+		if (attris == null)
+			attris = new KVMap();
+		attris.add(key, val);
+		return this;
+	}
+
 	@Override
 	public Object toVal() {
 		final KVMap kv = new KVMap();
@@ -99,6 +108,9 @@ public class DataObj implements IDataVal {
 		}
 		if ((val = getColor()) != null) {
 			kv.add("color", val);
+		}
+		if (attris != null && attris.size() > 0) {
+			kv.putAll(attris);
 		}
 		return kv;
 	}
