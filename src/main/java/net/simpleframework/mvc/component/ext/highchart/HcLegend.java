@@ -4,6 +4,7 @@ import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.mvc.common.element.ELayout;
 import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.EVerticalAlign;
+import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractHcElement;
 
 /**
  * Licensed under the Apache License, Version 2.0

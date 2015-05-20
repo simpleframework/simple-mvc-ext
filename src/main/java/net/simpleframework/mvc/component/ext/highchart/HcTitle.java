@@ -1,6 +1,6 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
-import net.simpleframework.mvc.component.ext.highchart.AbstractHcText._HcSubtitle;
+import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractHcText._HcSubtitle;
 
 /**
  * Licensed under the Apache License, Version 2.0

@@ -1,6 +1,7 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
 import net.simpleframework.common.coll.KVMap;
+import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractHcElement;
 
 /**
  * Licensed under the Apache License, Version 2.0

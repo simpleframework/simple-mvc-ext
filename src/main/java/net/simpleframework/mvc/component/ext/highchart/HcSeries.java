@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.simpleframework.common.coll.KVMap;
+import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractHcElement;
 import net.simpleframework.mvc.component.ext.highchart.EChart.EHcType;
 
 /**

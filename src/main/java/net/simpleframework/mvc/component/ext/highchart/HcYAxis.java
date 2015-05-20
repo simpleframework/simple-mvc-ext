@@ -1,5 +1,7 @@
 package net.simpleframework.mvc.component.ext.highchart;
 
+import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractAxis;
+
 /**
  * Licensed under the Apache License, Version 2.0
  * 
