@@ -10,7 +10,7 @@ import net.simpleframework.common.coll.KVMap;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class DataObj implements IDataVal {
+public class DataObj extends AbstractHcElement<DataObj> implements IDataVal {
 	private String name;
 
 	private Boolean sliced, selected;
@@ -19,7 +19,9 @@ public class DataObj implements IDataVal {
 
 	private String color;
 
-	private KVMap attris;
+	private HcDataLabels dataLabels;
+
+	private HcMarker marker;
 
 	public DataObj(final String name, final Number y) {
 		this.name = name;
@@ -80,16 +82,27 @@ public class DataObj implements IDataVal {
 		return this;
 	}
 
-	public DataObj addAttribute(final String key, final Object val) {
-		if (attris == null)
-			attris = new KVMap();
-		attris.add(key, val);
+	public HcDataLabels getDataLabels() {
+		return dataLabels;
+	}
+
+	public DataObj setDataLabels(final HcDataLabels dataLabels) {
+		this.dataLabels = dataLabels;
+		return this;
+	}
+
+	public HcMarker getMarker() {
+		return marker;
+	}
+
+	public DataObj setMarker(final HcMarker marker) {
+		this.marker = marker;
 		return this;
 	}
 
 	@Override
 	public Object toVal() {
-		final KVMap kv = new KVMap();
+		final KVMap kv = super.toMap();
 		Object val;
 		if ((val = getName()) != null) {
 			kv.add("name", val);
@@ -109,8 +122,11 @@ public class DataObj implements IDataVal {
 		if ((val = getColor()) != null) {
 			kv.add("color", val);
 		}
-		if (attris != null && attris.size() > 0) {
-			kv.putAll(attris);
+		if ((val = getDataLabels()) != null) {
+			kv.add("dataLabels", val);
+		}
+		if ((val = getMarker()) != null) {
+			kv.add("marker", val);
 		}
 		return kv;
 	}
