@@ -12,8 +12,10 @@ import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractM
  *         http://www.simpleframework.net
  */
 public class HcMarker extends AbstractMarker<HcMarker> {
-
 	private Integer height, width;
+
+	private HcMarkerState hover;
+	private HcMarkerState select;
 
 	public Integer getHeight() {
 		return height;
@@ -33,6 +35,24 @@ public class HcMarker extends AbstractMarker<HcMarker> {
 		return this;
 	}
 
+	public HcMarkerState getHover() {
+		return hover;
+	}
+
+	public HcMarker setHover(final HcMarkerState hover) {
+		this.hover = hover;
+		return this;
+	}
+
+	public HcMarkerState getSelect() {
+		return select;
+	}
+
+	public HcMarker setSelect(final HcMarkerState select) {
+		this.select = select;
+		return this;
+	}
+
 	@Override
 	protected KVMap toMap() {
 		final KVMap kv = super.toMap();
@@ -43,6 +63,54 @@ public class HcMarker extends AbstractMarker<HcMarker> {
 		if ((val = getWidth()) != null) {
 			kv.add("width", val);
 		}
+		final HcMarkerState hover = getHover();
+		final HcMarkerState select = getSelect();
+		if (hover != null || select != null) {
+			final KVMap states = new KVMap();
+			kv.add("states", states);
+			if (hover != null) {
+				states.add("hover", hover);
+			}
+			if (select != null) {
+				states.add("select", select);
+			}
+		}
 		return kv;
+	}
+
+	public static class HcMarkerState extends AbstractMarker<HcMarker> {
+		private Integer lineWidthPlus;
+		private Integer radiusPlus;
+
+		public Integer getLineWidthPlus() {
+			return lineWidthPlus;
+		}
+
+		public HcMarkerState setLineWidthPlus(final Integer lineWidthPlus) {
+			this.lineWidthPlus = lineWidthPlus;
+			return this;
+		}
+
+		public Integer getRadiusPlus() {
+			return radiusPlus;
+		}
+
+		public HcMarkerState setRadiusPlus(final Integer radiusPlus) {
+			this.radiusPlus = radiusPlus;
+			return this;
+		}
+
+		@Override
+		protected KVMap toMap() {
+			final KVMap kv = super.toMap();
+			Object val;
+			if ((val = getLineWidthPlus()) != null) {
+				kv.add("lineWidthPlus", val);
+			}
+			if ((val = getRadiusPlus()) != null) {
+				kv.add("radiusPlus", val);
+			}
+			return kv;
+		}
 	}
 }
