@@ -20,7 +20,6 @@ public class DataObj extends AbstractHcElement<DataObj> implements IDataVal {
 	private String color;
 
 	private HcDataLabels dataLabels;
-
 	private HcMarker marker;
 
 	public DataObj(final String name, final Number y) {
