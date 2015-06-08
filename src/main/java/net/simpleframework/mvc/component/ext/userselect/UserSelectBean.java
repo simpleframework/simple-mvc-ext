@@ -24,7 +24,7 @@ public class UserSelectBean extends DictionaryBean {
 	private boolean showTreeOpt = true;
 
 	/* 缺省模式 */
-	private String vtype = VT_GROUP;
+	private String vtype = VT_LIST;
 
 	public UserSelectBean() {
 		setShowHelpTooltip(false);

@@ -71,7 +71,7 @@ public abstract class UserSelectUtils {
 					.addElements(
 							new Checkbox(cp.getComponentName() + "_check_all",
 									vtTree ? $m("UserSelectUtils.0") : null)
-									.addStyle("vertical-align: baseline;")));
+									.addStyle("vertical-align: middle;")));
 		}
 		return sb.toString();
 	}
