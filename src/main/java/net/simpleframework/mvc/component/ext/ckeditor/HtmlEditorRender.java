@@ -2,7 +2,6 @@ package net.simpleframework.mvc.component.ext.ckeditor;
 
 import java.util.Locale;
 
-import net.simpleframework.common.I18n;
 import net.simpleframework.common.JsonUtils;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.ArrayUtils;
@@ -130,7 +129,7 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 	}
 
 	private String getLanguage() {
-		final Locale l = I18n.getLocale();
+		final Locale l = settings.getLocale();
 		if (l.equals(Locale.SIMPLIFIED_CHINESE)) {
 			return "zh-cn";
 		} else {
