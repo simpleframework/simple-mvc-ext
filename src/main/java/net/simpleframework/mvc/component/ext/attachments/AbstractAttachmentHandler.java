@@ -11,14 +11,18 @@ import java.util.Set;
 
 import net.simpleframework.common.FileUtils;
 import net.simpleframework.common.ID;
+import net.simpleframework.common.ImageUtils;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.web.html.HtmlConst;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
 import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
+import net.simpleframework.mvc.PageParameter;
+import net.simpleframework.mvc.common.ImageCache;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.Checkbox;
+import net.simpleframework.mvc.common.element.ImageElement;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.common.element.SpanElement;
@@ -38,6 +42,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	@Override
 	public void setSwfUploadBean(final ComponentParameter cp, final SwfUploadBean swfUpload) {
 		swfUpload.setFileSizeLimit("10MB").setMultiFileSelected(true);
+		if ((Boolean) cp.getBeanProperty("imagesMode")) {
+			// swfUpload
+			swfUpload.setFileTypes("*.jpg;*.jpeg;*.gif;*.png;*.bmp")
+					.setFileTypesDesc($m("AbstractAttachmentHandler.6"))
+					.setUploadText($m("AbstractAttachmentHandler.7"));
+		}
 	}
 
 	@Override
@@ -142,10 +152,73 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	@Override
 	public String toAttachmentListHTML(final ComponentParameter cp) throws IOException {
 		final StringBuilder sb = new StringBuilder();
+		final boolean imageList = (Boolean) cp.getBeanProperty("imagesMode");
+		if (imageList) {
+			sb.append("<div class='imgc clearfix'>");
+		}
 		for (final Map.Entry<String, AttachmentFile> entry : attachments(cp).entrySet()) {
-			sb.append(toAttachmentItemHTML(cp, entry.getKey(), entry.getValue()));
+			if (imageList) {
+				sb.append(toAttachmentItemImagesHTML(cp, entry.getKey(), entry.getValue()));
+			} else {
+				sb.append(toAttachmentItemHTML(cp, entry.getKey(), entry.getValue()));
+			}
+		}
+		if (imageList) {
+			sb.append("</div>");
 		}
 		return sb.toString();
+	}
+
+	protected String toAttachmentItemImagesHTML(final ComponentParameter cp, final String id,
+			final AttachmentFile attachment) throws IOException {
+		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<div class='iitem");
+		if (!readonly) {
+			appendStatusClass(cp, id, sb);
+		}
+		sb.append("'>");
+		sb.append(" <div class='i_attach'>");
+		sb.append(createAttachmentItem_Image(cp, id, attachment));
+		sb.append(" </div>");
+		sb.append(createAttachmentItem_Image_Btns(cp, id, attachment, readonly));
+		sb.append("</div>");
+		return sb.toString();
+	}
+
+	protected ImageElement createAttachmentItem_Image(final PageParameter pp, final String id,
+			final AttachmentFile attachmentFile) {
+		final ImageElement image = new ImageElement();
+		try {
+			final File iFile = attachmentFile.getAttachment();
+			if (ImageUtils.isImage(iFile)) {
+				return image.setSrc(new ImageCache().getPath(pp, attachmentFile));
+			}
+		} catch (final IOException e) {
+			getLog().warn(e);
+		}
+		return image;
+	}
+
+	protected String createAttachmentItem_Image_Btns(final ComponentParameter cp, final String id,
+			final AttachmentFile attachment, final boolean readonly) throws IOException {
+		final StringBuilder sb = new StringBuilder();
+		if (!readonly) {
+			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
+		}
+		return sb.toString();
+	}
+
+	private void appendStatusClass(final ComponentParameter cp, final String id,
+			final StringBuilder sb) {
+		if (getUploadCache(cp).containsKey(id)) {
+			sb.append(" l_add' title='").append($m("DefaultAttachmentHandle.0"));
+		} else {
+			final Set<String> deleteQueue = getDeleteCache(cp);
+			if (deleteQueue != null && deleteQueue.contains(id)) {
+				sb.append(" l_delete' title='").append($m("DefaultAttachmentHandle.1"));
+			}
+		}
 	}
 
 	protected String toAttachmentItemHTML(final ComponentParameter cp, final String id,
@@ -155,14 +228,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		sb.append("<div class='l_attach");
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		if (!readonly) {
-			if (getUploadCache(cp).containsKey(id)) {
-				sb.append(" l_add' title='").append($m("DefaultAttachmentHandle.0"));
-			} else {
-				final Set<String> deleteQueue = getDeleteCache(cp);
-				if (deleteQueue != null && deleteQueue.contains(id)) {
-					sb.append(" l_delete' title='").append($m("DefaultAttachmentHandle.1"));
-				}
-			}
+			appendStatusClass(cp, id, sb);
 		}
 		sb.append("'>");
 		// btns
