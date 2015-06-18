@@ -54,7 +54,8 @@ public class AttachmentLoaded extends DefaultPageHandler {
 		if (!readonly) {
 			swfUpload = (SwfUploadBean) pp
 					.addComponentBean(attachmentName + "_swfUpload", SwfUploadBean.class)
-					.setJsCompleteCallback("$Actions['" + attachmentName + "_list']();")
+					.setJsCompleteCallback(
+							"if (!hasQueued) { $Actions['" + attachmentName + "_list'](); }")
 					.setContainerId("attachment_" + attachmentBean.hashId())
 					.setHandlerClass(SwfUploadAction.class).setAttr("$attachment", attachmentBean);
 			((IAttachmentHandler) cp.getComponentHandler()).setSwfUploadBean(cp, swfUpload);
