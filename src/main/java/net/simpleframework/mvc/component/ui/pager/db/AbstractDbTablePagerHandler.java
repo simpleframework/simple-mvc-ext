@@ -122,7 +122,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 			sb.insert(0, "(");
 			sb.append(")");
 		}
-		return new ExpressionValue(sb.toString(), params.toArray());
+		return new ExpressionValue(sb, params.toArray());
 	}
 
 	protected String filterItemExpr(final FilterItem item, final Collection<Object> params) {
