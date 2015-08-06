@@ -284,7 +284,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	}
 
 	protected LinkElement createAttachmentItem_Btn(final String text) {
-		return new LinkElement().setClassName("simple_btn2").addStyle("float: right;").setText(text);
+		return LinkElement.style2(text).addStyle("float: right;");
 	}
 
 	protected AbstractElement<?> createAttachmentItem_DelBtn(final ComponentParameter cp,
