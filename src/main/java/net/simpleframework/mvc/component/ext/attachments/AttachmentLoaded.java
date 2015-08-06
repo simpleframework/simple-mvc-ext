@@ -17,6 +17,7 @@ import net.simpleframework.mvc.TextForward;
 import net.simpleframework.mvc.common.DownloadUtils;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.EElementEvent;
+import net.simpleframework.mvc.common.element.JS;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
@@ -183,8 +184,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final IAttachmentHandler handler = (IAttachmentHandler) nCP.getComponentHandler();
 			final AttachmentFile af = handler.getAttachmentById(nCP, nCP.getParameter("id"));
 			if (af != null) {
-				js.append("$Actions.loc('")
-						.append(DownloadUtils.getDownloadHref(af, handler.getClass())).append("');");
+				js.append(JS.loc(DownloadUtils.getDownloadHref(af, handler.getClass())));
 			} else {
 				js.append("alert(\"").append($m("AttachmentLoaded.0")).append("\");");
 			}
