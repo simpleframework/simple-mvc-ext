@@ -15,6 +15,7 @@ import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
+import net.simpleframework.mvc.component.ext.userselect.IUserSelectHandler.DepartmentW;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryTreeHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.EPagerBarLayout;

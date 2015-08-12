@@ -1,9 +1,12 @@
 package net.simpleframework.mvc.component.ext.userselect;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.BeanUtils;
+import net.simpleframework.common.ID;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.dictionary.IDictionaryHandle;
 
@@ -49,4 +52,65 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @return
 	 */
 	Collection<DepartmentW> getDepartmentWrappers(ComponentParameter cp);
+
+	public static class DepartmentW {
+		@SuppressWarnings("rawtypes")
+		private Collection users;
+
+		private Collection<DepartmentW> children;
+
+		private final ID id;
+
+		private final Object dept;
+
+		public DepartmentW(final Object dept) {
+			this((ID) BeanUtils.getProperty(dept, "id"), dept);
+		}
+
+		public DepartmentW(final ID id, final Object dept) {
+			this.id = id;
+			this.dept = dept;
+		}
+
+		public ID getId() {
+			return id;
+		}
+
+		public Object getDept() {
+			return dept;
+		}
+
+		public Collection<DepartmentW> getChildren() {
+			if (children == null) {
+				children = new ArrayList<DepartmentW>();
+			}
+			return children;
+		}
+
+		@SuppressWarnings("rawtypes")
+		public Collection getUsers() {
+			if (users == null) {
+				users = new ArrayList();
+			}
+			return users;
+		}
+
+		public boolean hasUser() {
+			if (getUsers().size() > 0) {
+				return true;
+			}
+			for (final DepartmentW wrapper : getChildren()) {
+				if (wrapper.hasUser()) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public String toString() {
+			return dept.toString();
+		}
+	}
+
 }
