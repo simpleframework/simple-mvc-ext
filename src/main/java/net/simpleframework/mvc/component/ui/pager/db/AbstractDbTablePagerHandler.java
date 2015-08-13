@@ -11,9 +11,6 @@ import java.util.Map;
 import net.simpleframework.ado.ColumnData;
 import net.simpleframework.ado.EFilterRelation;
 import net.simpleframework.ado.FilterItem;
-import net.simpleframework.ado.bean.IIdBeanAware;
-import net.simpleframework.ado.bean.ITextBeanAware;
-import net.simpleframework.ado.bean.ITreeBeanAware;
 import net.simpleframework.ado.db.DbDataQuery;
 import net.simpleframework.ado.db.DbDataQuery.ResultSetMetaDataCallback;
 import net.simpleframework.ado.db.DbTableColumn;
@@ -23,9 +20,6 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.Convert;
 import net.simpleframework.mvc.common.element.ETextAlign;
-import net.simpleframework.mvc.common.element.ElementList;
-import net.simpleframework.mvc.common.element.LabelElement;
-import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
@@ -162,60 +156,5 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 			doSortSQL(cp, (DbDataQuery<?>) dataQuery);
 		}
 		return super.getData(cp, start);
-	}
-
-	protected <T extends ITreeBeanAware> ElementList doNavigationTitle(final ComponentParameter cp,
-			final T category, final NavigationTitleCallback<T> callback) {
-		final ElementList eles = new ElementList();
-		if (category != null) {
-			final String componentTable = cp.getComponentName();
-			eles.add(new LinkElement(callback.rootText()).setOnclick(callback.onclick(componentTable,
-					"")));
-			T category2 = category;
-			final ArrayList<T> al = new ArrayList<T>();
-			while (category2 != null) {
-				al.add(0, category2);
-				category2 = callback.get(category2.getParentId());
-			}
-			int size;
-			for (int i = 0; i < (size = al.size()); i++) {
-				category2 = al.get(i);
-				if (callback.isLink(category2) && i < size - 1) {
-					eles.add(new LinkElement(category2).setOnclick(callback.onclick(componentTable,
-							((IIdBeanAware) category2).getId())));
-				} else {
-					eles.add(new LabelElement(callback.getText(category2)));
-				}
-			}
-		} else {
-			eles.add(new LabelElement(callback.rootText()));
-		}
-		return eles;
-	}
-
-	protected static abstract class NavigationTitleCallback<T> {
-
-		protected abstract String rootText();
-
-		protected abstract T get(Object id);
-
-		protected String categoryIdKey() {
-			return "categoryId";
-		}
-
-		protected String onclick(final String componentTable, final Object categoryId) {
-			final StringBuilder sb = new StringBuilder();
-			sb.append("$Actions['").append(componentTable).append("']('").append(categoryIdKey())
-					.append("=").append(categoryId).append("');");
-			return sb.toString();
-		}
-
-		protected boolean isLink(final T t) {
-			return true;
-		}
-
-		protected String getText(final T t) {
-			return t instanceof ITextBeanAware ? ((ITextBeanAware) t).getText() : t.toString();
-		}
 	}
 }
