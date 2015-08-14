@@ -240,8 +240,8 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 		final String selector = (String) cp.getBeanProperty("selector");
 		final DictionaryBean dictionary = (DictionaryBean) cp
 				.addComponentBean(categoryName + "_dict", DictionaryBean.class)
-				.setBindingId("category_parentId").setBindingText("category_parentText")
-				.setTitle($m("category_edit.2")).setSelector(selector);
+				.setBindingId("category_parentId").setBindingText("category_parentText").setHeight(330)
+				.setWidth(270).setTitle($m("category_edit.2")).setSelector(selector);
 		dictionary.addTreeRef(cp, categoryName + "_dict_tree");
 		return dictionary;
 	}
