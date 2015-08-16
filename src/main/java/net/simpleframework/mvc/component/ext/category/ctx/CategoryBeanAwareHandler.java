@@ -2,6 +2,7 @@ package net.simpleframework.mvc.component.ext.category.ctx;
 
 import static net.simpleframework.common.I18n.$m;
 
+import java.lang.reflect.Array;
 import java.util.Map;
 
 import net.simpleframework.ado.ADOException;
@@ -49,13 +50,15 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 	@SuppressWarnings("unchecked")
 	@Override
 	public JavascriptForward onCategoryMove(final ComponentParameter cp, final TreeBean treeBean,
-			final Object form, final Object to, final boolean up) {
-		final JavascriptForward js = super.onCategoryMove(cp, treeBean, form, to, up);
+			final Object[] beans) {
+		final JavascriptForward js = super.onCategoryMove(cp, treeBean, beans);
 		final IDbBeanService<T> mgr = getBeanService();
 		mgr.getEntityManager().doExecuteTransaction(new TransactionVoidCallback() {
 			@Override
 			protected void doTransactionVoidCallback() throws ADOException {
-				mgr.exchange((T) form, (T) to, up);
+				final T[] arr = (T[]) Array.newInstance(mgr.getBeanClass(), beans.length);
+				System.arraycopy(beans, 0, arr, 0, beans.length);
+				mgr.exchange(arr);
 			}
 		});
 		return js;

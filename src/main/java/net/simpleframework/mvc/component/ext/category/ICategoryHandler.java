@@ -50,15 +50,12 @@ public interface ICategoryHandler extends IComponentHandler {
 	/**
 	 * 在类目的同一层次上下移动
 	 * 
-	 * @param cParameter
+	 * @param cp
 	 * @param treeBean
-	 * @param form
-	 * @param to
-	 * @param up
+	 * @param beans
 	 * @return
 	 */
-	JavascriptForward onCategoryMove(ComponentParameter cp, TreeBean treeBean, Object form,
-			Object to, boolean up);
+	JavascriptForward onCategoryMove(ComponentParameter cp, TreeBean treeBean, Object[] beans);
 
 	/**
 	 * 树节点的拖放逻辑

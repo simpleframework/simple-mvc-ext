@@ -155,7 +155,7 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 
 	@Override
 	public JavascriptForward onCategoryMove(final ComponentParameter cp, final TreeBean treeBean,
-			final Object form, final Object to, final boolean up) {
+			final Object[] beans) {
 		return refreshTree(cp);
 	}
 
