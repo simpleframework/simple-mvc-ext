@@ -34,7 +34,7 @@ public abstract class NavigationTitle {
 			}
 			int size;
 			for (int i = 0; i < (size = al.size()); i++) {
-				eles.add(SpanElement.NAV);
+				eles.add(SpanElement.NAV());
 				category2 = al.get(i);
 				if (callback.isLink(category2) && i < size - 1) {
 					eles.add(new LinkElement(category2).setOnclick(callback

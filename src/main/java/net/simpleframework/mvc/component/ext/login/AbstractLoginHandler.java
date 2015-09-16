@@ -39,7 +39,7 @@ public abstract class AbstractLoginHandler extends AbstractComponentHandler impl
 			sb2.append("<a onclick=\"$Actions['getPasswordWindow']();\">#(login.2)</a>");
 			al.add(sb2.toString());
 		}
-		sb.append(StringUtils.join(al, SpanElement.SEP.toString()));
+		sb.append(StringUtils.join(al, SpanElement.SEP().toString()));
 		sb.append("</td>");
 		sb.append("</tr></table>");
 		return sb.toString();
