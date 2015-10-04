@@ -8,7 +8,6 @@ import net.simpleframework.ado.bean.IIdBeanAware;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.th.NotImplementedException;
-import net.simpleframework.mvc.AbstractMVCPage;
 import net.simpleframework.mvc.IPageHandler.PageSelector;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.common.element.EElementEvent;
@@ -268,9 +267,8 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 
 	// utils
 
-	protected String getImgBase(final ComponentParameter cp,
-			final Class<? extends AbstractMVCPage> pageClass) {
-		return AbstractMVCPage.get(pageClass).getCssResourceHomePath(cp) + "/images/";
+	protected String getImgBase(final ComponentParameter cp, final Class<?> iClass) {
+		return cp.getCssResourceHomePath(iClass) + "/images/";
 	}
 
 	@Override
