@@ -1,6 +1,5 @@
 package net.simpleframework.mvc.component.ext.attachments;
 
-import java.io.IOException;
 import java.util.Map;
 
 import net.simpleframework.common.ID;
@@ -35,7 +34,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cParameter
 	 * @return
 	 */
-	Map<String, AttachmentFile> attachments(ComponentParameter cp) throws IOException;
+	Map<String, AttachmentFile> attachments(ComponentParameter cp) throws Exception;
 
 	/**
 	 * 根据id获取AttachmentFile对象
@@ -43,9 +42,9 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cParameter
 	 * @param id
 	 * @return
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	AttachmentFile getAttachmentById(ComponentParameter cp, String id) throws IOException;
+	AttachmentFile getAttachmentById(ComponentParameter cp, String id) throws Exception;
 
 	/**
 	 * 上传执行操作
@@ -55,7 +54,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param variables
 	 */
 	void upload(ComponentParameter cp, IMultipartFile multipartFile, Map<String, Object> variables)
-			throws IOException;
+			throws Exception;
 
 	/**
 	 * 插入附件
@@ -64,7 +63,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param callback
 	 */
 	JavascriptForward doSave(ComponentParameter cp, IAttachmentSaveCallback callback)
-			throws IOException;
+			throws Exception;
 
 	/**
 	 * 更改标题
@@ -74,8 +73,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param topic
 	 * @param description
 	 */
-	void doSave(ComponentParameter cp, String id, String topic, String description)
-			throws IOException;
+	void doSave(ComponentParameter cp, String id, String topic, String description) throws Exception;
 
 	/**
 	 * 删除上传的附件
@@ -94,7 +92,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @return
 	 */
 	AbstractElement<?> getDownloadLink(ComponentParameter cp, AttachmentFile attachmentFile,
-			String id) throws IOException;
+			String id) throws Exception;
 
 	/**
 	 * 设置上传组件的属性
@@ -110,7 +108,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cParameter
 	 * @return
 	 */
-	String toAttachmentListHTML(ComponentParameter cp) throws IOException;
+	String toAttachmentListHTML(ComponentParameter cp) throws Exception;
 
 	/**
 	 * 获取插入操作的HTML

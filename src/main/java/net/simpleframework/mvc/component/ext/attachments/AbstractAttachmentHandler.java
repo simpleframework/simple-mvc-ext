@@ -68,7 +68,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@Override
 	public JavascriptForward doSave(final ComponentParameter cp,
-			final IAttachmentSaveCallback callback) throws IOException {
+			final IAttachmentSaveCallback callback) throws Exception {
 		if (callback != null) {
 			callback.save(getUploadCache(cp), getDeleteCache(cp));
 		}
@@ -87,7 +87,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@Override
 	public void doSave(final ComponentParameter cp, final String id, final String topic,
-			final String description) throws IOException {
+			final String description) throws Exception {
 		final AttachmentFile af = getAttachmentById(cp, id);
 		if (af != null) {
 			af.setTopic(topic);

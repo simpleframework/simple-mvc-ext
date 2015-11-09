@@ -1,6 +1,5 @@
 package net.simpleframework.mvc.component.ext.attachments;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,5 +18,5 @@ public interface IAttachmentSaveCallback {
 	 * @param addQueue
 	 * @param deleteQueue
 	 */
-	void save(Map<String, AttachmentFile> addQueue, Set<String> deleteQueue) throws IOException;
+	void save(Map<String, AttachmentFile> addQueue, Set<String> deleteQueue) throws Exception;
 }

@@ -1,7 +1,5 @@
 package net.simpleframework.mvc.component.ext.attachments;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,12 +27,12 @@ public abstract class AttachmentUtils {
 	}
 
 	public static void doSave(final ComponentParameter cp, final IAttachmentSaveCallback callback)
-			throws IOException {
+			throws Exception {
 		((IAttachmentHandler) cp.getComponentHandler()).doSave(cp, callback);
 	}
 
 	public static String toAttachmentHTML(final HttpServletRequest request,
-			final HttpServletResponse response) throws IOException {
+			final HttpServletResponse response) throws Exception {
 		final ComponentParameter cp = AttachmentUtils.get(request, response);
 		final String beanId = cp.hashId();
 		final IAttachmentHandler aHandle = (IAttachmentHandler) cp.getComponentHandler();

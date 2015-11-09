@@ -2,7 +2,6 @@ package net.simpleframework.mvc.component.ext.attachments;
 
 import static net.simpleframework.common.I18n.$m;
 
-import java.io.IOException;
 import java.util.Map;
 
 import net.simpleframework.common.StringUtils;
@@ -139,7 +138,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 		@Override
 		public void upload(final ComponentParameter cp, final IMultipartFile multipartFile,
-				final Map<String, Object> variables) throws IOException {
+				final Map<String, Object> variables) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			((IAttachmentHandler) nCP.getComponentHandler()).upload(nCP, multipartFile, variables);
 		}
@@ -172,13 +171,13 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			return new JavascriptForward("$Actions['" + attachmentName + "_list']();");
 		}
 
-		public IForward doList(final ComponentParameter cp) throws IOException {
+		public IForward doList(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			return new TextForward(
 					((IAttachmentHandler) nCP.getComponentHandler()).toAttachmentListHTML(nCP));
 		}
 
-		public IForward doDownload(final ComponentParameter cp) throws IOException {
+		public IForward doDownload(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final JavascriptForward js = new JavascriptForward();
 			final IAttachmentHandler handler = (IAttachmentHandler) nCP.getComponentHandler();
@@ -191,7 +190,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			return js;
 		}
 
-		public IForward doSelect(final ComponentParameter cp) throws IOException {
+		public IForward doSelect(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final JavascriptForward js = new JavascriptForward();
 			final StringBuilder sb = new StringBuilder();
@@ -217,7 +216,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			return js;
 		}
 
-		public IForward doSubmit(final ComponentParameter cp) throws IOException {
+		public IForward doSubmit(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			return ((IAttachmentHandler) nCP.getComponentHandler()).doSave(nCP, null);
 		}
