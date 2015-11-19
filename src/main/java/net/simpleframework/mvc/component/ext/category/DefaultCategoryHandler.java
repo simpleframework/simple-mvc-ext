@@ -63,14 +63,21 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 			final TreeNodes nodes = TreeNodes.of();
 			Object bean;
 			while ((bean = dq.next()) != null) {
-				final TreeNode treeNode = new TreeNode(treeBean, parent, bean);
-				treeNode.setDraggable(draggable);
-				treeNode.setAcceptdrop(draggable);
-				nodes.add(treeNode);
+				final TreeNode treeNode = createTreeNode(cp, treeBean, parent, bean);
+				if (treeNode != null) {
+					treeNode.setDraggable(draggable);
+					treeNode.setAcceptdrop(draggable);
+					nodes.add(treeNode);
+				}
 			}
 			return nodes;
 		}
 		return null;
+	}
+
+	protected TreeNode createTreeNode(final ComponentParameter cp, final TreeBean treeBean,
+			final TreeNode parent, final Object bean) {
+		return new TreeNode(treeBean, parent, bean);
 	}
 
 	@Override

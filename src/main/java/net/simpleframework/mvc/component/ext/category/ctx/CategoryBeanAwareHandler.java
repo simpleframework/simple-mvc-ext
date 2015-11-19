@@ -103,8 +103,8 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 				parent = mgr.getBean(((ITreeBeanAware) t).getParentId());
 			}
 		}
-		if (parent == null && mgr instanceof ITreeBeanServiceAware) {
-			parent = mgr.getBean(cp.getParameter(PARAM_CATEGORY_PARENTID));
+		if (parent == null) {
+			parent = getParent_onLoaded(cp);
 		}
 		if (parent != null) {
 			dataBinding.put(PARAM_CATEGORY_PARENTID, parent.getId());
@@ -113,6 +113,14 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 			}
 		}
 		onLoaded_dataBinding(cp, dataBinding, selector, t);
+	}
+
+	protected T getParent_onLoaded(final ComponentParameter cp) {
+		final IDbBeanService<T> mgr = getBeanService();
+		if (mgr instanceof ITreeBeanServiceAware) {
+			return mgr.getBean(cp.getParameter(PARAM_CATEGORY_PARENTID));
+		}
+		return null;
 	}
 
 	protected void onLoaded_dataBinding(final ComponentParameter cp,
