@@ -76,7 +76,7 @@ public class CategoryRegistry extends AbstractComponentRegistry {
 				} else if (beanProperty.equals("width")) {
 					return Convert.toInt(attri.get(ICategoryHandler.window_width), 340);
 				} else {
-					return Convert.toBool(attri.get(ICategoryHandler.window_resizable), false);
+					return Convert.toBool(attri.get(ICategoryHandler.window_resizable), true);
 				}
 			}
 			return super.getBeanProperty(cp, beanProperty);
