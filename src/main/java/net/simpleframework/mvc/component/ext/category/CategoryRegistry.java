@@ -72,11 +72,11 @@ public class CategoryRegistry extends AbstractComponentRegistry {
 					return Convert.toString(attri.get(ICategoryHandler.window_title),
 							$m("CategoryRegistry.0"));
 				} else if (beanProperty.equals("height")) {
-					return Convert.toInt(attri.get(ICategoryHandler.window_height), 280);
+					return Convert.toInt(attri.get(ICategoryHandler.window_height), 270);
 				} else if (beanProperty.equals("width")) {
 					return Convert.toInt(attri.get(ICategoryHandler.window_width), 340);
 				} else {
-					return Convert.toBool(attri.get(ICategoryHandler.window_resizable), true);
+					return Convert.toBool(attri.get(ICategoryHandler.window_resizable), false);
 				}
 			}
 			return super.getBeanProperty(cp, beanProperty);

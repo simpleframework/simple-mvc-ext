@@ -1,6 +1,5 @@
 .CategoryEdit .formeditor {
-  border: 0;
-  border-bottom: 1px solid #bbb;
+  border-width: 0 0 1px 0;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -11,6 +10,8 @@
 }
 
 .CategoryEdit .b {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 8px;
   text-align: right;
-  margin: 6px 6px 0 0;
 }

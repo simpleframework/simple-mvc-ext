@@ -205,16 +205,16 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 		final PropEditorBean propEditor = (PropEditorBean) cp.addComponentBean(
 				categoryName + "_propEditor", PropEditorBean.class).setContainerId(
 				"idCategoryForm_" + category.hashId());
-		final PropField f1 = new PropField($m("category_edit.0")).addComponents(new InputComp(
-				"category_id").setType(EInputCompType.hidden), new InputComp("category_text"));
+		final PropField f1 = new PropField($m("category_edit.0")).addComponents(
+				InputComp.hidden("category_id"), new InputComp("category_text"));
 		final PropField f2 = new PropField($m("category_edit.1")).addComponents(new InputComp(
 				"category_name"));
-		final PropField f3 = new PropField($m("category_edit.2")).addComponents(new InputComp(
-				"category_parentId").setType(EInputCompType.hidden), new InputComp(
-				"category_parentText").setType(EInputCompType.textButton).setAttributes("readonly")
-				.addEvent(EElementEvent.click, "$Actions['" + categoryName + "_dict']();"));
+		final PropField f3 = new PropField($m("category_edit.2")).addComponents(
+				InputComp.hidden("category_parentId"),
+				InputComp.textButton("category_parentText").setAttributes("readonly")
+						.addEvent(EElementEvent.click, "$Actions['" + categoryName + "_dict']();"));
 		final PropField f4 = new PropField($m("Description")).addComponents(new InputComp(
-				"category_description").setType(EInputCompType.textarea).setAttributes("rows:6"));
+				"category_description").setType(EInputCompType.textarea).setAttributes("rows:5"));
 		propEditor.getFormFields().append(f1, f2, f3, f4);
 
 		return propEditor;
