@@ -53,9 +53,25 @@ public abstract class NavigationTitle {
 
 		protected abstract T get(Object id);
 
-		protected abstract String getRootText();
+		private String componentTable;
 
-		protected abstract String getComponentTable();
+		private String rootText;
+
+		public NavigationTitleCallback(final String rootText, final String componentTableName) {
+			this.rootText = rootText;
+			this.componentTable = componentTableName;
+		}
+
+		public NavigationTitleCallback() {
+		}
+
+		protected String getComponentTable() {
+			return componentTable;
+		}
+
+		protected String getRootText() {
+			return rootText;
+		}
 
 		protected String getCategoryIdKey() {
 			return "categoryId";
