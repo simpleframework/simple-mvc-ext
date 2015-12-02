@@ -1,6 +1,6 @@
 .Comp_Comment .t1_head {
   background: #f9f9f9;
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
   padding: 0 8px;
 }
 
@@ -104,7 +104,7 @@
 }
   
 .Comp_Comment .t1_comments {
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
   background: #fefefe;
   margin-top: -1px;
 }
