@@ -87,8 +87,8 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 	}
 
 	protected String[] getContextMenuKeys() {
-		return new String[] { "Add", "Edit", "Delete", "-", "Refresh", "-", "Move", "-", "Expand",
-				"Collapse" };
+		return new String[] { "Add", "Edit", "Delete", "-", "Refresh", "-", "Move.up", "Move.up2",
+				"Move.down", "Move.down2", "-", "Expand", "Collapse" };
 	}
 
 	protected KVMap createContextMenuItems() {
@@ -99,21 +99,18 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 				.add("Refresh",
 						MenuItem.of($m("Refresh"), MenuItem.ICON_REFRESH,
 								"$category_action(item).refresh();"))
-				.add("Move",
-						MenuItem
-								.of($m("Menu.move"))
-								.addChild(
-										MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
-												"$category_action(item).move(true, false);"))
-								.addChild(
-										MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
-												"$category_action(item).move(true, true);"))
-								.addChild(
-										MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
-												"$category_action(item).move(false, false);"))
-								.addChild(
-										MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
-												"$category_action(item).move(false, true);")))
+				.add("Move.up",
+						MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
+								"$category_action(item).move(true, false);"))
+				.add("Move.up2",
+						MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
+								"$category_action(item).move(true, true);"))
+				.add("Move.down",
+						MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
+								"$category_action(item).move(false, false);"))
+				.add("Move.down2",
+						MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
+								"$category_action(item).move(false, true);"))
 				.add("Expand",
 						MenuItem.of($m("Tree.expand"), MenuItem.ICON_EXPAND,
 								"$category_action(item).expand();"))
