@@ -51,23 +51,23 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @param cp
 	 * @return
 	 */
-	Collection<DepartmentW> getDepartmentWrappers(ComponentParameter cp);
+	Collection<DepartmentMemory> getDepartments(ComponentParameter cp);
 
-	public static class DepartmentW {
+	public static class DepartmentMemory {
 		@SuppressWarnings("rawtypes")
 		private Collection users;
 
-		private Collection<DepartmentW> children;
+		private Collection<DepartmentMemory> children;
 
 		private final ID id;
 
 		private final Object dept;
 
-		public DepartmentW(final Object dept) {
+		public DepartmentMemory(final Object dept) {
 			this((ID) BeanUtils.getProperty(dept, "id"), dept);
 		}
 
-		public DepartmentW(final ID id, final Object dept) {
+		public DepartmentMemory(final ID id, final Object dept) {
 			this.id = id;
 			this.dept = dept;
 		}
@@ -80,9 +80,9 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 			return dept;
 		}
 
-		public Collection<DepartmentW> getChildren() {
+		public Collection<DepartmentMemory> getChildren() {
 			if (children == null) {
-				children = new ArrayList<DepartmentW>();
+				children = new ArrayList<DepartmentMemory>();
 			}
 			return children;
 		}
@@ -99,7 +99,7 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 			if (getUsers().size() > 0) {
 				return true;
 			}
-			for (final DepartmentW wrapper : getChildren()) {
+			for (final DepartmentMemory wrapper : getChildren()) {
 				if (wrapper.hasUser()) {
 					return true;
 				}

@@ -15,7 +15,7 @@ import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
-import net.simpleframework.mvc.component.ext.userselect.IUserSelectHandler.DepartmentW;
+import net.simpleframework.mvc.component.ext.userselect.IUserSelectHandler.DepartmentMemory;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryTreeHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.EPagerBarLayout;
@@ -155,7 +155,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		}
 	}
 
-	private static final String REQUEST_WRAPPERS = "UserSelectLoaded_wrappers";
+	private static final String REQUEST_DEPARTMENTS = "UserSelectLoaded_departments";
 
 	public static class UserTree extends DictionaryTreeHandler {
 
@@ -167,22 +167,23 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			return super.getBeanProperty(cp, beanProperty);
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public TreeNodes getTreenodes(final ComponentParameter cp, final TreeNode parent) {
 			final ComponentParameter nCP = UserSelectUtils.get(cp);
 			final IUserSelectHandler uHandler = (IUserSelectHandler) nCP.getComponentHandler();
-			Collection<DepartmentW> wrappers = (Collection<DepartmentW>) cp
-					.getRequestAttr(REQUEST_WRAPPERS);
-			if (wrappers == null) {
-				cp.setRequestAttr(REQUEST_WRAPPERS, wrappers = uHandler.getDepartmentWrappers(nCP));
-			}
+			final Collection<DepartmentMemory> wrappers = nCP.getRequestCache(REQUEST_DEPARTMENTS,
+					new CacheV<Collection<DepartmentMemory>>() {
+						@Override
+						public Collection<DepartmentMemory> get() {
+							return uHandler.getDepartments(nCP);
+						}
+					});
 
 			final String userSelectName = nCP.getComponentName();
 			final TreeBean treeBean = (TreeBean) cp.componentBean;
 			final TreeNodes nodes = TreeNodes.of();
 			if (parent == null) {
-				for (final DepartmentW wrapper : wrappers) {
+				for (final DepartmentMemory wrapper : wrappers) {
 					if (!wrapper.hasUser()) {
 						continue;
 					}
@@ -196,15 +197,15 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				final Object data = parent.getDataObject();
 				final String imgPath = ComponentUtils.getCssResourceHomePath(cp, UserSelectBean.class)
 						+ "/images/";
-				if (data instanceof DepartmentW) {
-					final DepartmentW wrapper = (DepartmentW) data;
+				if (data instanceof DepartmentMemory) {
+					final DepartmentMemory wrapper = (DepartmentMemory) data;
 					for (final Object o : wrapper.getUsers()) {
 						final TreeNode tn = new TreeNode(treeBean, o);
 						tn.setImage(imgPath + "users.png");
 						tn.setJsDblclickCallback("$Actions['" + userSelectName + "'].doDblclick(branch);");
 						nodes.add(tn);
 					}
-					for (final DepartmentW w2 : wrapper.getChildren()) {
+					for (final DepartmentMemory w2 : wrapper.getChildren()) {
 						if (!w2.hasUser()) {
 							continue;
 						}
