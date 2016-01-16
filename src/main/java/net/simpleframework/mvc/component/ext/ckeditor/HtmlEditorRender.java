@@ -129,7 +129,7 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 	}
 
 	private String getLanguage() {
-		final Locale l = settings.getLocale();
+		final Locale l = mvcSettings.getLocale();
 		if (l.equals(Locale.SIMPLIFIED_CHINESE)) {
 			return "zh-cn";
 		} else {
