@@ -2,11 +2,13 @@ package net.simpleframework.mvc.component.ext.userselect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.ID;
+import net.simpleframework.ctx.permission.PermissionDept;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.dictionary.IDictionaryHandle;
@@ -34,7 +36,9 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @param departments
 	 * @return
 	 */
-	Collection<Object> doSort(ComponentParameter cp, Set<Object> groups);
+	List<Object> doSort(ComponentParameter cp, Set<Object> groups);
+
+	List<PermissionDept> getDepartmentChildren(ComponentParameter cp, PermissionDept dept);
 
 	/**
 	 * 获取部门用户

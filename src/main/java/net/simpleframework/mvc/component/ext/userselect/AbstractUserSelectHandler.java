@@ -1,9 +1,9 @@
 package net.simpleframework.mvc.component.ext.userselect;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,7 +38,17 @@ public abstract class AbstractUserSelectHandler extends AbstractDictionaryHandle
 	}
 
 	@Override
-	public Collection<Object> doSort(final ComponentParameter cp, final Set<Object> groups) {
+	public List<PermissionDept> getDepartmentChildren(final ComponentParameter cp,
+			final PermissionDept dept) {
+		if (dept == null) {
+			return cp.getPermission().getRootChildren();
+		} else {
+			return dept.getChildren();
+		}
+	}
+
+	@Override
+	public List<Object> doSort(final ComponentParameter cp, final Set<Object> groups) {
 		final ArrayList<Object> _groups = new ArrayList<Object>(groups);
 		Collections.sort(_groups, new Comparator<Object>() {
 			@Override

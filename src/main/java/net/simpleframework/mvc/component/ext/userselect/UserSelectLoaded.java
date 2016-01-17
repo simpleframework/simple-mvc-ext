@@ -3,6 +3,8 @@ package net.simpleframework.mvc.component.ext.userselect;
 import static net.simpleframework.common.I18n.$m;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
@@ -17,7 +19,6 @@ import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
-import net.simpleframework.mvc.component.ext.userselect.IUserSelectHandler.DepartmentMemory;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryTreeHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.EPagerBarLayout;
@@ -171,24 +172,24 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		public TreeNodes getTreenodes(final ComponentParameter cp, final TreeNode parent) {
 			final ComponentParameter nCP = UserSelectUtils.get(cp);
 			final IUserSelectHandler uHandler = (IUserSelectHandler) nCP.getComponentHandler();
-			final Collection<DepartmentMemory> wrappers = nCP.getRequestCache(REQUEST_DEPARTMENTS,
-					new CacheV<Collection<DepartmentMemory>>() {
+			final List<PermissionDept> depts = nCP.getRequestCache(REQUEST_DEPARTMENTS,
+					new CacheV<List<PermissionDept>>() {
 						@Override
-						public Collection<DepartmentMemory> get() {
-							return uHandler.getDepartments(nCP);
+						public List<PermissionDept> get() {
+							return uHandler.getDepartmentChildren(nCP, null);
 						}
 					});
-
 			final String userSelectName = nCP.getComponentName();
 			final TreeBean treeBean = (TreeBean) cp.componentBean;
 			final TreeNodes nodes = TreeNodes.of();
 			if (parent == null) {
-				for (final DepartmentMemory wrapper : wrappers) {
-					if (!wrapper.hasUser()) {
+				for (final PermissionDept dept : depts) {
+					final int count = dept.getUserCount();
+					if (count == 0) {
 						continue;
 					}
-					final TreeNode tn = new TreeNode(treeBean, wrapper);
-					tn.setPostfixText(new SupElement(wrapper.getUsers().size()).toString());
+					final TreeNode tn = new TreeNode(treeBean, dept);
+					tn.setPostfixText(new SupElement(count).toString());
 					tn.setOpened(true);
 					tn.setCheckbox(false);
 					nodes.add(tn);
@@ -197,20 +198,23 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				final Object data = parent.getDataObject();
 				final String imgPath = ComponentUtils.getCssResourceHomePath(cp, UserSelectBean.class)
 						+ "/images/";
-				if (data instanceof DepartmentMemory) {
-					final DepartmentMemory wrapper = (DepartmentMemory) data;
-					for (final Object o : wrapper.getUsers()) {
-						final TreeNode tn = new TreeNode(treeBean, o);
+				if (data instanceof PermissionDept) {
+					final PermissionDept dept = (PermissionDept) data;
+					final Iterator<PermissionUser> it = dept.users();
+					while (it.hasNext()) {
+						final PermissionUser user = it.next();
+						final TreeNode tn = new TreeNode(treeBean, user);
 						tn.setImage(imgPath + "users.png");
 						tn.setJsDblclickCallback("$Actions['" + userSelectName + "'].doDblclick(branch);");
 						nodes.add(tn);
 					}
-					for (final DepartmentMemory w2 : wrapper.getChildren()) {
-						if (!w2.hasUser()) {
+					for (final PermissionDept _dept : uHandler.getDepartmentChildren(cp, dept)) {
+						final int count = _dept.getUserCount();
+						if (count == 0) {
 							continue;
 						}
-						final TreeNode tn = new TreeNode(treeBean, w2);
-						tn.setPostfixText(new SupElement(w2.getUsers().size()).toString());
+						final TreeNode tn = new TreeNode(treeBean, _dept);
+						tn.setPostfixText(new SupElement(count).toString());
 						tn.setCheckbox(false);
 						nodes.add(tn);
 					}
