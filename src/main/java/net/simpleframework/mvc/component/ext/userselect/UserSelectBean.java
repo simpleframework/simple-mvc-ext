@@ -1,7 +1,7 @@
 package net.simpleframework.mvc.component.ext.userselect;
 
 import static net.simpleframework.common.I18n.$m;
-import net.simpleframework.common.ClassUtils;
+import net.simpleframework.common.StringUtils;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
 
 /**
@@ -33,11 +33,12 @@ public class UserSelectBean extends DictionaryBean {
 		setWidth(360);
 		setHeight(445);
 		setPageItems(100);
-		try {
-			setHandlerClass(ClassUtils
-					.forName("net.simpleframework.organization.web.component.userselect.DefaultUserSelectHandler"));
-		} catch (final ClassNotFoundException e) {
-		}
+	}
+
+	@Override
+	public String getHandlerClass() {
+		final String sClass = super.getHandlerClass();
+		return StringUtils.hasText(sClass) ? sClass : DefaultUserSelectHandler.class.getName();
 	}
 
 	public int getPageItems() {
