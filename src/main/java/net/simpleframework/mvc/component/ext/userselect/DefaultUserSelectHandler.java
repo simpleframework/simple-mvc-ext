@@ -22,7 +22,7 @@ import net.simpleframework.mvc.component.ui.dictionary.AbstractDictionaryHandler
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public  class DefaultUserSelectHandler extends AbstractDictionaryHandler implements
+public class DefaultUserSelectHandler extends AbstractDictionaryHandler implements
 		IUserSelectHandler {
 	@Override
 	public IDataQuery<PermissionUser> getUsers(final ComponentParameter cp) {

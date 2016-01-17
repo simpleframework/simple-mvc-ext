@@ -184,7 +184,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			final TreeNodes nodes = TreeNodes.of();
 			if (parent == null) {
 				for (final PermissionDept dept : depts) {
-					final int count = dept.getUserCount();
+					final int count = dept.getUserCount(false);
 					if (count == 0) {
 						continue;
 					}
@@ -209,7 +209,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 						nodes.add(tn);
 					}
 					for (final PermissionDept _dept : uHandler.getDepartmentChildren(cp, dept)) {
-						final int count = _dept.getUserCount();
+						final int count = _dept.getUserCount(false);
 						if (count == 0) {
 							continue;
 						}
