@@ -9,6 +9,7 @@ import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
+import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.permission.PermissionDept;
 import net.simpleframework.ctx.permission.PermissionUser;
@@ -40,10 +41,18 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler implemen
 	@Override
 	public List<PermissionDept> getDepartmentChildren(final ComponentParameter cp,
 			final PermissionDept dept) {
-		if (dept == null) {
-			return cp.getPermission().getRootChildren();
+		if (cp.isLmanager()) {
+			if (dept == null) {
+				return cp.getPermission().getRootChildren();
+			} else {
+				return dept.getAllChildren();
+			}
 		} else {
-			return dept.getChildren();
+			if (dept == null) {
+				return ArrayUtils.asList(cp.getDept(cp.getLDomainId()));
+			} else {
+				return dept.getDeptChildren();
+			}
 		}
 	}
 

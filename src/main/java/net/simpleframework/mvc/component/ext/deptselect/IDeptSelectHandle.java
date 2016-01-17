@@ -1,6 +1,6 @@
 package net.simpleframework.mvc.component.ext.deptselect;
 
-import java.util.Collection;
+import java.util.List;
 
 import net.simpleframework.ctx.permission.PermissionDept;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -23,6 +23,6 @@ public interface IDeptSelectHandle extends IDictionaryHandle {
 	 * @param parent
 	 * @return
 	 */
-	Collection<PermissionDept> getDepartments(ComponentParameter cp, TreeBean treeBean,
+	List<PermissionDept> getDepartments(ComponentParameter cp, TreeBean treeBean,
 			PermissionDept parent);
 }

@@ -1,7 +1,7 @@
 package net.simpleframework.mvc.component.ext.deptselect;
 
 import static net.simpleframework.common.I18n.$m;
-import net.simpleframework.common.ClassUtils;
+import net.simpleframework.common.StringUtils;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
 
 /**
@@ -18,11 +18,12 @@ public class DeptSelectBean extends DictionaryBean {
 		setTitle($m("DeptSelectBean.0"));
 		setWidth(280);
 		setHeight(360);
-		try {
-			setHandlerClass(ClassUtils
-					.forName("net.simpleframework.organization.web.component.deptselect.DefaultDeptSelectHandler"));
-		} catch (final ClassNotFoundException e) {
-		}
+	}
+
+	@Override
+	public String getHandlerClass() {
+		final String sClass = super.getHandlerClass();
+		return StringUtils.hasText(sClass) ? sClass : DefaultDeptSelectHandler.class.getName();
 	}
 
 	public boolean isOrg() {
