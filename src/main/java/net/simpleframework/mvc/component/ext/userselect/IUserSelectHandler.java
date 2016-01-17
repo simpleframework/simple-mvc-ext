@@ -2,11 +2,12 @@ package net.simpleframework.mvc.component.ext.userselect;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Set;
 
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.ID;
+import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.dictionary.IDictionaryHandle;
 
@@ -24,7 +25,7 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @param cp
 	 * @return
 	 */
-	Iterator<?> getUsers(ComponentParameter cp);
+	IDataQuery<PermissionUser> getUsers(ComponentParameter cp);
 
 	/**
 	 * 对分组排序
@@ -34,14 +35,6 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @return
 	 */
 	Collection<Object> doSort(ComponentParameter cp, Set<Object> groups);
-
-	/**
-	 * 获取部门对象
-	 * 
-	 * @param key
-	 * @return
-	 */
-	Object getDepartment(Object key);
 
 	/**
 	 * 获取部门用户

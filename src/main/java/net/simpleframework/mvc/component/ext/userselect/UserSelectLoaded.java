@@ -6,9 +6,10 @@ import java.util.Collection;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.coll.KVMap;
+import net.simpleframework.ctx.permission.PermissionDept;
+import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
@@ -100,12 +101,10 @@ public class UserSelectLoaded extends DefaultPageHandler {
 					"vtype", cp.getParameter("vtype"));
 		}
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@Override
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final ComponentParameter nCP = UserSelectUtils.get(cp);
-			return new IteratorDataQuery(
-					((IUserSelectHandler) nCP.getComponentHandler()).getUsers(nCP));
+			return ((IUserSelectHandler) nCP.getComponentHandler()).getUsers(nCP);
 		}
 
 		@Override
@@ -115,13 +114,12 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				@Override
 				public Map<String, Object> getRowData(final ComponentParameter cp,
 						final Object dataObject) {
-					final ComponentParameter nCP = UserSelectUtils.get(cp);
-					final IUserSelectHandler uHandler = (IUserSelectHandler) nCP.getComponentHandler();
+					final PermissionUser user = (PermissionUser) dataObject;
 					final KVMap kv = new KVMap();
 					kv.put("text", new SpanElement(dataObject).setTitle((String) BeanUtils.getProperty(
 							dataObject, "email")));
-					final Object dept = uHandler.getDepartment(dataObject);
-					if (dept != null) {
+					final PermissionDept dept = user.getDept();
+					if (dept.exists()) {
 						kv.put("departmentText", dept);
 					}
 					return kv;
@@ -152,9 +150,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		@Override
 		public Object getGroupValue(final ComponentParameter cp, final Object bean,
 				final String groupColumn) {
-			final Object groupVal = super.getGroupValue(cp, bean, groupColumn);
-			final ComponentParameter nCP = UserSelectUtils.get(cp);
-			return ((IUserSelectHandler) nCP.getComponentHandler()).getDepartment(groupVal);
+			final PermissionDept dept = ((PermissionUser) bean).getDept();
+			return dept.exists() ? dept : null;
 		}
 	}
 

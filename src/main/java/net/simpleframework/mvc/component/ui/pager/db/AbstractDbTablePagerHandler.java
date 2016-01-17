@@ -14,6 +14,7 @@ import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.db.DbDataQuery;
 import net.simpleframework.ado.db.DbDataQuery.ResultSetMetaDataCallback;
 import net.simpleframework.ado.db.DbTableColumn;
+import net.simpleframework.ado.db.IDbDataQuery;
 import net.simpleframework.ado.db.common.ExpressionValue;
 import net.simpleframework.ado.db.common.SqlUtils;
 import net.simpleframework.ado.query.IDataQuery;
@@ -135,7 +136,11 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 
 	protected IDataQuery<?> getRawDataQuery(final IDataQuery<?> dataQuery) {
 		if (dataQuery instanceof IteratorDataQuery) {
-			return ((IteratorDataQuery<?>) dataQuery).getRawDataQuery();
+			final IDataQuery<?> dq = ((IteratorDataQuery<?>) dataQuery).getRawDataQuery();
+			if (dq instanceof IDbDataQuery) {
+				// 如果IteratorDataQuery不是包装IDbDataQuery，则暂不能过滤
+				return dq;
+			}
 		}
 		return dataQuery;
 	}
