@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.mvc.DefaultPageHandler;
@@ -99,10 +100,12 @@ public class UserSelectLoaded extends DefaultPageHandler {
 					"vtype", cp.getParameter("vtype"));
 		}
 
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@Override
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final ComponentParameter nCP = UserSelectUtils.get(cp);
-			return ((IUserSelectHandler) nCP.getComponentHandler()).getUsers(nCP);
+			return new IteratorDataQuery(
+					((IUserSelectHandler) nCP.getComponentHandler()).getUsers(nCP));
 		}
 
 		@Override

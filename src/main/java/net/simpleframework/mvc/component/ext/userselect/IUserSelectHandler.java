@@ -2,9 +2,9 @@ package net.simpleframework.mvc.component.ext.userselect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 
-import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -24,7 +24,7 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @param cp
 	 * @return
 	 */
-	IDataQuery<?> getUsers(ComponentParameter cp);
+	Iterator<?> getUsers(ComponentParameter cp);
 
 	/**
 	 * 对分组排序
@@ -112,5 +112,4 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 			return dept.toString();
 		}
 	}
-
 }
