@@ -15,6 +15,7 @@ import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
+import net.simpleframework.mvc.component.AbstractComponentBean;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
 import net.simpleframework.mvc.component.ext.userselect.IUserSelectHandler.DeptMemory;
@@ -53,14 +54,16 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		final String containerId = "users_" + userSelect.hashId();
 		if (UserSelectBean.VT_TREE.equals(vtype)) {
 			pp.addComponentBean(userSelectName + "_tree", TreeBean.class).setCookies(false)
-					.setContainerId(containerId).setHandlerClass(UserTree.class);
+					.setContainerId(containerId).setHandlerClass(UserTree.class)
+					.setAttr("userSelect", userSelect);
 		} else {
 			final TablePagerBean tablePager = (TablePagerBean) pp
 					.addComponentBean(userSelectName + "_tablePager", TablePagerBean.class)
 					.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);")
 					.setShowHead(false).setPagerBarLayout(EPagerBarLayout.top)
 					.setShowEditPageItems(false).setExportAction("false").setIndexPages(4)
-					.setContainerId(containerId).setHandlerClass(UserList.class);
+					.setContainerId(containerId).setHandlerClass(UserList.class)
+					.setAttr("userSelect", userSelect);
 			final boolean multiple = (Boolean) cp.getBeanProperty("multiple");
 			if (!multiple) {
 				tablePager.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);");
@@ -126,10 +129,16 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				}
 
 				@Override
-				public Map<String, Object> getRowAttributes(final ComponentParameter compp,
+				public Map<String, Object> getRowAttributes(final ComponentParameter cp,
 						final Object dataObject) {
-					final Map<String, Object> attributes = super.getRowAttributes(compp, dataObject);
-					attributes.put("userText", dataObject.toString());
+					final Map<String, Object> attributes = super.getRowAttributes(cp, dataObject);
+					final ComponentParameter nCP = ComponentParameter.get(cp,
+							(AbstractComponentBean) cp.componentBean.getAttr("userSelect"));
+					final Map<String, Object> attri = ((IUserSelectHandler) nCP.getComponentHandler())
+							.getUserAttributes(nCP, (PermissionUser) dataObject);
+					if (attri != null) {
+						attributes.putAll(attri);
+					}
 					return attributes;
 				}
 			};
@@ -199,8 +208,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 						+ "/images/";
 				if (data instanceof DeptMemory) {
 					final DeptMemory wrapper = (DeptMemory) data;
-					for (final Object o : wrapper.getUsers()) {
-						final TreeNode tn = new TreeNode(treeBean, o);
+					for (final PermissionUser user : wrapper.getUsers()) {
+						final TreeNode tn = new TreeNode(treeBean, user);
 						tn.setImage(imgPath + "users.png");
 						tn.setJsDblclickCallback("$Actions['" + userSelectName + "'].doDblclick(branch);");
 						nodes.add(tn);
@@ -217,6 +226,23 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				}
 			}
 			return nodes;
+		}
+
+		@Override
+		public Map<String, Object> getTreenodeAttributes(final ComponentParameter cp,
+				final TreeNode treeNode, final TreeNodes children) {
+			final Map<String, Object> attributes = super.getTreenodeAttributes(cp, treeNode, children);
+			Object dataObject;
+			if (treeNode != null && (dataObject = treeNode.getDataObject()) instanceof PermissionUser) {
+				final ComponentParameter nCP = ComponentParameter.get(cp,
+						(AbstractComponentBean) cp.componentBean.getAttr("userSelect"));
+				final Map<String, Object> attri = ((IUserSelectHandler) nCP.getComponentHandler())
+						.getUserAttributes(nCP, (PermissionUser) dataObject);
+				if (attri != null) {
+					attributes.putAll(attri);
+				}
+			}
+			return attributes;
 		}
 	}
 }

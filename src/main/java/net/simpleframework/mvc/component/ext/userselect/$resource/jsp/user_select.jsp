@@ -3,11 +3,13 @@
 <%@ page import="net.simpleframework.mvc.component.ext.userselect.UserSelectUtils"%>
 <%@ page import="net.simpleframework.mvc.component.ext.userselect.UserSelectBean"%>
 <%@ page import="net.simpleframework.mvc.component.ui.dictionary.DictionaryRender"%>
+<%@ page import="net.simpleframework.mvc.component.ext.userselect.IUserSelectHandler"%>
 <%
 	final ComponentParameter cp = UserSelectUtils
 			.get(request, response);
 	final String componentName = (String) cp.getComponentName();
 	final String hashId = cp.hashId();
+	final IUserSelectHandler usHdl = (IUserSelectHandler) cp.getComponentHandler();
 %>
 <div class="user_select">
   <%
@@ -55,14 +57,16 @@
         arr.each(function(d2) {
           selects.push({
             id : tp.rowId(d2),
-            text : d2.readAttribute("userText")
+            text : d2.readAttribute("userText"),
+            row: d2
           });
         });
       } else {
         if (d) {
           selects.push({
             id : tp.rowId(d),
-            text : d.readAttribute("userText")
+            text : d.readAttribute("userText"),
+            row: d2
           });
         }
       }

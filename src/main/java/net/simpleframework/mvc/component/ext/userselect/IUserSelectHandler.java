@@ -3,6 +3,7 @@ package net.simpleframework.mvc.component.ext.userselect;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
@@ -45,6 +46,8 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @return
 	 */
 	Collection<DeptMemory> getDepartmentList(ComponentParameter cp);
+
+	Map<String, Object> getUserAttributes(ComponentParameter cp, PermissionUser user);
 
 	public static class DeptMemory {
 

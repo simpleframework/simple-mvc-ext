@@ -50,6 +50,12 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler implemen
 	}
 
 	@Override
+	public Map<String, Object> getUserAttributes(final ComponentParameter cp,
+			final PermissionUser user) {
+		return new KVMap().add("userText", user.getText());
+	}
+
+	@Override
 	public List<Object> doSort(final ComponentParameter cp, final Set<Object> groups) {
 		final ArrayList<Object> _groups = new ArrayList<Object>(groups);
 		Collections.sort(_groups, new Comparator<Object>() {
