@@ -64,7 +64,7 @@
           selects.push({
             id : tp.rowId(d),
             text : d.readAttribute("userText"),
-            row: d2
+            row: d
           });
         }
       }
