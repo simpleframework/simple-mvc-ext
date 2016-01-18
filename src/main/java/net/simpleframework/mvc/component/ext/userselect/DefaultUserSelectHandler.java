@@ -3,13 +3,14 @@ package net.simpleframework.mvc.component.ext.userselect;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
-import net.simpleframework.common.coll.ArrayUtils;
+import net.simpleframework.common.ID;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.permission.PermissionDept;
 import net.simpleframework.ctx.permission.PermissionUser;
@@ -26,6 +27,16 @@ import net.simpleframework.mvc.component.ui.dictionary.AbstractDictionaryHandler
 public class DefaultUserSelectHandler extends AbstractDictionaryHandler implements
 		IUserSelectHandler {
 	@Override
+	public Map<String, Object> getFormParameters(final ComponentParameter cp) {
+		final KVMap kv = new KVMap();
+		final PermissionDept org = AbstractMVCPage.getPermissionOrg(cp);
+		if (org.exists()) {
+			kv.put("orgId", org.getId());
+		}
+		return kv;
+	}
+
+	@Override
 	public IDataQuery<PermissionUser> getUsers(final ComponentParameter cp) {
 		if (cp.isLmanager()) {
 			return new IteratorDataQuery<PermissionUser>(cp.getPermission().allUsers());
@@ -36,24 +47,6 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler implemen
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public List<PermissionDept> getDepartmentChildren(final ComponentParameter cp,
-			final PermissionDept dept) {
-		if (cp.isLmanager()) {
-			if (dept == null) {
-				return cp.getPermission().getRootChildren();
-			} else {
-				return dept.getAllChildren();
-			}
-		} else {
-			if (dept == null) {
-				return ArrayUtils.asList(cp.getDept(cp.getLDomainId()));
-			} else {
-				return dept.getDeptChildren();
-			}
-		}
 	}
 
 	@Override
@@ -82,13 +75,63 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler implemen
 		return _groups;
 	}
 
-	@Override
-	public Map<String, Object> getFormParameters(final ComponentParameter cp) {
-		final KVMap kv = new KVMap();
-		final PermissionDept org = AbstractMVCPage.getPermissionOrg(cp);
-		if (org.exists()) {
-			kv.put("orgId", org.getId());
+	private Map<ID, List<PermissionDept>> dTreemap;
+
+	private void loadDeptTreemap(final PermissionDept parent) {
+		final List<PermissionDept> list = parent.getAllChildren();
+		dTreemap.put(parent.getId(), new ArrayList<PermissionDept>(list));
+		for (final PermissionDept dept : list) {
+			loadDeptTreemap(dept);
 		}
-		return kv;
+	}
+
+	@Override
+	public List<DeptMemory> getDepartmentList(final ComponentParameter cp) {
+		if (dTreemap == null) {
+			dTreemap = new HashMap<ID, List<PermissionDept>>();
+			final List<PermissionDept> list = cp.getPermission().getRootChildren();
+			dTreemap.put(ID.NULL_ID, new ArrayList<PermissionDept>(list));
+			for (final PermissionDept dept : list) {
+				loadDeptTreemap(dept);
+			}
+		}
+
+		final Map<ID, List<PermissionUser>> users = new HashMap<ID, List<PermissionUser>>();
+		final IDataQuery<PermissionUser> dq = getUsers(cp);
+		if (dq != null) {
+			dq.setFetchSize(0);
+			PermissionUser user;
+			while ((user = dq.next()) != null) {
+				final PermissionDept dept = user.getDept();
+				final ID deptId = dept.exists() ? dept.getId() : ID.NULL_ID;
+				List<PermissionUser> l = users.get(deptId);
+				if (l == null) {
+					users.put(deptId, l = new ArrayList<PermissionUser>());
+				}
+				l.add(user);
+			}
+		}
+		return createDeptMemory(users, dTreemap.get(ID.NULL_ID));
+	}
+
+	private List<DeptMemory> createDeptMemory(final Map<ID, List<PermissionUser>> users,
+			final List<PermissionDept> children) {
+		final List<DeptMemory> wrappers = new ArrayList<DeptMemory>();
+		if (children != null) {
+			for (final PermissionDept dept : children) {
+				final DeptMemory wrapper = new DeptMemory(dept);
+				final ID deptId = dept.getId();
+				final List<PermissionDept> v1 = dTreemap.get(deptId);
+				final List<PermissionUser> v2 = users.get(deptId);
+				if (v1 != null) {
+					wrapper.getChildren().addAll(createDeptMemory(users, v1));
+				}
+				if (v2 != null) {
+					wrapper.getUsers().addAll(v2);
+				}
+				wrappers.add(wrapper);
+			}
+		}
+		return wrappers;
 	}
 }

@@ -1,5 +1,7 @@
 package net.simpleframework.mvc.component.ext.userselect;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -34,8 +36,6 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 */
 	List<Object> doSort(ComponentParameter cp, Set<Object> groups);
 
-	List<PermissionDept> getDepartmentChildren(ComponentParameter cp, PermissionDept dept);
-
 	/**
 	 * 获取部门用户
 	 * 
@@ -44,65 +44,53 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 	 * @param cp
 	 * @return
 	 */
-	// Collection<DepartmentMemory> getDepartments(ComponentParameter cp);
-	//
-	// public static class DepartmentMemory {
-	// @SuppressWarnings("rawtypes")
-	// private Collection users;
-	//
-	// private Collection<DepartmentMemory> children;
-	//
-	// private final ID id;
-	//
-	// private final Object dept;
-	//
-	// public DepartmentMemory(final Object dept) {
-	// this((ID) BeanUtils.getProperty(dept, "id"), dept);
-	// }
-	//
-	// public DepartmentMemory(final ID id, final Object dept) {
-	// this.id = id;
-	// this.dept = dept;
-	// }
-	//
-	// public ID getId() {
-	// return id;
-	// }
-	//
-	// public Object getDept() {
-	// return dept;
-	// }
-	//
-	// public Collection<DepartmentMemory> getChildren() {
-	// if (children == null) {
-	// children = new ArrayList<DepartmentMemory>();
-	// }
-	// return children;
-	// }
-	//
-	// @SuppressWarnings("rawtypes")
-	// public Collection getUsers() {
-	// if (users == null) {
-	// users = new ArrayList();
-	// }
-	// return users;
-	// }
-	//
-	// public boolean hasUser() {
-	// if (getUsers().size() > 0) {
-	// return true;
-	// }
-	// for (final DepartmentMemory wrapper : getChildren()) {
-	// if (wrapper.hasUser()) {
-	// return true;
-	// }
-	// }
-	// return false;
-	// }
-	//
-	// @Override
-	// public String toString() {
-	// return dept.toString();
-	// }
-	// }
+	Collection<DeptMemory> getDepartmentList(ComponentParameter cp);
+
+	public static class DeptMemory {
+
+		private List<PermissionUser> users;
+
+		private List<DeptMemory> children;
+
+		private final PermissionDept dept;
+
+		public DeptMemory(final PermissionDept dept) {
+			this.dept = dept;
+		}
+
+		public PermissionDept getDept() {
+			return dept;
+		}
+
+		public List<DeptMemory> getChildren() {
+			if (children == null) {
+				children = new ArrayList<DeptMemory>();
+			}
+			return children;
+		}
+
+		public List<PermissionUser> getUsers() {
+			if (users == null) {
+				users = new ArrayList<PermissionUser>();
+			}
+			return users;
+		}
+
+		public boolean hasUser() {
+			if (getUsers().size() > 0) {
+				return true;
+			}
+			for (final DeptMemory wrapper : getChildren()) {
+				if (wrapper.hasUser()) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public String toString() {
+			return dept.toString();
+		}
+	}
 }
