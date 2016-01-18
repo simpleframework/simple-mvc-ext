@@ -3,13 +3,11 @@
 <%@ page import="net.simpleframework.mvc.component.ext.userselect.UserSelectUtils"%>
 <%@ page import="net.simpleframework.mvc.component.ext.userselect.UserSelectBean"%>
 <%@ page import="net.simpleframework.mvc.component.ui.dictionary.DictionaryRender"%>
-<%@ page import="net.simpleframework.mvc.component.ext.userselect.IUserSelectHandler"%>
 <%
 	final ComponentParameter cp = UserSelectUtils
 			.get(request, response);
 	final String componentName = (String) cp.getComponentName();
 	final String hashId = cp.hashId();
-	final IUserSelectHandler usHdl = (IUserSelectHandler) cp.getComponentHandler();
 %>
 <div class="user_select">
   <%
