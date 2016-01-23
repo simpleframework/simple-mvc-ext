@@ -183,7 +183,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final IAttachmentHandler handler = (IAttachmentHandler) nCP.getComponentHandler();
 			final AttachmentFile af = handler.getAttachmentById(nCP, nCP.getParameter("id"));
 			if (af != null) {
-				js.append(JS.loc(DownloadUtils.getDownloadHref(af, handler.getClass())));
+				js.append(JS.loc(DownloadUtils.getDownloadHref(af, handler.getClass()), true));
 			} else {
 				js.append("alert(\"").append($m("AttachmentLoaded.0")).append("\");");
 			}
