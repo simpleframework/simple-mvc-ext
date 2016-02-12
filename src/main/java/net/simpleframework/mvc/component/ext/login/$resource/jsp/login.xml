@@ -3,32 +3,4 @@
   <handlerClass>
     net.simpleframework.mvc.component.ext.login.LoginLoaded
   </handlerClass>
-
-  <components>
-    <validation name="loginValidation" triggerSelector="#_loginBtn" warnType="insertAfter">
-      <validator selector="#_accountName" method="required" />
-    </validation>
-
-    <menu name="accountMenu" width="100" menuEvent="click" selector="#_accountMenu">
-      <jsBeforeShowCallback>
-        <![CDATA[
-          var items = menu.getItems();
-          items[0].setText(_AccountTypeMSG["normal"]);
-          items[1].setText(_AccountTypeMSG["email"]);
-          items[2].setText(_AccountTypeMSG["mobile"]);
-        ]]>
-			</jsBeforeShowCallback>
-      <menuitem iconClass="login_icon_normal">
-        <onclick>_changeAccountType("normal")</onclick>
-      </menuitem>
-      <menuitem title="-" />
-      <menuitem iconClass="login_icon_email">
-        <onclick>_changeAccountType("email")</onclick>
-      </menuitem>
-      <menuitem title="-" />
-      <menuitem iconClass="login_icon_mobile">
-        <onclick>_changeAccountType("mobile")</onclick>
-      </menuitem>
-    </menu>
-  </components>
 </page>

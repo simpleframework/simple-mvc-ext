@@ -10,11 +10,17 @@
 	final String beanId = nCP.hashId();
 %>
 <form id="_loginForm">
-  <input type="hidden" id="<%=LoginUtils.BEAN_ID%>" name="<%=LoginUtils.BEAN_ID%>" value="<%=beanId%>" /> <input type="hidden" id="_accountType"
-    name="_accountType" />
+  <input type="hidden" id="<%=LoginUtils.BEAN_ID%>" name="<%=LoginUtils.BEAN_ID%>" value="<%=beanId%>" />
+  <%
+  	if ((Boolean) nCP.getBeanProperty("showAccountType")) {
+  %>
+  <input type="hidden" id="_accountType" name="_accountType" />
   <div class="block">
     <a id="_accountMenu"></a><span class="right_down_menu"></span>
   </div>
+  <%
+  	}
+  %>
   <div class="block">
     <input id="_accountName" name="_accountName" type="text" class="ifocus" />
   </div>
@@ -43,12 +49,15 @@
   };
 
   function _changeAccountType(type) {
-    if (!type) {
-      type = "normal";
+    var _accountType = $("_accountType");
+    if(!_accountType) {
+      return;
     }
+    
+    type = type || "normal";
     document.setCookie("_account_type", type, 24 * 365);
 
-    $("_accountType").value = type;
+    _accountType.value = type;
     var m = $("_accountMenu").update(_AccountTypeMSG[type]);
     m.className = "login_icon_" + type;
   }

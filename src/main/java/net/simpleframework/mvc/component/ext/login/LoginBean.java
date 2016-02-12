@@ -13,10 +13,9 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  */
 public class LoginBean extends AbstractContainerBean {
 
+	private boolean showAccountType = BeanDefaults.getBool(getClass(), "showAccountType", true);
 	private boolean showAutoLogin = BeanDefaults.getBool(getClass(), "showAutoLogin", true);
-
 	private boolean showResetAction = BeanDefaults.getBool(getClass(), "showResetAction", true);
-
 	private boolean showValidateCode = BeanDefaults.getBool(getClass(), "showValidateCode", false);
 
 	private ETextAlign actionAlign = (ETextAlign) BeanDefaults.get(getClass(), "actionAlign",
@@ -27,6 +26,15 @@ public class LoginBean extends AbstractContainerBean {
 	private String passwordGetUrl;
 
 	private String jsLoginCallback;
+
+	public boolean isShowAccountType() {
+		return showAccountType;
+	}
+
+	public LoginBean setShowAccountType(final boolean showAccountType) {
+		this.showAccountType = showAccountType;
+		return this;
+	}
 
 	public boolean isShowAutoLogin() {
 		return showAutoLogin;
