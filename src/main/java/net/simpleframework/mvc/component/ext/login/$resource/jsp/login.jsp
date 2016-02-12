@@ -19,6 +19,12 @@
     <a id="_accountMenu"></a><span class="right_down_menu"></span>
   </div>
   <%
+  	} else {
+  %>
+  <div class="block">
+    <label>#(login.8)</label>
+  </div>
+  <%
   	}
   %>
   <div class="block">
@@ -50,10 +56,10 @@
 
   function _changeAccountType(type) {
     var _accountType = $("_accountType");
-    if(!_accountType) {
+    if (!_accountType) {
       return;
     }
-    
+
     type = type || "normal";
     document.setCookie("_account_type", type, 24 * 365);
 
