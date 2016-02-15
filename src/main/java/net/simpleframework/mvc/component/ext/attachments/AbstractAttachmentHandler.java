@@ -41,7 +41,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		IAttachmentHandler {
 	@Override
 	public void setSwfUploadBean(final ComponentParameter cp, final SwfUploadBean swfUpload) {
-		swfUpload.setFileSizeLimit("10MB").setMultiFileSelected(true);
+		swfUpload.setMultiFileSelected(true);
 		if ((Boolean) cp.getBeanProperty("imagesMode")) {
 			// swfUpload
 			swfUpload.setFileTypes("*.jpg;*.jpeg;*.gif;*.png;*.bmp")
