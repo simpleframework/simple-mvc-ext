@@ -5,6 +5,9 @@ import static net.simpleframework.common.I18n.$m;
 import java.util.Collection;
 import java.util.Map;
 
+import net.simpleframework.ado.FilterItem;
+import net.simpleframework.ado.db.DbDataQuery;
+import net.simpleframework.ado.db.common.ExpressionValue;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.coll.KVMap;
@@ -84,6 +87,21 @@ public class UserSelectLoaded extends DefaultPageHandler {
 
 	public static class UserList extends AbstractDbTablePagerHandler implements
 			IGroupTablePagerHandler {
+
+		@Override
+		protected ExpressionValue createFilterExpressionValue(final DbDataQuery<?> qs,
+				final TablePagerColumn oCol, final Collection<FilterItem> coll) {
+			final String col = oCol.getColumnName();
+			if ("text".equals(col)) {
+				final ExpressionValue ev = super.createFilterExpressionValue(qs, oCol, coll);
+				final ExpressionValue ev2 = super.createFilterExpressionValue(qs, new TablePagerColumn(
+						"py"), coll);
+				ev.setExpression("((" + ev.getExpression() + ") or (" + ev2.getExpression() + "))");
+				ev.addValues(ev2.getValues());
+				return ev;
+			}
+			return super.createFilterExpressionValue(qs, oCol, coll);
+		}
 
 		@Override
 		public Object getBeanProperty(final ComponentParameter cp, final String beanProperty) {
