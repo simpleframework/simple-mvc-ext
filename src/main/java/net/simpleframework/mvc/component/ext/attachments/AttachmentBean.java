@@ -27,6 +27,9 @@ public class AttachmentBean extends AbstractContainerBean {
 	/* 显示编辑按钮 */
 	private boolean showEdit = BeanDefaults.getBool(getClass(), "showEdit", true);
 
+	/* 显示操作菜单 */
+	private boolean showMenu = BeanDefaults.getBool(getClass(), "showMenu", true);
+
 	private boolean readonly = BeanDefaults.getBool(getClass(), "readonly", false);
 
 	public int getAttachmentsLimit() {
@@ -89,6 +92,15 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public AttachmentBean setShowEdit(final boolean showEdit) {
 		this.showEdit = showEdit;
+		return this;
+	}
+
+	public boolean isShowMenu() {
+		return showMenu;
+	}
+
+	public AttachmentBean setShowMenu(final boolean showMenu) {
+		this.showMenu = showMenu;
 		return this;
 	}
 }

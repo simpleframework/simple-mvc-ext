@@ -22,6 +22,9 @@ import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.base.ajaxrequest.DefaultAjaxRequestHandler;
+import net.simpleframework.mvc.component.ui.menu.EMenuEvent;
+import net.simpleframework.mvc.component.ui.menu.MenuBean;
+import net.simpleframework.mvc.component.ui.menu.MenuItem;
 import net.simpleframework.mvc.component.ui.swfupload.AbstractSwfUploadHandler;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
 import net.simpleframework.mvc.component.ui.tooltip.ETipElement;
@@ -86,6 +89,28 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				pp.addComponentBean(attachmentName + "_editWin", WindowBean.class)
 						.setContentRef(attachmentName + "_editPage").setHeight(240).setWidth(420)
 						.setTitle($m("AttachmentLoaded.3"));
+			}
+
+			// 菜单
+			if ((Boolean) cp.getBeanProperty("showMenu")) {
+				final String moveAct = attachmentName + "_move";
+				pp.addComponentBean(moveAct, AjaxRequestBean.class).setHandlerMethod("doMove")
+						.setHandlerClass(AttachmentAction.class).setAttr("$attachment", attachmentBean);
+				final MenuBean menu = (MenuBean) cp
+						.addComponentBean(attachmentName + "_menu", MenuBean.class)
+						.setMenuEvent(EMenuEvent.click).setSelector(".attach_menu");
+				menu.addItem(
+						MenuItem.of($m("Menu.up"), MenuItem.ICON_UP, "AttachmentUtils.doMove(item, '"
+								+ moveAct + "', true);"))
+						.addItem(
+								MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
+										"AttachmentUtils.doMove2(item, '" + moveAct + "', true);"))
+						.addItem(
+								MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
+										"AttachmentUtils.doMove(item, '" + moveAct + "');"))
+						.addItem(
+								MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
+										"AttachmentUtils.doMove2(item, '" + moveAct + "');"));
 			}
 
 			// 选取
@@ -163,6 +188,15 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			return super.getBeanProperty(cp, beanProperty);
 		}
 
+		public IForward doMove(final ComponentParameter cp) {
+			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
+			final String attachmentName = nCP.getComponentName();
+
+			((IAttachmentHandler) nCP.getComponentHandler()).doExchange(nCP,
+					StringUtils.split(cp.getParameter("rowIds"), ";"));
+			return new JavascriptForward("$Actions['" + attachmentName + "_list']();");
+		}
+
 		public IForward doDelete(final ComponentParameter cp) {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final String attachmentName = nCP.getComponentName();
@@ -173,8 +207,13 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 		public IForward doList(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
-			return new TextForward(
-					((IAttachmentHandler) nCP.getComponentHandler()).toAttachmentListHTML(nCP));
+			final StringBuilder sb = new StringBuilder();
+			sb.append(((IAttachmentHandler) nCP.getComponentHandler()).toAttachmentListHTML(nCP));
+			final StringBuilder script = new StringBuilder();
+			script.append("var _menu = $Actions['").append(nCP.getComponentName()).append("_menu']; ");
+			script.append("if (_menu) { _menu.bindEvent('.attach_menu'); }");
+			return new TextForward(sb.append(JavascriptUtils.wrapScriptTag(script.toString(), true))
+					.toString());
 		}
 
 		public IForward doDownload(final ComponentParameter cp) throws Exception {

@@ -14,6 +14,7 @@ import net.simpleframework.common.ID;
 import net.simpleframework.common.ImageUtils;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
+import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.common.web.html.HtmlConst;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
 import net.simpleframework.mvc.IMultipartFile;
@@ -112,6 +113,11 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		} else if (getUploadCache(cp).remove(id) == null && deleteQueue != null) {
 			deleteQueue.add(id);
 		}
+	}
+
+	@Override
+	public void doExchange(final ComponentParameter cp, final String... ids) {
+		throw NotImplementedException.of(getClass(), "doExchange");
 	}
 
 	@Override
@@ -224,7 +230,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	protected String toAttachmentItemHTML(final ComponentParameter cp, final String id,
 			final AttachmentFile attachment) throws IOException {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<div class='fitem'>");
+		sb.append("<div class='fitem' rowid='").append(id).append("'>");
 		sb.append("<div class='l_attach");
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		if (!readonly) {
@@ -262,12 +268,21 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 			final AttachmentFile attachment, final boolean readonly) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		if (!readonly) {
+			if ((Boolean) cp.getBeanProperty("showMenu")) {
+				sb.append(createAttachmentItem_menu(cp, id, attachment));
+			}
 			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
 			if ((Boolean) cp.getBeanProperty("showEdit")) {
 				sb.append(createAttachmentItem_EditBtn(cp, id, attachment));
 			}
 		}
 		return sb.toString();
+	}
+
+	protected AbstractElement<?> createAttachmentItem_menu(final ComponentParameter cp,
+			final String id, final AttachmentFile attachment) {
+		return new SpanElement().setClassName("down_menu_image attach_menu").addStyle(
+				"float: right; margin-top: 3px;");
 	}
 
 	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,

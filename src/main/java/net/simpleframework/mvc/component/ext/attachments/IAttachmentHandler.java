@@ -83,6 +83,8 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 */
 	void doDelete(ComponentParameter cp, String id);
 
+	void doExchange(ComponentParameter cp, String... ids);
+
 	/**
 	 * 获取下载的link元素
 	 * 

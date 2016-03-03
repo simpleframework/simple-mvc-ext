@@ -15,4 +15,10 @@ public class AttachmentResourceProvider extends AbstractComponentResourceProvide
 	public String[] getCssPath(final PageParameter pp) {
 		return new String[] { getCssResourceHomePath(pp) + "/attachment.css" };
 	}
+
+	@Override
+	public String[] getJavascriptPath(final PageParameter pp) {
+		final String rPath = getResourceHomePath();
+		return new String[] { rPath + "/js/attachment.js" };
+	}
 }
