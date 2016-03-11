@@ -392,6 +392,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	// IDownloadHandler
 	@Override
-	public void onDownloaded(final Object beanId, final String topic, final File oFile) {
+	public void onDownloaded(final Object beanId, final long length, final String filetype,
+			final String topic) {
 	}
 }
