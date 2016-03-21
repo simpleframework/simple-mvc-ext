@@ -35,10 +35,8 @@
     };
     
     var ltxt = h.down(".ltxt");
-    if (ta && ltxt) {
-      ta.ltxt = ltxt;
-      ta.observe("keyup", comment_ta_valchange);
-    }
+    ta.ltxt = ltxt;
+    ta.observe("keyup", comment_ta_valchange);
   
     window.$COMMENT = {
       reply : function(val, txt) {
@@ -59,8 +57,11 @@
       doCallback : function(n) {
         ta.clear();
         ta.next().clear();
+        
         reply.innerHTML = "";
         num.innerHTML = n;
+        
+        ta.ltxt.innerHTML = "&nbsp;";
         
         $Actions['<%=componentName%>_pager']();
       }
