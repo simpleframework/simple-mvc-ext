@@ -38,16 +38,15 @@ public class CommentLoaded extends DefaultPageHandler {
 		final ComponentParameter cp = CommentUtils.get(pp);
 		final CommentBean commentBean = (CommentBean) cp.componentBean;
 		final String commentName = cp.getComponentName();
-		final String hashId = cp.hashId();
 
 		// 提交与验证
-		String idTa;
+		final String idTa = "id" + commentName + "_textarea";
 		pp.addComponentBean(commentName + "_validation", ValidationBean.class)
-				.setTriggerSelector("#submit_" + hashId)
+				.setTriggerSelector("#id" + commentName + "_submit")
 				.setWarnType(EWarnType.insertAfter)
 				.addValidators(
-						new Validator(EValidatorMethod.required, (idTa = "#textarea_" + hashId)),
-						new Validator(EValidatorMethod.min_length, idTa, 8)
+						new Validator(EValidatorMethod.required, "#" + idTa),
+						new Validator(EValidatorMethod.min_length, "#" + idTa, 6)
 								.setMessage($m("CommentLoaded.0")));
 		pp.addComponentBean(commentName + "_submit", AjaxRequestBean.class)
 				.setRole(PermissionConst.ROLE_ALL_ACCOUNT).setConfirmMessage($m("Confirm.Post"))
@@ -56,8 +55,8 @@ public class CommentLoaded extends DefaultPageHandler {
 
 		if ((Boolean) cp.getBeanProperty("showSmiley")) {
 			// 表情
-			pp.addComponentBean(commentName + "_smiley", DictionaryBean.class)
-					.setBindingId("textarea_" + hashId).addSmiley(pp);
+			pp.addComponentBean(commentName + "_smiley", DictionaryBean.class).setBindingId(idTa)
+					.addSmiley(pp);
 		}
 
 		if (cp.isLmember(cp.getBeanProperty("role"))) {
@@ -69,7 +68,7 @@ public class CommentLoaded extends DefaultPageHandler {
 		// pager
 		pp.addComponentBean(commentName + "_pager", PagerBean.class)
 				.setNoResultDesc($m("CommentList.1")).setPagerBarLayout(EPagerBarLayout.bottom)
-				.setContainerId("pager_" + hashId).setHandlerClass(CommentList.class)
+				.setContainerId("id" + commentName + "_pager").setHandlerClass(CommentList.class)
 				.setAttr("$comment", commentBean);
 	}
 

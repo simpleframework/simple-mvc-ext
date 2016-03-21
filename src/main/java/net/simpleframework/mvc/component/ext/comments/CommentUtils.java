@@ -3,10 +3,8 @@ package net.simpleframework.mvc.component.ext.comments;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.web.html.HtmlEncoder;
 import net.simpleframework.common.web.html.HtmlUtils;
-import net.simpleframework.ctx.script.MVEL2Template;
 import net.simpleframework.mvc.PageRequestResponse;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.dictionary.SmileyUtils;
@@ -42,9 +40,6 @@ public class CommentUtils {
 
 	public static String toCommentHTML(final ComponentParameter cp) {
 		final ICommentHandler hdl = (ICommentHandler) cp.getComponentHandler();
-		final KVMap variables = new KVMap().add("name", cp.getComponentName())
-				.add("hashId", cp.hashId()).add("showSmiley", cp.getBeanProperty("showSmiley"))
-				.add("count", hdl.comments(cp).getCount());
-		return MVEL2Template.replace(variables, ICommentHandler.class, "Comment.html");
+		return hdl.toEditorHTML(cp);
 	}
 }

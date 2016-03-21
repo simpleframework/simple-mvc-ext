@@ -86,4 +86,9 @@ public interface ICommentHandler extends IComponentHandler {
 	 * @return
 	 */
 	String toListHTML(ComponentParameter cp, List<?> data);
+
+	/**
+	 * 
+	 */
+	String toEditorHTML(ComponentParameter cp);
 }

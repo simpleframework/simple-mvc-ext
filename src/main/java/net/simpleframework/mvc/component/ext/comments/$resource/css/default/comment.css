@@ -13,16 +13,6 @@
   *zoom: 1;
 }
 
-.Comp_Comment .t1_head .l1l,
-.Comp_Comment .t1_head .l3l {
-  float: left;
-}
-
-.Comp_Comment .t1_head .l1r,
-.Comp_Comment .t1_head .l3r {
-  float: right;
-}
-
 .Comp_Comment .t1_head .l1 {
   padding: 0 4px 8px 0;
 }
@@ -98,6 +88,18 @@
   background: #fff;
   border: 0;
   width: 100%;
+}
+
+.Comp_Comment .t1_head .l3 .ltxt {
+  margin-left: 8px;
+  color: #888;
+}
+
+.Comp_Comment .t1_head .l3 .ltxt label {
+  color: #c00;
+  font-size: 10.5pt;
+  font-style: italic;
+  margin: 0 3px;
 }
   
 .Comp_Comment .t1_comments {

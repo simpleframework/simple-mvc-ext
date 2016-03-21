@@ -9,6 +9,10 @@ import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.Convert;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.MVCContext;
+import net.simpleframework.mvc.common.element.AbstractElement;
+import net.simpleframework.mvc.common.element.InputElement;
+import net.simpleframework.mvc.common.element.LinkButton;
+import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.common.element.PhotoImage;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentHandlerEx;
@@ -43,6 +47,58 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	@Override
 	public Object getProperty(final ComponentParameter cp, final Object o, final String name) {
 		return BeanUtils.getProperty(o, name);
+	}
+
+	@Override
+	public String toEditorHTML(final ComponentParameter cp) {
+		final StringBuilder sb = new StringBuilder();
+		final String commentName = cp.getComponentName();
+		sb.append("<div class='t1_head'>");
+		sb.append(" <div class='l1 clearfix'>");
+		sb.append("  <div class='left'>");
+		sb.append("   <span class='icon'></span>");
+		sb.append("   <span class='reply'></span>");
+		sb.append("  </div>");
+		sb.append("  <div class='right'>").append($m("AbstractCommentHandler.0"));
+		sb.append("   <span class='num'>").append(comments(cp).getCount()).append("</span>")
+				.append($m("AbstractCommentHandler.1"));
+		sb.append("  </div>");
+		sb.append(" </div>");
+		sb.append(" <div class='l2'>").append(createTextarea(cp));
+		sb.append("  <input type='hidden' name='parentId' />");
+		sb.append(" </div>");
+		sb.append(" <div class='l3 clearfix'>");
+		sb.append("  <div class='left'>");
+		if ((Boolean) cp.getBeanProperty("showSmiley")) {
+			sb.append(createSmiley(cp));
+		}
+		sb.append("	  <span class='ltxt'>&nbsp;</span>");
+		sb.append("  </div>");
+		sb.append("  <div class='right'>").append(createSubmit(cp)).append("</div>");
+		sb.append(" </div>");
+		sb.append("</div>");
+		sb.append("<div class='t1_comments'>");
+		sb.append(" <div id='id").append(commentName).append("_pager'></div>");
+		sb.append("</div>");
+		return sb.toString();
+	}
+
+	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
+		return LinkElement.style2($m("AbstractCommentHandler.3")).setOnclick(
+				"$Actions['" + cp.getComponentName() + "_smiley']();");
+	}
+
+	protected AbstractElement<?> createTextarea(final ComponentParameter cp) {
+		return InputElement.textarea("id" + cp.getComponentName() + "_textarea").setName("ccomment")
+				.setAutoRows(true).setRows(5)
+				.addAttribute("maxlength", cp.getBeanProperty("maxlength"));
+	}
+
+	protected AbstractElement<?> createSubmit(final ComponentParameter cp) {
+		final String commentName = cp.getComponentName();
+		return LinkButton.corner($m("AbstractCommentHandler.2"))
+				.setId("id" + commentName + "_submit")
+				.setOnclick("$Actions['" + commentName + "_submit']($Form(this.up('.t1_head')));");
 	}
 
 	@Override
