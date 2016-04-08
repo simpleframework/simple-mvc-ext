@@ -24,6 +24,7 @@ import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
+import net.simpleframework.mvc.component.ui.pager.EExportFileType;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumns;
 
@@ -153,6 +154,16 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 			doFilterSQL(cp, (DbDataQuery<?>) dataQuery);
 		}
 		super.doCount(cp, dataQuery);
+	}
+
+	@Override
+	public void export(final ComponentParameter cp, final EExportFileType filetype,
+			final TablePagerColumns columns) {
+		final IDataQuery<?> dQuery = getRawDataQuery(createDataObjectQuery(cp));
+		if (dQuery instanceof DbDataQuery) {
+			doFilterSQL(cp, (DbDataQuery<?>) dQuery);
+		}
+		doExport(cp, dQuery, filetype, columns);
 	}
 
 	@Override
