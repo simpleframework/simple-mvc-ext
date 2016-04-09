@@ -128,7 +128,15 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 			throwAttachmentsQueueLimit(attachmentsQueueLimit);
 		}
 		final AttachmentFile af = new AttachmentFile(multipartFile.getFile());
+		final int attachtype = getAttachtype(cp);
+		if (attachtype > -1) {
+			af.setType(attachtype);
+		}
 		getUploadCache(cp).put(af.getId(), af);
+	}
+
+	protected int getAttachtype(final ComponentParameter cp) {
+		return -1;
 	}
 
 	protected void throwAttachmentsQueueLimit(final int attachmentsQueueLimit) {
