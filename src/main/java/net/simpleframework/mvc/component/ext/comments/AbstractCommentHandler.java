@@ -125,7 +125,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 				final Object userId2 = getProperty(cp, p, ATTRI_USERID);
 				final Date createDate2 = (Date) getProperty(cp, p, ATTRI_CREATEDATE);
 				sb.append("<div class='r_desc'>");
-				sb.append(Convert.toDateString(createDate2)).append(SpanElement.SEP())
+				sb.append(Convert.toDateTimeString(createDate2)).append(SpanElement.SEP())
 						.append(permission.getUser(userId2));
 				sb.append("</div>");
 				sb.append(CommentUtils.replace(reply, true));
@@ -133,7 +133,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			}
 			sb.append("<div class='mc'>").append(CommentUtils.replace(content, true)).append("</div>");
 			sb.append("<div class='desc'>");
-			sb.append(Convert.toDateString(createDate));
+			sb.append(Convert.toDateTimeString(createDate));
 
 			if (mgr) {
 				sb.append(SpanElement.SEP()).append("<a onclick=\"$Actions['")
