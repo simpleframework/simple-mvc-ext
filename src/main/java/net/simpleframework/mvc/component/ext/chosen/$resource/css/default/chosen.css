@@ -8,6 +8,7 @@
   *display: inline;
   -webkit-user-select: none;
   -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 .chosen-container .chosen-drop {
