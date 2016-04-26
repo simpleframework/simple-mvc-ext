@@ -71,6 +71,11 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			final boolean multiple = (Boolean) cp.getBeanProperty("multiple");
 			if (!multiple) {
 				tablePager.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);");
+				tablePager
+						.setJsRowClick("item.up('.tablepager').select('.titem.titem_selected').invoke('removeClassName', 'titem_selected');"
+								+ "item.addClassName('titem_selected');");
+			} else {
+				tablePager.setJsRowClick("item.down('input[type=checkbox]').simulate('click');");
 			}
 
 			final TablePagerColumn txtColumn = new TablePagerColumn("text", $m("UserSelectLoaded.0"));

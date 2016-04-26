@@ -60,6 +60,7 @@
           });
         });
       } else {
+        d = d || tp.pager.down('.titem.titem_selected');
         if (d) {
           selects.push({
             id : tp.rowId(d),
