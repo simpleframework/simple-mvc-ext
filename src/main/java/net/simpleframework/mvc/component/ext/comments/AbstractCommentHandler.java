@@ -59,8 +59,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		sb.append("   <span class='icon'></span>");
 		sb.append("   <span class='reply'></span>");
 		sb.append("  </div>");
-		sb.append("  <div class='right'>").append($m("AbstractCommentHandler.0"));
-		sb.append("   <span class='num'>").append(comments(cp).getCount()).append("</span>")
+		sb.append("  <div class='right'>").append($m("AbstractCommentHandler.0"))
+				.append("<span class='num'>").append(comments(cp).getCount()).append("</span>")
 				.append($m("AbstractCommentHandler.1"));
 		sb.append("  </div>");
 		sb.append(" </div>");
