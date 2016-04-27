@@ -140,9 +140,11 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 						.append(cp.getComponentName()).append("_delete']('id=").append(id)
 						.append("');\">").append($m("Delete")).append("</a>");
 			}
-			sb.append(SpanElement.SEP());
-			sb.append("<a onclick=\"$COMMENT.reply('").append(id).append("', '").append(oUser)
-					.append("');\">").append($m("CommentList.0")).append("</a>");
+			if ((Boolean) cp.getBeanProperty("canReply")) {
+				sb.append(SpanElement.SEP());
+				sb.append("<a onclick=\"$COMMENT.reply('").append(id).append("', '").append(oUser)
+						.append("');\">").append($m("CommentList.0")).append("</a>");
+			}
 			sb.append("</div>");
 			sb.append("</td>");
 			sb.append("</tr></table></div>");
