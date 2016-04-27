@@ -67,7 +67,7 @@ public class CommentLoaded extends DefaultPageHandler {
 
 		// pager
 		pp.addComponentBean(commentName + "_pager", PagerBean.class)
-				.setNoResultDesc($m("CommentList.1")).setPagerBarLayout(EPagerBarLayout.bottom)
+				.setPagerBarLayout(EPagerBarLayout.bottom)
 				.setContainerId("id" + commentName + "_pager").setHandlerClass(CommentList.class)
 				.setAttr("$comment", commentBean);
 	}

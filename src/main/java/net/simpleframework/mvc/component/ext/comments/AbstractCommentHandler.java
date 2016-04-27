@@ -96,7 +96,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	protected AbstractElement<?> createSubmit(final ComponentParameter cp) {
 		final String commentName = cp.getComponentName();
-		return LinkButton.corner($m("AbstractCommentHandler.2"))
+		final String submitText = (String) cp.getBeanProperty("submitText");
+		return LinkButton.corner(submitText != null ? submitText : $m("AbstractCommentHandler.2"))
 				.setId("id" + commentName + "_submit")
 				.setOnclick("$Actions['" + commentName + "_submit']($Form(this.up('.t1_head')));");
 	}

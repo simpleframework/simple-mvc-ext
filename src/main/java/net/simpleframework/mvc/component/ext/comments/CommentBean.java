@@ -16,6 +16,9 @@ public class CommentBean extends AbstractContainerBean {
 	/* 是否允许评论 */
 	private boolean canReply = BeanDefaults.getBool(getClass(), "canReply", true);
 
+	/* 提交按钮文本 */
+	private String submitText;
+
 	/* 允许填写意见的最大字符数 */
 	private int maxlength = 200;
 
@@ -46,6 +49,15 @@ public class CommentBean extends AbstractContainerBean {
 
 	public void setMaxlength(final int maxlength) {
 		this.maxlength = maxlength;
+	}
+
+	public String getSubmitText() {
+		return submitText;
+	}
+
+	public CommentBean setSubmitText(final String submitText) {
+		this.submitText = submitText;
+		return this;
 	}
 
 	public String getRole() {
