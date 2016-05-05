@@ -289,8 +289,11 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	protected AbstractElement<?> createAttachmentItem_menu(final ComponentParameter cp,
 			final String id, final AttachmentFile attachment) {
-		return new SpanElement().setClassName("down_menu_image attach_menu").addStyle(
-				"float: right; margin-top: 3px;");
+		String style = "float: right; margin-top: 3px;";
+		if (getUploadCache(cp).containsKey(attachment.getId())) {
+			style += "display: none;";
+		}
+		return new SpanElement().setClassName("down_menu_image attach_menu").addStyle(style);
 	}
 
 	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,
