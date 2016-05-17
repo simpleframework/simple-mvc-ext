@@ -48,6 +48,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 		super.onBeforeComponentRender(pp);
 
 		final ComponentParameter cp = AttachmentUtils.get(pp);
+		final IAttachmentHandler aHandler = (IAttachmentHandler) cp.getComponentHandler();
 		final AttachmentBean attachmentBean = (AttachmentBean) cp.componentBean;
 		final String beanId = attachmentBean.hashId();
 		final String attachmentName = cp.getComponentName();
@@ -86,9 +87,11 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				if (swfUpload != null) {
 					editPage.setSelector(swfUpload.getSelector());
 				}
+
+				final int height = aHandler.getAttachTypes() == null ? 240 : 280;
 				pp.addComponentBean(attachmentName + "_editWin", WindowBean.class)
-						.setContentRef(attachmentName + "_editPage").setHeight(280).setWidth(420)
-						.setTitle($m("AttachmentLoaded.3"));
+						.setContentRef(attachmentName + "_editPage").setResizable(false)
+						.setHeight(height).setWidth(420).setTitle($m("AttachmentLoaded.3"));
 			}
 
 			// 菜单
@@ -135,7 +138,6 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				.setHandlerMethod("doDownload").setHandlerClass(AttachmentAction.class)
 				.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 
-		final IAttachmentHandler aHandler = (IAttachmentHandler) cp.getComponentHandler();
 		final String tPath = aHandler.getTooltipPath(cp);
 		if (StringUtils.hasText(tPath)) {
 			// tip
