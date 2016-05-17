@@ -46,6 +46,9 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 */
 	AttachmentFile getAttachmentById(ComponentParameter cp, String id) throws Exception;
 
+	@SuppressWarnings("rawtypes")
+	Enum[] getAttachTypes();
+
 	/**
 	 * 上传执行操作
 	 * 
@@ -71,9 +74,12 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cp
 	 * @param id
 	 * @param topic
+	 * @param attachtype
 	 * @param description
+	 * @throws Exception
 	 */
-	void doSave(ComponentParameter cp, String id, String topic, String description) throws Exception;
+	void doSave(ComponentParameter cp, String id, String topic, int attachtype, String description)
+			throws Exception;
 
 	/**
 	 * 删除上传的附件

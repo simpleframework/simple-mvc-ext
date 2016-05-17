@@ -87,7 +87,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 					editPage.setSelector(swfUpload.getSelector());
 				}
 				pp.addComponentBean(attachmentName + "_editWin", WindowBean.class)
-						.setContentRef(attachmentName + "_editPage").setHeight(240).setWidth(420)
+						.setContentRef(attachmentName + "_editPage").setHeight(280).setWidth(420)
 						.setTitle($m("AttachmentLoaded.3"));
 			}
 

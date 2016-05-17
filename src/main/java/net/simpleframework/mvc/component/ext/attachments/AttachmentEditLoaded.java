@@ -48,6 +48,7 @@ public class AttachmentEditLoaded extends DefaultPageHandler {
 		if (af != null) {
 			dataBinding.put("attach_id", af.getId());
 			dataBinding.put("attach_topic", af.getTopic());
+			dataBinding.put("attach_type", af.getType());
 			dataBinding.put("attach_desc", af.getDescription());
 		}
 	}
@@ -58,7 +59,8 @@ public class AttachmentEditLoaded extends DefaultPageHandler {
 			final ComponentParameter nCP = AttachmentUtils.get(cp);
 			final String attachmentName = nCP.getComponentName();
 			((IAttachmentHandler) nCP.getComponentHandler()).doSave(nCP, cp.getParameter("attach_id"),
-					cp.getParameter("attach_topic"), cp.getParameter("attach_desc"));
+					cp.getParameter("attach_topic"), cp.getIntParameter("attach_type"),
+					cp.getParameter("attach_desc"));
 			return new JavascriptForward("$Actions['").append(attachmentName)
 					.append("_editWin'].close();$Actions['").append(attachmentName).append("_list']();");
 		}

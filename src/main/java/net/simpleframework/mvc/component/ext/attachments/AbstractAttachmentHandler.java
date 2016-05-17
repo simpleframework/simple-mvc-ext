@@ -67,6 +67,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		return attachments(cp).get(id);
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Enum[] getAttachTypes() {
+		return null;
+	}
+
 	@Override
 	public JavascriptForward doSave(final ComponentParameter cp,
 			final IAttachmentSaveCallback callback) throws Exception {
@@ -88,10 +94,11 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@Override
 	public void doSave(final ComponentParameter cp, final String id, final String topic,
-			final String description) throws Exception {
+			final int attachtype, final String description) throws Exception {
 		final AttachmentFile af = getAttachmentById(cp, id);
 		if (af != null) {
 			af.setTopic(topic);
+			af.setType(attachtype);
 			af.setDescription(description);
 		}
 	}

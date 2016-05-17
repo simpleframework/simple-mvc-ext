@@ -9,19 +9,7 @@
 %>
 <div class="attachment_edit">
   <div class="c" id="af_<%=beanId%>">
-    <table class="form_tbl">
-      <tr>
-        <td class="l">#(attachment_edit.0)</td>
-        <td class="v"><input type="hidden" id="attach_id" name="attach_id" /><input
-          type="text" id="attach_topic" name="attach_topic" /></td>
-      </tr>
-    </table>
-    <table class="form_tbl">
-      <tr>
-        <td class="l">#(attachment_edit.1)</td>
-        <td class="v"><textarea rows="4" id="attach_desc" name="attach_desc"></textarea></td>
-      </tr>
-    </table>
+    <%=AttachmentUtils.toAttachFormHTML(cp)%>
   </div>
   <div class="b">
     <input type="button" id="btn_<%=beanId%>" value="#(Button.Ok)" class="button2"
