@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -37,9 +37,9 @@ CKEDITOR.stylesSet.add( 'default', [
 		name: 'Special Container',
 		element: 'div',
 		styles: {
-			padding: '10px',
-			background: '#f9f9f9',
-			border: '1px solid #bbb'
+			padding: '5px 10px',
+			background: '#eee',
+			border: '1px solid #ccc'
 		}
 	},
 

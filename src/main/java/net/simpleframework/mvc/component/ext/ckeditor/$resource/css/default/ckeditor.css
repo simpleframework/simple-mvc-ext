@@ -18,3 +18,10 @@
   display: inline-block !important;
   line-height: 16px !important;
 }
+
+.cke_chrome {
+  padding: 0 !important;
+  -moz-border-radius: 0 !important;
+	-webkit-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
