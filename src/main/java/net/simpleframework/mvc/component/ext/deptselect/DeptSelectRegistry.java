@@ -2,6 +2,7 @@ package net.simpleframework.mvc.component.ext.deptselect;
 
 import java.util.Collection;
 
+import net.simpleframework.common.Convert;
 import net.simpleframework.ctx.permission.PermissionDept;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.component.ComponentBean;
@@ -64,6 +65,9 @@ public class DeptSelectRegistry extends DictionaryRegistry {
 					n.setImage(DeptSelectUtils.getIconPath(nCP, d.isOrg()));
 					n.setDynamicLoading(treeNode != null);
 					n.setOpened(treeNode == null);
+					if (Convert.toBool(d.getAttr("checkVal"))) {
+						n.setCheck(1);
+					}
 					nodes.add(n);
 				}
 				return nodes;
