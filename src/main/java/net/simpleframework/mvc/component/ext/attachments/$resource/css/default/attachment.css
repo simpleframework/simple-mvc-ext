@@ -117,10 +117,6 @@
   margin: -3px -4px;
 }
 
-.form_tbl .v .Comp_Attachment.readonly {
-  margin-top: -5px;
-}
-
 .form_tbl .v .Comp_Attachment .fitem {
   border-bottom: 0;
   border-top: 1px dashed #ccc;

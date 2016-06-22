@@ -177,11 +177,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		if (imageList) {
 			sb.append("<div class='imgc clearfix'>");
 		}
+		int i = 0;
 		for (final Map.Entry<String, AttachmentFile> entry : attachments(cp).entrySet()) {
 			if (imageList) {
-				sb.append(toAttachmentItemImagesHTML(cp, entry.getKey(), entry.getValue()));
+				sb.append(toAttachmentItemImagesHTML(cp, entry.getKey(), entry.getValue(), i++));
 			} else {
-				sb.append(toAttachmentItemHTML(cp, entry.getKey(), entry.getValue()));
+				sb.append(toAttachmentItemHTML(cp, entry.getKey(), entry.getValue(), i++));
 			}
 		}
 		if (imageList) {
@@ -191,7 +192,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	}
 
 	protected String toAttachmentItemImagesHTML(final ComponentParameter cp, final String id,
-			final AttachmentFile attachment) throws IOException {
+			final AttachmentFile attachment, final int index) throws IOException {
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<div class='iitem");
@@ -243,11 +244,16 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	}
 
 	protected String toAttachmentItemHTML(final ComponentParameter cp, final String id,
-			final AttachmentFile attachment) throws IOException {
+			final AttachmentFile attachment, final int index) throws IOException {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<div class='fitem' rowid='").append(id).append("'>");
-		sb.append("<div class='l_attach");
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		sb.append("<div class='fitem'");
+		if (readonly && index == 0) {
+			sb.append(" style='border-top: 0;'");
+		}
+		sb.append(" rowid='").append(id).append("'>");
+		sb.append("<div class='l_attach");
+
 		if (!readonly) {
 			appendStatusClass(cp, id, sb);
 		}
