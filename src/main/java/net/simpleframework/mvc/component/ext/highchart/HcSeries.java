@@ -21,6 +21,10 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 
 	private EHcType type;
 
+	private String color;
+
+	private String[] colors;
+
 	private List<Object> data;
 
 	public HcSeries() {
@@ -41,6 +45,24 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 
 	public HcSeries setType(final EHcType type) {
 		this.type = type;
+		return this;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public HcSeries setColor(final String color) {
+		this.color = color;
+		return this;
+	}
+
+	public String[] getColors() {
+		return colors;
+	}
+
+	public HcSeries setColors(final String[] colors) {
+		this.colors = colors;
 		return this;
 	}
 
@@ -74,6 +96,12 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 		}
 		if ((val = getType()) != null) {
 			kv.add("type", val);
+		}
+		if ((val = getColor()) != null) {
+			kv.add("color", val);
+		}
+		if ((val = getColors()) != null) {
+			kv.add("colors", val);
 		}
 		return kv;
 	}
