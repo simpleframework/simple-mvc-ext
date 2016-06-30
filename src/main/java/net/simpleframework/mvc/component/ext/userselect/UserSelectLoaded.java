@@ -149,6 +149,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 					if (dept.exists()) {
 						kv.put("departmentText", dept);
 					}
+					kv.put("checkVal", user.getAttr("checkVal"));
 					return kv;
 				}
 
