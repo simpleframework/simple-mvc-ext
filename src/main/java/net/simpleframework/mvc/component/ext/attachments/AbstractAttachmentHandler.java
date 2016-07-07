@@ -152,7 +152,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@SuppressWarnings("unchecked")
 	protected Map<String, AttachmentFile> getUploadCache(final ComponentParameter cp) {
-		final String key = "Cache_" + cp.getComponentName();
+		final String key = "Upload_Cache_" + getCachekey(cp);
 		Map<String, AttachmentFile> cache = (Map<String, AttachmentFile>) cp.getSessionAttr(key);
 		if (cache == null) {
 			cp.setSessionAttr(key, cache = new LinkedHashMap<String, AttachmentFile>());
@@ -162,12 +162,16 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@SuppressWarnings("unchecked")
 	protected Set<String> getDeleteCache(final ComponentParameter cp) {
-		final String key = "Delete_Cache_" + cp.getComponentName();
+		final String key = "Delete_Cache_" + getCachekey(cp);
 		Set<String> cache = (Set<String>) cp.getSessionAttr(key);
 		if (cache == null) {
 			cp.setSessionAttr(key, cache = new LinkedHashSet<String>());
 		}
 		return cache;
+	}
+
+	protected String getCachekey(final ComponentParameter cp) {
+		return cp.getComponentName();
 	}
 
 	@Override
