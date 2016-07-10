@@ -53,30 +53,33 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	public String toEditorHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
 		final String commentName = cp.getComponentName();
-		sb.append("<div class='t1_head'>");
-		sb.append(" <div class='l1 clearfix'>");
-		sb.append("  <div class='left'>");
-		sb.append("   <span class='icon'></span>");
-		sb.append("   <span class='reply'></span>");
-		sb.append("  </div>");
-		sb.append("  <div class='right'>").append($m("AbstractCommentHandler.0"))
-				.append("<span class='num'>").append(comments(cp).getCount()).append("</span>")
-				.append($m("AbstractCommentHandler.1"));
-		sb.append("  </div>");
-		sb.append(" </div>");
-		sb.append(" <div class='l2'>").append(createTextarea(cp));
-		sb.append("  <input type='hidden' name='parentId' />");
-		sb.append(" </div>");
-		sb.append(" <div class='l3 clearfix'>");
-		sb.append("  <div class='left'>");
-		if ((Boolean) cp.getBeanProperty("showSmiley")) {
-			sb.append(createSmiley(cp));
+		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		if (!readonly) {
+			sb.append("<div class='t1_head'>");
+			sb.append(" <div class='l1 clearfix'>");
+			sb.append("  <div class='left'>");
+			sb.append("   <span class='icon'></span>");
+			sb.append("   <span class='reply'></span>");
+			sb.append("  </div>");
+			sb.append("  <div class='right'>").append($m("AbstractCommentHandler.0"))
+					.append("<span class='num'>").append(comments(cp).getCount()).append("</span>")
+					.append($m("AbstractCommentHandler.1"));
+			sb.append("  </div>");
+			sb.append(" </div>");
+			sb.append(" <div class='l2'>").append(createTextarea(cp));
+			sb.append("  <input type='hidden' name='parentId' />");
+			sb.append(" </div>");
+			sb.append(" <div class='l3 clearfix'>");
+			sb.append("  <div class='left'>");
+			if ((Boolean) cp.getBeanProperty("showSmiley")) {
+				sb.append(createSmiley(cp));
+			}
+			sb.append("	  <span class='ltxt'>&nbsp;</span>");
+			sb.append("  </div>");
+			sb.append("  <div class='right'>").append(createSubmit(cp)).append("</div>");
+			sb.append(" </div>");
+			sb.append("</div>");
 		}
-		sb.append("	  <span class='ltxt'>&nbsp;</span>");
-		sb.append("  </div>");
-		sb.append("  <div class='right'>").append(createSubmit(cp)).append("</div>");
-		sb.append(" </div>");
-		sb.append("</div>");
 		sb.append("<div class='t1_comments'>");
 		sb.append(" <div id='id").append(commentName).append("_pager'></div>");
 		sb.append("</div>");
@@ -105,7 +108,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	@Override
 	public String toListHTML(final ComponentParameter cp, final List<?> data) {
 		final boolean mgr = cp.isLmember(cp.getBeanProperty("role"));
-
+		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		final StringBuilder sb = new StringBuilder();
 		for (final Object o : data) {
 			final Object id = getProperty(cp, o, ATTRI_ID);
@@ -141,7 +144,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 						.append(cp.getComponentName()).append("_delete']('id=").append(id)
 						.append("');\">").append($m("Delete")).append("</a>");
 			}
-			if ((Boolean) cp.getBeanProperty("canReply")) {
+			if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
 				sb.append(SpanElement.SEP());
 				sb.append("<a onclick=\"$COMMENT.reply('").append(id).append("', '").append(oUser)
 						.append("');\">").append($m("CommentList.0")).append("</a>");
@@ -151,5 +154,15 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append("</tr></table></div>");
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public Object getBeanProperty(final ComponentParameter cp, final String beanProperty) {
+		if ("readonly".equals(beanProperty)) {
+			if (!cp.isLogin()) {
+				return true;
+			}
+		}
+		return super.getBeanProperty(cp, beanProperty);
 	}
 }

@@ -22,6 +22,9 @@ public class CommentBean extends AbstractContainerBean {
 	/* 允许填写意见的最大字符数 */
 	private int maxlength = 200;
 
+	/* 是否只读 */
+	private boolean readonly;
+
 	/* 操作角色 */
 	private String role;
 
@@ -57,6 +60,15 @@ public class CommentBean extends AbstractContainerBean {
 
 	public CommentBean setSubmitText(final String submitText) {
 		this.submitText = submitText;
+		return this;
+	}
+
+	public boolean isReadonly() {
+		return readonly;
+	}
+
+	public CommentBean setReadonly(final boolean readonly) {
+		this.readonly = readonly;
 		return this;
 	}
 
