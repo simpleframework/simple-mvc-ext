@@ -12,6 +12,9 @@
 <div class="user_select">
   <%
   	String vtype = cp.getParameter("vtype");
+    if (vtype == null) {
+		  vtype = (String) cp.getBeanProperty("vtype");
+	  }
   	boolean bTree = UserSelectBean.VT_TREE.equals(vtype);
   	if (bTree) {
   %>
