@@ -263,7 +263,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		}
 		sb.append("'>");
 		// btns
-		sb.append(createAttachmentItem_Btns(cp, id, attachment, readonly));
+		sb.append(createAttachmentItem_Btns(cp, id, attachment, readonly, index));
 		// topic
 		final boolean insertTextarea = StringUtils.hasText((String) cp
 				.getBeanProperty("insertTextarea"));
@@ -285,7 +285,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 			sb.append(index + 1).append(". ");
 		}
 		if (showlink) {
-			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment));
+			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, index));
 		} else {
 			sb.append(attachment.getTopic());
 		}
@@ -294,11 +294,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	}
 
 	protected String createAttachmentItem_Btns(final ComponentParameter cp, final String id,
-			final AttachmentFile attachment, final boolean readonly) throws IOException {
+			final AttachmentFile attachment, final boolean readonly, final int index)
+			throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		if (!readonly) {
 			if ((Boolean) cp.getBeanProperty("showMenu")) {
-				sb.append(createAttachmentItem_menu(cp, id, attachment));
+				sb.append(createAttachmentItem_menu(cp, id, attachment, index));
 			}
 			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
 			if ((Boolean) cp.getBeanProperty("showEdit")) {
@@ -309,7 +310,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	}
 
 	protected AbstractElement<?> createAttachmentItem_menu(final ComponentParameter cp,
-			final String id, final AttachmentFile attachment) {
+			final String id, final AttachmentFile attachment, final int index) {
 		String style = "float: right; margin-top: 3px;";
 		if (getUploadCache(cp).containsKey(attachment.getId())) {
 			style += "display: none;";
@@ -318,7 +319,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 	}
 
 	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,
-			final String id, final AttachmentFile attachment) {
+			final String id, final AttachmentFile attachment, final int index) {
 		return new LinkElement(attachment.getTopic()).setOnclick(
 				"$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');").addAttribute(
 				"params", "id=" + id);
