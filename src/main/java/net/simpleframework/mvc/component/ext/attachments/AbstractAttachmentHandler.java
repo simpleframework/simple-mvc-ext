@@ -268,18 +268,22 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		final boolean insertTextarea = StringUtils.hasText((String) cp
 				.getBeanProperty("insertTextarea"));
 		if (insertTextarea) {
-			sb.append(new Checkbox(id, createAttachmentItem_Topic(cp, id, attachment, false)));
+			sb.append(new Checkbox(id, createAttachmentItem_Topic(cp, id, attachment, false, index)));
 		} else {
 			// params for tooltip
-			sb.append(createAttachmentItem_Topic(cp, id, attachment, true));
+			sb.append(createAttachmentItem_Topic(cp, id, attachment, true, index));
 		}
 		sb.append("</div></div>");
 		return sb.toString();
 	}
 
 	protected String createAttachmentItem_Topic(final ComponentParameter cp, final String id,
-			final AttachmentFile attachment, final boolean showlink) throws IOException {
+			final AttachmentFile attachment, final boolean showlink, final int index)
+			throws IOException {
 		final StringBuilder sb = new StringBuilder();
+		if ((Boolean) cp.getBeanProperty("showLineNo")) {
+			sb.append(index + 1).append(". ");
+		}
 		if (showlink) {
 			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment));
 		} else {

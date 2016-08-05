@@ -32,6 +32,8 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	private boolean readonly = BeanDefaults.getBool(getClass(), "readonly", false);
 
+	private boolean showLineNo = BeanDefaults.getBool(getClass(), "showLineNo", false);
+
 	public int getAttachmentsLimit() {
 		return attachmentsLimit;
 	}
@@ -102,5 +104,13 @@ public class AttachmentBean extends AbstractContainerBean {
 	public AttachmentBean setShowMenu(final boolean showMenu) {
 		this.showMenu = showMenu;
 		return this;
+	}
+
+	public boolean isShowLineNo() {
+		return showLineNo;
+	}
+
+	public void setShowLineNo(final boolean showLineNo) {
+		this.showLineNo = showLineNo;
 	}
 }
