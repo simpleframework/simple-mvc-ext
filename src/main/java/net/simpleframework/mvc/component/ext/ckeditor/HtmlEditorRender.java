@@ -15,7 +15,8 @@ import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HtmlEditorRender extends ComponentJavascriptRender {
@@ -23,10 +24,12 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 	@Override
 	public String getJavascriptCode(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
+		final String componentName = cp.getComponentName();
 		final String actionFunc = ComponentRenderUtils.actionFunc(cp);
 		final String textarea = (String) cp.getBeanProperty("textarea");
 		final boolean hasTextarea = StringUtils.hasText(textarea);
-		sb.append("if (CKEDITOR._loading) return; CKEDITOR._loading = true;");
+		sb.append("if (CKEDITOR['_loading_").append(componentName)
+				.append("']) return; CKEDITOR['_loading_").append(componentName).append("'] = true;");
 		if (hasTextarea) {
 			sb.append(actionFunc).append(".editor = CKEDITOR.replace(\"");
 			sb.append(textarea).append("\", {");
@@ -67,7 +70,8 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 		}
 
 		sb.append("on: {");
-		sb.append("  instanceReady: function(ev) { CKEDITOR._loading = false; ");
+		sb.append("  instanceReady: function(ev) { CKEDITOR['_loading_").append(componentName)
+				.append("'] = false; ");
 		final String jsLoadedCallback = (String) cp.getBeanProperty("jsLoadedCallback");
 		if (StringUtils.hasText(jsLoadedCallback)) {
 			sb.append(jsLoadedCallback);
@@ -103,8 +107,6 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 			sb.append(actionFunc).append(".editor.setData(\"");
 			sb.append(JavascriptUtils.escape(htmlContent)).append("\");");
 		}
-
-		final String componentName = cp.getComponentName();
 
 		// for Attach
 		final String attachAction = (String) cp.getBeanProperty("attachAction");
