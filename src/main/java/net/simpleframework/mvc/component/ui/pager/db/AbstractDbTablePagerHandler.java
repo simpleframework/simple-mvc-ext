@@ -20,7 +20,6 @@ import net.simpleframework.ado.db.common.SqlUtils;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.Convert;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerHandler;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
@@ -60,7 +59,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 							final String label = metaData.getColumnLabel(i);
 							final TablePagerColumn col = new TablePagerColumn(name, label);
 							col.setWidth(Math.max(label.length() * 12, 60));
-							col.setTextAlign(ETextAlign.center);
+							col.center();
 							col.setFilter(true);
 							columns.add(col);
 						}
