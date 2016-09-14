@@ -71,9 +71,8 @@
 }
 
 .Comp_Comment .t1_head .num {
-  color: #900;
-  font-family: Georgia;
-  font-size: 18pt;
+  color: #c33;
+  font-size: 15pt;
   font-weight: bold;
   margin: 0 4px;
 }
