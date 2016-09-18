@@ -34,15 +34,12 @@ public class MessageWindowRegistry extends WindowRegistry {
 			final String ajaxRequestName = "ajaxRequest2_" + beanId;
 			messageWindowBean.setContent(ComponentUtils.getLoadingContent());
 			messageWindowBean.setContentRef(ajaxRequestName);
-			pp.addComponentBean(ajaxRequestName, AjaxRequestBean.class)
-					.setShowLoading(false)
-					.setUrlForward(
-							getComponentResourceProvider().getResourceHomePath()
-									+ "/jsp/message_window.jsp?" + MessageWindowUtils.BEAN_ID + "=" + beanId);
+			pp.addComponentBean(ajaxRequestName, AjaxRequestBean.class).setShowLoading(false)
+					.setUrlForward(getComponentResourceProvider().getResourceHomePath()
+							+ "/jsp/message_window.jsp?" + MessageWindowUtils.BEAN_ID + "=" + beanId);
 		}
 
-		pp.addComponentBean("ajaxRequest_" + beanId, AjaxRequestBean.class)
-				.setShowLoading(false)
+		pp.addComponentBean("ajaxRequest_" + beanId, AjaxRequestBean.class).setShowLoading(false)
 				.setJsCompleteCallback(
 						"$Actions['" + messageWindowBean.getName() + "'].ajaxRequestCallback(json);")
 				.setParameters(MessageWindowUtils.BEAN_ID + "=" + beanId)

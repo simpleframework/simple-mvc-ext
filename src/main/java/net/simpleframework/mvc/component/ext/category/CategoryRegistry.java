@@ -33,7 +33,8 @@ public class CategoryRegistry extends AbstractComponentRegistry {
 	public static final String CATEGORY = "category";
 
 	@Override
-	public AbstractComponentBean createComponentBean(final PageParameter pp, final Object attriData) {
+	public AbstractComponentBean createComponentBean(final PageParameter pp,
+			final Object attriData) {
 		final CategoryBean categoryBean = (CategoryBean) super.createComponentBean(pp, attriData);
 		ComponentHtmlRenderEx.createAjaxRequest(ComponentParameter.get(pp, categoryBean));
 

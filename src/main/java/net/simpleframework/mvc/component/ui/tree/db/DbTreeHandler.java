@@ -39,8 +39,8 @@ public abstract class DbTreeHandler extends AbstractTreeHandler {
 		if (dbNode == null) {
 			return tem.queryMapSet(new ExpressionValue(getRootExpressionValue(parentId)));
 		} else {
-			return tem.queryMapSet(new ExpressionValue(parentId + "=?", dbNode.getRowData().get(
-					dbTree.getIdName())));
+			return tem.queryMapSet(
+					new ExpressionValue(parentId + "=?", dbNode.getRowData().get(dbTree.getIdName())));
 		}
 	}
 

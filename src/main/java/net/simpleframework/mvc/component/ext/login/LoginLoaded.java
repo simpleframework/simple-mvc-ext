@@ -1,6 +1,7 @@
 package net.simpleframework.mvc.component.ext.login;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.permission.PermissionConst;
@@ -48,9 +49,8 @@ public class LoginLoaded extends DefaultPageHandler {
 		if (StringUtils.hasText(passwordGetUrl)) {
 			pp.addComponentBean("ajaxGetPassword", AjaxRequestBean.class)
 					.setRole(PermissionConst.ROLE_ANONYMOUS).setUrlForward(passwordGetUrl);
-			pp.addComponentBean("getPasswordWindow", WindowBean.class)
-					.setContentRef("ajaxGetPassword").setTitle($m("login.7"))
-					.setWidth(Convert.toInt(pp.getParameter("width"), 420))
+			pp.addComponentBean("getPasswordWindow", WindowBean.class).setContentRef("ajaxGetPassword")
+					.setTitle($m("login.7")).setWidth(Convert.toInt(pp.getParameter("width"), 420))
 					.setHeight(Convert.toInt(pp.getParameter("height"), 320));
 		}
 		// 验证码
@@ -63,17 +63,13 @@ public class LoginLoaded extends DefaultPageHandler {
 			final MenuBean menuBean = (MenuBean) pp.addComponentBean("accountMenu", MenuBean.class)
 					.setMenuEvent(EMenuEvent.click).setWidth("100").setSelector("#_accountMenu");
 			menuBean
-					.addItem(
-							MenuItem.of($m("login.4"), "login_icon_normal").setOnclick(
-									"_changeAccountType('normal')"))
+					.addItem(MenuItem.of($m("login.4"), "login_icon_normal")
+							.setOnclick("_changeAccountType('normal')"))
 					.addItem(MenuItem.sep())
-					.addItem(
-							MenuItem.of($m("login.5"), "login_icon_email").setOnclick(
-									"_changeAccountType('email')"))
-					.addItem(MenuItem.sep())
-					.addItem(
-							MenuItem.of($m("login.6"), "login_icon_mobile").setOnclick(
-									"_changeAccountType('mobile')"));
+					.addItem(MenuItem.of($m("login.5"), "login_icon_email")
+							.setOnclick("_changeAccountType('email')"))
+					.addItem(MenuItem.sep()).addItem(MenuItem.of($m("login.6"), "login_icon_mobile")
+							.setOnclick("_changeAccountType('mobile')"));
 		}
 		// 验证
 		pp.addComponentBean("loginValidation", ValidationBean.class).setTriggerSelector("#_loginBtn")

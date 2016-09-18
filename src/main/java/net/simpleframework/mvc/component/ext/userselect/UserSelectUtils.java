@@ -41,37 +41,34 @@ public abstract class UserSelectUtils {
 	public static String toTypeHTML(final ComponentParameter cp) {
 		final AjaxRequestBean ajaxRequest = (AjaxRequestBean) cp.componentBean
 				.getAttr(DictionaryRegistry.ATTRI_AJAXREQUEST);
-		final InputElement input = InputElement
-				.select()
-				.setClassName("vtype")
-				.setOnchange(
-						"$Actions['" + ajaxRequest.getName() + "']('"
-								+ HttpUtils.toQueryString(ComponentUtils.toFormParameters(get(cp)))
-								+ "&vtype=' + $F(this));");
+		final InputElement input = InputElement.select().setClassName("vtype")
+				.setOnchange("$Actions['" + ajaxRequest.getName() + "']('"
+						+ HttpUtils.toQueryString(ComponentUtils.toFormParameters(get(cp)))
+						+ "&vtype=' + $F(this));");
 		String vtype = cp.getParameter("vtype");
 		if (vtype == null) {
 			vtype = (String) cp.getBeanProperty("vtype");
 		}
 
 		if ((Boolean) cp.getBeanProperty("showGroupOpt")) {
-			input.addElements(new Option(VT_GROUP, "#(user_select.1)").setSelected(VT_GROUP
-					.equals(vtype)));
+			input.addElements(
+					new Option(VT_GROUP, "#(user_select.1)").setSelected(VT_GROUP.equals(vtype)));
 		}
 		input.addElements(new Option(VT_LIST, "#(user_select.2)").setSelected(VT_LIST.equals(vtype)));
 		if ((Boolean) cp.getBeanProperty("showTreeOpt")) {
-			input.addElements(new Option(VT_TREE, "#(user_select.3)").setSelected(VT_TREE
-					.equals(vtype)));
+			input.addElements(
+					new Option(VT_TREE, "#(user_select.3)").setSelected(VT_TREE.equals(vtype)));
 		}
 
 		final StringBuilder sb = new StringBuilder();
 		sb.append(input);
 		if ((Boolean) cp.getBeanProperty("multiple")) {
 			final boolean vtTree = VT_TREE.equals(vtype);
-			sb.append(new BlockElement().setClassName(vtTree ? "check_tree_all" : "check_all")
-					.addElements(
-							new Checkbox(cp.getComponentName() + "_check_all",
+			sb.append(
+					new BlockElement().setClassName(vtTree ? "check_tree_all" : "check_all")
+							.addElements(new Checkbox(cp.getComponentName() + "_check_all",
 									vtTree ? $m("UserSelectUtils.0") : null)
-									.addStyle("vertical-align: middle;")));
+											.addStyle("vertical-align: middle;")));
 		}
 		return sb.toString();
 	}

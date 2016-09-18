@@ -18,8 +18,8 @@ import net.simpleframework.mvc.component.ext.highchart.EChart.EAxisType;
 @SuppressWarnings("unchecked")
 public abstract class AbstractHcClass {
 
-	public static abstract class AbstractHcElement<T extends AbstractHcElement<T>> extends
-			AbstractElementBean {
+	public static abstract class AbstractHcElement<T extends AbstractHcElement<T>>
+			extends AbstractElementBean {
 
 		protected AbstractElementBean parent;
 
@@ -58,8 +58,8 @@ public abstract class AbstractHcClass {
 		}
 	}
 
-	public static abstract class AbstractAxis<T extends AbstractAxis<T>> extends
-			AbstractHcElement<T> {
+	public static abstract class AbstractAxis<T extends AbstractAxis<T>>
+			extends AbstractHcElement<T> {
 
 		private String[] categories;
 
@@ -179,7 +179,8 @@ public abstract class AbstractHcClass {
 		}
 	}
 
-	public static class AbstractHcLabels<T extends AbstractHcLabels<T>> extends AbstractHcElement<T> {
+	public static class AbstractHcLabels<T extends AbstractHcLabels<T>>
+			extends AbstractHcElement<T> {
 		private Boolean enabled;
 
 		private Integer x, y;
@@ -287,8 +288,8 @@ public abstract class AbstractHcClass {
 		}
 	}
 
-	public static abstract class AbstractHcText<T extends AbstractHcText<T>> extends
-			AbstractHcElement<T> {
+	public static abstract class AbstractHcText<T extends AbstractHcText<T>>
+			extends AbstractHcElement<T> {
 
 		private String text;
 
@@ -391,8 +392,8 @@ public abstract class AbstractHcClass {
 		}
 	}
 
-	public static abstract class AbstractMarker<T extends AbstractMarker<T>> extends
-			AbstractHcElement<T> {
+	public static abstract class AbstractMarker<T extends AbstractMarker<T>>
+			extends AbstractHcElement<T> {
 		private Boolean enabled;
 
 		private String lineColor;

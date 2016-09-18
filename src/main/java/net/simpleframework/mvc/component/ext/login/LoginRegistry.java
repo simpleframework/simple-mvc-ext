@@ -24,7 +24,8 @@ public class LoginRegistry extends AbstractComponentRegistry {
 	public static final String LOGIN = "login";
 
 	@Override
-	public AbstractComponentBean createComponentBean(final PageParameter pp, final Object attriData) {
+	public AbstractComponentBean createComponentBean(final PageParameter pp,
+			final Object attriData) {
 		final LoginBean loginBean = (LoginBean) super.createComponentBean(pp, attriData);
 		ComponentHtmlRenderEx.createAjaxRequest(ComponentParameter.get(pp, loginBean));
 		return loginBean;

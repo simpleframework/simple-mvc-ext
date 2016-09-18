@@ -25,7 +25,8 @@ public class AttachmentRegistry extends AbstractComponentRegistry {
 	public static final String ATTACHMENT = "attachment";
 
 	@Override
-	public AbstractComponentBean createComponentBean(final PageParameter pp, final Object attriData) {
+	public AbstractComponentBean createComponentBean(final PageParameter pp,
+			final Object attriData) {
 		final AttachmentBean attachmentBean = (AttachmentBean) super.createComponentBean(pp,
 				attriData);
 		ComponentHtmlRenderEx.createAjaxRequest(ComponentParameter.get(pp, attachmentBean));

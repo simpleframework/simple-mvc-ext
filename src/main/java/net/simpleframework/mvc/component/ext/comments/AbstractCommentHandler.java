@@ -33,15 +33,15 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	@Override
 	public JavascriptForward addComment(final ComponentParameter cp) {
-		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(").append(
-				comments(cp).getCount()).append(");");
+		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(")
+				.append(comments(cp).getCount()).append(");");
 		return js;
 	}
 
 	@Override
 	public JavascriptForward deleteComment(final ComponentParameter cp, final Object id) {
-		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(").append(
-				comments(cp).getCount()).append(");");
+		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(")
+				.append(comments(cp).getCount()).append(");");
 		return js;
 	}
 
@@ -88,8 +88,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
-		return LinkElement.style2($m("AbstractCommentHandler.3")).setOnclick(
-				"$Actions['" + cp.getComponentName() + "_smiley']();");
+		return LinkElement.style2($m("AbstractCommentHandler.3"))
+				.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
 	}
 
 	protected AbstractElement<?> createTextarea(final ComponentParameter cp) {

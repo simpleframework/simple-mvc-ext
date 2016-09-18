@@ -12,8 +12,8 @@ import net.simpleframework.mvc.component.ui.pager.IGroupTablePagerHandler;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class GroupDbTablePagerHandler extends AbstractDbTablePagerHandler implements
-		IGroupTablePagerHandler {
+public abstract class GroupDbTablePagerHandler extends AbstractDbTablePagerHandler
+		implements IGroupTablePagerHandler {
 
 	@Override
 	public Map<String, Object> getFormParameters(final ComponentParameter cp) {

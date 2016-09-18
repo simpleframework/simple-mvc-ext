@@ -31,8 +31,8 @@ import net.simpleframework.mvc.component.ui.tree.TreeNode;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
-		DefaultCategoryHandler {
+public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware>
+		extends DefaultCategoryHandler {
 
 	protected abstract IDbBeanService<T> getBeanService();
 
@@ -127,7 +127,8 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 			final Map<String, Object> dataBinding, final PageSelector selector, final T t) {
 	}
 
-	protected void onSave_setProperties(final ComponentParameter cp, final T t, final boolean insert) {
+	protected void onSave_setProperties(final ComponentParameter cp, final T t,
+			final boolean insert) {
 	}
 
 	@SuppressWarnings("unchecked")
@@ -172,7 +173,8 @@ public abstract class CategoryBeanAwareHandler<T extends IIdBeanAware> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <M extends ITreeBeanAware> void onDelete_assert(final ComponentParameter cp, final T t) {
+	protected <M extends ITreeBeanAware> void onDelete_assert(final ComponentParameter cp,
+			final T t) {
 		final IDbBeanService<T> mgr = getBeanService();
 		if (mgr instanceof ITreeBeanServiceAware
 				&& ((ITreeBeanServiceAware<M>) mgr).queryChildren((M) t).getCount() > 0) {

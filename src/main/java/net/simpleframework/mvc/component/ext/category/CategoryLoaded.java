@@ -26,14 +26,13 @@ public class CategoryLoaded extends DefaultPageHandler {
 		if ((Boolean) cp.getBeanProperty("showContextMenu")) {
 			treeBean.setContextMenu(categoryName + "_contextMenu");
 
-			pp.addComponentBean(categoryName + "_contextMenu", MenuBean.class).setHandlerClass(
-					CategoryContextMenu.class);
+			pp.addComponentBean(categoryName + "_contextMenu", MenuBean.class)
+					.setHandlerClass(CategoryContextMenu.class);
 		}
 		// treeBean.set
 		treeBean.setDynamicLoading((Boolean) cp.getBeanProperty("dynamicTree"))
-				.setContainerId("category_" + categoryBean.hashId())
-				.setHandlerClass(CategoryTree.class).setRunImmediately(false)
-				.setAttr("$category", categoryBean);
+				.setContainerId("category_" + categoryBean.hashId()).setHandlerClass(CategoryTree.class)
+				.setRunImmediately(false).setAttr("$category", categoryBean);
 		((ICategoryHandler) cp.getComponentHandler()).setTreeBean(cp, treeBean);
 		categoryBean.setAttr("$tree", treeBean);
 	}

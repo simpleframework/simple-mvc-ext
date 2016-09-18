@@ -43,10 +43,8 @@ public class CommentLoaded extends DefaultPageHandler {
 		// 提交与验证
 		final String idTa = "id" + commentName + "_textarea";
 		pp.addComponentBean(commentName + "_validation", ValidationBean.class)
-				.setTriggerSelector("#id" + commentName + "_submit")
-				.setWarnType(EWarnType.insertAfter)
-				.addValidators(
-						new Validator(EValidatorMethod.required, "#" + idTa),
+				.setTriggerSelector("#id" + commentName + "_submit").setWarnType(EWarnType.insertAfter)
+				.addValidators(new Validator(EValidatorMethod.required, "#" + idTa),
 						new Validator(EValidatorMethod.min_length, "#" + idTa, 6)
 								.setMessage($m("CommentLoaded.0")));
 		pp.addComponentBean(commentName + "_submit", AjaxRequestBean.class)

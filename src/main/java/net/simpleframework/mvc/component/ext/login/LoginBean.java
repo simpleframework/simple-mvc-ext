@@ -106,8 +106,8 @@ public class LoginBean extends AbstractContainerBean {
 	{
 		setSelector("#_loginForm");
 		try {
-			setHandlerClass(ClassUtils
-					.forName("net.simpleframework.organization.web.component.login.DefaultLoginHandler"));
+			setHandlerClass(ClassUtils.forName(
+					"net.simpleframework.organization.web.component.login.DefaultLoginHandler"));
 		} catch (final ClassNotFoundException e) {
 		}
 	}

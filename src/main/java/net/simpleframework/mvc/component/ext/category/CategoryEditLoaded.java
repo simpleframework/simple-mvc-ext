@@ -17,8 +17,8 @@ public class CategoryEditLoaded extends DefaultPageHandler {
 	public void onPageLoad(final PageParameter pp, final Map<String, Object> dataBinding,
 			final PageSelector selector) {
 		final ComponentParameter cp = CategoryUtils.get(pp);
-		((ICategoryHandler) cp.getComponentHandler())
-				.categoryEdit_onLoaded(cp, dataBinding, selector);
+		((ICategoryHandler) cp.getComponentHandler()).categoryEdit_onLoaded(cp, dataBinding,
+				selector);
 	}
 
 	@Override

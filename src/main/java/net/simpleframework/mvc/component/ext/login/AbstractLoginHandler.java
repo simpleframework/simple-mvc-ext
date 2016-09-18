@@ -15,8 +15,8 @@ import net.simpleframework.mvc.component.ComponentParameter;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractLoginHandler extends AbstractComponentHandler implements
-		ILoginHandler {
+public abstract class AbstractLoginHandler extends AbstractComponentHandler
+		implements ILoginHandler {
 
 	protected String getLastUrl(final ComponentParameter cp) {
 		return LastUrlListener.getLastUrl(cp);

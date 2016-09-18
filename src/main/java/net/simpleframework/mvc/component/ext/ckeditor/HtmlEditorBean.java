@@ -11,8 +11,8 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  */
 public class HtmlEditorBean extends AbstractContainerBean {
 
-	private boolean toolbarCanCollapse = BeanDefaults
-			.getBool(getClass(), "toolbarCanCollapse", true);
+	private boolean toolbarCanCollapse = BeanDefaults.getBool(getClass(), "toolbarCanCollapse",
+			true);
 
 	private boolean resizeEnabled = BeanDefaults.getBool(getClass(), "resizeEnabled", false);
 

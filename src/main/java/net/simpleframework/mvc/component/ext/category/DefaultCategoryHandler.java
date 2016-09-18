@@ -92,8 +92,7 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 	}
 
 	protected KVMap createContextMenuItems() {
-		return new KVMap()
-				.add("Add", MenuItem.itemAdd().setOnclick("$category_action(item).add();"))
+		return new KVMap().add("Add", MenuItem.itemAdd().setOnclick("$category_action(item).add();"))
 				.add("Edit", MenuItem.itemEdit().setOnclick("$category_action(item).edit();"))
 				.add("Delete", MenuItem.itemDelete().setOnclick("$category_action(item).del();"))
 				.add("Refresh",
@@ -114,9 +113,8 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 				.add("Expand",
 						MenuItem.of($m("Tree.expand"), MenuItem.ICON_EXPAND,
 								"$category_action(item).expand();"))
-				.add("Collapse",
-						MenuItem.of($m("Tree.collapse"), MenuItem.ICON_COLLAPSE,
-								"$category_action(item).collapse();"));
+				.add("Collapse", MenuItem.of($m("Tree.collapse"), MenuItem.ICON_COLLAPSE,
+						"$category_action(item).collapse();"));
 	}
 
 	@Override
@@ -177,8 +175,8 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 
 	@Override
 	public Map<String, Object> categoryEdit_attri(final ComponentParameter cp) {
-		return new KVMap().add(edit_url, ComponentUtils.getResourceHomePath(CategoryBean.class)
-				+ "/jsp/category_edit.jsp");
+		return new KVMap().add(edit_url,
+				ComponentUtils.getResourceHomePath(CategoryBean.class) + "/jsp/category_edit.jsp");
 	}
 
 	@Override
@@ -199,19 +197,20 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 		final CategoryBean category = (CategoryBean) cp.componentBean;
 		final String categoryName = cp.getComponentName();
 
-		final PropEditorBean propEditor = (PropEditorBean) cp.addComponentBean(
-				categoryName + "_propEditor", PropEditorBean.class).setContainerId(
-				"idCategoryForm_" + category.hashId());
-		final PropField f1 = new PropField($m("category_edit.0")).addComponents(
-				InputComp.hidden("category_id"), new InputComp("category_text"));
-		final PropField f2 = new PropField($m("category_edit.1")).addComponents(new InputComp(
-				"category_name"));
+		final PropEditorBean propEditor = (PropEditorBean) cp
+				.addComponentBean(categoryName + "_propEditor", PropEditorBean.class)
+				.setContainerId("idCategoryForm_" + category.hashId());
+		final PropField f1 = new PropField($m("category_edit.0"))
+				.addComponents(InputComp.hidden("category_id"), new InputComp("category_text"));
+		final PropField f2 = new PropField($m("category_edit.1"))
+				.addComponents(new InputComp("category_name"));
 		final PropField f3 = new PropField($m("category_edit.2")).addComponents(
 				InputComp.hidden("category_parentId"),
 				InputComp.textButton("category_parentText").setAttributes("readonly")
 						.addEvent(EElementEvent.click, "$Actions['" + categoryName + "_dict']();"));
-		final PropField f4 = new PropField($m("Description")).addComponents(new InputComp(
-				"category_description").setType(EInputCompType.textarea).setAttributes("rows:5"));
+		final PropField f4 = new PropField($m("Description"))
+				.addComponents(new InputComp("category_description").setType(EInputCompType.textarea)
+						.setAttributes("rows:5"));
 		propEditor.getFormFields().append(f1, f2, f3, f4);
 
 		return propEditor;
@@ -219,13 +218,10 @@ public class DefaultCategoryHandler extends ComponentHandlerEx implements ICateg
 
 	protected AbstractComponentBean categoryEdit_createValidation(final ComponentParameter cp) {
 		final String categoryName = cp.getComponentName();
-		return cp
-				.addComponentBean(categoryName + "_validation", ValidationBean.class)
-				.setTriggerSelector(".CategoryEdit .button2")
-				.setWarnType(EWarnType.insertAfter)
-				.addValidators(
-						new Validator().setSelector("#category_text, #category_name").setMethod(
-								EValidatorMethod.required));
+		return cp.addComponentBean(categoryName + "_validation", ValidationBean.class)
+				.setTriggerSelector(".CategoryEdit .button2").setWarnType(EWarnType.insertAfter)
+				.addValidators(new Validator().setSelector("#category_text, #category_name")
+						.setMethod(EValidatorMethod.required));
 	}
 
 	protected AbstractComponentBean categoryEdit_createDictTree(final ComponentParameter cp) {

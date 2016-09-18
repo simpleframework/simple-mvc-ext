@@ -336,8 +336,8 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private abstract static class _HcOptMarkerBase<T extends _HcOptMarkerBase<T>> extends
-			AbstractHcElement<T> {
+	private abstract static class _HcOptMarkerBase<T extends _HcOptMarkerBase<T>>
+			extends AbstractHcElement<T> {
 		private Boolean enabled;
 
 		private Integer radius;

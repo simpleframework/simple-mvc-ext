@@ -25,8 +25,8 @@ import net.simpleframework.mvc.component.ui.dictionary.AbstractDictionaryHandler
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class DefaultUserSelectHandler extends AbstractDictionaryHandler implements
-		IUserSelectHandler {
+public class DefaultUserSelectHandler extends AbstractDictionaryHandler
+		implements IUserSelectHandler {
 	@Override
 	public Map<String, Object> getFormParameters(final ComponentParameter cp) {
 		final KVMap kv = new KVMap();

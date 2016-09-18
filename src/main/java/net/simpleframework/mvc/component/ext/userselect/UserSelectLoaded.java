@@ -71,8 +71,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			final boolean multiple = (Boolean) cp.getBeanProperty("multiple");
 			if (!multiple) {
 				tablePager.setJsRowDblclick("$Actions['" + userSelectName + "'].doDblclick(item);");
-				tablePager
-						.setJsRowClick("item.up('.tablepager').select('.titem.titem_selected').invoke('removeClassName', 'titem_selected');"
+				tablePager.setJsRowClick(
+						"item.up('.tablepager').select('.titem.titem_selected').invoke('removeClassName', 'titem_selected');"
 								+ "item.addClassName('titem_selected');");
 			} else {
 				tablePager.setJsRowClick("item.down('input[type=checkbox]').simulate('click');");
@@ -90,8 +90,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		}
 	}
 
-	public static class UserList extends AbstractDbTablePagerHandler implements
-			IGroupTablePagerHandler {
+	public static class UserList extends AbstractDbTablePagerHandler
+			implements IGroupTablePagerHandler {
 
 		@Override
 		protected ExpressionValue createFilterExpressionValue(final DbDataQuery<?> qs,
@@ -99,8 +99,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			final String col = oCol.getColumnName();
 			if ("text".equals(col)) {
 				final ExpressionValue ev = super.createFilterExpressionValue(qs, oCol, coll);
-				final ExpressionValue ev2 = super.createFilterExpressionValue(qs, new TablePagerColumn(
-						"py"), coll);
+				final ExpressionValue ev2 = super.createFilterExpressionValue(qs,
+						new TablePagerColumn("py"), coll);
 				ev.setExpression("((" + ev.getExpression() + ") or (" + ev2.getExpression() + "))");
 				ev.addValues(ev2.getValues());
 				return ev;
@@ -124,8 +124,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		public Map<String, Object> getFormParameters(final ComponentParameter cp) {
 			final KVMap kv = (KVMap) super.getFormParameters(cp);
 			kv.putAll(ComponentUtils.toFormParameters(UserSelectUtils.get(cp)));
-			return kv.add(UserSelectUtils.BEAN_ID, cp.getParameter(UserSelectUtils.BEAN_ID)).add(
-					"vtype", cp.getParameter("vtype"));
+			return kv.add(UserSelectUtils.BEAN_ID, cp.getParameter(UserSelectUtils.BEAN_ID))
+					.add("vtype", cp.getParameter("vtype"));
 		}
 
 		@Override
@@ -143,8 +143,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 						final Object dataObject) {
 					final PermissionUser user = (PermissionUser) dataObject;
 					final KVMap kv = new KVMap();
-					kv.put("text", new SpanElement(dataObject).setTitle((String) BeanUtils.getProperty(
-							dataObject, "email")));
+					kv.put("text", new SpanElement(dataObject)
+							.setTitle((String) BeanUtils.getProperty(dataObject, "email")));
 					final PermissionDept dept = user.getDept();
 					if (dept.exists()) {
 						kv.put("departmentText", dept);
@@ -236,7 +236,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 					for (final PermissionUser user : wrapper.getUsers()) {
 						final TreeNode tn = new TreeNode(treeBean, user);
 						tn.setImage(imgPath + "users.png");
-						tn.setJsDblclickCallback("$Actions['" + userSelectName + "'].doDblclick(branch);");
+						tn.setJsDblclickCallback(
+								"$Actions['" + userSelectName + "'].doDblclick(branch);");
 						nodes.add(tn);
 					}
 					for (final DeptMemory w2 : wrapper.getChildren()) {
@@ -258,7 +259,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 				final TreeNode treeNode, final TreeNodes children) {
 			final Map<String, Object> attributes = super.getTreenodeAttributes(cp, treeNode, children);
 			Object dataObject;
-			if (treeNode != null && (dataObject = treeNode.getDataObject()) instanceof PermissionUser) {
+			if (treeNode != null
+					&& (dataObject = treeNode.getDataObject()) instanceof PermissionUser) {
 				final ComponentParameter nCP = ComponentParameter.get(cp,
 						(AbstractComponentBean) cp.componentBean.getAttr("userSelect"));
 				final Map<String, Object> attri = ((IUserSelectHandler) nCP.getComponentHandler())

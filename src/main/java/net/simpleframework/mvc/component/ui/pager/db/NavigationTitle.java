@@ -37,8 +37,8 @@ public abstract class NavigationTitle {
 				eles.add(SpanElement.NAV());
 				category2 = al.get(i);
 				if (callback.isLink(category2) && i < size - 1) {
-					eles.add(new LinkElement(category2).setOnclick(callback
-							.setOnclick(((IIdBeanAware) category2).getId())));
+					eles.add(new LinkElement(category2)
+							.setOnclick(callback.setOnclick(((IIdBeanAware) category2).getId())));
 				} else {
 					eles.add(new LabelElement(callback.getText(category2)));
 				}

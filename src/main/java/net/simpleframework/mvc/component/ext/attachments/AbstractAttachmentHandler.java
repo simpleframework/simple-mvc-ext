@@ -38,8 +38,8 @@ import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractAttachmentHandler extends ComponentHandlerEx implements
-		IAttachmentHandler {
+public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
+		implements IAttachmentHandler {
 	@Override
 	public void setSwfUploadBean(final ComponentParameter cp, final SwfUploadBean swfUpload) {
 		swfUpload.setMultiFileSelected(true);
@@ -265,8 +265,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		// btns
 		sb.append(createAttachmentItem_Btns(cp, id, attachment, readonly, index));
 		// topic
-		final boolean insertTextarea = StringUtils.hasText((String) cp
-				.getBeanProperty("insertTextarea"));
+		final boolean insertTextarea = StringUtils
+				.hasText((String) cp.getBeanProperty("insertTextarea"));
 		if (insertTextarea) {
 			sb.append(new Checkbox(id, createAttachmentItem_Topic(cp, id, attachment, false, index)));
 		} else {
@@ -320,9 +320,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,
 			final String id, final AttachmentFile attachment, final int index) {
-		return new LinkElement(attachment.getTopic()).setOnclick(
-				"$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');").addAttribute(
-				"params", "id=" + id);
+		return new LinkElement(attachment.getTopic())
+				.setOnclick("$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');")
+				.addAttribute("params", "id=" + id);
 	}
 
 	protected SpanElement createAttachmentItem_fileSizeElement(final AttachmentFile attachment)
@@ -349,8 +349,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	protected AbstractElement<?> createAttachmentItem_EditBtn(final ComponentParameter cp,
 			final String id, final AttachmentFile attachment) {
-		return createAttachmentItem_Btn($m("Edit")).setOnclick(
-				"$Actions['" + cp.getComponentName() + "_editWin']('id=" + id + "');");
+		return createAttachmentItem_Btn($m("Edit"))
+				.setOnclick("$Actions['" + cp.getComponentName() + "_editWin']('id=" + id + "');");
 	}
 
 	protected boolean showCheckbox() {
@@ -359,8 +359,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 
 	@Override
 	public String toBottomHTML(final ComponentParameter cp) {
-		final boolean insertTextarea = StringUtils.hasText((String) cp
-				.getBeanProperty("insertTextarea"));
+		final boolean insertTextarea = StringUtils
+				.hasText((String) cp.getBeanProperty("insertTextarea"));
 		final boolean showSubmit = (Boolean) cp.getBeanProperty("showSubmit");
 		if (!insertTextarea && !showSubmit) {
 			return "";
@@ -370,9 +370,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		final String hashId = cp.hashId();
 		sb.append("<div class='b_attach' id='cc_").append(hashId).append("'>");
 		sb.append(" <span class='rbtn'>");
-		sb.append(
-				LinkButton.corner(insertTextarea ? $m("AbstractAttachmentHandler.0")
-						: $m("AbstractAttachmentHandler.3"))).append("</span>");
+		sb.append(LinkButton.corner(
+				insertTextarea ? $m("AbstractAttachmentHandler.0") : $m("AbstractAttachmentHandler.3")))
+				.append("</span>");
 		if (insertTextarea) {
 			sb.append(new Checkbox("checkAll_" + hashId, $m("AbstractAttachmentHandler.1")));
 		}
@@ -385,20 +385,24 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx imple
 		if (insertTextarea) {
 			sb.append(" cc.down('input[type=checkbox]').observe('click', function(evn) {");
 			sb.append("   var _box = this;");
-			sb.append("   attach.select('input[type=checkbox]').each(function(box) { box.checked = _box.checked; });");
+			sb.append(
+					"   attach.select('input[type=checkbox]').each(function(box) { box.checked = _box.checked; });");
 			sb.append(" });");
 			sb.append(" cc.down('.simple_btn').observe('click', function(evn) {");
-			sb.append("   var idArr = attach.select('input[type=checkbox]').inject([], function(r, box) {");
+			sb.append(
+					"   var idArr = attach.select('input[type=checkbox]').inject([], function(r, box) {");
 			sb.append("     if (box.checked) r.push(box.id);");
 			sb.append("     return r;");
 			sb.append("   });");
-			sb.append("   if (idArr.length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
+			sb.append(
+					"   if (idArr.length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
 			sb.append("   $Actions['").append(cp.getComponentName())
 					.append("_selected']('ids=' + idArr.join(';'));");
 			sb.append(" });");
 		} else {
 			sb.append(" cc.down('.simple_btn').observe('click', function(evn) {");
-			sb.append("  if (attach.select('.fitem').length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
+			sb.append(
+					"  if (attach.select('.fitem').length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
 			sb.append("  $Actions['").append(cp.getComponentName()).append("_submit']();");
 			sb.append(" });");
 		}

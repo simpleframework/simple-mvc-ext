@@ -22,8 +22,8 @@ import net.simpleframework.mvc.component.ui.tree.TreeBean;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class DefaultDeptSelectHandler extends AbstractDictionaryHandler implements
-		IDeptSelectHandle {
+public class DefaultDeptSelectHandler extends AbstractDictionaryHandler
+		implements IDeptSelectHandle {
 
 	@Override
 	public List<PermissionDept> getDepartments(final ComponentParameter cp, final TreeBean treeBean,
@@ -63,9 +63,9 @@ public class DefaultDeptSelectHandler extends AbstractDictionaryHandler implemen
 		if (Convert.toBool(cp.getBeanProperty("multiple"))) {
 			final String componentName = ((DictionaryTreeBean) ((DeptSelectBean) cp.componentBean)
 					.getDictionaryTypeBean()).getRef();
-			return ElementList.of(new Checkbox("idDefaultDeptSelectHandler_cb",
-					$m("DefaultDeptSelectHandler.0")).setOnclick("$Actions['" + componentName
-					+ "'].checkAll(this.checked);"));
+			return ElementList
+					.of(new Checkbox("idDefaultDeptSelectHandler_cb", $m("DefaultDeptSelectHandler.0"))
+							.setOnclick("$Actions['" + componentName + "'].checkAll(this.checked);"));
 		}
 		return null;
 	}
