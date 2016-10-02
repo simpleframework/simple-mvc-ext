@@ -14,6 +14,8 @@
 <script type="text/javascript">
 	$ready(function() {
     var ta = $("id<%=componentName%>_textarea");
+    if (!ta)
+      return;
     var h = ta.up(".t1_head");
     var parent = ta.next();
     var reply = h.down(".reply");
