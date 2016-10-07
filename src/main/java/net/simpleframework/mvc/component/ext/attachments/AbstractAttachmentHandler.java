@@ -98,7 +98,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		final AttachmentFile af = getAttachmentById(cp, id);
 		if (af != null) {
 			af.setTopic(topic);
-			af.setType(attachtype);
+			if (attachtype > 0) {
+				af.setType(attachtype);
+			}
 			af.setDescription(description);
 		}
 	}
