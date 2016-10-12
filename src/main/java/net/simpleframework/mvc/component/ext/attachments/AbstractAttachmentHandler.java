@@ -20,6 +20,7 @@ import net.simpleframework.ctx.common.bean.AttachmentFile;
 import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
+import net.simpleframework.mvc.SessionCache;
 import net.simpleframework.mvc.common.ImageCache;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.Checkbox;
@@ -155,9 +156,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@SuppressWarnings("unchecked")
 	protected Map<String, AttachmentFile> getUploadCache(final ComponentParameter cp) {
 		final String key = "Upload_Cache_" + getCachekey(cp);
-		Map<String, AttachmentFile> cache = (Map<String, AttachmentFile>) cp.getSessionAttr(key);
+		Map<String, AttachmentFile> cache = (Map<String, AttachmentFile>) SessionCache.lget(key);
 		if (cache == null) {
-			cp.setSessionAttr(key, cache = new LinkedHashMap<String, AttachmentFile>());
+			SessionCache.lput(key, cache = new LinkedHashMap<String, AttachmentFile>());
 		}
 		return cache;
 	}
@@ -165,9 +166,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@SuppressWarnings("unchecked")
 	protected Set<String> getDeleteCache(final ComponentParameter cp) {
 		final String key = "Delete_Cache_" + getCachekey(cp);
-		Set<String> cache = (Set<String>) cp.getSessionAttr(key);
+		Set<String> cache = (Set<String>) SessionCache.lget(key);
 		if (cache == null) {
-			cp.setSessionAttr(key, cache = new LinkedHashSet<String>());
+			SessionCache.lput(key, cache = new LinkedHashSet<String>());
 		}
 		return cache;
 	}
