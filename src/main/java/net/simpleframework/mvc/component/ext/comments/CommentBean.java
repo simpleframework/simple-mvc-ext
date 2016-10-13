@@ -21,7 +21,7 @@ public class CommentBean extends AbstractContainerBean {
 	private String submitText;
 
 	/* 允许填写意见的最大字符数 */
-	private int maxlength = 200;
+	private int maxlength = 400;
 
 	/* 是否只读 */
 	private boolean readonly;
