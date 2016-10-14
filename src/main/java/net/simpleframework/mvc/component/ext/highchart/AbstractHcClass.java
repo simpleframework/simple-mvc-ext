@@ -18,6 +18,7 @@ import net.simpleframework.mvc.component.ext.highchart.EChart.EAxisType;
 @SuppressWarnings("unchecked")
 public abstract class AbstractHcClass {
 
+	@SuppressWarnings("serial")
 	public static abstract class AbstractHcElement<T extends AbstractHcElement<T>>
 			extends AbstractElementBean {
 
@@ -58,6 +59,7 @@ public abstract class AbstractHcClass {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	public static abstract class AbstractAxis<T extends AbstractAxis<T>>
 			extends AbstractHcElement<T> {
 
@@ -179,6 +181,7 @@ public abstract class AbstractHcClass {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	public static class AbstractHcLabels<T extends AbstractHcLabels<T>>
 			extends AbstractHcElement<T> {
 		private Boolean enabled;
@@ -288,6 +291,7 @@ public abstract class AbstractHcClass {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	public static abstract class AbstractHcText<T extends AbstractHcText<T>>
 			extends AbstractHcElement<T> {
 
@@ -392,6 +396,7 @@ public abstract class AbstractHcClass {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	public static abstract class AbstractMarker<T extends AbstractMarker<T>>
 			extends AbstractHcElement<T> {
 		private Boolean enabled;

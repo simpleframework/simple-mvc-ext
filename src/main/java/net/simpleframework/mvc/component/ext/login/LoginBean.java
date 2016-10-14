@@ -8,10 +8,12 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class LoginBean extends AbstractContainerBean {
+	private static final long serialVersionUID = -8278409463685412853L;
 
 	private boolean showAccountType = BeanDefaults.getBool(getClass(), "showAccountType", true);
 	private boolean showAutoLogin = BeanDefaults.getBool(getClass(), "showAutoLogin", true);

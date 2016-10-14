@@ -10,6 +10,7 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  *         http://www.simpleframework.net
  */
 public class AttachmentBean extends AbstractContainerBean {
+	private static final long serialVersionUID = 1267234794383598769L;
 
 	/* 列表大小 */
 	private int attachmentsLimit = BeanDefaults.getInt(getClass(), "attachmentsLimit", 0);

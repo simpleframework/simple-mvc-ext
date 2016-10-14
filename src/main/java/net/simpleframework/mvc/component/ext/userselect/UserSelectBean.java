@@ -13,6 +13,8 @@ import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
  *         http://www.simpleframework.net
  */
 public class UserSelectBean extends DictionaryBean {
+	private static final long serialVersionUID = -1875611328862203029L;
+
 	public static final String VT_GROUP = "group";
 	public static final String VT_LIST = "list";
 	public static final String VT_TREE = "tree";

@@ -10,10 +10,12 @@ import net.simpleframework.mvc.component.ui.tree.TreeNode;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class DbTreeNode extends TreeNode {
+	private static final long serialVersionUID = 8610250408047164662L;
 
 	public DbTreeNode(final TreeBean treeBean, final DbTreeNode parent,
 			final Map<String, Object> rowData) {

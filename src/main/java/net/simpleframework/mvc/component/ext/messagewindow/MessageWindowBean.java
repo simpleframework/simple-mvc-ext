@@ -8,10 +8,13 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class MessageWindowBean extends WindowBean {
+	private static final long serialVersionUID = -9143490091639322953L;
+
 	private int frequency = BeanDefaults.getInt(getClass(), "frequency", 30);
 
 	private int closeDelay = BeanDefaults.getInt(getClass(), "closeDelay", 0);

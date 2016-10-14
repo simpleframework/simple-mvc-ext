@@ -11,6 +11,7 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  *         http://www.simpleframework.net
  */
 public class CommentBean extends AbstractContainerBean {
+	private static final long serialVersionUID = -5677942277141539026L;
 
 	/* 是否显示表情 */
 	private boolean showSmiley = BeanDefaults.getBool(getClass(), "showSmiley", true);

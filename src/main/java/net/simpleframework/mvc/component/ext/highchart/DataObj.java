@@ -13,6 +13,8 @@ import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractH
  *         http://www.simpleframework.net
  */
 public class DataObj extends AbstractHcElement<DataObj> implements IDataVal {
+	private static final long serialVersionUID = -6576803298750825729L;
+
 	private String name;
 
 	private Boolean sliced, selected;

@@ -8,10 +8,13 @@ import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractM
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HcMarker extends AbstractMarker<HcMarker> {
+	private static final long serialVersionUID = 1685005277540929902L;
+
 	private Integer height, width;
 
 	private HcMarkerState hover;
@@ -79,6 +82,8 @@ public class HcMarker extends AbstractMarker<HcMarker> {
 	}
 
 	public static class HcMarkerState extends AbstractMarker<HcMarker> {
+		private static final long serialVersionUID = 5261945005207435164L;
+
 		private Integer lineWidthPlus;
 		private Integer radiusPlus;
 

@@ -9,10 +9,12 @@ import net.simpleframework.mvc.component.ext.highchart.EChart.EHcDashStyle;
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
+	private static final long serialVersionUID = -2235545615844195615L;
 
 	private HcOptLine line;
 
@@ -80,6 +82,8 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	}
 
 	public static class HcOptLine extends HcPlotOption<HcOptLine> {
+		private static final long serialVersionUID = 5445877752992253556L;
+
 		private HcOptMarker marker;
 
 		public HcOptMarker getMarker() {
@@ -103,12 +107,14 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	}
 
 	public static class HcOptPie extends HcPlotOption<HcOptPie> {
+		private static final long serialVersionUID = -6860850197830390650L;
 
 		public HcOptPie() {
 		}
 	}
 
 	public static class HcOptColumn extends HcPlotOption<HcOptColumn> {
+		private static final long serialVersionUID = -8750639664832275156L;
 
 		private Integer borderRadius, borderWidth;
 
@@ -145,6 +151,8 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	}
 
 	public static class HcOptSeries extends HcPlotOption<HcOptSeries> {
+		private static final long serialVersionUID = 685114138807890706L;
+
 		private HcOptMarker marker;
 
 		public HcOptSeries() {
@@ -172,6 +180,8 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 
 	@SuppressWarnings("unchecked")
 	static abstract class HcPlotOption<T extends HcPlotOption<T>> extends AbstractHcElement<T> {
+		private static final long serialVersionUID = -6272891071516460912L;
+
 		private Boolean allowPointSelect;
 
 		private String color;
@@ -270,6 +280,7 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	}
 
 	public static class HcOptMarker extends _HcOptMarkerBase<HcOptMarker> {
+		private static final long serialVersionUID = 3204432952681405498L;
 
 		// "circle", "square", "diamond", "triangle", "triangle-down"
 		private String symbol;
@@ -330,6 +341,7 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	}
 
 	public static class HcOptMarkerState extends _HcOptMarkerBase<HcOptMarkerState> {
+		private static final long serialVersionUID = 2898669993822026853L;
 
 		public HcOptMarkerState() {
 		}
@@ -338,6 +350,8 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	@SuppressWarnings("unchecked")
 	private abstract static class _HcOptMarkerBase<T extends _HcOptMarkerBase<T>>
 			extends AbstractHcElement<T> {
+		private static final long serialVersionUID = 1255714806998095354L;
+
 		private Boolean enabled;
 
 		private Integer radius;

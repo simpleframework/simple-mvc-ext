@@ -11,10 +11,12 @@ import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractH
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HcLegend extends AbstractHcElement<HcLegend> {
+	private static final long serialVersionUID = -4337307449483525641L;
 
 	private ELayout layout;
 

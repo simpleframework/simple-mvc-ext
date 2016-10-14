@@ -10,6 +10,7 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  *         http://www.simpleframework.net
  */
 public class CategoryBean extends AbstractContainerBean {
+	private static final long serialVersionUID = 6896505516013170732L;
 
 	private boolean dynamicTree = BeanDefaults.getBool(getClass(), "dynamicTree", false);
 
