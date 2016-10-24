@@ -124,6 +124,7 @@
 .Comp_Comment .t1_comments .oitem td.icon {
 	text-align: center;
 	width: 90px;
+	max-width: 90px;
 }
 
 .Comp_Comment .t1_comments .oitem .photo_icon {
@@ -138,6 +139,7 @@
 	margin-top: 4px;
 	text-align: center;
 	color: #888;
+	overflow: hidden;
 }
 
 .Comp_Comment .t1_comments .oitem .mc {
