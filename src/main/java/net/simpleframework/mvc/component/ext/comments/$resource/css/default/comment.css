@@ -109,7 +109,7 @@
 
 .Comp_Comment .t1_comments .oitem {
 	border-bottom: 1px solid #eee;
-	padding: 10px 6px 2px;
+	padding: 6px 6px 2px;
 }
 
 .Comp_Comment .t1_comments .oitem:hover {
@@ -148,7 +148,7 @@
 	
 .Comp_Comment .t1_comments .oitem .rc {
 	background-color: #f5f5f5;
-	margin: 0 4px 0 -11px;
+	margin: 4px 4px 0 -11px;
 	padding: 12px;
 	color: #666;
 	-moz-border-radius: 9px;
