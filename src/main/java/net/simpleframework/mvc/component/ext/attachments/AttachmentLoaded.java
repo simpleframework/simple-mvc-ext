@@ -81,17 +81,18 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 			// 编辑
 			if ((Boolean) cp.getBeanProperty("showEdit")) {
-				final AjaxRequestBean editPage = pp.addComponentBean(attachmentName + "_editPage",
-						AjaxRequestBean.class).setUrlForward(
-						pp.getResourceHomePath(AttachmentLoaded.class) + "/jsp/attachment_edit.jsp");
+				final AjaxRequestBean editPage = pp
+						.addComponentBean(attachmentName + "_editPage", AjaxRequestBean.class)
+						.setUrlForward(pp.getResourceHomePath(AttachmentLoaded.class)
+								+ "/jsp/attachment_edit.jsp");
 				if (swfUpload != null) {
 					editPage.setSelector(swfUpload.getSelector());
 				}
 
 				final int height = aHandler.getAttachTypes() == null ? 240 : 280;
 				pp.addComponentBean(attachmentName + "_editWin", WindowBean.class)
-						.setContentRef(attachmentName + "_editPage").setResizable(false)
-						.setHeight(height).setWidth(420).setTitle($m("AttachmentLoaded.3"));
+						.setContentRef(attachmentName + "_editPage").setResizable(false).setHeight(height)
+						.setWidth(420).setTitle($m("AttachmentLoaded.3"));
 			}
 
 			// 菜单
@@ -102,18 +103,14 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				final MenuBean menu = (MenuBean) cp
 						.addComponentBean(attachmentName + "_menu", MenuBean.class)
 						.setMenuEvent(EMenuEvent.click).setSelector(".attach_menu");
-				menu.addItem(
-						MenuItem.of($m("Menu.up"), MenuItem.ICON_UP, "AttachmentUtils.doMove(item, '"
-								+ moveAct + "', true);"))
-						.addItem(
-								MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
-										"AttachmentUtils.doMove2(item, '" + moveAct + "', true);"))
-						.addItem(
-								MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
-										"AttachmentUtils.doMove(item, '" + moveAct + "');"))
-						.addItem(
-								MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
-										"AttachmentUtils.doMove2(item, '" + moveAct + "');"));
+				menu.addItem(MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
+						"AttachmentUtils.doMove(item, '" + moveAct + "', true);"))
+						.addItem(MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
+								"AttachmentUtils.doMove2(item, '" + moveAct + "', true);"))
+						.addItem(MenuItem.of($m("Menu.down"), MenuItem.ICON_DOWN,
+								"AttachmentUtils.doMove(item, '" + moveAct + "');"))
+						.addItem(MenuItem.of($m("Menu.down2"), MenuItem.ICON_DOWN2,
+								"AttachmentUtils.doMove2(item, '" + moveAct + "');"));
 			}
 
 			// 选取
@@ -141,8 +138,9 @@ public class AttachmentLoaded extends DefaultPageHandler {
 		final String tPath = aHandler.getTooltipPath(cp);
 		if (StringUtils.hasText(tPath)) {
 			// tip
-			final AjaxRequestBean tooltipPage = pp.addComponentBean("AttachmentLoaded_TipPage",
-					AjaxRequestBean.class).setUrlForward(tPath);
+			final AjaxRequestBean tooltipPage = pp
+					.addComponentBean("AttachmentLoaded_TipPage", AjaxRequestBean.class)
+					.setUrlForward(tPath);
 			if (swfUpload != null) {
 				tooltipPage.setSelector(swfUpload.getSelector());
 			}
@@ -214,8 +212,8 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final StringBuilder script = new StringBuilder();
 			script.append("var _menu = $Actions['").append(nCP.getComponentName()).append("_menu']; ");
 			script.append("if (_menu) { _menu.bindEvent('.attach_menu'); }");
-			return new TextForward(sb.append(JavascriptUtils.wrapScriptTag(script.toString(), true))
-					.toString());
+			return new TextForward(
+					sb.append(JavascriptUtils.wrapScriptTag(script.toString(), true)).toString());
 		}
 
 		public IForward doDownload(final ComponentParameter cp) throws Exception {
