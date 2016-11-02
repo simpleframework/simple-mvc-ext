@@ -20,12 +20,14 @@ public class ChosenRender extends ComponentJavascriptRender {
 			return null;
 		}
 		final StringBuilder sb = new StringBuilder();
+		sb.append("Chosen.default_single_text='sss';");
 		sb.append("var selects = $$('").append(selector).append("');");
 		sb.append("for (var i = 0; i < selects.length; i++) {");
 		sb.append("new Chosen(selects[i], {");
 		sb.append("disable_search: !").append(cp.getBeanProperty("enableSearch")).append(",");
 		sb.append("allow_single_deselect: true,");
-		sb.append("no_results_text: 'no_results_text'");
+		sb.append("no_results_text: 'no_results_text',");
+		sb.append("placeholder_text_single: '请选择...'");
 		sb.append("});");
 		sb.append("}");
 		return ComponentRenderUtils.genActionWrapper(cp, sb.toString());
