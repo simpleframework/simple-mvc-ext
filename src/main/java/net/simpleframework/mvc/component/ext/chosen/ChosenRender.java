@@ -20,7 +20,6 @@ public class ChosenRender extends ComponentJavascriptRender {
 			return null;
 		}
 		final StringBuilder sb = new StringBuilder();
-		sb.append("Chosen.default_single_text='sss';");
 		sb.append("var selects = $$('").append(selector).append("');");
 		sb.append("for (var i = 0; i < selects.length; i++) {");
 		sb.append("new Chosen(selects[i], {");
