@@ -83,6 +83,10 @@
   padding: 8px;
 }
 
+.Comp_Comment .t1_head .l2:HOVER {
+  box-shadow: 0 0 4px #ddd;
+}
+
 .Comp_Comment .t1_head .l2 textarea {
   background: #fff;
   border: 0;
