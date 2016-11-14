@@ -70,8 +70,6 @@ public abstract class PluploadUtils {
 		// FilesAdded
 		sb.append("FilesAdded: function(up, files) {");
 		sb.append("  var queue = $(\"fileQueue_").append(beanId).append("\");");
-		sb.append("  var ql = ").append(cp.getBeanProperty("fileQueueLimit")).append(";");
-		sb.append("alert(ql); alert(files.length);");
 		sb.append("  plupload.each(files, function(file) {");
 		sb.append("  var html =\"<div id='item_\" + file.id + \"' class='item'>");
 		sb.append("    <table width='100%' cellpadding='0' cellspacing='0'>");
