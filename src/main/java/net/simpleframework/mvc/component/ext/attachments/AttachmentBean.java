@@ -35,6 +35,8 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	private boolean showLineNo = BeanDefaults.getBool(getClass(), "showLineNo", false);
 
+	private boolean plupload = BeanDefaults.getBool(getClass(), "plupload", false);
+
 	public int getAttachmentsLimit() {
 		return attachmentsLimit;
 	}
@@ -113,5 +115,13 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public void setShowLineNo(final boolean showLineNo) {
 		this.showLineNo = showLineNo;
+	}
+
+	public boolean isPlupload() {
+		return plupload;
+	}
+
+	public void setPlupload(final boolean plupload) {
+		this.plupload = plupload;
 	}
 }

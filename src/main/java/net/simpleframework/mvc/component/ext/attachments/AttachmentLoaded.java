@@ -22,6 +22,7 @@ import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.base.ajaxrequest.DefaultAjaxRequestHandler;
+import net.simpleframework.mvc.component.ext.plupload.PluploadBean;
 import net.simpleframework.mvc.component.ui.menu.EMenuEvent;
 import net.simpleframework.mvc.component.ui.menu.MenuBean;
 import net.simpleframework.mvc.component.ui.menu.MenuItem;
@@ -38,7 +39,8 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class AttachmentLoaded extends DefaultPageHandler {
@@ -56,8 +58,10 @@ public class AttachmentLoaded extends DefaultPageHandler {
 		SwfUploadBean swfUpload = null;
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		if (!readonly) {
+			final boolean plupload = (Boolean) cp.getBeanProperty("plupload");
 			swfUpload = (SwfUploadBean) pp
-					.addComponentBean(attachmentName + "_swfUpload", SwfUploadBean.class)
+					.addComponentBean(attachmentName + "_swfUpload",
+							plupload ? PluploadBean.class : SwfUploadBean.class)
 					.setJsCompleteCallback(
 							"if (!hasQueued) { $Actions['" + attachmentName + "_list'](); }")
 					.setContainerId("attachment_" + attachmentBean.hashId())

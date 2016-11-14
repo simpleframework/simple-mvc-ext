@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.web.JavascriptUtils;
 import net.simpleframework.mvc.PageRequestResponse;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -36,23 +37,41 @@ public abstract class PluploadUtils {
 		final PluploadBean plupload = (PluploadBean) cp.componentBean;
 		final String beanId = plupload.hashId();
 		final StringBuilder sb = new StringBuilder();
+		final String hpath = ComponentUtils.getResourceHomePath(PluploadBean.class);
 		sb.append("var act = $Actions['" + cp.getComponentName() + "'];");
 		sb.append("var uploader = new plupload.Uploader({");
 		sb.append(" runtimes : 'html5,flash,html4',");
+		sb.append(" file_data_name : 'Filedata',");
+		sb.append(" multi_selection : ").append(cp.getBeanProperty("multiFileSelected")).append(",");
+		sb.append(" flash_swf_url : '").append(hpath).append("/flash/Moxie.swf").append("',");
 		sb.append(" browse_button : 'placeholder_").append(beanId).append("',");
-		sb.append(" url : '").append(ComponentUtils.getResourceHomePath(PluploadBean.class))
-				.append("/jsp/plupload_action.jsp;jsessionid=").append(cp.getSessionId()).append("?")
-				.append(BEAN_ID).append("=").append(beanId).append("',");
+		sb.append(" url : '").append(hpath).append("/jsp/plupload_action.jsp;jsessionid=")
+				.append(cp.getSessionId()).append("?").append(BEAN_ID).append("=").append(beanId)
+				.append("',");
 
-		// sb.append(" multipart_params: {");
-		// sb.append(" '").append().append("' : '").append(beanId).append("'");
-		// sb.append(" },");
+		sb.append(" filters: {");
+		String fileTypes = (String) cp.getBeanProperty("fileTypes");
+		if (StringUtils.hasText(fileTypes)) {
+			fileTypes = StringUtils.replace(fileTypes, "*.", "");
+			fileTypes = StringUtils.replace(fileTypes, ";", ",");
+			sb.append("mime_types : [");
+			sb.append("{ title : '").append(cp.getBeanProperty("fileTypesDesc"))
+					.append("', extensions : '").append(fileTypes).append("'}");
+			sb.append("],");
+		}
+		final String fileSizeLimit = (String) cp.getBeanProperty("fileSizeLimit");
+		if (StringUtils.hasText(fileSizeLimit)) {
+			sb.append("max_file_size: \"").append(fileSizeLimit).append("\",");
+		}
+		sb.append("prevent_duplicates : true");
+		sb.append(" },");
 
 		sb.append(" init: {");
-
 		// FilesAdded
 		sb.append("FilesAdded: function(up, files) {");
 		sb.append("  var queue = $(\"fileQueue_").append(beanId).append("\");");
+		sb.append("  var ql = ").append(cp.getBeanProperty("fileQueueLimit")).append(";");
+		sb.append("alert(ql); alert(files.length);");
 		sb.append("  plupload.each(files, function(file) {");
 		sb.append("  var html =\"<div id='item_\" + file.id + \"' class='item'>");
 		sb.append("    <table width='100%' cellpadding='0' cellspacing='0'>");
@@ -76,17 +95,11 @@ public abstract class PluploadUtils {
 		sb.append("  queue.insert(html);");
 		sb.append("  var item = $(\"item_\" + file.id);");
 		sb.append("  item.down(\".delete_image\").observe(\"click\", function(e) {");
-		sb.append("    var fo = up.getFile(file.id);alert(fo);");
-
-		// sb.append(" if (!fo) {");
-		sb.append("      $Effect.remove(item);");
-		// sb.append(" return;");
-		// sb.append(" }");
-		// sb.append(" if (fo.filestatus == SWFUpload.FILE_STATUS.IN_PROGRESS &&
-		// !confirm(\"")
-		// .append($m("SwfUploadUtils.5")).append("\")) return;");
-		// sb.append(" swf.cancelUpload(file.id);");
-		// sb.append(" $Effect.remove(item);");
+		sb.append("    var fo = up.getFile(file.id);");
+		sb.append("    if (fo.status == plupload.UPLOADING && !confirm(\"")
+				.append($m("SwfUploadUtils.5")).append("\")) return;");
+		sb.append("    up.removeFile(file.id);");
+		sb.append("    $Effect.remove(item);");
 		sb.append("  });");
 		sb.append("  item.bar = new $UI.ProgressBar(item.down(\".bar\"), {");
 		sb.append("    maxProgressValue: file.origSize,");
@@ -110,6 +123,39 @@ public abstract class PluploadUtils {
 		sb.append("  }");
 		sb.append("},");
 
+		// FileUploaded
+		sb.append("FileUploaded: function(up, file, serverData) {");
+		sb.append("  var json = serverData.response.evalJSON();");
+		sb.append("  var item = $(\"item_\" + file.id);");
+		sb.append("  var message = item.down(\".message\");");
+		sb.append("  if (json[\"error\"]) {");
+		sb.append("    message.update(json[\"error\"]);");
+		sb.append("  } else {");
+		sb.append("    message.update(\"").append($m("SwfUploadUtils.6")).append("\");");
+		sb.append("    (function() { $Effect.remove(item); }).delay(2);");
+		sb.append("  }");
+		sb.append("  var hasQueued = message.up(\".queue\").select(\".item\").any(function(item) {");
+		sb.append("	   var fo = up.getFile(item.id.substring(5));");
+		sb.append("    return fo && fo.status == plupload.QUEUED;");
+		sb.append("  });");
+		sb.append("  act.jsCompleteCallback.delay(0.1, hasQueued);");
+		sb.append("},");
+
+		// Error
+		sb.append("Error: function(up, errObject) {");
+		sb.append(" var msgc = $(\"message_").append(beanId).append("\");");
+		sb.append(" var errorCode = errObject.code;");
+		sb.append(" var file = errObject.file;");
+		sb.append(" if (errorCode == plupload.FILE_SIZE_ERROR) {");
+		sb.append("  msgc.update('\"' + file.name + '\" ")
+				.append(SwfUploadUtils.msg("SwfUploadUtils.2", fileSizeLimit)).append("');");
+		sb.append(" } else {");
+		sb.append("  msgc.update(errObject.message);");
+		sb.append(" }");
+		sb.append(" $Effect.shake(msgc);");
+		sb.append(" (function() { msgc.update(\"\"); }).delay(2);");
+		sb.append("},");
+
 		sb.append(" }");
 		sb.append("});");
 		sb.append("uploader.init();");
@@ -127,6 +173,9 @@ public abstract class PluploadUtils {
 		sb.append("  });");
 		sb.append("};");
 
+		sb.append("act.jsCompleteCallback = function(hasQueued) {");
+		sb.append(StringUtils.blank(cp.getBeanProperty("jsCompleteCallback")));
+		sb.append("};");
 		return JavascriptUtils.wrapWhenReady(sb.toString());
 	}
 
