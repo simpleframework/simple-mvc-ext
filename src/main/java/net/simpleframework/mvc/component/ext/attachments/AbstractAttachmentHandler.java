@@ -21,10 +21,12 @@ import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.SessionCache;
+import net.simpleframework.mvc.common.DownloadUtils;
 import net.simpleframework.mvc.common.ImageCache;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.Checkbox;
 import net.simpleframework.mvc.common.element.ImageElement;
+import net.simpleframework.mvc.common.element.JS;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.common.element.SpanElement;
@@ -429,6 +431,11 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@Override
 	public ID getOwnerId(final ComponentParameter cp) {
 		return null;
+	}
+
+	@Override
+	public JavascriptForward doDownloadAction(final ComponentParameter cp, final AttachmentFile af) {
+		return new JavascriptForward(JS.loc(DownloadUtils.getDownloadHref(af, getClass())));
 	}
 
 	// IDownloadHandler

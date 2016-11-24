@@ -102,6 +102,8 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	AbstractElement<?> getDownloadLink(ComponentParameter cp, AttachmentFile attachmentFile,
 			String id) throws Exception;
 
+	JavascriptForward doDownloadAction(ComponentParameter cp, AttachmentFile af);
+
 	/**
 	 * 设置上传组件的属性
 	 * 

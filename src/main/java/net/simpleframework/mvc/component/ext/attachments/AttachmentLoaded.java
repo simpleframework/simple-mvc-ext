@@ -13,10 +13,8 @@ import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.TextForward;
-import net.simpleframework.mvc.common.DownloadUtils;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.EElementEvent;
-import net.simpleframework.mvc.common.element.JS;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
@@ -222,15 +220,15 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 		public IForward doDownload(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
-			final JavascriptForward js = new JavascriptForward();
 			final IAttachmentHandler handler = (IAttachmentHandler) nCP.getComponentHandler();
 			final AttachmentFile af = handler.getAttachmentById(nCP, nCP.getParameter("id"));
 			if (af != null) {
-				js.append(JS.loc(DownloadUtils.getDownloadHref(af, handler.getClass())));
+				return handler.doDownloadAction(nCP, af);
 			} else {
+				final JavascriptForward js = new JavascriptForward();
 				js.append("alert(\"").append($m("AttachmentLoaded.0")).append("\");");
+				return js;
 			}
-			return js;
 		}
 
 		public IForward doSelect(final ComponentParameter cp) throws Exception {
