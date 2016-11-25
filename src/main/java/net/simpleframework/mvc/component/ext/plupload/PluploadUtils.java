@@ -63,7 +63,7 @@ public abstract class PluploadUtils {
 		if (StringUtils.hasText(fileSizeLimit)) {
 			sb.append("max_file_size: \"").append(fileSizeLimit).append("\",");
 		}
-		sb.append("prevent_duplicates : true");
+		sb.append("prevent_duplicates : false");
 		sb.append(" },");
 
 		sb.append(" init: {");
