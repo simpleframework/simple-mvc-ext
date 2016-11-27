@@ -190,9 +190,6 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		int i = 0;
 		for (final Map.Entry<String, AttachmentFile> entry : attachments(cp).entrySet()) {
 			final AttachmentFile attach = entry.getValue();
-			if (attach.getAttachment() == null) {
-				continue;
-			}
 			if (imageList) {
 				sb.append(toAttachmentItemImagesHTML(cp, entry.getKey(), attach, i++));
 			} else {
