@@ -10,7 +10,8 @@
 	final String beanId = nCP.hashId();
 %>
 <form id="_loginForm">
-  <input type="hidden" id="<%=LoginUtils.BEAN_ID%>" name="<%=LoginUtils.BEAN_ID%>" value="<%=beanId%>" />
+  <input type="hidden" id="<%=LoginUtils.BEAN_ID%>" name="<%=LoginUtils.BEAN_ID%>" 
+    value="<%=beanId%>" />
   <%
   	if ((Boolean) nCP.getBeanProperty("showAccountType")) {
   %>
@@ -34,12 +35,13 @@
     <label>#(login.0)</label>
   </div>
   <div class="block">
-    <input id="_passwordName" name="_passwordName" type="password" class="ifocus" />
+    <input id="_passwordName" type="password" class="ifocus" />
   </div>
   <div id="idLoginLoaded_vcode"></div>
   <div class="login_toolbar block"><%=lHdl.getToolbarHTML(nCP)%></div>
   <div class="block" style="text-align: <%=nCP.getBeanProperty("actionAlign")%>">
-    <input id="_loginBtn" class="button2" type="submit" value="#(login.3)" onclick="$Actions['arLogin']();" />
+    <input id="_loginBtn" class="button2" type="submit" value="#(login.3)" 
+      onclick="$Actions['arLogin']('_passwordName=' + Base64.encode($F('_passwordName')));" />
     <%
     	if ((Boolean) nCP.getBeanProperty("showResetAction")) {
     		out.write("<input type='reset' onclick=\"this.up('form').reset();\" />");
@@ -73,7 +75,7 @@
         24 * 365);
     var _autoLogin = $("_autoLogin");
     if (_autoLogin && $F(_autoLogin) == "true") {
-      document.setCookie("_account_pwd", $F("_passwordName"), 24 * 14);
+      document.setCookie("_account_pwd", Base64.encode($F("_passwordName")), 24 * 14);
     }
   }
 
