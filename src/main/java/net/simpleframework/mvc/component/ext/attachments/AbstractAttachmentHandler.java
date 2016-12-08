@@ -16,6 +16,7 @@ import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.common.web.html.HtmlConst;
+import net.simpleframework.common.web.html.HtmlEncoder;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
 import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
@@ -294,7 +295,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if (showlink) {
 			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, index));
 		} else {
-			sb.append(attachment.getTopic());
+			sb.append(HtmlEncoder.text(attachment.getTopic()));
 		}
 		sb.append(createAttachmentItem_fileSizeElement(attachment));
 		return sb.toString();
@@ -327,7 +328,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 
 	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,
 			final String id, final AttachmentFile attachment, final int index) {
-		return new LinkElement(attachment.getTopic())
+		return new LinkElement(HtmlEncoder.text(attachment.getTopic()))
 				.setOnclick("$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');")
 				.addAttribute("params", "id=" + id);
 	}
