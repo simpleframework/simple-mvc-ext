@@ -138,7 +138,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	public void upload(final ComponentParameter cp, final IMultipartFile multipartFile,
 			final Map<String, Object> variables) throws IOException {
 		final int attachmentsQueueLimit = (Integer) cp.getBeanProperty("attachmentsQueueLimit");
-		if (attachmentsQueueLimit > 0 && attachments(cp).size() >= attachmentsQueueLimit) {
+		final Map<String, AttachmentFile> attach = attachments(cp);
+		if (attachmentsQueueLimit > 1 && attach.size() >= attachmentsQueueLimit) {
 			throwAttachmentsQueueLimit(attachmentsQueueLimit);
 		}
 		final AttachmentFile af = new AttachmentFile(multipartFile.getFile());
@@ -146,7 +147,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if (attachtype > -1) {
 			af.setType(attachtype);
 		}
-		getUploadCache(cp).put(af.getId(), af);
+		final Map<String, AttachmentFile> cache = getUploadCache(cp);
+		if (attachmentsQueueLimit == 1) {
+			getDeleteCache(cp).addAll(attach.keySet());
+			cache.clear();
+		}
+		cache.put(af.getId(), af);
 	}
 
 	protected int getAttachtype(final ComponentParameter cp) {
