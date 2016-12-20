@@ -329,7 +329,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if (getUploadCache(cp).containsKey(attachment.getId())) {
 			style += "display: none;";
 		}
-		return new SpanElement().setClassName("down_menu_image attach_menu").addStyle(style);
+		return new SpanElement()
+				.setClassName("down_menu_image " + cp.getComponentName() + "_attach_menu")
+				.addStyle(style);
 	}
 
 	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,

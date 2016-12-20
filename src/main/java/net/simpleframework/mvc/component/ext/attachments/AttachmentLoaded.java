@@ -104,7 +104,8 @@ public class AttachmentLoaded extends DefaultPageHandler {
 						.setHandlerClass(AttachmentAction.class).setAttr("$attachment", attachmentBean);
 				final MenuBean menu = (MenuBean) cp
 						.addComponentBean(attachmentName + "_menu", MenuBean.class)
-						.setMenuEvent(EMenuEvent.click).setSelector(".attach_menu");
+						.setMenuEvent(EMenuEvent.click)
+						.setSelector("." + attachmentName + "_attach_menu");
 				menu.addItem(MenuItem.of($m("Menu.up"), MenuItem.ICON_UP,
 						"AttachmentUtils.doMove(item, '" + moveAct + "', true);"))
 						.addItem(MenuItem.of($m("Menu.up2"), MenuItem.ICON_UP2,
@@ -212,8 +213,10 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(((IAttachmentHandler) nCP.getComponentHandler()).toAttachmentListHTML(nCP));
 			final StringBuilder script = new StringBuilder();
-			script.append("var _menu = $Actions['").append(nCP.getComponentName()).append("_menu']; ");
-			script.append("if (_menu) { _menu.bindEvent('.attach_menu'); }");
+			final String componentName = nCP.getComponentName();
+			script.append("var _menu = $Actions['").append(componentName).append("_menu']; ");
+			script.append("if (_menu) { _menu.bindEvent('.").append(componentName)
+					.append("_attach_menu'); }");
 			return new TextForward(
 					sb.append(JavascriptUtils.wrapScriptTag(script.toString(), true)).toString());
 		}
