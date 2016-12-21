@@ -50,7 +50,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		swfUpload.setMultiFileSelected(true);
 		if ((Boolean) cp.getBeanProperty("imagesMode")) {
 			// swfUpload
-			swfUpload.setFileTypes("*.jpg;*.jpeg;*.gif;*.png;*.bmp")
+			swfUpload.setFileTypes(SwfUploadBean.IMAGES_FILETYPES)
 					.setFileTypesDesc($m("AbstractAttachmentHandler.6"))
 					.setUploadText($m("AbstractAttachmentHandler.7"));
 		}
