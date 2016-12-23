@@ -180,3 +180,7 @@ body[contenteditable="false"] *,
 .cke_editable[contenteditable="false"] * {
   color: #888 !important;
 }
+
+body {
+  padding: 8px;
+}
