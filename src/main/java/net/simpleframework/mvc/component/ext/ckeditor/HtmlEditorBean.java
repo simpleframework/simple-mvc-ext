@@ -14,7 +14,7 @@ public class HtmlEditorBean extends AbstractContainerBean {
 	private static final long serialVersionUID = 847412101739953657L;
 
 	private boolean toolbarCanCollapse = BeanDefaults.getBool(getClass(), "toolbarCanCollapse",
-			true);
+			false);
 
 	private boolean resizeEnabled = BeanDefaults.getBool(getClass(), "resizeEnabled", false);
 
