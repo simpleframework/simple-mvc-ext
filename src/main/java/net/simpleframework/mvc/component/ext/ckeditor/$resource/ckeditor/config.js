@@ -4,7 +4,7 @@
  *          http://ckeditor.com/license
  */
 CKEDITOR.editorConfig = function(config) {  
-  config.skin='bootstrapck';
+  config.skin='moono-lisa';
   
   config.font_names = '宋体;黑体;楷体;幼园;arial;comic sans ms;courier new;georgia;' + 
                       'lucida sans unicode;tahoma;times new roman;trebuchet ms;verdana';
