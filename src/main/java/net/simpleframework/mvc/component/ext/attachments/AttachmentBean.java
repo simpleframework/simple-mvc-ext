@@ -6,7 +6,8 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class AttachmentBean extends AbstractContainerBean {
@@ -36,6 +37,8 @@ public class AttachmentBean extends AbstractContainerBean {
 	private boolean showLineNo = BeanDefaults.getBool(getClass(), "showLineNo", false);
 
 	private boolean plupload = BeanDefaults.getBool(getClass(), "plupload", false);
+
+	private boolean cropper = BeanDefaults.getBool(getClass(), "cropper", false);
 
 	public int getAttachmentsLimit() {
 		return attachmentsLimit;
@@ -113,15 +116,26 @@ public class AttachmentBean extends AbstractContainerBean {
 		return showLineNo;
 	}
 
-	public void setShowLineNo(final boolean showLineNo) {
+	public AttachmentBean setShowLineNo(final boolean showLineNo) {
 		this.showLineNo = showLineNo;
+		return this;
 	}
 
 	public boolean isPlupload() {
 		return plupload;
 	}
 
-	public void setPlupload(final boolean plupload) {
+	public AttachmentBean setPlupload(final boolean plupload) {
 		this.plupload = plupload;
+		return this;
+	}
+
+	public boolean isCropper() {
+		return cropper;
+	}
+
+	public AttachmentBean setCropper(final boolean cropper) {
+		this.cropper = cropper;
+		return this;
 	}
 }

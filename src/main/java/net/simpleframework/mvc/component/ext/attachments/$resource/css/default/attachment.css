@@ -4,6 +4,11 @@
   padding-right: 6px !important;
 }
 
+.Comp_Attachment img.status {
+  width: 9px;
+  height: 9px;
+}
+
 .Comp_Attachment .imgc {
   padding: 4px;
   border-top: 1px dashed #ccc;
@@ -26,27 +31,25 @@
 }
 
 .Comp_Attachment .imgc .iitem .i_attach {
-  padding: 2px;
+  overflow: hidden;
+  text-align: center;
   width: 128px;
   height: 96px;
 }
 
-.Comp_Attachment .iitem.l_add {
-  background: url("images/add.png") no-repeat 5px 92%;
-}
-
-.Comp_Attachment .iitem.l_delete {
-  background: url('images/delete.png') no-repeat 5px 92%;
+.Comp_Attachment .imgc img.status { 
+  vertical-align: middle;
+  margin-left: 3px;
 }
 
 .Comp_Attachment .imgc .iitem a {
   margin: 1px 3px 3px;
 }
 
-.Comp_Attachment .imgc .iitem img {
+.Comp_Attachment .imgc .iitem img.image {
   width: 100%;
-  height: 100%;
 }
+
 /*-------- fitem ---------*/
 .Comp_Attachment .fitem {
   line-height: 19px;
@@ -67,22 +70,14 @@
   cursor: pointer;
 }
 
+.Comp_Attachment .l_attach img.status {
+  padding-right: 4px;
+}
+
 .Comp_Attachment .size {
   color: #999;
   font-family: Candara;
   margin-left: 4px;
-}
-
-.Comp_Attachment .l_attach {
-  padding-left: 12px;
-}
-
-.Comp_Attachment .l_attach.l_add {
-  background: url("images/add.png") no-repeat 0 55%;
-}
-
-.Comp_Attachment .l_attach.l_delete {
-  background: url('images/delete.png') no-repeat 0 55%;
 }
 
 .Comp_Attachment .b_attach {

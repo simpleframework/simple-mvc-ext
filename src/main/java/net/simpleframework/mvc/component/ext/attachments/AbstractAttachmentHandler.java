@@ -2,16 +2,24 @@ package net.simpleframework.mvc.component.ext.attachments;
 
 import static net.simpleframework.common.I18n.$m;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
+
+import net.simpleframework.common.Convert;
 import net.simpleframework.common.FileUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.ImageUtils;
+import net.simpleframework.common.JsonUtils;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.th.NotImplementedException;
@@ -27,6 +35,7 @@ import net.simpleframework.mvc.common.ImageCache;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.Checkbox;
 import net.simpleframework.mvc.common.element.ImageElement;
+import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.JS;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
@@ -35,6 +44,7 @@ import net.simpleframework.mvc.component.ComponentHandlerEx;
 import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
+import net.simpleframework.mvc.impl.DefaultPageResourceProvider;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -82,7 +92,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	public JavascriptForward doSave(final ComponentParameter cp,
 			final IAttachmentSaveCallback callback) throws Exception {
 		if (callback != null) {
-			callback.save(getUploadCache(cp), getDeleteCache(cp));
+			final Map<String, AttachmentFile> uploads = getUploadCache(cp);
+			doImagesCropper(cp, uploads);
+			callback.save(uploads, getDeleteCache(cp));
 		}
 		final int attachmentsLimit = (Integer) cp.getBeanProperty("attachmentsLimit");
 		if (attachmentsLimit > 0 && attachments(cp).size() > attachmentsLimit) {
@@ -91,6 +103,45 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		// 清除
 		clearCache(cp);
 		return null;
+	}
+
+	protected void doImagesCropper(final ComponentParameter cp,
+			final Map<String, AttachmentFile> uploads) throws IOException {
+		for (final Map.Entry<String, AttachmentFile> e : uploads.entrySet()) {
+			final String cropper = cp.getParameter("cropper_" + e.getKey());
+			if (!StringUtils.hasText(cropper)) {
+				continue;
+			}
+
+			final Map<String, ?> data = JsonUtils.toMap(cropper);
+			final AttachmentFile af = e.getValue();
+			final File oFile = af.getAttachment();
+			final InputStream istream = new FileInputStream(oFile);
+			try {
+				final int width = Convert.toInt(data.get("width"));
+				final int height = Convert.toInt(data.get("height"));
+				final int srcX = Convert.toInt(data.get("x"));
+				final int srcY = Convert.toInt(data.get("y"));
+				final BufferedImage bi = ImageUtils.clip(istream, width, height, srcX, srcY);
+
+				String path = oFile.getAbsolutePath();
+				final int index = path.lastIndexOf('.');
+				if (-1 != index) {
+					path = path.substring(0, index);
+				}
+				final File nFile = new File(path + "_.png");
+				final FileOutputStream ostream = new FileOutputStream(nFile);
+				try {
+					ImageIO.write(bi, "png", ostream);
+					e.setValue(af.setAttachment(nFile));
+				} finally {
+					ostream.close();
+				}
+			} finally {
+				istream.close();
+				oFile.delete();
+			}
+		}
 	}
 
 	protected void throwAttachmentsLimit(final int attachmentsLimit) {
@@ -192,15 +243,21 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		final StringBuilder sb = new StringBuilder();
 		final boolean imageList = (Boolean) cp.getBeanProperty("imagesMode");
 		if (imageList) {
+			if ((Boolean) cp.getBeanProperty("cropper")) {
+				cp.addImportCSS(DefaultPageResourceProvider.class, "/cropper.css");
+				cp.addImportJavascript(DefaultPageResourceProvider.class, "/js/cropper.js");
+				cp.setRequestAttr("_cropper", true);
+			}
 			sb.append("<div class='imgc clearfix'>");
 		}
 		int i = 0;
 		for (final Map.Entry<String, AttachmentFile> entry : attachments(cp).entrySet()) {
 			final AttachmentFile attach = entry.getValue();
+			final String id = entry.getKey();
 			if (imageList) {
-				sb.append(toAttachmentItemImagesHTML(cp, entry.getKey(), attach, i++));
+				sb.append(toAttachmentItemImagesHTML(cp, id, attach, i++));
 			} else {
-				sb.append(toAttachmentItemHTML(cp, entry.getKey(), attach, i++));
+				sb.append(toAttachmentItemHTML(cp, id, attach, i++));
 			}
 		}
 		if (imageList) {
@@ -213,22 +270,37 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final int index) throws IOException {
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<div class='iitem");
-		if (!readonly) {
-			appendStatusClass(cp, id, sb);
-		}
-		sb.append("'>");
-		sb.append(" <div class='i_attach'>");
+		sb.append("<div class='iitem'>");
+		sb.append(" <div id='attach_").append(id).append("' class='i_attach'>");
 		sb.append(createAttachmentItem_Image(cp, id, attachment));
 		sb.append(" </div>");
 		sb.append(createAttachmentItem_Image_Btns(cp, id, attachment, readonly));
 		sb.append("</div>");
+		if (Convert.toBool(cp.getRequestAttr("_cropper"))) {
+			sb.append(InputElement.hidden("cropper_" + id));
+			if (getUploadCache(cp).containsKey(id)) {
+				sb.append(HtmlConst.TAG_SCRIPT_START);
+				sb.append("$ready(function() {");
+				sb.append(" var data = $('cropper_").append(id).append("');");
+				sb.append(" var img = $('#attach_").append(id).append(" img');");
+				sb.append(" var cropper = new Cropper(img, {");
+				sb.append(" viewMode : 3,");
+				sb.append("  aspectRatio : 16 / 10,");
+				sb.append("  zoomable : false,");
+				sb.append("  crop: function(e) {");
+				sb.append("   data.value = JSON.stringify(cropper.getData());");
+				sb.append("  }");
+				sb.append(" });");
+				sb.append("});");
+				sb.append(HtmlConst.TAG_SCRIPT_END);
+			}
+		}
 		return sb.toString();
 	}
 
 	protected ImageElement createAttachmentItem_Image(final PageParameter pp, final String id,
 			final AttachmentFile attachmentFile) {
-		final ImageElement image = new ImageElement();
+		final ImageElement image = new ImageElement().setClassName("image");
 		try {
 			final File iFile = attachmentFile.getAttachment();
 			if (ImageUtils.isImage(iFile)) {
@@ -244,21 +316,29 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final boolean readonly) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		if (!readonly) {
+			final AbstractElement<?> img = createAttachmentItem_StatusBtn(cp, id, attachment);
+			if (img != null) {
+				sb.append(img);
+			}
 			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
 		}
 		return sb.toString();
 	}
 
-	private void appendStatusClass(final ComponentParameter cp, final String id,
-			final StringBuilder sb) {
+	private AbstractElement<?> createAttachmentItem_StatusBtn(final ComponentParameter cp,
+			final String id, final AttachmentFile attachment) {
+		final String ipath = cp.getCssResourceHomePath(AbstractAttachmentHandler.class) + "/images/";
 		if (getUploadCache(cp).containsKey(id)) {
-			sb.append(" l_add' title='").append($m("DefaultAttachmentHandle.0"));
+			return new ImageElement(ipath + "add.png").setClassName("status")
+					.setTitle($m("DefaultAttachmentHandle.0"));
 		} else {
 			final Set<String> deleteQueue = getDeleteCache(cp);
 			if (deleteQueue != null && deleteQueue.contains(id)) {
-				sb.append(" l_delete' title='").append($m("DefaultAttachmentHandle.1"));
+				return new ImageElement(ipath + "delete.png").setClassName("status")
+						.setTitle($m("DefaultAttachmentHandle.1"));
 			}
 		}
+		return null;
 	}
 
 	protected String toAttachmentItemHTML(final ComponentParameter cp, final String id,
@@ -270,14 +350,17 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			sb.append(" style='border-top: 0;'");
 		}
 		sb.append(" rowid='").append(id).append("'>");
-		sb.append("<div class='l_attach");
+		sb.append("<div class='l_attach'>");
 
-		if (!readonly) {
-			appendStatusClass(cp, id, sb);
-		}
-		sb.append("'>");
 		// btns
+		if (!readonly) {
+			final AbstractElement<?> img = createAttachmentItem_StatusBtn(cp, id, attachment);
+			if (img != null) {
+				sb.append(img);
+			}
+		}
 		sb.append(createAttachmentItem_Btns(cp, id, attachment, readonly, index));
+
 		// topic
 		final boolean insertTextarea = StringUtils
 				.hasText((String) cp.getBeanProperty("insertTextarea"));
