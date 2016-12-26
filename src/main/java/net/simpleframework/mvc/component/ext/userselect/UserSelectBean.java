@@ -27,6 +27,9 @@ public class UserSelectBean extends DictionaryBean {
 	/* 是否显示树模式 */
 	private boolean showTreeOpt = true;
 
+	/* 允许部门选取 */
+	private boolean allowDeptCheck;
+
 	/* 缺省模式 */
 	private String vtype = VT_LIST;
 
@@ -79,5 +82,13 @@ public class UserSelectBean extends DictionaryBean {
 	public UserSelectBean setShowTreeOpt(final boolean showTreeOpt) {
 		this.showTreeOpt = showTreeOpt;
 		return this;
+	}
+
+	public boolean isAllowDeptCheck() {
+		return allowDeptCheck;
+	}
+
+	public void setAllowDeptCheck(final boolean allowDeptCheck) {
+		this.allowDeptCheck = allowDeptCheck;
 	}
 }

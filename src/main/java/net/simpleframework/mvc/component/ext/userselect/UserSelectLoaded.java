@@ -58,6 +58,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		final String containerId = "users_" + userSelect.hashId();
 		if (UserSelectBean.VT_TREE.equals(vtype)) {
 			pp.addComponentBean(userSelectName + "_tree", TreeBean.class).setCookies(false)
+					.setJsCheckCallback(
+							"if (!TafelTreeManager.ctrlOn(ev)) { branch._manageCheckThreeState(branch, checked); }")
 					.setContainerId(containerId).setHandlerClass(UserTree.class)
 					.setAttr("userSelect", userSelect);
 		} else {
@@ -196,7 +198,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		@Override
 		public Object getBeanProperty(final ComponentParameter cp, final String beanProperty) {
 			if ("checkboxes".equals(beanProperty)) {
-				return UserSelectUtils.get(cp).getBeanProperty("multiple");
+				return true;
+				// UserSelectUtils.get(cp).getBeanProperty("multiple");
 			}
 			return super.getBeanProperty(cp, beanProperty);
 		}
@@ -204,6 +207,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 		@Override
 		public TreeNodes getTreenodes(final ComponentParameter cp, final TreeNode parent) {
 			final ComponentParameter nCP = UserSelectUtils.get(cp);
+			final boolean allowDeptCheck = (Boolean) nCP.getBeanProperty("allowDeptCheck");
 			final IUserSelectHandler uHandler = (IUserSelectHandler) nCP.getComponentHandler();
 			final Collection<DeptMemory> wrappers = nCP.getRequestCache(REQUEST_DEPARTMENTS,
 					new CacheV<Collection<DeptMemory>>() {
@@ -224,7 +228,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 					final TreeNode tn = new TreeNode(treeBean, wrapper);
 					tn.setPostfixText(new SupElement(wrapper.getUsers().size()).toString());
 					tn.setOpened(true);
-					tn.setCheckbox(false);
+					tn.setCheckbox(allowDeptCheck);
 					nodes.add(tn);
 				}
 			} else {
@@ -246,7 +250,7 @@ public class UserSelectLoaded extends DefaultPageHandler {
 						}
 						final TreeNode tn = new TreeNode(treeBean, w2);
 						tn.setPostfixText(new SupElement(w2.getUsers().size()).toString());
-						tn.setCheckbox(false);
+						tn.setCheckbox(allowDeptCheck);
 						nodes.add(tn);
 					}
 				}
