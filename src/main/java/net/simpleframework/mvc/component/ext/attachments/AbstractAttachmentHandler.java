@@ -285,7 +285,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				sb.append(" var img = $('#attach_").append(id).append(" img');");
 				sb.append(" var cropper = new Cropper(img, {");
 				sb.append(" viewMode : 3,");
-				sb.append("  aspectRatio : 16 / 10,");
+				sb.append("  aspectRatio : ").append(cp.getBeanProperty("cropperRatio")).append(",");
 				sb.append("  zoomable : false,");
 				sb.append("  crop: function(e) {");
 				sb.append("   data.value = JSON.stringify(cropper.getData());");
