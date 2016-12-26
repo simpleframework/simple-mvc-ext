@@ -69,8 +69,8 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 		final String attachmentListId = "attachment_list_" + beanId;
 		// 附件列表
-		pp.addComponentBean(attachmentName + "_list", AjaxRequestBean.class)
-				.setJsCompleteCallback("$Actions['AttachmentLoaded_Tip']();")
+		final AjaxRequestBean listAjaxRequest = (AjaxRequestBean) pp
+				.addComponentBean(attachmentName + "_list", AjaxRequestBean.class)
 				.setUpdateContainerId(attachmentListId).setHandlerMethod("doList")
 				.setHandlerClass(AttachmentAction.class).setAttr("$attachment", attachmentBean)
 				.setAttr("$swfupload", swfUpload);
@@ -153,6 +153,8 @@ public class AttachmentLoaded extends DefaultPageHandler {
 					.setTitle($m("AttachmentLoaded.1")).setStem(ETipPosition.leftTop)
 					.setHook(new Hook(ETipPosition.rightTop, ETipPosition.topLeft))
 					.setHideOn(new HideOn(ETipElement.closeButton, EElementEvent.click)).setWidth(400));
+
+			listAjaxRequest.setJsCompleteCallback("$Actions['AttachmentLoaded_Tip']();");
 		}
 	}
 
