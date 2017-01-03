@@ -206,7 +206,8 @@ public class UserSelectLoaded extends DefaultPageHandler {
 
 		@Override
 		public TreeNodes getTreenodes(final ComponentParameter cp, final TreeNode parent) {
-			final ComponentParameter nCP = UserSelectUtils.get(cp);
+			final ComponentParameter nCP = ComponentParameter.get(cp,
+					(AbstractComponentBean) cp.componentBean.getAttr("userSelect"));
 			final boolean allowDeptCheck = (Boolean) nCP.getBeanProperty("allowDeptCheck");
 			final IUserSelectHandler uHandler = (IUserSelectHandler) nCP.getComponentHandler();
 			final Collection<DeptMemory> wrappers = nCP.getRequestCache(REQUEST_DEPARTMENTS,
