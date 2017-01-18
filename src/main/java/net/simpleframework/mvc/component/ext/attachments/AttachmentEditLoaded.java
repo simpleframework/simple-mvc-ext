@@ -36,7 +36,8 @@ public class AttachmentEditLoaded extends DefaultPageHandler {
 				.addValidators(new Validator(EValidatorMethod.required, "#attach_topic"));
 
 		pp.addComponentBean(attachmentName + "_edit_Save", AjaxRequestBean.class)
-				.setSelector("#af_" + beanId).setHandlerClass(SaveAction.class);
+				.setSelector("#af_" + beanId).setHandlerClass(SaveAction.class)
+				.setAttr("$attachment", cp.componentBean);
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class AttachmentEditLoaded extends DefaultPageHandler {
 	public static class SaveAction extends DefaultAjaxRequestHandler {
 		@Override
 		public IForward ajaxProcess(final ComponentParameter cp) throws Exception {
-			final ComponentParameter nCP = AttachmentUtils.get(cp);
+			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final String attachmentName = nCP.getComponentName();
 			((IAttachmentHandler) nCP.getComponentHandler()).doSave(nCP, cp.getParameter("attach_id"),
 					cp.getParameter("attach_topic"), cp.getIntParameter("attach_type"),
