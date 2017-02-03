@@ -37,3 +37,7 @@
   border-radius: 0 !important;
   border-color: #bbb !important;
 }
+
+.cke_button__code_label {
+  display: none !important;
+}
