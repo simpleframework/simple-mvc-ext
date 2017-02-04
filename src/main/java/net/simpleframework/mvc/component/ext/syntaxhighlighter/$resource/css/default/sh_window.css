@@ -1,33 +1,41 @@
 .sh_window .tb {
   border-bottom: 1px solid #aaa;
-  background-color: #eee;
   padding: 10px;
+}
+
+.sh_window .tb .right {
+  line-height: 1.6;
 }
 
 .sh_window select {
   margin-left: 6px;
 }
 
-.sh_window  .ta {
-  padding: 4px;
+.sh_window .ta {
+  padding: 6px;
 }
 
 .sh_window .ta textarea {
   width: 100%;
   border: 0;
   background: none;
-  font-size: 9.5pt;
-  color: #930F08;
+  font-size: 10.5pt;
+  color: #159;
+  font-family: "Consolas" !important;
+  line-height: 1.1;
 }
 
 .sh_window .btm {
   text-align: right;
   padding: 10px;
-  border-top: 1px solid #aaa;
-  background-color: #fafafa;
-  border-top: 1px solid #aaa;
+  background-color: #f4f4f4;
   bottom: 0;
   left: 0;
   position: absolute;
   right: 0;
+}
+
+.sh_window .btm .green {
+  padding-left: 25px;
+  padding-right: 25px;
 }

@@ -14,7 +14,8 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 @ComponentName(SyntaxHighlighterRegistry.SYNTAXHIGHLIGHTER)
@@ -36,8 +37,8 @@ public class SyntaxHighlighterRegistry extends AbstractComponentRegistry {
 				.setUrlForward(getComponentResourceProvider().getResourceHomePath()
 						+ "/jsp/sh_window.jsp?" + SyntaxHighlighterUtils.BEAN_ID + "=" + beanId);
 		pp.addComponentBean("window_" + beanId, WindowBean.class).setContentRef(ajaxRequest)
-				.setTitle($m("SyntaxHighlighterRegistry.0")).setPopup(true).setHeight(380)
-				.setWidth(500);
+				.setTitle($m("SyntaxHighlighterRegistry.0")).setPopup(true).setHeight(420)
+				.setWidth(540);
 		return syntaxHighlighter;
 	}
 }
