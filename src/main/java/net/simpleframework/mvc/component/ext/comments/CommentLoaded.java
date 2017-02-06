@@ -60,8 +60,8 @@ public class CommentLoaded extends DefaultPageHandler {
 
 		if ((Boolean) cp.getBeanProperty("showLike")) {
 			pp.addComponentBean(commentName + "_like", AjaxRequestBean.class)
-					.setHandlerMethod("doLike").setHandlerClass(CommentAction.class)
-					.setAttr("$comment", commentBean);
+					.setRole(PermissionConst.ROLE_ALL_ACCOUNT).setHandlerMethod("doLike")
+					.setHandlerClass(CommentAction.class).setAttr("$comment", commentBean);
 		}
 
 		if (cp.isLmember(cp.getBeanProperty("role"))) {
