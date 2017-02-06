@@ -58,6 +58,8 @@ public interface ICommentHandler extends IComponentHandler {
 	 */
 	JavascriptForward deleteComment(ComponentParameter cp, Object id);
 
+	JavascriptForward likeComment(ComponentParameter cp, Object id);
+
 	static final String ATTRI_COMMENT = "ccomment";
 
 	static final String ATTRI_USERID = "userId";
@@ -67,6 +69,8 @@ public interface ICommentHandler extends IComponentHandler {
 	static final String ATTRI_ID = "id";
 
 	static final String ATTRI_PARENTID = "parentId";
+
+	static final String ATTRI_LIKES = "likes";
 
 	/**
 	 * 获取评论对象的相关属性

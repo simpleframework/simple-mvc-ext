@@ -58,6 +58,12 @@ public class CommentLoaded extends DefaultPageHandler {
 					.addSmiley(pp);
 		}
 
+		if ((Boolean) cp.getBeanProperty("showLike")) {
+			pp.addComponentBean(commentName + "_like", AjaxRequestBean.class)
+					.setHandlerMethod("doLike").setHandlerClass(CommentAction.class)
+					.setAttr("$comment", commentBean);
+		}
+
 		if (cp.isLmember(cp.getBeanProperty("role"))) {
 			pp.addComponentBean(commentName + "_delete", AjaxRequestBean.class)
 					.setConfirmMessage($m("Confirm.Delete")).setHandlerMethod("doDelete")
@@ -92,6 +98,12 @@ public class CommentLoaded extends DefaultPageHandler {
 		public IForward doDelete(final ComponentParameter cp) {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$comment");
 			return ((ICommentHandler) nCP.getComponentHandler()).deleteComment(nCP,
+					nCP.getParameter("id"));
+		}
+
+		public IForward doLike(final ComponentParameter cp) {
+			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$comment");
+			return ((ICommentHandler) nCP.getComponentHandler()).likeComment(nCP,
 					nCP.getParameter("id"));
 		}
 	}

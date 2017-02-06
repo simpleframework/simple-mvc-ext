@@ -18,6 +18,9 @@ public class CommentBean extends AbstractContainerBean {
 	/* 是否允许评论 */
 	private boolean canReply = BeanDefaults.getBool(getClass(), "canReply", true);
 
+	/* 是否显示点赞按钮 */
+	private boolean showLike = BeanDefaults.getBool(getClass(), "canReply", false);
+
 	/* 提交按钮文本 */
 	private String submitText;
 
@@ -71,6 +74,15 @@ public class CommentBean extends AbstractContainerBean {
 
 	public CommentBean setReadonly(final boolean readonly) {
 		this.readonly = readonly;
+		return this;
+	}
+
+	public boolean isShowLike() {
+		return showLike;
+	}
+
+	public CommentBean setShowLike(final boolean showLike) {
+		this.showLike = showLike;
 		return this;
 	}
 

@@ -7,9 +7,11 @@ import java.util.List;
 
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.Convert;
+import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.MVCContext;
 import net.simpleframework.mvc.common.element.AbstractElement;
+import net.simpleframework.mvc.common.element.ImageElement;
 import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
@@ -112,48 +114,91 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		final StringBuilder sb = new StringBuilder();
 		for (final Object o : data) {
-			final Object id = getProperty(cp, o, ATTRI_ID);
-			final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
-			final Date createDate = (Date) getProperty(cp, o, ATTRI_CREATEDATE);
-			final Object userId = getProperty(cp, o, ATTRI_USERID);
 			sb.append("<div class='oitem'><table><tr>");
 			sb.append("<td class='icon'>");
-			final IPagePermissionHandler permission = MVCContext.get().getPermission();
-			sb.append(new PhotoImage(permission.getPhotoUrl(cp, userId)));
-			final Object oUser = permission.getUser(userId);
-			sb.append("<div class='icon_d'>").append(oUser).append("</div>");
+			sb.append(toIconTDHTML(cp, o));
 			sb.append("</td><td>");
-			final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
-			if (p != null) {
-				final String reply = (String) getProperty(cp, p, ATTRI_COMMENT);
-				sb.append("<div class='rc'>");
-				final Object userId2 = getProperty(cp, p, ATTRI_USERID);
-				final Date createDate2 = (Date) getProperty(cp, p, ATTRI_CREATEDATE);
-				sb.append("<div class='r_desc'>");
-				sb.append(Convert.toDateTimeString(createDate2)).append(SpanElement.SEP())
-						.append(permission.getUser(userId2));
-				sb.append("</div>");
-				sb.append(CommentUtils.replace(reply, true));
-				sb.append("</div>");
-			}
-			sb.append("<div class='mc'>").append(CommentUtils.replace(content, true)).append("</div>");
-			sb.append("<div class='desc'>");
-			sb.append(Convert.toDateTimeString(createDate));
-
-			if (mgr) {
-				sb.append(SpanElement.SEP()).append("<a onclick=\"$Actions['")
-						.append(cp.getComponentName()).append("_delete']('id=").append(id)
-						.append("');\">").append($m("Delete")).append("</a>");
-			}
-			if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
-				sb.append(SpanElement.SEP());
-				sb.append("<a onclick=\"$COMMENT.reply('").append(id).append("', '").append(oUser)
-						.append("');\">").append($m("CommentList.0")).append("</a>");
-			}
-			sb.append("</div>");
+			sb.append(toCommenTDHTML(cp, o, mgr, readonly));
 			sb.append("</td>");
 			sb.append("</tr></table></div>");
 		}
+		return sb.toString();
+	}
+
+	protected String toCommenTDHTML(final ComponentParameter cp, final Object o, final boolean mgr,
+			final boolean readonly) {
+		final StringBuilder sb = new StringBuilder();
+		final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
+		final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
+		if (p != null) {
+			final String reply = (String) getProperty(cp, p, ATTRI_COMMENT);
+			sb.append("<div class='rc'>");
+			final Object userId2 = getProperty(cp, p, ATTRI_USERID);
+			final Date createDate2 = (Date) getProperty(cp, p, ATTRI_CREATEDATE);
+			sb.append("<div class='r_desc'>");
+			sb.append(Convert.toDateTimeString(createDate2)).append(SpanElement.SPACE)
+					.append(new SpanElement(permission.getUser(userId2)));
+			sb.append("</div>");
+			sb.append(CommentUtils.replace(reply, true));
+			sb.append("</div>");
+		}
+		sb.append("<div class='mc'>").append(CommentUtils.replace(content, true)).append("</div>");
+		sb.append(toCommenTDHTML_desc(cp, o, mgr, readonly));
+		return sb.toString();
+	}
+
+	protected String toCommenTDHTML_desc(final ComponentParameter cp, final Object o,
+			final boolean mgr, final boolean readonly) {
+		final Object id = getProperty(cp, o, ATTRI_ID);
+		final Date createDate = (Date) getProperty(cp, o, ATTRI_CREATEDATE);
+		final Object userId = getProperty(cp, o, ATTRI_USERID);
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<div class='desc'>");
+		sb.append(Convert.toDateTimeString(createDate));
+		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
+			sb.append(SpanElement.SPACE);
+			sb.append(LinkElement.style2($m("CommentList.0"))
+					.setOnclick("$COMMENT.reply('" + id + "', '" + permission.getUser(userId) + "');"));
+		}
+		if (mgr) {
+			sb.append(SpanElement.SPACE);
+			sb.append(LinkElement.style2($m("Delete"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
+		}
+		if ((Boolean) cp.getBeanProperty("showLike")) {
+			sb.append("<div class='right'>");
+			final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
+			sb.append(new ImageElement(ipath + (isLike(cp, o) ? "like2.png" : "like.png"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_like']('id=" + id + "');"));
+			final int likes = ((Number) getProperty(cp, o, ATTRI_LIKES)).intValue();
+			final SpanElement le = new SpanElement();
+			if (likes > 0) {
+				le.setText("(" + new SpanElement(likes) + ")");
+			}
+			sb.append(le);
+			sb.append("</div>");
+		}
+		sb.append("</div>");
+		return sb.toString();
+	}
+
+	protected boolean isLike(final ComponentParameter cp, final Object comment) {
+		return false;
+	}
+
+	@Override
+	public JavascriptForward likeComment(final ComponentParameter cp, final Object id) {
+		throw NotImplementedException.of(getClass(), "likeComment");
+	}
+
+	protected final IPagePermissionHandler permission = MVCContext.get().getPermission();
+
+	protected String toIconTDHTML(final ComponentParameter cp, final Object o) {
+		final StringBuilder sb = new StringBuilder();
+		final Object userId = getProperty(cp, o, ATTRI_USERID);
+		sb.append(new PhotoImage(permission.getPhotoUrl(cp, userId)));
+		final Object oUser = permission.getUser(userId);
+		sb.append("<div class='icon_d'>").append(oUser).append("</div>");
 		return sb.toString();
 	}
 
