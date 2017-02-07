@@ -52,6 +52,13 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return BeanUtils.getProperty(o, name);
 	}
 
+	protected String toEditorHTML_tright(final ComponentParameter cp, final int count) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append($m("AbstractCommentHandler.0")).append("<span class='num'>").append(count)
+				.append("</span>").append($m("AbstractCommentHandler.1"));
+		return sb.toString();
+	}
+
 	@Override
 	public String toEditorHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
@@ -64,10 +71,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append("   <span class='icon'></span>");
 			sb.append("   <span class='reply'></span>");
 			sb.append("  </div>");
-			sb.append("  <div class='right'>").append($m("AbstractCommentHandler.0"))
-					.append("<span class='num'>").append(comments(cp).getCount()).append("</span>")
-					.append($m("AbstractCommentHandler.1"));
-			sb.append("  </div>");
+			sb.append("  <div class='right'>").append(toEditorHTML_tright(cp, comments(cp).getCount()))
+					.append("</div>");
 			sb.append(" </div>");
 			sb.append(" <div class='l2'>").append(createTextarea(cp));
 			sb.append("  <input type='hidden' name='parentId' />");
@@ -170,7 +175,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			final int likes = ((Number) getProperty(cp, o, ATTRI_LIKES)).intValue();
 			final SpanElement le = new SpanElement();
 			if (likes > 0) {
-				le.setText("(" + new SpanElement(likes) + ")");
+				le.setText(likes);
 			}
 			sb.append(le);
 			final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
@@ -197,7 +202,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 				"var img = $Actions['" + cp.getComponentName() + "_like'].trigger;");
 		js.append("var l = img.previous();");
 		if (likes > 0) {
-			js.append("l.update('(' + ").append(likes).append(" + ')');");
+			js.append("l.update('").append(likes).append("');");
 		} else {
 			js.append("l.update('');");
 		}

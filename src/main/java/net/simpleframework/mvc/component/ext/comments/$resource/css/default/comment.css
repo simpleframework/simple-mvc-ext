@@ -73,7 +73,6 @@
 .Comp_Comment .t1_head .num {
   color: #c33;
   font-size: 15pt;
-  font-weight: bold;
   margin: 0 4px;
 }
 
@@ -179,7 +178,7 @@
   height: 16px;
   vertical-align: middle;
   cursor: pointer;
-  margin-right: 3px;
+  margin-left: 3px;
 }
 
 .Comp_Comment .t1_comments .oitem .desc span {
