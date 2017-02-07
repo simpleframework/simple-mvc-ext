@@ -35,15 +35,15 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	@Override
 	public JavascriptForward addComment(final ComponentParameter cp) {
-		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(").append(
-				comments(cp).getCount()).append(");");
+		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(")
+				.append(comments(cp).getCount()).append(");");
 		return js;
 	}
 
 	@Override
 	public JavascriptForward deleteComment(final ComponentParameter cp, final Object id) {
-		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(").append(
-				comments(cp).getCount()).append(");");
+		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(")
+				.append(comments(cp).getCount()).append(");");
 		return js;
 	}
 
@@ -90,8 +90,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
-		return LinkElement.style2($m("AbstractCommentHandler.3")).setOnclick(
-				"$Actions['" + cp.getComponentName() + "_smiley']();");
+		return LinkElement.style2($m("AbstractCommentHandler.3"))
+				.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
 	}
 
 	protected AbstractElement<?> createTextarea(final ComponentParameter cp) {
@@ -157,25 +157,25 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		sb.append(Convert.toDateTimeString(createDate));
 		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
 			sb.append(SpanElement.SPACE);
-			sb.append(LinkElement.style2($m("CommentList.0")).setOnclick(
-					"$COMMENT.reply('" + id + "', '" + permission.getUser(userId) + "');"));
+			sb.append(LinkElement.style2($m("CommentList.0"))
+					.setOnclick("$COMMENT.reply('" + id + "', '" + permission.getUser(userId) + "');"));
 		}
 		if (mgr) {
 			sb.append(SpanElement.SPACE);
-			sb.append(LinkElement.style2($m("Delete")).setOnclick(
-					"$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
+			sb.append(LinkElement.style2($m("Delete"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
 		}
 		if ((Boolean) cp.getBeanProperty("showLike")) {
 			sb.append("<div class='right'>");
+			final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
+			sb.append(new ImageElement(ipath + (isLike(cp, o) ? "like2.png" : "like.png"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_like']('id=" + id + "');"));
 			final int likes = ((Number) getProperty(cp, o, ATTRI_LIKES)).intValue();
 			final SpanElement le = new SpanElement();
 			if (likes > 0) {
 				le.setText("(" + new SpanElement(likes) + ")");
 			}
 			sb.append(le);
-			final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
-			sb.append(new ImageElement(ipath + (isLike(cp, o) ? "like2.png" : "like.png"))
-					.setOnclick("$Actions['" + cp.getComponentName() + "_like']('id=" + id + "');"));
 			sb.append("</div>");
 		}
 		sb.append("</div>");
@@ -189,21 +189,6 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	@Override
 	public JavascriptForward likeComment(final ComponentParameter cp, final Object id) {
 		throw NotImplementedException.of(getClass(), "likeComment");
-	}
-
-	protected JavascriptForward toLikeCallback(final ComponentParameter cp, final int likes,
-			final String image) {
-		final JavascriptForward js = new JavascriptForward("var img = $Actions['"
-				+ cp.getComponentName() + "_like'].trigger;");
-		js.append("var l = img.previous();");
-		if (likes > 0) {
-			js.append("l.update('(' + ").append(likes).append(" + ')');");
-		} else {
-			js.append("l.update('');");
-		}
-		js.append("img.src = '").append(cp.getCssResourceHomePath(CommentBean.class))
-				.append("/images/").append(image).append("';");
-		return js;
 	}
 
 	protected final IPagePermissionHandler permission = MVCContext.get().getPermission();
