@@ -92,9 +92,14 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	public JavascriptForward doSave(final ComponentParameter cp,
 			final IAttachmentSaveCallback callback) throws Exception {
 		if (callback != null) {
-			final Map<String, AttachmentFile> uploads = getUploadCache(cp);
-			doImagesCropper(cp, uploads);
-			callback.save(uploads, getDeleteCache(cp));
+			try {
+				final Map<String, AttachmentFile> uploads = getUploadCache(cp);
+				doImagesCropper(cp, uploads);
+				callback.save(uploads, getDeleteCache(cp));
+			} catch (final Exception e) {
+				clearCache(cp);
+				throw e;
+			}
 		}
 		final int attachmentsLimit = (Integer) cp.getBeanProperty("attachmentsLimit");
 		if (attachmentsLimit > 0 && attachments(cp).size() > attachmentsLimit) {
