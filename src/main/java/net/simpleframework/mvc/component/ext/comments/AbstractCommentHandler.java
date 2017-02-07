@@ -167,15 +167,15 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		}
 		if ((Boolean) cp.getBeanProperty("showLike")) {
 			sb.append("<div class='right'>");
-			final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
-			sb.append(new ImageElement(ipath + (isLike(cp, o) ? "like2.png" : "like.png"))
-					.setOnclick("$Actions['" + cp.getComponentName() + "_like']('id=" + id + "');"));
 			final int likes = ((Number) getProperty(cp, o, ATTRI_LIKES)).intValue();
 			final SpanElement le = new SpanElement();
 			if (likes > 0) {
 				le.setText("(" + new SpanElement(likes) + ")");
 			}
 			sb.append(le);
+			final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
+			sb.append(new ImageElement(ipath + (isLike(cp, o) ? "like2.png" : "like.png"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_like']('id=" + id + "');"));
 			sb.append("</div>");
 		}
 		sb.append("</div>");
@@ -189,6 +189,21 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	@Override
 	public JavascriptForward likeComment(final ComponentParameter cp, final Object id) {
 		throw NotImplementedException.of(getClass(), "likeComment");
+	}
+
+	protected JavascriptForward toLikeCallback(final ComponentParameter cp, final int likes,
+			final String image) {
+		final JavascriptForward js = new JavascriptForward(
+				"var img = $Actions['" + cp.getComponentName() + "_like'].trigger;");
+		js.append("var l = img.previous();");
+		if (likes > 0) {
+			js.append("l.update('(' + ").append(likes).append(" + ')');");
+		} else {
+			js.append("l.update('');");
+		}
+		js.append("img.src = '").append(cp.getCssResourceHomePath(CommentBean.class))
+				.append("/images/").append(image).append("';");
+		return js;
 	}
 
 	protected final IPagePermissionHandler permission = MVCContext.get().getPermission();
