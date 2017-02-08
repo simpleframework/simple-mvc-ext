@@ -62,7 +62,6 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	@Override
 	public String toEditorHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
-		final String commentName = cp.getComponentName();
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		if (!readonly) {
 			sb.append("<div class='t1_head'>");
@@ -87,11 +86,20 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append("  <div class='right'>").append(createSubmit(cp)).append("</div>");
 			sb.append(" </div>");
 			sb.append("</div>");
+		} else if (!cp.isLogin()) {
+			final String lhtml = toEditorHTML_tlogin(cp);
+			if (lhtml != null) {
+				sb.append(lhtml);
+			}
 		}
 		sb.append("<div class='t1_comments'>");
-		sb.append(" <div id='id").append(commentName).append("_pager'></div>");
+		sb.append(" <div id='id").append(cp.getComponentName()).append("_pager'></div>");
 		sb.append("</div>");
 		return sb.toString();
+	}
+
+	protected String toEditorHTML_tlogin(final ComponentParameter cp) {
+		return null;
 	}
 
 	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
