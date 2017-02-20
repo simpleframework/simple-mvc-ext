@@ -184,3 +184,8 @@ body[contenteditable="false"] *,
 body {
   margin: 8px;
 }
+
+table td,
+table th {
+  padding: 4px;
+}
