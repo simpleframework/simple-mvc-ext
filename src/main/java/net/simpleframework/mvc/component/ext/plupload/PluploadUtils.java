@@ -40,7 +40,11 @@ public abstract class PluploadUtils {
 		final String hpath = ComponentUtils.getResourceHomePath(PluploadBean.class);
 		sb.append("var act = $Actions['" + cp.getComponentName() + "'];");
 		sb.append("var uploader = new plupload.Uploader({");
-		sb.append(" runtimes : 'html5,flash,html4',");
+		if (cp.isMobile()) {
+			sb.append(" runtimes : 'html5',");
+		} else {
+			sb.append(" runtimes : 'html5,flash,html4',");
+		}
 		sb.append(" file_data_name : 'Filedata',");
 		sb.append(" multi_selection : ").append(cp.getBeanProperty("multiFileSelected")).append(",");
 		sb.append(" flash_swf_url : '").append(hpath).append("/flash/Moxie.swf").append("',");
