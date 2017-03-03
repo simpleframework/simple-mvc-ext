@@ -70,6 +70,10 @@
   cursor: pointer;
 }
 
+.Comp_Attachment .l_attach {
+  position: relative;
+}
+
 .Comp_Attachment .l_attach img.status {
   padding-right: 4px;
 }
