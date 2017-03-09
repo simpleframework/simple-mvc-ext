@@ -64,11 +64,9 @@ public class CommentLoaded extends DefaultPageHandler {
 					.setHandlerClass(CommentAction.class).setAttr("$comment", commentBean);
 		}
 
-		if (cp.isLmember(cp.getBeanProperty("role"))) {
-			pp.addComponentBean(commentName + "_delete", AjaxRequestBean.class)
-					.setConfirmMessage($m("Confirm.Delete")).setHandlerMethod("doDelete")
-					.setHandlerClass(CommentAction.class).setAttr("$comment", commentBean);
-		}
+		pp.addComponentBean(commentName + "_delete", AjaxRequestBean.class)
+				.setConfirmMessage($m("Confirm.Delete")).setHandlerMethod("doDelete")
+				.setHandlerClass(CommentAction.class).setAttr("$comment", commentBean);
 
 		// pager
 		pp.addComponentBean(commentName + "_pager", PagerBean.class)

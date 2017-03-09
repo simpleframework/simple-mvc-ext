@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.Convert;
+import net.simpleframework.common.object.ObjectUtils;
 import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.MVCContext;
@@ -173,7 +174,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append(LinkElement.style2($m("CommentList.0"))
 					.setOnclick("$COMMENT.reply('" + id + "', '" + permission.getUser(userId) + "');"));
 		}
-		if (mgr) {
+		if (mgr || ObjectUtils.objectEquals(cp.getLoginId(), userId)) {
 			sb.append(SpanElement.SPACE);
 			sb.append(LinkElement.style2($m("Delete"))
 					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
