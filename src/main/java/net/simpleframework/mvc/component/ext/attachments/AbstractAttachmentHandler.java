@@ -95,6 +95,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			try {
 				final Map<String, AttachmentFile> uploads = getUploadCache(cp);
 				doImagesCropper(cp, uploads);
+				doThumbnail(cp, uploads);
 				callback.save(uploads, getDeleteCache(cp));
 			} catch (final Exception e) {
 				clearCache(cp);
@@ -108,6 +109,10 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		// 清除
 		clearCache(cp);
 		return null;
+	}
+
+	protected void doThumbnail(final ComponentParameter cp,
+			final Map<String, AttachmentFile> uploads) throws IOException {
 	}
 
 	protected void doImagesCropper(final ComponentParameter cp,
