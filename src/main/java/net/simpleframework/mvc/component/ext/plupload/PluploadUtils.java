@@ -43,7 +43,7 @@ public abstract class PluploadUtils {
 		if (cp.isMobile()) {
 			sb.append(" runtimes : 'html5',");
 		} else {
-			sb.append(" runtimes : 'html5,flash,html4',");
+			sb.append(" runtimes : 'html5,html4,flash',");
 		}
 		sb.append(" file_data_name : 'Filedata',");
 		sb.append(" multi_selection : ").append(cp.getBeanProperty("multiFileSelected")).append(",");
