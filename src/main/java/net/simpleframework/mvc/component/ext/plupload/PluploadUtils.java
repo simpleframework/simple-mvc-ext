@@ -75,13 +75,14 @@ public abstract class PluploadUtils {
 		sb.append("FilesAdded: function(up, files) {");
 		sb.append("  var queue = $(\"fileQueue_").append(beanId).append("\");");
 		sb.append("  plupload.each(files, function(file) {");
+		sb.append("  var osize = file.origSize;");
 		sb.append("  var html =\"<div id='item_\" + file.id + \"' class='item'>");
 		sb.append("    <table width='100%' cellpadding='0' cellspacing='0'>");
 		sb.append("      <tr><td>");
 		sb.append("        <table width='100%' cellpadding='0' cellspacing='0'><tr>");
 		sb.append("          <td><span>\" + file.name + \"<\\/span>");
 		sb.append(
-				"            <span class='fs'>\" + file.origSize.toFileString() + \"<\\/span><\\/td>");
+				"            <span class='fs'>\" + (osize ? osize.toFileString() : '') + \"<\\/span><\\/td>");
 		sb.append("          <td width='30px;' align='center'>");
 		sb.append("            <div class='delete_image'><\\/div>");
 		sb.append("          <\\/td>");
