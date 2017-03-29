@@ -15,6 +15,6 @@ public class PluploadResourceProvider extends SwfUploadResourceProvider {
 	@Override
 	public String[] getJavascriptPath(final PageParameter pp) {
 		final String hpath = getResourceHomePath();
-		return new String[] { hpath + "/js/plupload.full.min.js", hpath + "/js/i18n/zh_cn.js" };
+		return new String[] { hpath + "/js/plupload.full.min.js", hpath + "/js/i18n/zh_CN.js" };
 	}
 }
