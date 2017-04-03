@@ -138,6 +138,14 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				.setHandlerMethod("doDownload").setHandlerClass(AttachmentAction.class)
 				.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 
+		// zip下载
+		final boolean showZipDownload = (Boolean) cp.getBeanProperty("showZipDownload");
+		if (showZipDownload) {
+			pp.addComponentBean(attachmentName + "_zipDownload", AjaxRequestBean.class)
+					.setHandlerMethod("doZipDownload").setHandlerClass(AttachmentAction.class)
+					.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
+		}
+
 		final String tPath = aHandler.getTooltipPath(cp);
 		if (StringUtils.hasText(tPath)) {
 			// tip
@@ -223,12 +231,17 @@ public class AttachmentLoaded extends DefaultPageHandler {
 					sb.append(JavascriptUtils.wrapScriptTag(script.toString(), true)).toString());
 		}
 
+		public IForward doZipDownload(final ComponentParameter cp) throws Exception {
+			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
+			return ((IAttachmentHandler) nCP.getComponentHandler()).doZipDownload(nCP);
+		}
+
 		public IForward doDownload(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final IAttachmentHandler handler = (IAttachmentHandler) nCP.getComponentHandler();
 			final AttachmentFile af = handler.getAttachmentById(nCP, nCP.getParameter("id"));
 			if (af != null) {
-				return handler.doDownloadAction(nCP, af);
+				return handler.doDownload(nCP, af);
 			} else {
 				final JavascriptForward js = new JavascriptForward();
 				js.append("alert(\"").append($m("AttachmentLoaded.0")).append("\");");

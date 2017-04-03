@@ -3,6 +3,8 @@ package net.simpleframework.mvc.component.ext.attachments;
 import static net.simpleframework.common.I18n.$m;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,6 +14,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
 
@@ -494,7 +498,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		}
 		if (showZipDownload) {
 			sb.append(SpanElement.SPACE);
-			sb.append(LinkButton.corner("打包下载"));
+			sb.append(LinkButton.corner($m("AbstractAttachmentHandler.8"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_zipDownload']();"));
 		}
 		sb.append(" </span>");
 		sb.append("</div>");
@@ -527,8 +532,66 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	}
 
 	@Override
-	public JavascriptForward doDownloadAction(final ComponentParameter cp, final AttachmentFile af) {
+	public JavascriptForward doDownload(final ComponentParameter cp, final AttachmentFile af) {
 		return new JavascriptForward(JS.loc(DownloadUtils.getDownloadHref(af, getClass())));
+	}
+
+	@Override
+	public JavascriptForward doZipDownload(final ComponentParameter cp) throws IOException {
+		final File target = getModuleContext().getApplicationContext().getContextSettings()
+				.getAttachDir("attachment.zip");
+		if (target.exists()) {
+			target.delete();
+		}
+
+		FileOutputStream fos = null;
+		ZipOutputStream zos = null;
+		try {
+			fos = new FileOutputStream(target);
+			zos = new ZipOutputStream(new BufferedOutputStream(fos));
+			for (final AttachmentFile aFile : attachments(cp).values()) {
+				addEntry(aFile, zos);
+			}
+		} finally {
+			try {
+				if (zos != null) {
+					zos.close();
+				}
+				if (fos != null) {
+					fos.close();
+				}
+			} catch (final IOException e) {
+			}
+		}
+
+		return new JavascriptForward(
+				JS.loc(DownloadUtils.getDownloadHref(new AttachmentFile(target), getClass())));
+	}
+
+	protected void addEntry(final AttachmentFile source, final ZipOutputStream zos)
+			throws IOException {
+		FileInputStream fis = null;
+		BufferedInputStream bis = null;
+		try {
+			final byte[] buffer = new byte[1024 * 10];
+			final File aFile = source.getAttachment();
+			fis = new FileInputStream(aFile);
+			bis = new BufferedInputStream(fis, buffer.length);
+			zos.putNextEntry(new ZipEntry(
+					"/" + source.getTopic() + "." + FileUtils.getFilenameExtension(aFile.getName())));
+			int read = 0;
+			while ((read = bis.read(buffer, 0, buffer.length)) != -1) {
+				zos.write(buffer, 0, read);
+			}
+			zos.closeEntry();
+		} finally {
+			if (fis != null) {
+				fis.close();
+			}
+			if (bis != null) {
+				bis.close();
+			}
+		}
 	}
 
 	// IDownloadHandler
