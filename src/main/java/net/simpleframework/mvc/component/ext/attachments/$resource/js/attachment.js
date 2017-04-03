@@ -24,5 +24,41 @@ var AttachmentUtils = {
       return;
     }
     $Actions[act]('rowIds=' + arr.join(";"));
+  },
+
+  doOk : function(cc, insertTextarea, componentName, msg) {
+    var attach = cc.previous();
+    if (insertTextarea) {
+      cc.down('input[type=checkbox]').observe('click', function(evn) {
+        var _box = this;
+        attach.select('input[type=checkbox]').each(function(box) {
+          box.checked = _box.checked;
+        });
+      });
+
+      cc.down('.simple_btn.obtn').observe(
+          'click',
+          function(evn) {
+            var idArr = attach.select('input[type=checkbox]').inject([],
+                function(r, box) {
+                  if (box.checked)
+                    r.push(box.id);
+                  return r;
+                });
+            if (idArr.length == 0) {
+              alert(msg.m1);
+              return;
+            }
+            $Actions[componentName + '_selected']('ids=' + idArr.join(';'));
+          });
+    } else {
+      cc.down('.simple_btn.obtn').observe('click', function(evn) {
+        if (attach.select('.fitem').length == 0) {
+          alert(msg.m1);
+          return;
+        }
+        $Actions[componentName + '_submit']();
+      });
+    }
   }
 };

@@ -26,6 +26,9 @@ public class AttachmentBean extends AbstractContainerBean {
 	/* 提交模式 */
 	private boolean showSubmit = BeanDefaults.getBool(getClass(), "showSubmit", false);
 
+	/* 是否显示zip下载 */
+	private boolean showZipDownload = BeanDefaults.getBool(getClass(), "showZipDownload", false);
+
 	/* 显示编辑按钮 */
 	private boolean showEdit = BeanDefaults.getBool(getClass(), "showEdit", true);
 
@@ -84,6 +87,15 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public AttachmentBean setShowSubmit(final boolean showSubmit) {
 		this.showSubmit = showSubmit;
+		return this;
+	}
+
+	public boolean isShowZipDownload() {
+		return showZipDownload;
+	}
+
+	public AttachmentBean setShowZipDownload(final boolean showZipDownload) {
+		this.showZipDownload = showZipDownload;
 		return this;
 	}
 

@@ -23,6 +23,7 @@ import net.simpleframework.common.JsonUtils;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.th.NotImplementedException;
+import net.simpleframework.common.web.JavascriptUtils;
 import net.simpleframework.common.web.html.HtmlConst;
 import net.simpleframework.common.web.html.HtmlEncoder;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
@@ -469,56 +470,43 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	}
 
 	@Override
-	public String toBottomHTML(final ComponentParameter cp) {
+	public String toBottomHTML(final ComponentParameter cp) throws IOException {
 		final boolean insertTextarea = StringUtils
 				.hasText((String) cp.getBeanProperty("insertTextarea"));
 		final boolean showSubmit = (Boolean) cp.getBeanProperty("showSubmit");
-		if (!insertTextarea && !showSubmit) {
+		final boolean showZipDownload = (Boolean) cp.getBeanProperty("showZipDownload")
+				&& attachments(cp).size() > 1;
+		if (!insertTextarea && !showSubmit && !showZipDownload) {
 			return "";
 		}
 
 		final StringBuilder sb = new StringBuilder();
 		final String hashId = cp.hashId();
 		sb.append("<div class='b_attach' id='cc_").append(hashId).append("'>");
-		sb.append(" <span class='rbtn'>");
-		sb.append(LinkButton.corner(
-				insertTextarea ? $m("AbstractAttachmentHandler.0") : $m("AbstractAttachmentHandler.3")))
-				.append("</span>");
 		if (insertTextarea) {
 			sb.append(new Checkbox("checkAll_" + hashId, $m("AbstractAttachmentHandler.1")));
 		}
+		sb.append(" <span class='rbtn'>");
+		if (insertTextarea) {
+			sb.append(LinkButton.corner($m("AbstractAttachmentHandler.0")).addClassName("obtn"));
+		} else if (showSubmit) {
+			sb.append(LinkButton.corner($m("AbstractAttachmentHandler.3")).addClassName("obtn"));
+		}
+		if (showZipDownload) {
+			sb.append(SpanElement.SPACE);
+			sb.append(LinkButton.corner("打包下载"));
+		}
+		sb.append(" </span>");
 		sb.append("</div>");
 
-		sb.append(HtmlConst.TAG_SCRIPT_START);
-		sb.append("$ready(function() {");
-		sb.append(" var cc = $('cc_").append(hashId).append("');");
-		sb.append(" var attach = cc.previous();");
-		if (insertTextarea) {
-			sb.append(" cc.down('input[type=checkbox]').observe('click', function(evn) {");
-			sb.append("   var _box = this;");
-			sb.append(
-					"   attach.select('input[type=checkbox]').each(function(box) { box.checked = _box.checked; });");
-			sb.append(" });");
-			sb.append(" cc.down('.simple_btn').observe('click', function(evn) {");
-			sb.append(
-					"   var idArr = attach.select('input[type=checkbox]').inject([], function(r, box) {");
-			sb.append("     if (box.checked) r.push(box.id);");
-			sb.append("     return r;");
-			sb.append("   });");
-			sb.append(
-					"   if (idArr.length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
-			sb.append("   $Actions['").append(cp.getComponentName())
-					.append("_selected']('ids=' + idArr.join(';'));");
-			sb.append(" });");
-		} else {
-			sb.append(" cc.down('.simple_btn').observe('click', function(evn) {");
-			sb.append(
-					"  if (attach.select('.fitem').length == 0) { alert('#(AbstractAttachmentHandler.2)'); return; }");
-			sb.append("  $Actions['").append(cp.getComponentName()).append("_submit']();");
-			sb.append(" });");
-		}
-		sb.append("});");
-		sb.append(HtmlConst.TAG_SCRIPT_END);
+		final StringBuilder js = new StringBuilder();
+		js.append(" var cc = $('cc_").append(hashId).append("');");
+		js.append(" var msg = {");
+		js.append("  m1: '").append($m("AbstractAttachmentHandler.2")).append("'");
+		js.append(" };");
+		js.append(" AttachmentUtils.doOk(cc, ").append(insertTextarea).append(", '")
+				.append(cp.getComponentName()).append("', msg);");
+		sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
 		return sb.toString();
 	}
 

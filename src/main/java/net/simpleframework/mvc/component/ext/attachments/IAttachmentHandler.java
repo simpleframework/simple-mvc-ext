@@ -1,5 +1,6 @@
 package net.simpleframework.mvc.component.ext.attachments;
 
+import java.io.IOException;
 import java.util.Map;
 
 import net.simpleframework.common.ID;
@@ -127,7 +128,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param cParameter
 	 * @return
 	 */
-	String toBottomHTML(ComponentParameter cp);
+	String toBottomHTML(ComponentParameter cp) throws IOException;
 
 	/**
 	 * 获取tooltip的路径
