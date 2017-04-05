@@ -158,11 +158,15 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 	@Override
 	public void export(final ComponentParameter cp, final EExportFileType filetype,
 			final TablePagerColumns columns) {
+		doExport(cp, getExportDataQuery(cp), filetype, columns);
+	}
+
+	public IDataQuery<?> getExportDataQuery(final ComponentParameter cp) {
 		final IDataQuery<?> dQuery = getRawDataQuery(createDataObjectQuery(cp));
 		if (dQuery instanceof DbDataQuery) {
 			doFilterSQL(cp, (DbDataQuery<?>) dQuery);
 		}
-		doExport(cp, dQuery, filetype, columns);
+		return dQuery;
 	}
 
 	@Override

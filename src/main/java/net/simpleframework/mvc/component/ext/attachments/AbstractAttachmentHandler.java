@@ -3,7 +3,6 @@ package net.simpleframework.mvc.component.ext.attachments;
 import static net.simpleframework.common.I18n.$m;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
@@ -539,7 +537,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@Override
 	public JavascriptForward doZipDownload(final ComponentParameter cp) throws IOException {
 		final File target = getModuleContext().getApplicationContext().getContextSettings()
-				.getAttachDir("attachment.zip");
+				.getAttachDir(ID.uid() + ".zip");
 		if (target.exists()) {
 			target.delete();
 		}
@@ -550,7 +548,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			fos = new FileOutputStream(target);
 			zos = new ZipOutputStream(new BufferedOutputStream(fos));
 			for (final AttachmentFile aFile : attachments(cp).values()) {
-				addEntry(aFile, zos);
+				aFile.addZipEntry("/", zos);
 			}
 		} finally {
 			try {
@@ -566,32 +564,6 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 
 		return new JavascriptForward(
 				JS.loc(DownloadUtils.getDownloadHref(new AttachmentFile(target), getClass())));
-	}
-
-	protected void addEntry(final AttachmentFile source, final ZipOutputStream zos)
-			throws IOException {
-		FileInputStream fis = null;
-		BufferedInputStream bis = null;
-		try {
-			final byte[] buffer = new byte[1024 * 10];
-			final File aFile = source.getAttachment();
-			fis = new FileInputStream(aFile);
-			bis = new BufferedInputStream(fis, buffer.length);
-			zos.putNextEntry(new ZipEntry(
-					"/" + source.getTopic() + "." + FileUtils.getFilenameExtension(aFile.getName())));
-			int read = 0;
-			while ((read = bis.read(buffer, 0, buffer.length)) != -1) {
-				zos.write(buffer, 0, read);
-			}
-			zos.closeEntry();
-		} finally {
-			if (fis != null) {
-				fis.close();
-			}
-			if (bis != null) {
-				bis.close();
-			}
-		}
 	}
 
 	// IDownloadHandler
