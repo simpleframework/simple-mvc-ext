@@ -101,7 +101,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param id
 	 * @return
 	 */
-	AbstractElement<?> getDownloadLink(ComponentParameter cp, AttachmentFile attachmentFile,
+	AbstractElement<?> getDownloadLinkElement(ComponentParameter cp, AttachmentFile attachmentFile,
 			String id) throws IOException;
 
 	JavascriptForward doDownload(ComponentParameter cp, AttachmentFile af) throws IOException;

@@ -63,25 +63,29 @@
   background-color: #f2f9f2;
 }
 
-.Comp_Attachment input, 
-.Comp_Attachment label, 
-.Comp_Attachment span {
-  vertical-align: middle;
-  cursor: pointer;
-}
-
 .Comp_Attachment .l_attach {
   position: relative;
 }
 
-.Comp_Attachment .l_attach img.status {
-  padding-right: 4px;
+.Comp_Attachment .l_attach .size {
+  color: #999;
+  font-size: 8pt;
+  margin-left: 4px;
 }
 
-.Comp_Attachment .size {
-  color: #999;
-  font-family: Candara;
-  margin-left: 4px;
+.Comp_Attachment .l_attach .play {
+  width: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.Comp_Attachment .l_attach>* {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.Comp_Attachment .l_attach img.status {
+  padding-right: 4px;
 }
 
 .Comp_Attachment .b_attach {

@@ -25,10 +25,12 @@ import net.simpleframework.common.JsonUtils;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.th.NotImplementedException;
+import net.simpleframework.common.web.HttpUtils;
 import net.simpleframework.common.web.JavascriptUtils;
-import net.simpleframework.common.web.html.HtmlConst;
 import net.simpleframework.common.web.html.HtmlEncoder;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
+import net.simpleframework.lib.it.sauronsoftware.jave.Encoder;
+import net.simpleframework.lib.it.sauronsoftware.jave.MultimediaInfo;
 import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
@@ -276,6 +278,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if (imageList) {
 			sb.append("</div>");
 		}
+		final StringBuilder js = new StringBuilder();
+		js.append("AttachmentUtils.doLoad('attachment_list_").append(cp.hashId()).append("');");
+		sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
 		return sb.toString();
 	}
 
@@ -292,22 +297,20 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if (Convert.toBool(cp.getRequestAttr("_cropper"))) {
 			sb.append(InputElement.hidden("cropper_" + id));
 			if (getUploadCache(cp).containsKey(id)) {
-				sb.append(HtmlConst.TAG_SCRIPT_START);
-				sb.append("$ready(function() {");
-				sb.append(" var data = $('cropper_").append(id).append("');");
-				sb.append(" var img = $('#attach_").append(id).append(" img');");
-				sb.append(" var cropper = new Cropper(img, {");
-				sb.append("  dragMode : 'move',");
-				sb.append("  movable : false,");
-				sb.append("  viewMode : 3,");
-				sb.append("  zoomable : false,");
-				sb.append("  aspectRatio : ").append(cp.getBeanProperty("cropperRatio")).append(",");
-				sb.append("  crop: function(e) {");
-				sb.append("   data.value = JSON.stringify(cropper.getData());");
-				sb.append("  }");
-				sb.append(" });");
-				sb.append("});");
-				sb.append(HtmlConst.TAG_SCRIPT_END);
+				final StringBuilder js = new StringBuilder();
+				js.append("var data = $('cropper_").append(id).append("');");
+				js.append("var img = $('#attach_").append(id).append(" img');");
+				js.append("var cropper = new Cropper(img, {");
+				js.append(" dragMode : 'move',");
+				js.append(" movable : false,");
+				js.append(" viewMode : 3,");
+				js.append(" zoomable : false,");
+				js.append(" aspectRatio : ").append(cp.getBeanProperty("cropperRatio")).append(",");
+				js.append(" crop: function(e) {");
+				js.append("  data.value = JSON.stringify(cropper.getData());");
+				js.append(" }");
+				js.append("});");
+				sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
 			}
 		}
 		return sb.toString();
@@ -380,28 +383,29 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		final boolean insertTextarea = StringUtils
 				.hasText((String) cp.getBeanProperty("insertTextarea"));
 		if (insertTextarea) {
-			sb.append(new Checkbox(id, createAttachmentItem_Topic(cp, id, attachment, false, index)));
+			sb.append(new Checkbox(id,
+					createAttachmentItem_Topic(cp, id, attachment, readonly, false, index)));
 		} else {
 			// params for tooltip
-			sb.append(createAttachmentItem_Topic(cp, id, attachment, true, index));
+			sb.append(createAttachmentItem_Topic(cp, id, attachment, readonly, true, index));
 		}
 		sb.append("</div></div>");
 		return sb.toString();
 	}
 
 	protected String createAttachmentItem_Topic(final ComponentParameter cp, final String id,
-			final AttachmentFile attachment, final boolean showlink, final int index)
-			throws IOException {
+			final AttachmentFile attachment, final boolean readonly, final boolean showlink,
+			final int index) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		if ((Boolean) cp.getBeanProperty("showLineNo")) {
 			sb.append(index + 1).append(". ");
 		}
 		if (showlink) {
-			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, index));
+			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, readonly, index));
 		} else {
 			sb.append(HtmlEncoder.text(attachment.getTopic()));
 		}
-		sb.append(createAttachmentItem_fileSizeElement(attachment));
+		sb.append(toAttachmentItem_fileInfoHTML(cp, attachment, readonly));
 		return sb.toString();
 	}
 
@@ -433,16 +437,44 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	}
 
 	protected LinkElement createAttachmentItem_topicLinkElement(final ComponentParameter cp,
-			final String id, final AttachmentFile attachment, final int index) {
+			final String id, final AttachmentFile attachment, final boolean readonly,
+			final int index) {
 		return new LinkElement(HtmlEncoder.text(attachment.getTopic()))
 				.setOnclick("$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');")
 				.addAttribute("params", "id=" + id);
 	}
 
-	protected SpanElement createAttachmentItem_fileSizeElement(final AttachmentFile attachment)
-			throws IOException {
-		return new SpanElement("(" + FileUtils.toFileSize(attachment.getSize()) + ")")
-				.setClassName("size");
+	protected String toAttachmentItem_fileInfoHTML(final ComponentParameter cp,
+			final AttachmentFile attachment, final boolean readonly) throws IOException {
+		final StringBuilder sb = new StringBuilder();
+		sb.append(new SpanElement("(" + FileUtils.toFileSize(attachment.getSize()) + ")", "size"));
+		if (readonly) {
+			final Encoder encoder = new Encoder();
+			try {
+				final MultimediaInfo info = encoder.getInfo(attachment.getAttachment());
+				ImageElement img = null;
+				final String src = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
+						+ "/images/play.png";
+				if (info.getVideo() != null) {
+				} else if (info.getAudio() != null) {
+					img = new ImageElement(src).addClassName("play audio");
+				}
+				if (img != null) {
+					cp.addImportJavascript(DefaultPageResourceProvider.class, "/js/howler.min.js");
+
+					img.addAttribute("_durl", getDownloadUrl(cp, attachment));
+					sb.append(img);
+				}
+			} catch (final Exception e) {
+				log.warn(e);
+			}
+		}
+		return sb.toString();
+	}
+
+	protected String getDownloadUrl(final ComponentParameter cp, final AttachmentFile attachment) {
+		return (String) HttpUtils.toQueryParams(DownloadUtils.getDownloadHref(attachment, getClass()))
+				.get("durl");
 	}
 
 	protected LinkElement createAttachmentItem_Btn(final String text) {
@@ -519,7 +551,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	}
 
 	@Override
-	public AbstractElement<?> getDownloadLink(final ComponentParameter cp,
+	public AbstractElement<?> getDownloadLinkElement(final ComponentParameter cp,
 			final AttachmentFile attachmentFile, final String id) throws IOException {
 		return null;
 	}

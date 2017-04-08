@@ -257,7 +257,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final IAttachmentHandler attachmentHdl = (IAttachmentHandler) nCP.getComponentHandler();
 			for (final String id : StringUtils.split(nCP.getParameter("ids"), ";")) {
 				final AttachmentFile af = attachmentHdl.getAttachmentById(nCP, id);
-				final AbstractElement<?> element = attachmentHdl.getDownloadLink(nCP, af, id);
+				final AbstractElement<?> element = attachmentHdl.getDownloadLinkElement(nCP, af, id);
 				if (element != null) {
 					if (!StringUtils.hasText(element.getText())) {
 						element.setText(af.getTopic());

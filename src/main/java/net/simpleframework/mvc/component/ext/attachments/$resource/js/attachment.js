@@ -26,6 +26,31 @@ var AttachmentUtils = {
     $Actions[act]('rowIds=' + arr.join(";"));
   },
 
+  doLoad : function(cc) {
+    $(cc).select(".l_attach .play.audio").each(function(au) {
+      var durl = au.getAttribute('_durl');
+      var ipath = au.src.substring(0, au.src.lastIndexOf('/'));
+      au.observe('click', function(ev) {
+        if (!au.sound) {
+          var sound = au.sound = new Howl({
+            src : [ durl ]
+          });
+          sound.play();
+          au.src = ipath + "/pause.png";
+        } else {
+          var sound = au.sound;
+          if (sound.playing()) {
+            sound.pause();
+            au.src = ipath + "/play.png";
+          } else {
+            sound.play();
+            au.src = ipath + "/pause.png";
+          }
+        }
+      });
+    });
+  },
+
   doOk : function(cc, insertTextarea, componentName, msg) {
     var attach = cc.previous();
     if (insertTextarea) {
