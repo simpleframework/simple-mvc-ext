@@ -27,24 +27,43 @@ var AttachmentUtils = {
   },
 
   doLoad : function(cc) {
+    var gpath = function(au, path) {
+      return au.src.substring(0, au.src.lastIndexOf('/')) + path;
+    };
+    var play = function(au) {
+      au.sound.play();
+      window._au = au;
+      au.src = gpath(au, "/pause.png");
+    };
+
+    var pause = function(au) {
+      au.sound.pause();
+      au.src = gpath(au, "/play.png");
+    };
+
+    var stop = function(au) {
+      au.sound.stop();
+      au.src = gpath(au, "/play.png");
+    };
+
     $(cc).select(".l_attach .play.audio").each(function(au) {
       var durl = au.getAttribute('_durl');
       var ipath = au.src.substring(0, au.src.lastIndexOf('/'));
       au.observe('click', function(ev) {
+        if (window._au && window._au != au) {
+          stop(window._au);
+          window._au = null;
+        }
         if (!au.sound) {
-          var sound = au.sound = new Howl({
+          au.sound = new Howl({
             src : [ durl ]
           });
-          sound.play();
-          au.src = ipath + "/pause.png";
+          play(au);
         } else {
-          var sound = au.sound;
-          if (sound.playing()) {
-            sound.pause();
-            au.src = ipath + "/play.png";
+          if (au.sound.playing()) {
+            pause(au);
           } else {
-            sound.play();
-            au.src = ipath + "/pause.png";
+            play(au);
           }
         }
       });

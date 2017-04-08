@@ -448,26 +448,27 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final boolean readonly) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(new SpanElement("(" + FileUtils.toFileSize(attachment.getSize()) + ")", "size"));
-		if (readonly) {
-			final Encoder encoder = new Encoder();
-			try {
-				final MultimediaInfo info = encoder.getInfo(attachment.getAttachment());
-				ImageElement img = null;
-				final String src = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
-						+ "/images/play.png";
-				if (info.getVideo() != null) {
-				} else if (info.getAudio() != null) {
-					img = new ImageElement(src).addClassName("play audio");
-				}
-				if (img != null) {
+		final Encoder encoder = new Encoder();
+		try {
+			final MultimediaInfo info = encoder.getInfo(attachment.getAttachment());
+			ImageElement img = null;
+			final String src = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
+					+ "/images/play.png";
+			if (info.getVideo() != null) {
+			} else if (info.getAudio() != null) {
+				img = new ImageElement(src).addClassName("play audio");
+			}
+			if (img != null) {
+				final String durl = getDownloadUrl(cp, attachment);
+				if (StringUtils.hasText(durl)) {
 					cp.addImportJavascript(DefaultPageResourceProvider.class, "/js/howler.min.js");
 
-					img.addAttribute("_durl", getDownloadUrl(cp, attachment));
+					img.addAttribute("_durl", durl);
 					sb.append(img);
 				}
-			} catch (final Exception e) {
-				log.warn(e);
 			}
+		} catch (final Exception e) {
+			log.warn(e);
 		}
 		return sb.toString();
 	}
