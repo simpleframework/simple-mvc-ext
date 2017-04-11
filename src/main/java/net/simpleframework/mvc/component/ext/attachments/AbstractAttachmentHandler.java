@@ -22,6 +22,7 @@ import net.simpleframework.common.FileUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.ImageUtils;
 import net.simpleframework.common.JsonUtils;
+import net.simpleframework.common.MimeTypes;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.th.NotImplementedException;
@@ -448,28 +449,39 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final boolean readonly) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(new SpanElement("(" + FileUtils.toFileSize(attachment.getSize()) + ")", "size"));
-		final Encoder encoder = new Encoder();
-		try {
-			final MultimediaInfo info = encoder.getInfo(attachment.getAttachment());
-			ImageElement img = null;
-			final String src = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
-					+ "/images/play.png";
-			if (info.getVideo() != null) {
-			} else if (info.getAudio() != null) {
-				img = new ImageElement(src).addClassName("play audio");
-			}
-			if (img != null) {
-				final String durl = getDownloadUrl(cp, attachment);
-				if (StringUtils.hasText(durl)) {
-					cp.addImportJavascript(DefaultPageResourceProvider.class, "/js/howler.min.js");
-
-					img.addAttribute("_durl", durl);
-					sb.append(img);
-				}
-			}
-		} catch (final Exception e) {
-			log.warn(e);
+		// 是否可播放
+		boolean canplay = true;
+		final String ext = attachment.getExt();
+		if (StringUtils.hasText(ext)) {
+			final String mimeType = MimeTypes.getMimeType(ext.toLowerCase());
+			canplay = mimeType.startsWith("audio/") || mimeType.startsWith("video/");
 		}
+
+		if (canplay) {
+			final Encoder encoder = new Encoder();
+			try {
+				final MultimediaInfo info = encoder.getInfo(attachment.getAttachment());
+				ImageElement img = null;
+				final String src = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
+						+ "/images/play.png";
+				if (info.getVideo() != null) {
+				} else if (info.getAudio() != null) {
+					img = new ImageElement(src).addClassName("play audio");
+				}
+				if (img != null) {
+					final String durl = getDownloadUrl(cp, attachment);
+					if (StringUtils.hasText(durl)) {
+						cp.addImportJavascript(DefaultPageResourceProvider.class, "/js/howler.min.js");
+
+						img.addAttribute("_durl", durl);
+						sb.append(img);
+					}
+				}
+			} catch (final Exception e) {
+				log.warn(e);
+			}
+		}
+
 		return sb.toString();
 	}
 
