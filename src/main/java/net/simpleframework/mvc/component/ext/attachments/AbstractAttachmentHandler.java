@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -236,6 +237,17 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		Map<String, AttachmentFile> cache = (Map<String, AttachmentFile>) SessionCache.lget(key);
 		if (cache == null) {
 			SessionCache.lput(key, cache = new LinkedHashMap<String, AttachmentFile>());
+		}
+		// 检测文件是否存在
+		for (final String k : new HashSet<String>(cache.keySet())) {
+			final AttachmentFile aFile = cache.get(k);
+			try {
+				if (!aFile.getAttachment().exists()) {
+					cache.remove(k);
+				}
+			} catch (final IOException e) {
+				log.error(e);
+			}
 		}
 		return cache;
 	}
