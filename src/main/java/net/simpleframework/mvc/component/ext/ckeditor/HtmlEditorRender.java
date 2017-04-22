@@ -69,20 +69,10 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 			sb.append("height: \"").append(height).append("\",");
 		}
 
-		sb.append("on: {");
-		sb.append("  instanceReady: function(ev) { CKEDITOR['_loading_").append(componentName)
-				.append("'] = false; ");
-		final String jsLoadedCallback = (String) cp.getBeanProperty("jsLoadedCallback");
-		if (StringUtils.hasText(jsLoadedCallback)) {
-			sb.append(jsLoadedCallback);
-		}
-		sb.append("  }");
-		sb.append("}");
-		sb.append("});");
 		final Toolbar toolbar = (Toolbar) cp.getBeanProperty("toolbar");
 		int size;
 		if (toolbar != null && (size = toolbar.size()) > 0) {
-			sb.append("CKEDITOR.config.toolbar = [");
+			sb.append("toolbar: [");
 			for (int i = 0; i < size; i++) {
 				if (i > 0) {
 					sb.append(",");
@@ -94,8 +84,19 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 					sb.append(JsonUtils.toJSON(ArrayUtils.asList(sArr)));
 				}
 			}
-			sb.append("];");
+			sb.append("],");
 		}
+
+		sb.append("on: {");
+		sb.append("  instanceReady: function(ev) { CKEDITOR['_loading_").append(componentName)
+				.append("'] = false; ");
+		final String jsLoadedCallback = (String) cp.getBeanProperty("jsLoadedCallback");
+		if (StringUtils.hasText(jsLoadedCallback)) {
+			sb.append(jsLoadedCallback);
+		}
+		sb.append("  }");
+		sb.append("}");
+		sb.append("});");
 
 		if (hasTextarea) {
 			sb.append("$(\"").append(textarea).append("\").htmlEditor = ");
