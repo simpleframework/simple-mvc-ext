@@ -135,8 +135,9 @@ public class AttachmentLoaded extends DefaultPageHandler {
 
 		// 下载
 		pp.addComponentBean(attachmentName + "_download", AjaxRequestBean.class)
-				.setHandlerMethod("doDownload").setHandlerClass(AttachmentAction.class)
-				.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
+				.setDisabledTriggerAction(false).setHandlerMethod("doDownload")
+				.setHandlerClass(AttachmentAction.class).setAttr("$attachment", attachmentBean)
+				.setAttr("$swfupload", swfUpload);
 
 		// zip下载
 		final boolean showZipDownload = (Boolean) cp.getBeanProperty("showZipDownload");
