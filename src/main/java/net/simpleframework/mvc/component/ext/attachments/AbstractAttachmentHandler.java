@@ -483,7 +483,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				if (img != null) {
 					final String durl = getDownloadUrl(cp, attachment);
 					if (StringUtils.hasText(durl)) {
-						cp.addImportJavascript(DefaultPageResourceProvider.class, "/js/howler.min.js");
+						cp.addImportJavascript(DefaultPageResourceProvider.class, "/js/howler.js");
 
 						img.addAttribute("_durl", durl);
 						sb.append(img);

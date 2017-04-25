@@ -30,40 +30,36 @@ var AttachmentUtils = {
     var gpath = function(au, path) {
       return au.src.substring(0, au.src.lastIndexOf('/')) + path;
     };
-    var play = function(au) {
-      au.sound.play();
-      window._au = au;
-      au.src = gpath(au, "/pause.png");
-    };
-
-    var pause = function(au) {
-      au.sound.pause();
-      au.src = gpath(au, "/play.png");
-    };
-
-    var stop = function(au) {
-      au.sound.stop();
-      au.src = gpath(au, "/play.png");
-    };
-
+    
     $(cc).select(".l_attach .play.audio").each(function(au) {
       var durl = au.getAttribute('_durl');
       var ipath = au.src.substring(0, au.src.lastIndexOf('/'));
       au.observe('click', function(ev) {
-        if (window._au && window._au != au) {
-          stop(window._au);
-          window._au = null;
-        }
         if (!au.sound) {
           au.sound = new Howl({
-            src : [ durl ]
+            src : [ durl ],
+            onplay : function() {
+              if (window._au && 
+                  window._au.sound.playing() && window._au != au) {
+                window._au.sound.stop();
+                window._au = null;
+              }
+              au.src = gpath(au, "/pause.png");
+              window._au = au;
+            },
+            onpause : function() {
+              au.src = gpath(au, "/play.png");
+            },
+            onstop : function() {   
+              au.src = gpath(au, "/play.png");
+            }
           });
-          play(au);
+          au.sound.play();
         } else {
           if (au.sound.playing()) {
-            pause(au);
+            au.sound.pause();
           } else {
-            play(au);
+            au.sound.play();
           }
         }
       });
