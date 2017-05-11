@@ -12,14 +12,15 @@ import net.simpleframework.mvc.component.ext.highchart.EChart.EHcType;
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HcSeries extends AbstractHcElement<HcSeries> {
 	private static final long serialVersionUID = -5479901271303357562L;
 
 	private String name;
+
+	private Boolean colorByPoint;// 是否每个点颜色不同
 
 	private EHcType type;
 
@@ -38,6 +39,15 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 
 	public HcSeries setName(final String name) {
 		this.name = name;
+		return this;
+	}
+
+	public Boolean getColorByPoint() {
+		return colorByPoint;
+	}
+
+	public HcSeries setColorByPoint(Boolean colorByPoint) {
+		this.colorByPoint = colorByPoint;
 		return this;
 	}
 
@@ -95,6 +105,9 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 		Object val;
 		if ((val = getName()) != null) {
 			kv.add("name", val);
+		}
+		if ((val = getColorByPoint()) != null) {
+			kv.add("colorByPoint", val);
 		}
 		if ((val = getType()) != null) {
 			kv.add("type", val);

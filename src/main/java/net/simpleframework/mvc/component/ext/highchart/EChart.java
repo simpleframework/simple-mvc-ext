@@ -24,7 +24,11 @@ public class EChart {
 		/**
 		 * 柱状图
 		 */
-		column
+		column,
+		/**
+		 * 横条
+		 */
+		bar
 	}
 
 	public static enum EHcDashStyle {
