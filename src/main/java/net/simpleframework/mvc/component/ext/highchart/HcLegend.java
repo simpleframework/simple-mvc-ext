@@ -11,8 +11,7 @@ import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractH
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HcLegend extends AbstractHcElement<HcLegend> {
@@ -29,6 +28,8 @@ public class HcLegend extends AbstractHcElement<HcLegend> {
 	private Integer x, y;
 
 	private Boolean enabled;
+
+	private Boolean floating;
 
 	public HcLegend() {
 	}
@@ -96,6 +97,15 @@ public class HcLegend extends AbstractHcElement<HcLegend> {
 		return this;
 	}
 
+	public Boolean getFloating() {
+		return floating;
+	}
+
+	public HcLegend setFloating(Boolean floating) {
+		this.floating = floating;
+		return this;
+	}
+
 	@Override
 	protected KVMap toMap() {
 		final KVMap kv = super.toMap();
@@ -120,6 +130,9 @@ public class HcLegend extends AbstractHcElement<HcLegend> {
 		}
 		if ((val = getEnabled()) != null) {
 			kv.add("enabled", val);
+		}
+		if ((val = getFloating()) != null) {
+			kv.add("floating", val);
 		}
 		return kv;
 	}
