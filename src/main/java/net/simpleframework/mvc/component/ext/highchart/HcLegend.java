@@ -101,7 +101,7 @@ public class HcLegend extends AbstractHcElement<HcLegend> {
 		return floating;
 	}
 
-	public HcLegend setFloating(Boolean floating) {
+	public HcLegend setFloating(final Boolean floating) {
 		this.floating = floating;
 		return this;
 	}
