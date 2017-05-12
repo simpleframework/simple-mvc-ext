@@ -10,8 +10,7 @@ import net.simpleframework.mvc.component.AbstractContainerBean;
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HighchartBean extends AbstractContainerBean {
@@ -30,6 +29,8 @@ public class HighchartBean extends AbstractContainerBean {
 	private HcXAxis xAxis;
 
 	private HcYAxis yAxis;
+
+	private List<HcYAxis> yAxiss;
 
 	private HcLegend legend;
 
@@ -137,4 +138,17 @@ public class HighchartBean extends AbstractContainerBean {
 		getSeries().add(series);
 		return this;
 	}
+
+	public List<HcYAxis> getyAxiss() {
+		if (yAxiss == null) {
+			yAxiss = new ArrayList<HcYAxis>();
+		}
+		return yAxiss;
+	}
+
+	public HighchartBean addyAxiss(final HcYAxis yAxis) {
+		getyAxiss().add(yAxis);
+		return this;
+	}
+
 }

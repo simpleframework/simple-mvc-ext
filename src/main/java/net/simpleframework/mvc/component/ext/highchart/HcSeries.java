@@ -30,6 +30,8 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 
 	private List<Object> data;
 
+	private Integer yAxis; // y轴index
+
 	public HcSeries() {
 	}
 
@@ -46,7 +48,7 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 		return colorByPoint;
 	}
 
-	public HcSeries setColorByPoint(Boolean colorByPoint) {
+	public HcSeries setColorByPoint(final Boolean colorByPoint) {
 		this.colorByPoint = colorByPoint;
 		return this;
 	}
@@ -75,6 +77,15 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 
 	public HcSeries setColors(final String[] colors) {
 		this.colors = colors;
+		return this;
+	}
+
+	public Integer getyAxis() {
+		return yAxis;
+	}
+
+	public HcSeries setyAxis(final Integer yAxis) {
+		this.yAxis = yAxis;
 		return this;
 	}
 
@@ -117,6 +128,9 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 		}
 		if ((val = getColors()) != null) {
 			kv.add("colors", val);
+		}
+		if ((val = getyAxis()) != null) {
+			kv.add("yAxis", val);
 		}
 		return kv;
 	}

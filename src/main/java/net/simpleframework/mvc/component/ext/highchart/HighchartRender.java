@@ -64,6 +64,11 @@ public class HighchartRender extends ComponentJavascriptRender {
 		final HcYAxis yAxis = (HcYAxis) cp.getBeanProperty("yAxis");
 		if (yAxis != null) {
 			sb.append("yAxis: ").append(yAxis).append(",");
+		} else {
+			final List<HcYAxis> yAxiss = (List<HcYAxis>) cp.getBeanProperty("yAxiss");
+			if (yAxiss.size() > 0) {
+				sb.append("yAxis: " + yAxiss.toString()).append(",");
+			}
 		}
 		final HcLegend legend = (HcLegend) cp.getBeanProperty("legend");
 		if (legend != null) {
