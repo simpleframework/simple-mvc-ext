@@ -22,7 +22,8 @@ public class ChosenRender extends ComponentJavascriptRender {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("var selects = $$('").append(selector).append("');");
 		sb.append("for (var i = 0; i < selects.length; i++) {");
-		sb.append("new Chosen(selects[i], {");
+		sb.append("var select = selects[i];");
+		sb.append("select.chosen = new Chosen(select, {");
 		sb.append("disable_search: !").append(cp.getBeanProperty("enableSearch")).append(",");
 		sb.append("allow_single_deselect: true,");
 		sb.append("no_results_text: 'no_results_text',");
