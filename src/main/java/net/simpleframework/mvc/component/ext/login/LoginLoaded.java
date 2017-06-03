@@ -52,7 +52,7 @@ public class LoginLoaded extends DefaultPageHandler {
 					.setRole(PermissionConst.ROLE_ANONYMOUS).setUrlForward(passwordGetUrl);
 			pp.addComponentBean("getPasswordWindow", WindowBean.class).setContentRef("ajaxGetPassword")
 					.setTitle($m("login.7")).setWidth(Convert.toInt(pp.getParameter("width"), 420))
-					.setHeight(Convert.toInt(pp.getParameter("height"), 320));
+					.setHeight(Convert.toInt(pp.getParameter("height"), 540));
 		}
 		// 验证码
 		if ((Boolean) nCP.getBeanProperty("showValidateCode")) {
