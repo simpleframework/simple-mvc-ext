@@ -611,8 +611,17 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		try {
 			fos = new FileOutputStream(target);
 			zos = new ZipOutputStream(new BufferedOutputStream(fos));
+			int i = 0;
+			final Set<String> names = new HashSet<String>();
 			for (final AttachmentFile aFile : attachments(cp).values()) {
-				aFile.addZipEntry("/", zos);
+				final String t = aFile.getTopic();
+				final String ext = aFile.getExt();
+				String topic = t + "." + ext;
+				if (names.contains(topic)) {
+					topic = t + "_" + i++ + "." + ext;
+				}
+				aFile.addZipEntry("/", topic, zos);
+				names.add(topic);
 			}
 		} finally {
 			try {
