@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.Convert;
+import net.simpleframework.common.MobileUtils;
 import net.simpleframework.common.object.ObjectUtils;
 import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.mvc.JavascriptForward;
@@ -227,7 +228,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final Object userId = getProperty(cp, o, ATTRI_USERID);
 		sb.append(new PhotoImage(permission.getPhotoUrl(cp, userId)));
 		final Object oUser = permission.getUser(userId);
-		sb.append("<div class='icon_d'>").append(oUser).append("</div>");
+		sb.append("<div class='icon_d'>").append(MobileUtils.replaceAllSMobile(oUser.toString()))
+				.append("</div>");
 		return sb.toString();
 	}
 
