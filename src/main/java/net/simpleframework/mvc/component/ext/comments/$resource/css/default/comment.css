@@ -141,7 +141,7 @@
 .Comp_Comment .t1_comments .oitem .icon_d {
 	margin-top: 4px;
 	text-align: center;
-	color: #888;
+	color: #999;
 	overflow: hidden;
 }
 
@@ -170,7 +170,7 @@
 .Comp_Comment .t1_comments .oitem .desc {
 	margin: 0 8px 4px 0;
 	text-align: left;
-	color: #888;
+	color: #999;
 }
 
 .Comp_Comment .t1_comments .oitem .desc img {
