@@ -42,13 +42,17 @@
   position: relative;
 }
 
+.Comp_Comment .t1_head .l1 .right {
+  color: #888;
+}
+
 .Comp_Comment .t1_head .icon {
   background: url("images/comment.png") no-repeat;
   height: 32px;
   width: 32px;
   position: absolute;
   top: -4px;
-  left: 0;
+  left: 2px;
 }
 
 .Comp_Comment .t1_head .del {
@@ -78,12 +82,12 @@
 
 .Comp_Comment .t1_head .l2 {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #e4e4e4;
   padding: 8px;
 }
 
 .Comp_Comment .t1_head .l2:HOVER {
-  box-shadow: 0 0 4px #ddd;
+  border-color: #ccc;
 }
 
 .Comp_Comment .t1_head .l2 textarea {
