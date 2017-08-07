@@ -51,7 +51,7 @@
   height: 32px;
   width: 32px;
   position: absolute;
-  top: -4px;
+  top: -8px;
   left: 2px;
 }
 
@@ -76,7 +76,7 @@
 
 .Comp_Comment .t1_head .num {
   color: #c33;
-  font-size: 15pt;
+  font-size: 13.5pt;
   margin: 0 4px;
 }
 
