@@ -135,11 +135,13 @@
 }
 
 .Comp_Comment .t1_comments .oitem .photo_icon {
-	width: 36px;
-	height: 36px;
-	-moz-border-radius: 36px;
-	-webkit-border-radius: 36px;
-	border-radius: 36px;
+  border: 0;
+  padding: 0; 
+  height: 38px;
+  width: 38px; 
+  -moz-border-radius : 12px; 
+  -webkit-border-radius : 12px;
+  border-radius: 12px;
 }
 
 .Comp_Comment .t1_comments .oitem .icon_d {
