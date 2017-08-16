@@ -116,7 +116,7 @@
 
 .Comp_Comment .t1_comments .oitem {
 	border-bottom: 1px solid #eee;
-	padding: 6px 6px 2px;
+	padding: 10px 12px 10px 6px;
 }
 
 .Comp_Comment .t1_comments .oitem:hover {
@@ -132,6 +132,7 @@
 	text-align: center;
 	width: 90px;
 	max-width: 90px;
+	padding: 6px 6px 6px 0;
 }
 
 .Comp_Comment .t1_comments .oitem .photo_icon {
@@ -149,19 +150,23 @@
 	text-align: center;
 	color: #999;
 	overflow: hidden;
+	line-height: 1.1;
 }
 
 .Comp_Comment .t1_comments .oitem .mc {
-	font-size: 9.5pt;
-	line-height: 1.6;
-	padding: 15px 12px 15px 0;
+  font-size: 9.5pt;
+  line-height: 1.6;
+  padding-bottom: 10px;
+  text-align: justify;
+  color: #333;
 }
 	
 .Comp_Comment .t1_comments .oitem .rc {
 	background-color: #f7f7f7;
-	margin: 6px 6px 0 -2px;
+	margin-bottom: 8px;
 	padding: 12px;
-	color: #666;
+	color: #888;
+  font-size: 8.5pt;
 	-moz-border-radius: 9px;
 	-webkit-border-radius: 9px;
 	border-radius: 9px;
@@ -174,9 +179,17 @@
 }
 
 .Comp_Comment .t1_comments .oitem .desc {
-	margin: 0 8px 4px 0;
 	text-align: left;
 	color: #999;
+	font-size: 8.5pt;
+}
+
+.Comp_Comment .t1_comments .oitem .desc a {
+  color: #49d;
+}
+
+.Comp_Comment .t1_comments .oitem .desc a:HOVER {
+  color: #fff;
 }
 
 .Comp_Comment .t1_comments .oitem .desc img {
