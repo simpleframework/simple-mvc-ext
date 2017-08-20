@@ -144,6 +144,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			final boolean readonly) {
 		final StringBuilder sb = new StringBuilder();
 		final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
+		sb.append("<div class='mc'>").append(CommentUtils.replace(content, true)).append("</div>");
+		sb.append(toCommenTDHTML_desc(cp, o, mgr, readonly));
 		final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
 		if (p != null) {
 			final String reply = (String) getProperty(cp, p, ATTRI_COMMENT);
@@ -157,8 +159,6 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append(CommentUtils.replace(reply, true));
 			sb.append("</div>");
 		}
-		sb.append("<div class='mc'>").append(CommentUtils.replace(content, true)).append("</div>");
-		sb.append(toCommenTDHTML_desc(cp, o, mgr, readonly));
 		return sb.toString();
 	}
 
