@@ -218,6 +218,16 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		}
 		js.append("img.src = '").append(cp.getCssResourceHomePath(CommentBean.class))
 				.append("/images/").append(image).append("';");
+		js.append("var desc = img.up('.desc');");
+		js.append("var plus = desc.down('.plus');");
+		js.append("if (plus) { plus.remove(); }");
+		js.append("desc.insert(plus = new Element('span', {");
+		js.append(" 'className' : 'plus'");
+		js.append("}));");
+		js.append("var like2 = img.src.endsWith('like2.png');");
+		js.append("plus.update(like2 ? '+1' : '-1');");
+		js.append("plus.setStyle(like2 ? 'color: #8c4' : 'color: #888');");
+		js.append("(function(){ plus.addClassName('show'); }).delay(0.8);");
 		return js;
 	}
 

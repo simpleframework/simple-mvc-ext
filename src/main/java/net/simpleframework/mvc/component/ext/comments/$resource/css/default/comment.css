@@ -180,6 +180,28 @@
 	text-align: left;
 	color: #999;
 	font-size: 8.5pt;
+	position: relative;
+}
+
+.Comp_Comment .t1_comments .oitem .desc .plus {
+  position: absolute;
+  right: -4px;
+  top: -15px;
+  color: #3b7;
+  filter: alpha(opacity = 100);
+  -moz-opacity: 1;
+  opacity: 1;
+  -moz-transition: all 1s;
+  -webkit-transition: all 1s;
+  -ms-transition: all 1s;
+  transition: all 1s;
+}
+
+.Comp_Comment .t1_comments .oitem .desc .plus.show {
+  filter: alpha(opacity = 0);
+  -moz-opacity: 0;
+  opacity: 0;
+  top: -30px;
 }
 
 .Comp_Comment .t1_comments .oitem .desc a {
