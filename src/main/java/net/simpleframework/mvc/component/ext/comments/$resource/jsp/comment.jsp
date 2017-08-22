@@ -65,7 +65,11 @@
         
         ta.ltxt.innerHTML = "&nbsp;";
         
-        $Actions['<%=componentName%>_pager']();
+        var act = $Actions['<%=componentName%>_pager'];
+        act.jsLoadedCallback = function() {
+        	$('.Comp_Comment .t1_comments').scrollTo();  
+        };
+        act();
       }
     };
   });
