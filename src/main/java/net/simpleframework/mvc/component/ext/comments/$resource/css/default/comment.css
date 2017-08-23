@@ -26,12 +26,10 @@
 }
 
 .Comp_Comment .t1_head .reply_1 {
-  margin-top: 2px;
+  display: inline-block;
   cursor: default;
-  border: 1px solid #ccc;
-  padding: 0 6px;
-  height: 20px;
-  line-height: 19px;
+  padding: 3px 6px;
+  line-height: 1.2;
   background-color: #ddd;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -56,11 +54,10 @@
 }
 
 .Comp_Comment .t1_head .del {
-  background: url("images/delete.png") no-repeat;
+  margin-left: 5px;
   width: 9px;
   height: 9px;
   cursor: pointer;
-  margin-left: 5px;
 }
 
 .Comp_Comment .t1_head .reply_1:hover .del {
@@ -96,9 +93,16 @@
   width: 100%;
 }
 
+.Comp_Comment .t1_head .l3 .left {
+  width: 75%;
+}
+
 .Comp_Comment .t1_head .l3 .ltxt {
   margin-left: 8px;
   color: #888;
+  vertical-align: top;
+  display: inline-block;
+  width: 80%;
 }
 
 .Comp_Comment .t1_head .l3 .ltxt label {

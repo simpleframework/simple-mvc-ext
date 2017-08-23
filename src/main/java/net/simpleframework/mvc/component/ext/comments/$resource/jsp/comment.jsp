@@ -2,10 +2,12 @@
 <%@ page import="net.simpleframework.mvc.component.ComponentParameter"%>
 <%@ page import="net.simpleframework.mvc.component.ext.comments.CommentUtils"%>
 <%@ page import="net.simpleframework.mvc.component.ComponentRenderUtils"%>
+<%@ page import="net.simpleframework.mvc.component.ext.comments.CommentBean"%>
 <%
 	final ComponentParameter cp = CommentUtils.get(request, response);
   final String componentName = cp.getComponentName();
   final int maxlength = (Integer) cp.getBeanProperty("maxlength");
+  final String ipath = cp.getCssResourceHomePath(CommentBean.class);
 %>
 <div class="Comp_Comment">
   <%=ComponentRenderUtils.genParameters(cp)%>
@@ -46,17 +48,19 @@
         reply.innerHTML = 
               "<span class='reply_1'>" +
                 txt +
-                "<span class='del'></span>" +
+                "<img src='<%=ipath%>/images/del.png' class='del' />" +
               "</span>";
         reply.down(".del").observe("click", function(evn) {
           reply.innerHTML = "";
           parent.value = "";
         });
-        reply.scrollTo();
+        if (!h.hasClassName("fixed")) {
+        	reply.scrollTo();
+        }
         ta.focus();
       },
   
-      doCallback : function(n) {
+      doCallback : function(n, fixed) {
         ta.clear();
         ta.next().clear();
         
@@ -67,7 +71,10 @@
         
         var act = $Actions['<%=componentName%>_pager'];
         act.jsLoadedCallback = function() {
-        	$('.Comp_Comment .t1_comments').scrollTo();  
+          if (fixed) {
+          	h.removeClassName("fixed");
+          }
+        	h.next().scrollTo();  
         };
         act();
       }
