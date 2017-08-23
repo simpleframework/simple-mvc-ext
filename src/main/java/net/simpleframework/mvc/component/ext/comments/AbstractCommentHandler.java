@@ -2,16 +2,21 @@ package net.simpleframework.mvc.component.ext.comments;
 
 import static net.simpleframework.common.I18n.$m;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.MobileUtils;
 import net.simpleframework.common.object.ObjectUtils;
 import net.simpleframework.common.th.NotImplementedException;
+import net.simpleframework.mvc.AbstractBasePage;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.MVCContext;
+import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ImageElement;
 import net.simpleframework.mvc.common.element.InputElement;
@@ -163,6 +168,26 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append(CommentUtils.replace(reply, true));
 			sb.append("</div>");
 		}
+		// sb.append(toCommenTDHTML_children(cp, o, mgr, readonly));
+		return sb.toString();
+	}
+
+	protected LinkElement createViewReplies(final ComponentParameter cp, final Object parent,
+			final int count) {
+		return new LinkElement("查看全部" + count + "条回复 &raquo;");
+	}
+
+	protected String toCommenTDHTML_children(final ComponentParameter cp, final Object o,
+			final boolean mgr, final boolean readonly) {
+		final StringBuilder sb = new StringBuilder();
+		final IDataQuery<?> dq = children(cp, getProperty(cp, o, ATTRI_ID));
+		int count;
+		if (dq != null && (count = dq.getCount()) > 0) {
+			final LinkElement le = createViewReplies(cp, o, count);
+			if (le != null) {
+				sb.append("<div class='rr'>").append(le).append("</div>");
+			}
+		}
 		return sb.toString();
 	}
 
@@ -255,5 +280,39 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			}
 		}
 		return super.getBeanProperty(cp, beanProperty);
+	}
+
+	public static class ViewRepliesPage extends AbstractBasePage {
+
+		@Override
+		protected void onForward(final PageParameter pp) throws Exception {
+			super.onForward(pp);
+
+			pp.addImportCSS(AbstractCommentHandler.class, "/comment.css");
+		}
+
+		@Override
+		protected String toHtml(final PageParameter pp, final Map<String, Object> variables,
+				final String currentVariable) throws IOException {
+			final ComponentParameter cp = CommentUtils.get(pp);
+			final AbstractCommentHandler hdl = (AbstractCommentHandler) cp.getComponentHandler();
+			final StringBuilder sb = new StringBuilder();
+			if (hdl != null) {
+				final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+				final boolean mgr = cp.isLmember(cp.getBeanProperty("role"));
+				final IDataQuery<?> dq = hdl.children(cp, cp.getParameter("id"));
+				if (dq != null) {
+					sb.append("<div class='Comp_Comment'><div class='t1_comments'>");
+					Object o;
+					while ((o = dq.next()) != null) {
+						sb.append("<div class='oitem'>");
+						sb.append(hdl.toCommenTDHTML(cp, hdl.getCommentById(cp, o), mgr, readonly));
+						sb.append("</div>");
+					}
+					sb.append("</div></div>");
+				}
+			}
+			return sb.toString();
+		}
 	}
 }

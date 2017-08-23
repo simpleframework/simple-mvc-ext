@@ -33,6 +33,8 @@ public interface ICommentHandler extends IComponentHandler {
 	 */
 	IDataQuery<?> comments(ComponentParameter cp);
 
+	IDataQuery<?> children(ComponentParameter cp, Object id);
+
 	/**
 	 * 获取评论对象
 	 * 

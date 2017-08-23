@@ -1,6 +1,10 @@
 package net.simpleframework.mvc.component.ext.comments.ctx;
 
+import net.simpleframework.ado.ColumnData;
+import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.bean.IIdBeanAware;
+import net.simpleframework.ado.query.DataQueryUtils;
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -20,6 +24,15 @@ public abstract class CommentCtxHandler<T extends IIdBeanAware> extends Abstract
 	@Override
 	public Object getCommentById(final ComponentParameter cp, final Object id) {
 		return getBeanService().getBean(id);
+	}
+
+	@Override
+	public IDataQuery<?> children(final ComponentParameter cp, final Object id) {
+		if (id == null) {
+			return DataQueryUtils.nullQuery();
+		}
+		return getBeanService().queryByParams(FilterItems.of("parentId", id),
+				ColumnData.DESC("createdate"));
 	}
 
 	@Override
