@@ -43,10 +43,8 @@ public class CommentLoaded extends DefaultPageHandler {
 		// 提交与验证
 		final String idTa = "id" + commentName + "_textarea";
 		pp.addComponentBean(commentName + "_validation", ValidationBean.class)
-				.setTriggerSelector("#id" + commentName + "_submit")
-				.setWarnType(EWarnType.insertAfter)
-				.addValidators(
-						new Validator(EValidatorMethod.required, "#" + idTa),
+				.setTriggerSelector("#id" + commentName + "_submit").setWarnType(EWarnType.insertAfter)
+				.addValidators(new Validator(EValidatorMethod.required, "#" + idTa),
 						new Validator(EValidatorMethod.min_length, "#" + idTa, 4)
 								.setMessage($m("CommentLoaded.0")));
 		pp.addComponentBean(commentName + "_submit", AjaxRequestBean.class)
@@ -56,8 +54,12 @@ public class CommentLoaded extends DefaultPageHandler {
 
 		if ((Boolean) cp.getBeanProperty("showSmiley")) {
 			// 表情
-			pp.addComponentBean(commentName + "_smiley", DictionaryBean.class).setBindingId(idTa)
+			final DictionaryBean dict = pp
+					.addComponentBean(commentName + "_smiley", DictionaryBean.class).setBindingId(idTa)
 					.addSmiley(pp);
+			if (pp.isMobile()) {
+				dict.setPopup(false).setModal(false);
+			}
 		}
 
 		if ((Boolean) cp.getBeanProperty("showLike")) {
