@@ -54,9 +54,6 @@
           reply.innerHTML = "";
           parent.value = "";
         });
-        if (!h.hasClassName("fixed")) {
-        	reply.scrollTo();
-        }
         ta.focus();
       },
   
@@ -71,7 +68,6 @@
         
         var act = $Actions['<%=componentName%>_pager'];
         act.jsLoadedCallback = function() {
-          h.removeClassName("fixed");
         	h.next().scrollTo();  
         };
         act();

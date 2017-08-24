@@ -145,26 +145,32 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return sb.toString();
 	}
 
+	protected boolean isShowRef(final ComponentParameter cp) {
+		return true;
+	}
+
 	protected String toCommenTDHTML(final ComponentParameter cp, final Object o, final boolean mgr,
 			final boolean readonly) {
 		final StringBuilder sb = new StringBuilder();
 		final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
 		sb.append("<div class='mc'>").append(CommentUtils.replace(content, true)).append("</div>");
 		sb.append(toCommenTDHTML_desc(cp, o, mgr, readonly));
-		final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
-		if (p != null) {
-			final String reply = (String) getProperty(cp, p, ATTRI_COMMENT);
-			sb.append("<div class='rc'>");
-			final Object userId2 = getProperty(cp, p, ATTRI_USERID);
-			final Date createDate2 = (Date) getProperty(cp, p, ATTRI_CREATEDATE);
-			sb.append("<div class='r_desc'>");
-			sb.append(Convert.toDateTimeString(createDate2)).append(SpanElement.SPACE)
-					.append(new SpanElement(permission.getUser(userId2)));
-			sb.append("</div>");
-			sb.append(CommentUtils.replace(reply, true));
-			sb.append("</div>");
+		if (isShowRef(cp)) {
+			final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
+			if (p != null) {
+				final String reply = (String) getProperty(cp, p, ATTRI_COMMENT);
+				sb.append("<div class='rc'>");
+				final Object userId2 = getProperty(cp, p, ATTRI_USERID);
+				final Date createDate2 = (Date) getProperty(cp, p, ATTRI_CREATEDATE);
+				sb.append("<div class='r_desc'>");
+				sb.append(Convert.toDateTimeString(createDate2)).append(SpanElement.SPACE)
+						.append(new SpanElement(permission.getUser(userId2)));
+				sb.append("</div>");
+				sb.append(CommentUtils.replace(reply, true));
+				sb.append("</div>");
+			}
 		}
-		// sb.append(toCommenTDHTML_children(cp, o, mgr, readonly));
+		sb.append(toCommenTDHTML_children(cp, o, mgr, readonly));
 		return sb.toString();
 	}
 
@@ -278,36 +284,26 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return super.getBeanProperty(cp, beanProperty);
 	}
 
-	public static class ViewRepliesPage extends AbstractBasePage {
+	public abstract static class AbstractViewRepliesPage extends AbstractBasePage {
 
 		@Override
 		protected void onForward(final PageParameter pp) throws Exception {
 			super.onForward(pp);
 
-			pp.addImportCSS(AbstractCommentHandler.class, "/comment.css");
+			addCommentBean(pp);
+		}
+
+		protected CommentBean addCommentBean(final PageParameter pp) {
+			return (CommentBean) addComponentBean(pp, "ViewRepliesPage_comment", CommentBean.class)
+					.setShowLike(true).setReadonly(true).setContainerId("idViewRepliesPage_comment");
 		}
 
 		@Override
 		protected String toHtml(final PageParameter pp, final Map<String, Object> variables,
 				final String currentVariable) throws IOException {
-			final ComponentParameter cp = CommentUtils.get(pp);
-			final AbstractCommentHandler hdl = (AbstractCommentHandler) cp.getComponentHandler();
 			final StringBuilder sb = new StringBuilder();
-			if (hdl != null) {
-				final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
-				final boolean mgr = cp.isLmember(cp.getBeanProperty("role"));
-				final IDataQuery<?> dq = hdl.children(cp, cp.getParameter("id"));
-				if (dq != null) {
-					sb.append("<div class='Comp_Comment'><div class='t1_comments'>");
-					Object o;
-					while ((o = dq.next()) != null) {
-						sb.append("<div class='oitem'>");
-						sb.append(hdl.toCommenTDHTML(cp, hdl.getCommentById(cp, o), mgr, readonly));
-						sb.append("</div>");
-					}
-					sb.append("</div></div>");
-				}
-			}
+			sb.append("<div id='idViewRepliesPage_comment'>");
+			sb.append("</div>");
 			return sb.toString();
 		}
 	}
