@@ -66,16 +66,12 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return sb.toString();
 	}
 
-	protected String getHeadClass(final ComponentParameter cp) {
-		return "t1_head";
-	}
-
 	@Override
 	public String toEditorHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		if (!readonly) {
-			sb.append("<div class='").append(getHeadClass(cp)).append("'>");
+			sb.append("<div class='t1_head'>");
 			sb.append(" <div class='l1 clearfix'>");
 			sb.append("  <div class='left'>");
 			sb.append("   <span class='icon'></span>");

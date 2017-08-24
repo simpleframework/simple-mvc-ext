@@ -71,9 +71,7 @@
         
         var act = $Actions['<%=componentName%>_pager'];
         act.jsLoadedCallback = function() {
-          if (fixed) {
-          	h.removeClassName("fixed");
-          }
+          h.removeClassName("fixed");
         	h.next().scrollTo();  
         };
         act();
