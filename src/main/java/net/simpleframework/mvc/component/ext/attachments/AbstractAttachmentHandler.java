@@ -589,11 +589,16 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@Override
 	public JavascriptForward doDownload(final ComponentParameter cp, final AttachmentFile af) {
 		boolean target = false;
-		final String ext = af.getExt();
+		String ext = af.getExt();
 		if (StringUtils.hasText(ext)) {
-			final String mimeType = MimeTypes.getMimeType(ext);
-			target = mimeType.startsWith("image/") || mimeType.startsWith("audio/")
-					|| mimeType.startsWith("video/");
+			ext = ext.toLowerCase();
+			if ("pdf".equals(ext)) {
+				target = true;
+			} else {
+				final String mimeType = MimeTypes.getMimeType(ext);
+				target = mimeType.startsWith("image/") || mimeType.startsWith("audio/")
+						|| mimeType.startsWith("video/");
+			}
 		}
 		return new JavascriptForward(JS.loc(DownloadUtils.getDownloadHref(af, getClass()), target));
 	}
