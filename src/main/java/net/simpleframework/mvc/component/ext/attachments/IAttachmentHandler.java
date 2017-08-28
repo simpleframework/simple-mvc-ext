@@ -58,8 +58,8 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param multipartFile
 	 * @param variables
 	 */
-	void upload(ComponentParameter cp, IMultipartFile multipartFile, Map<String, Object> variables)
-			throws Exception;
+	AttachmentFile upload(ComponentParameter cp, IMultipartFile multipartFile,
+			Map<String, Object> variables) throws Exception;
 
 	/**
 	 * 插入附件
