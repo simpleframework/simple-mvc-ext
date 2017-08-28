@@ -52,6 +52,9 @@ var AttachmentUtils = {
             },
             onstop : function() {   
               au.src = gpath(au, "/play.png");
+            },
+            onend : function() {
+              au.src = gpath(au, "/play.png");
             }
           });
           au.sound.play();
