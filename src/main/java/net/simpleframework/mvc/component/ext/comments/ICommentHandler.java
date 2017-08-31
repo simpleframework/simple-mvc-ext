@@ -16,6 +16,8 @@ import net.simpleframework.mvc.component.IComponentHandler;
  *         http://www.simpleframework.net
  */
 public interface ICommentHandler extends IComponentHandler {
+	static String PARAM_COMMENT = "ccomment";
+	static String PARAM_PARENTID = "parentId";
 
 	/**
 	 * 获取评论的拥有者id
