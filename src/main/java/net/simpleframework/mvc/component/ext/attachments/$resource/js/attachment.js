@@ -37,6 +37,7 @@ var AttachmentUtils = {
       au.observe('click', function(ev) {
         if (!au.sound) {
           au.sound = new Howl({
+            preload : true,
             src : [ durl ],
             onplay : function() {
               if (window._au && 
