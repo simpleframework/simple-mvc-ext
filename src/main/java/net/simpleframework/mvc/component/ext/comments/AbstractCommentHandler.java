@@ -152,11 +152,19 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return true;
 	}
 
+	protected String toCommenTDHTML_content(final ComponentParameter cp, final String content) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append(CommentUtils.replace(content, true));
+		return sb.toString();
+	}
+
 	protected String toCommenTDHTML(final ComponentParameter cp, final Object o, final boolean mgr,
 			final boolean readonly) {
 		final StringBuilder sb = new StringBuilder();
 		final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
-		sb.append("<div class='mc'>").append(CommentUtils.replace(content, true)).append("</div>");
+		sb.append("<div class='mc'>");
+		sb.append(toCommenTDHTML_content(cp, content));
+		sb.append("</div>");
 		sb.append(toCommenTDHTML_desc(cp, o, mgr, readonly));
 		if (isShowRef(cp)) {
 			final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
