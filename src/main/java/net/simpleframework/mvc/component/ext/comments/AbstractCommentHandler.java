@@ -11,6 +11,7 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.MobileUtils;
+import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.object.ObjectUtils;
 import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.mvc.AbstractBasePage;
@@ -163,7 +164,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final StringBuilder sb = new StringBuilder();
 		final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
 		sb.append("<div class='mc'>");
-		sb.append(toCommenTDHTML_content(cp, content));
+		sb.append(toCommenTDHTML_content(cp, StringUtils.blank(content)));
 		sb.append("</div>");
 		sb.append(toCommenTDHTML_desc(cp, o, mgr, readonly));
 		if (isShowRef(cp)) {
