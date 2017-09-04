@@ -242,6 +242,9 @@
 .Comp_Comment .pager_no_result {
   border: 0;
   background-color: #fff;
+  font-size: 8.5pt;
+  font-weight: bolder;
+  color: #777;
 }
 
 .Comp_Comment .pager .pager_block_top, 
