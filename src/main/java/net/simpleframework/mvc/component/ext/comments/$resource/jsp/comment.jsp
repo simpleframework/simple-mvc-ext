@@ -108,12 +108,16 @@
       ta.focus();
     };
     
-    _comment.doCallback = function(n, fixed) {
+    _comment.doCallback = function(n) {
       ta.clear();
       ta.next().clear();
       
       reply.innerHTML = "";
-      num.innerHTML = n;
+      if (n) {
+        num.innerHTML = n;
+      } else {
+        num.innerHTML = parseInt(num.innerHTML) + 1;
+      }
       
       ta.ltxt.innerHTML = "&nbsp;";
       
