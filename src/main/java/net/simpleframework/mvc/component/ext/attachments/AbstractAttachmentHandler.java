@@ -98,14 +98,16 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@Override
 	public JavascriptForward doSave(final ComponentParameter cp,
 			final IAttachmentSaveCallback callback) throws Exception {
+		final Map<String, AttachmentFile> uploads = new LinkedHashMap<String, AttachmentFile>(
+				getUploadCache(cp));
+		final Set<String> deletes = new LinkedHashSet<String>(getDeleteCache(cp));
 		if (callback != null) {
 			try {
-				final Map<String, AttachmentFile> uploads = getUploadCache(cp);
 				doImagesCropper(cp, uploads);
 				doThumbnail(cp, uploads);
-				callback.save(uploads, getDeleteCache(cp));
+				callback.save(uploads, deletes);
 			} catch (final Exception e) {
-				clearCache(cp);
+				clearCache(cp, uploads.keySet(), deletes);
 				throw e;
 			}
 		}
@@ -114,7 +116,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			throwAttachmentsLimit(attachmentsLimit);
 		}
 		// 清除
-		clearCache(cp);
+		clearCache(cp, uploads.keySet(), deletes);
 		return null;
 	}
 
@@ -178,12 +180,21 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		}
 	}
 
-	protected void clearCache(final ComponentParameter cp) {
+	protected void clearCache(final ComponentParameter cp, final Set<String> add,
+			final Set<String> delete) {
 		final Map<String, AttachmentFile> addQueue = getUploadCache(cp);
-		addQueue.clear();
+		if (add == null) {
+			addQueue.clear();
+		} else {
+			addQueue.keySet().removeAll(add);
+		}
 		final Set<String> deleteQueue = getDeleteCache(cp);
 		if (deleteQueue != null) {
-			deleteQueue.clear();
+			if (delete != null) {
+				deleteQueue.clear();
+			} else {
+				deleteQueue.removeAll(delete);
+			}
 		}
 	}
 
