@@ -251,24 +251,3 @@
 .Comp_Comment .pager .pager_block_bottom {
   padding: 12px 8px;
 }
-
-.Comp_Comment .mc .audio-attach {
-  background-color: #eee;
-  display: inline-block;
-  line-height: 1;
-  padding: 4px 20px 4px 15px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.Comp_Comment .mc .audio-attach img {
-  vertical-align: middle;
-  width: 21px;
-  margin-right: 4px;
-}
-
-.Comp_Comment .mc .audio-attach span {
-  vertical-align: middle;
-}
