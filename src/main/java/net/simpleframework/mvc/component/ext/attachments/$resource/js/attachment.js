@@ -38,6 +38,7 @@ var AttachmentUtils = {
         if (!au.sound) {
           au.sound = new Howl({
             preload : true,
+            html5 : true,
             src : [ durl ],
             onplay : function() {
               if (window._au && 
@@ -47,6 +48,9 @@ var AttachmentUtils = {
               }
               au.src = gpath(au, "/pause.png");
               window._au = au;
+            },
+            onload : function() {
+              au.src = gpath(au, "/play.png");
             },
             onpause : function() {
               au.src = gpath(au, "/play.png");
@@ -58,6 +62,7 @@ var AttachmentUtils = {
               au.src = gpath(au, "/play.png");
             }
           });
+          au.src = gpath(au, "/loading.png");
           au.sound.play();
         } else {
           if (au.sound.playing()) {
