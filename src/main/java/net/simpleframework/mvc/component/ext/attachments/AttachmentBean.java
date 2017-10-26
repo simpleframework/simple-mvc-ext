@@ -43,7 +43,7 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	private boolean cropper = BeanDefaults.getBool(getClass(), "cropper", false);
 
-	private String cropperRatio = "16 / 9";
+	private String cropperRatio = "16 / 10";
 
 	public int getAttachmentsLimit() {
 		return attachmentsLimit;
