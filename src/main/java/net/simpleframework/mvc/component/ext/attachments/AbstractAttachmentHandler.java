@@ -414,7 +414,14 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			// params for tooltip
 			sb.append(createAttachmentItem_Topic(cp, id, attachment, readonly, true, index));
 		}
-		sb.append("</div></div>");
+		sb.append(" </div>");
+		final Boolean audio = (Boolean) cp.getAttr("_audio_" + id);
+		if (audio != null) {
+			sb.append("<div class='audio-player' style='display: none;'>");
+			sb.append(" <div class='dot'></div>");
+			sb.append("</div>");
+		}
+		sb.append("</div>");
 		return sb.toString();
 	}
 
@@ -491,6 +498,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				if (info.getVideo() != null) {
 				} else if (info.getAudio() != null) {
 					img = new ImageElement(src).addClassName("play audio");
+					cp.setAttr("_audio_" + attachment.getId(), Boolean.TRUE);
 				}
 				if (img != null) {
 					final String durl = getDownloadUrl(cp, attachment);
@@ -505,7 +513,6 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				log.warn(e);
 			}
 		}
-
 		return sb.toString();
 	}
 

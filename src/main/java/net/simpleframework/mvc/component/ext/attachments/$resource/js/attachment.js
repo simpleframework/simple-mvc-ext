@@ -31,6 +31,36 @@ var AttachmentUtils = {
       return au.src.substring(0, au.src.lastIndexOf('/')) + path;
     };
     
+    var hide_player = function(au) {
+      var player = au.up('.fitem').down(".audio-player");
+      if (player) {
+        player.hide();
+      }
+    };
+    
+    var show_player = function(au) {
+      var fitem = au.up('.fitem');
+      var player = fitem.down(".audio-player");
+      if (player) {
+        player.setStyle("bottom: " + fitem.measure("bottom") + "px;");
+        player.show();
+      }
+    };
+    
+    setInterval(function() {
+      var au = window._au;
+      if (au) {
+        var fitem = au.up('.fitem');
+        var player = fitem.down(".audio-player");
+        if (player) {
+          var dot = player.down('.dot');
+          dot.setStyle("left: "
+              + ((fitem.getWidth() / au.sound.duration()) * au.sound.seek())
+              + "px");
+        }
+      }
+    }, 1000);
+    
     $(cc).select(".l_attach .play.audio").each(function(au) {
       var durl = au.getAttribute('_durl');
       var ipath = au.src.substring(0, au.src.lastIndexOf('/'));
@@ -44,10 +74,12 @@ var AttachmentUtils = {
               if (window._au && 
                   window._au.sound.playing() && window._au != au) {
                 window._au.sound.stop();
+                hide_player(window._au);
                 window._au = null;
               }
               au.src = gpath(au, "/pause.png");
               window._au = au;
+              show_player(au);
             },
             onload : function() {
               au.src = gpath(au, "/play.png");
@@ -60,6 +92,7 @@ var AttachmentUtils = {
             },
             onend : function() {
               au.src = gpath(au, "/play.png");
+              hide_player(au);
             }
           });
           au.src = gpath(au, "/loading.png");

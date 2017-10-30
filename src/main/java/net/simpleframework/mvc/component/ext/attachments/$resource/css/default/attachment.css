@@ -1,3 +1,7 @@
+.Comp_Attachment {
+  position: relative;
+}
+
 .Comp_Attachment .swfupload .item, 
 .Comp_Attachment .swfupload .message {
   padding-left: 6px !important;
@@ -61,6 +65,27 @@
 
 .Comp_Attachment .fitem:hover {
   background-color: #f2f9f2;
+}
+
+.Comp_Attachment .audio-player {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 1px dashed #38c;
+}
+
+.Comp_Attachment .audio-player .dot {
+  position: absolute;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  border: 2px solid #38c;
+  bottom: -4px;
+  left: 0;
 }
 
 .Comp_Attachment .l_attach {
