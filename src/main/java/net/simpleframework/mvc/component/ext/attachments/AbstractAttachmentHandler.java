@@ -612,7 +612,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 						|| mimeType.startsWith("video/");
 			}
 		}
-		return new JavascriptForward(JS.loc(DownloadUtils.getDownloadHref(af, getClass()), target));
+		return new JavascriptForward(
+				JS.loc(DownloadUtils.getDownloadHref(af, getClass()), target && !cp.isMobile()));
 	}
 
 	@Override
