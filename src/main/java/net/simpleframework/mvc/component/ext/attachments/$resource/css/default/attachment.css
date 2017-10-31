@@ -72,7 +72,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  border-top: 1px dashed #38c;
+  border-bottom: 1px solid #38c;
+  height: 10px;
 }
 
 .Comp_Attachment .audio-player .dot {
@@ -84,7 +85,7 @@
   height: 5px;
   background-color: #fff;
   border: 2px solid #38c;
-  bottom: -4px;
+  bottom: -5px;
   left: 0;
 }
 

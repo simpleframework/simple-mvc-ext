@@ -45,6 +45,23 @@ var AttachmentUtils = {
         player.setStyle("bottom: " + fitem.measure("bottom") + "px;");
         player.show();
       }
+      
+      if (!player._onclick) {
+        player._onclick = player.onclick = function(e) {
+          var x;
+          if (e.touches) {
+            var t = e.touches[0];
+            x = t.pageX;
+          } else {
+            var mouse = Event.pointer(e);
+            x = mouse.x;
+          }
+          var pos = player.cumulativeOffset();
+          var rx = x - pos.left;
+          var sound = au.sound;
+          sound.seek((rx / player.getWidth()) * sound.duration());
+        };
+      }
     };
     
     setInterval(function() {
@@ -71,9 +88,11 @@ var AttachmentUtils = {
             html5 : true,
             src : [ durl ],
             onplay : function() {
-              if (window._au && 
-                  window._au.sound.playing() && window._au != au) {
-                window._au.sound.stop();
+              if (window._au && window._au != au) {
+                var sound = window._au.sound;
+                if (sound.playing()) {
+                  sound.stop();
+                }
                 hide_player(window._au);
                 window._au = null;
               }

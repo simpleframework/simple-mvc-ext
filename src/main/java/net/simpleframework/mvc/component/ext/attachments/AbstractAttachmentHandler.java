@@ -432,12 +432,15 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if ((Boolean) cp.getBeanProperty("showLineNo")) {
 			sb.append(index + 1).append(". ");
 		}
-		if (showlink) {
+
+		final String fileInfo = toAttachmentItem_fileInfoHTML(cp, attachment, readonly);
+		final Boolean audio = (Boolean) cp.getAttr("_audio_" + id);
+		if (showlink && audio == null) {
 			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, readonly, index));
 		} else {
 			sb.append(HtmlEncoder.text(attachment.getTopic()));
 		}
-		sb.append(toAttachmentItem_fileInfoHTML(cp, attachment, readonly));
+		sb.append(fileInfo);
 		return sb.toString();
 	}
 
