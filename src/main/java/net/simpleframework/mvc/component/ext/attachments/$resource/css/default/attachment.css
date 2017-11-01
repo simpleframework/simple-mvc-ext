@@ -93,6 +93,16 @@
   position: relative;
 }
 
+.Comp_Attachment .l_attach>* {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.Comp_Attachment .l_attach .ord {
+  color: #666;
+  margin-right: 8px;
+}
+
 .Comp_Attachment .l_attach .size {
   margin-left: 4px;
   color: #999;
@@ -103,11 +113,6 @@
   width: 16px;
   margin-left: 8px;
   cursor: pointer;
-}
-
-.Comp_Attachment .l_attach>* {
-  vertical-align: middle;
-  display: inline-block;
 }
 
 .Comp_Attachment .l_attach img.status {
