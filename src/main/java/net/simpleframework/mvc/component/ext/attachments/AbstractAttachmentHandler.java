@@ -418,7 +418,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		final Boolean audio = (Boolean) cp.getAttr("_audio_" + id);
 		if (audio != null) {
 			sb.append("<div class='audio-player' style='display: none;'>");
-			sb.append(" <div class='dot'></div>");
+			sb.append(" <div class='dot'>00:00</div>");
 			sb.append("</div>");
 		}
 		sb.append("</div>");

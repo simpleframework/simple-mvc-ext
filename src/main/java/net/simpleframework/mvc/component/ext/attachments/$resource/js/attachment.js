@@ -30,22 +30,22 @@ var AttachmentUtils = {
     var gpath = function(au, path) {
       return au.src.substring(0, au.src.lastIndexOf('/')) + path;
     };
-    
+
     var hide_player = function(au) {
       var player = au.up('.fitem').down(".audio-player");
       if (player) {
         player.hide();
       }
     };
-    
+
     var show_player = function(au) {
       var fitem = au.up('.fitem');
       var player = fitem.down(".audio-player");
       if (player) {
-        player.setStyle("bottom: " + fitem.measure("bottom") + "px;");
+        player.setStyle("bottom: " + (fitem.measure("bottom") - 1) + "px;");
         player.show();
       }
-      
+
       if (!player._onclick) {
         player._onclick = player.onclick = function(e) {
           var x;
@@ -63,21 +63,29 @@ var AttachmentUtils = {
         };
       }
     };
-    
-    setInterval(function() {
-      var au = window._au;
-      if (au) {
-        var fitem = au.up('.fitem');
-        var player = fitem.down(".audio-player");
-        if (player) {
-          var dot = player.down('.dot');
-          dot.setStyle("left: "
-              + ((fitem.getWidth() / au.sound.duration()) * au.sound.seek())
-              + "px");
-        }
-      }
-    }, 1000);
-    
+
+    setInterval(
+        function() {
+          var au = window._au;
+          if (au) {
+            var fitem = au.up('.fitem');
+            var player = fitem.down(".audio-player");
+            if (player) {
+              var dot = player.down('.dot');
+              var time = au.sound.seek();
+              var w = (fitem.getWidth() / au.sound.duration()) * time;
+              if (w < fitem.getWidth() - dot.getWidth()) {
+                dot.setStyle("left: " + w + "px");
+              }
+              time = parseInt(time);
+              var m = parseInt(time / 60);
+              var s = parseInt(time % 60);
+              dot.innerHTML = (m < 10 ? "0" + m : m) + ":"
+                  + (s < 10 ? "0" + s : s);
+            }
+          }
+        }, 1000);
+
     $(cc).select(".l_attach .play.audio").each(function(au) {
       var durl = au.getAttribute('_durl');
       var ipath = au.src.substring(0, au.src.lastIndexOf('/'));
@@ -106,7 +114,7 @@ var AttachmentUtils = {
             onpause : function() {
               au.src = gpath(au, "/play.png");
             },
-            onstop : function() {   
+            onstop : function() {
               au.src = gpath(au, "/play.png");
             },
             onend : function() {
