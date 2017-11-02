@@ -91,11 +91,17 @@
 
 .Comp_Attachment .l_attach {
   position: relative;
+  display: table;
 }
 
-.Comp_Attachment .l_attach>* {
+.Comp_Attachment .l_attach>a,
+.Comp_Attachment .l_attach>span {
   vertical-align: middle;
-  display: inline-block;
+  display: table-cell;
+}
+
+.Comp_Attachment .l_attach>a {
+  padding: 0 4px 0 8px;
 }
 
 .Comp_Attachment .l_attach .ord {

@@ -394,7 +394,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		}
 		sb.append(" rowid='").append(id).append("'>");
 		sb.append("<div class='l_attach'>");
-		sb.append(" <div class='ord'>").append(index + 1).append(".</div>");
+		sb.append(" <span class='ord'>").append(index + 1).append(".</span>");
 		// btns
 		if (!readonly) {
 			final AbstractElement<?> img = createAttachmentItem_StatusBtn(cp, id, attachment);
