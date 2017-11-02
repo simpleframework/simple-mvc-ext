@@ -105,6 +105,10 @@
   display: table-cell;
 }
 
+.Comp_Attachment .l_attach>img {
+  vertical-align: middle;
+}
+
 .Comp_Attachment .l_attach .ord {
   color: #666;
   width: 24px;

@@ -438,7 +438,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if (showlink && audio == null) {
 			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, readonly, index));
 		} else {
-			sb.append(HtmlEncoder.text(attachment.getTopic()));
+			sb.append(new SpanElement(HtmlEncoder.text(attachment.getTopic())));
 		}
 		sb.append(fileInfo);
 		return sb.toString();
