@@ -37,7 +37,7 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	private boolean readonly = BeanDefaults.getBool(getClass(), "readonly", false);
 
-	private boolean showLineNo = BeanDefaults.getBool(getClass(), "showLineNo", false);
+	private boolean showLineNo = BeanDefaults.getBool(getClass(), "showLineNo", true);
 
 	private boolean plupload = BeanDefaults.getBool(getClass(), "plupload", false);
 

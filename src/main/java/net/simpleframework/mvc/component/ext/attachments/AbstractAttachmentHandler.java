@@ -388,23 +388,23 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final int index) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
-		sb.append("<div class='fitem'");
+		sb.append("<div class='fitem clearfix'");
 		if (readonly && index == 0) {
 			sb.append(" style='border-top: 0;'");
 		}
 		sb.append(" rowid='").append(id).append("'>");
-		sb.append("<div class='l_attach'>");
-		sb.append(" <span class='ord'>").append(index + 1).append(".</span>");
-		// btns
+		sb.append("<div class='l_attach left'>");
+		if ((Boolean) cp.getBeanProperty("showLineNo")) {
+			sb.append(" <span class='ord'>").append(index + 1).append(".</span>");
+		}
+		// topic
+		sb.append(" <span class='tt'>");
 		if (!readonly) {
 			final AbstractElement<?> img = createAttachmentItem_StatusBtn(cp, id, attachment);
 			if (img != null) {
 				sb.append(img);
 			}
 		}
-		sb.append(createAttachmentItem_Btns(cp, id, attachment, readonly, index));
-
-		// topic
 		final boolean insertTextarea = StringUtils
 				.hasText((String) cp.getBeanProperty("insertTextarea"));
 		if (insertTextarea) {
@@ -414,7 +414,15 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			// params for tooltip
 			sb.append(createAttachmentItem_Topic(cp, id, attachment, readonly, true, index));
 		}
-		sb.append(" </div>");
+		sb.append(" </span>");
+		// fileInfo
+		sb.append(toAttachmentItem_fileInfoHTML(cp, attachment, readonly));
+		sb.append("</div>");
+		// btns
+		final String btns = createAttachmentItem_Btns(cp, id, attachment, readonly, index);
+		if (StringUtils.hasText(btns)) {
+			sb.append("<div class='btns right'>").append(btns).append("</div>");
+		}
 		final Boolean audio = (Boolean) cp.getAttr("_audio_" + id);
 		if (audio != null) {
 			sb.append("<div class='audio-player' style='display: none;'>");
@@ -429,18 +437,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final boolean readonly, final boolean showlink,
 			final int index) throws IOException {
 		final StringBuilder sb = new StringBuilder();
-		if ((Boolean) cp.getBeanProperty("showLineNo")) {
-			sb.append(index + 1).append(". ");
-		}
-
-		final String fileInfo = toAttachmentItem_fileInfoHTML(cp, attachment, readonly);
 		final Boolean audio = (Boolean) cp.getAttr("_audio_" + id);
 		if (showlink && audio == null) {
 			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, readonly, index));
 		} else {
-			sb.append(new SpanElement(HtmlEncoder.text(attachment.getTopic())));
+			sb.append(HtmlEncoder.text(attachment.getTopic()));
 		}
-		sb.append(fileInfo);
 		return sb.toString();
 	}
 
@@ -525,7 +527,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	}
 
 	protected LinkElement createAttachmentItem_Btn(final String text) {
-		return LinkElement.style2(text).addStyle("float: right;");
+		return LinkElement.style2(text);
 	}
 
 	protected AbstractElement<?> createAttachmentItem_DelBtn(final ComponentParameter cp,
