@@ -99,35 +99,42 @@
   display: table;
 }
 
-.Comp_Attachment .l_attach>a,
 .Comp_Attachment .l_attach>span {
-  vertical-align: middle;
   display: table-cell;
 }
 
-.Comp_Attachment .l_attach>img {
+.Comp_Attachment .l_attach * {
   vertical-align: middle;
 }
 
 .Comp_Attachment .l_attach .ord {
   color: #666;
   width: 24px;
+  word-break: keep-all;
+  word-wrap: normal;
+}
+
+.Comp_Attachment .l_attach .tt {
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 .Comp_Attachment .l_attach .size {
   padding-left: 4px;
   color: #999;
   font-size: 7.5pt;
+  word-break: keep-all;
+  word-wrap: normal;  
+}
+
+.Comp_Attachment .l_attach img.status {
+  padding-right: 4px;
 }
 
 .Comp_Attachment .l_attach .play {
   width: 16px;
   margin-left: 8px;
   cursor: pointer;
-}
-
-.Comp_Attachment .l_attach img.status {
-  padding-right: 4px;
 }
 
 .Comp_Attachment .b_attach {
