@@ -415,9 +415,10 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			// params for tooltip
 			sb.append(createAttachmentItem_Topic(cp, id, attachment, readonly, true, index));
 		}
-		sb.append(" </span>");
 		// fileInfo
-		sb.append(" <span>").append(fileInfo).append("</span>");
+		sb.append(fileInfo);
+		sb.append(" </span>");
+
 		sb.append("</div>");
 		// btns
 		final String btns = createAttachmentItem_Btns(cp, id, attachment, readonly, index);
