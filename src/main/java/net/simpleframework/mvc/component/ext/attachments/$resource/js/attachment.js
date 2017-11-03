@@ -60,6 +60,9 @@ var AttachmentUtils = {
           var rx = x - pos.left;
           var sound = au.sound;
           sound.seek((rx / player.getWidth()) * sound.duration());
+          if (!sound.playing()) {
+            sound.play();
+          }
         };
       }
     };
@@ -74,9 +77,9 @@ var AttachmentUtils = {
               var dot = player.down('.dot');
               var time = au.sound.seek();
               var w = (fitem.getWidth() / au.sound.duration()) * time;
-              if (w < (fitem.getWidth() - dot.getWidth() + 1)) {
-                dot.setStyle("left: " + w + "px");
-              }
+              var nw = fitem.getWidth() - dot.getWidth() + 1;
+              dot.setStyle("left: " + Math.min(w, nw) + "px");
+              
               time = parseInt(time);
               var m = parseInt(time / 60);
               var s = parseInt(time % 60) + 1;
