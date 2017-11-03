@@ -393,6 +393,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			sb.append(" style='border-top: 0;'");
 		}
 		sb.append(" rowid='").append(id).append("'>");
+		final String fileInfo = toAttachmentItem_fileInfoHTML(cp, attachment, readonly);
 		sb.append("<div class='l_attach left'>");
 		if ((Boolean) cp.getBeanProperty("showLineNo")) {
 			sb.append(" <span class='ord'>").append(index + 1).append(".</span>");
@@ -416,7 +417,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		}
 		sb.append(" </span>");
 		// fileInfo
-		sb.append(toAttachmentItem_fileInfoHTML(cp, attachment, readonly));
+		sb.append(" <span>").append(fileInfo).append("</span>");
 		sb.append("</div>");
 		// btns
 		final String btns = createAttachmentItem_Btns(cp, id, attachment, readonly, index);
