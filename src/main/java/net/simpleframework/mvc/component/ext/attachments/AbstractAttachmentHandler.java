@@ -388,6 +388,9 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final int index) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		final boolean insertTextarea = StringUtils
+				.hasText((String) cp.getBeanProperty("insertTextarea"));
+
 		sb.append("<div class='fitem clearfix'");
 		if (readonly && index == 0) {
 			sb.append(" style='border-top: 0;'");
@@ -395,7 +398,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		sb.append(" rowid='").append(id).append("'>");
 		final String fileInfo = toAttachmentItem_fileInfoHTML(cp, attachment, readonly);
 		sb.append("<div class='l_attach left'>");
-		if ((Boolean) cp.getBeanProperty("showLineNo")) {
+		if ((Boolean) cp.getBeanProperty("showLineNo") && !insertTextarea) {
 			sb.append(" <span class='ord'>").append(index + 1).append(".</span>");
 		}
 		// topic
@@ -406,8 +409,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				sb.append(img);
 			}
 		}
-		final boolean insertTextarea = StringUtils
-				.hasText((String) cp.getBeanProperty("insertTextarea"));
+
 		if (insertTextarea) {
 			sb.append(new Checkbox(id,
 					createAttachmentItem_Topic(cp, id, attachment, readonly, false, index)));
