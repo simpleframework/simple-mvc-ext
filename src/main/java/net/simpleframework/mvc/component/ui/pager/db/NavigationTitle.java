@@ -27,7 +27,7 @@ public abstract class NavigationTitle {
 		if (category != null) {
 			eles.add(new LinkElement(callback.getRootText()).setOnclick(callback.setOnclick()));
 			T category2 = category;
-			final ArrayList<T> al = new ArrayList<T>();
+			final ArrayList<T> al = new ArrayList<>();
 			while (category2 != null) {
 				al.add(0, category2);
 				category2 = callback.get(category2.getParentId());

@@ -68,14 +68,14 @@ public interface IUserSelectHandler extends IDictionaryHandle {
 
 		public List<DeptMemory> getChildren() {
 			if (children == null) {
-				children = new ArrayList<DeptMemory>();
+				children = new ArrayList<>();
 			}
 			return children;
 		}
 
 		public List<PermissionUser> getUsers() {
 			if (users == null) {
-				users = new ArrayList<PermissionUser>();
+				users = new ArrayList<>();
 			}
 			return users;
 		}

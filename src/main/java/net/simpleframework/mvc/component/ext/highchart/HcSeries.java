@@ -91,7 +91,7 @@ public class HcSeries extends AbstractHcElement<HcSeries> {
 
 	public List<Object> getData() {
 		if (data == null) {
-			data = new ArrayList<Object>();
+			data = new ArrayList<>();
 		}
 		return data;
 	}

@@ -98,9 +98,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@Override
 	public JavascriptForward doSave(final ComponentParameter cp,
 			final IAttachmentSaveCallback callback) throws Exception {
-		final Map<String, AttachmentFile> uploads = new LinkedHashMap<String, AttachmentFile>(
-				getUploadCache(cp));
-		final Set<String> deletes = new LinkedHashSet<String>(getDeleteCache(cp));
+		final Map<String, AttachmentFile> uploads = new LinkedHashMap<>(getUploadCache(cp));
+		final Set<String> deletes = new LinkedHashSet<>(getDeleteCache(cp));
 		if (callback != null) {
 			try {
 				doImagesCropper(cp, uploads);
@@ -248,10 +247,10 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		final String key = "Upload_Cache_" + getCachekey(cp);
 		Map<String, AttachmentFile> cache = (Map<String, AttachmentFile>) SessionCache.lget(key);
 		if (cache == null) {
-			SessionCache.lput(key, cache = new LinkedHashMap<String, AttachmentFile>());
+			SessionCache.lput(key, cache = new LinkedHashMap<>());
 		}
 		// 检测文件是否存在
-		for (final String k : new HashSet<String>(cache.keySet())) {
+		for (final String k : new HashSet<>(cache.keySet())) {
 			final AttachmentFile aFile = cache.get(k);
 			try {
 				if (!aFile.getAttachment().exists()) {
@@ -269,7 +268,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		final String key = "Delete_Cache_" + getCachekey(cp);
 		Set<String> cache = (Set<String>) SessionCache.lget(key);
 		if (cache == null) {
-			SessionCache.lput(key, cache = new LinkedHashSet<String>());
+			SessionCache.lput(key, cache = new LinkedHashSet<>());
 		}
 		return cache;
 	}
@@ -646,7 +645,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			fos = new FileOutputStream(target);
 			zos = new ZipOutputStream(new BufferedOutputStream(fos));
 			int i = 0;
-			final Set<String> names = new HashSet<String>();
+			final Set<String> names = new HashSet<>();
 			for (final AttachmentFile aFile : attachments(cp).values()) {
 				final String t = aFile.getTopic();
 				final String ext = aFile.getExt();

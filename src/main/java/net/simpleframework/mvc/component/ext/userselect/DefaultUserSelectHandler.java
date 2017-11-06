@@ -40,11 +40,11 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler
 	@Override
 	public IDataQuery<PermissionUser> getUsers(final ComponentParameter cp) {
 		if (cp.isLmanager()) {
-			return new IteratorDataQuery<PermissionUser>(cp.getPermission().allUsers());
+			return new IteratorDataQuery<>(cp.getPermission().allUsers());
 		} else {
 			final PermissionDept org = AbstractMVCPage.getPermissionOrg(cp);
 			if (org != null) {
-				return new IteratorDataQuery<PermissionUser>(org.orgUsers());
+				return new IteratorDataQuery<>(org.orgUsers());
 			}
 		}
 		return null;
@@ -58,7 +58,7 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler
 
 	@Override
 	public List<Object> doSort(final ComponentParameter cp, final Set<Object> groups) {
-		final ArrayList<Object> _groups = new ArrayList<Object>(groups);
+		final ArrayList<Object> _groups = new ArrayList<>(groups);
 		Collections.sort(_groups, new Comparator<Object>() {
 			@Override
 			public int compare(final Object o1, final Object o2) {
@@ -86,7 +86,7 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler
 
 	private void loadDeptTreemap(final PermissionDept parent) {
 		final List<PermissionDept> list = parent.getAllChildren();
-		dTreemap.put(parent.getId(), new ArrayList<PermissionDept>(list));
+		dTreemap.put(parent.getId(), new ArrayList<>(list));
 		for (final PermissionDept dept : list) {
 			loadDeptTreemap(dept);
 		}
@@ -95,15 +95,15 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler
 	@Override
 	public List<DeptMemory> getDepartmentList(final ComponentParameter cp) {
 		if (dTreemap == null) {
-			dTreemap = new HashMap<ID, List<PermissionDept>>();
+			dTreemap = new HashMap<>();
 			final List<PermissionDept> list = cp.getPermission().getRootChildren();
-			dTreemap.put(ID.NULL_ID, new ArrayList<PermissionDept>(list));
+			dTreemap.put(ID.NULL_ID, new ArrayList<>(list));
 			for (final PermissionDept dept : list) {
 				loadDeptTreemap(dept);
 			}
 		}
 
-		final Map<ID, List<PermissionUser>> users = new HashMap<ID, List<PermissionUser>>();
+		final Map<ID, List<PermissionUser>> users = new HashMap<>();
 		final IDataQuery<PermissionUser> dq = getUsers(cp);
 		if (dq != null) {
 			dq.setFetchSize(0);
@@ -113,7 +113,7 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler
 				final ID deptId = dept.exists() ? dept.getId() : ID.NULL_ID;
 				List<PermissionUser> l = users.get(deptId);
 				if (l == null) {
-					users.put(deptId, l = new ArrayList<PermissionUser>());
+					users.put(deptId, l = new ArrayList<>());
 				}
 				l.add(user);
 			}
@@ -123,7 +123,7 @@ public class DefaultUserSelectHandler extends AbstractDictionaryHandler
 
 	private List<DeptMemory> createDeptMemory(final Map<ID, List<PermissionUser>> users,
 			final List<PermissionDept> children) {
-		final List<DeptMemory> wrappers = new ArrayList<DeptMemory>();
+		final List<DeptMemory> wrappers = new ArrayList<>();
 		if (children != null) {
 			for (final PermissionDept dept : children) {
 				final DeptMemory wrapper = new DeptMemory(dept);

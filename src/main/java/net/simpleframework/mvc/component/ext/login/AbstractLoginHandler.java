@@ -25,7 +25,7 @@ public abstract class AbstractLoginHandler extends AbstractComponentHandler
 
 	@Override
 	public String getToolbarHTML(final ComponentParameter cp) {
-		final ArrayList<String> al = new ArrayList<String>();
+		final ArrayList<String> al = new ArrayList<>();
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<table cellpadding='0' cellspacing='0' style='width: 100%;'><tr>");
 		sb.append("<td>");

@@ -43,7 +43,7 @@ public class CategoryAction extends DefaultAjaxRequestHandler {
 		final TreeBean treeBean = (TreeBean) nCP.componentBean.getAttr("$tree");
 		final ComponentParameter tnCP = ComponentParameter.get(cp, treeBean);
 
-		final List<Object> list = new ArrayList<Object>();
+		final List<Object> list = new ArrayList<>();
 		for (final String id : StringUtils.split(tnCP.getParameter("nodeIds"))) {
 			final TreeNode node = TreeUtils.getTreenodeById(tnCP, id);
 			list.add(node.getDataObject());

@@ -107,7 +107,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 
 	protected ExpressionValue createFilterExpressionValue(final DbDataQuery<?> qs,
 			final TablePagerColumn oCol, final Collection<FilterItem> coll) {
-		final ArrayList<Object> params = new ArrayList<Object>();
+		final ArrayList<Object> params = new ArrayList<>();
 		final StringBuilder sb = new StringBuilder();
 		final String columnAlias = oCol.getColumnAlias();
 		final Iterator<FilterItem> it = coll.iterator();

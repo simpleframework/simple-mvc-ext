@@ -129,7 +129,7 @@ public class HighchartBean extends AbstractContainerBean {
 
 	public List<HcSeries> getSeries() {
 		if (series == null) {
-			series = new ArrayList<HcSeries>();
+			series = new ArrayList<>();
 		}
 		return series;
 	}
@@ -141,7 +141,7 @@ public class HighchartBean extends AbstractContainerBean {
 
 	public List<HcYAxis> getyAxiss() {
 		if (yAxiss == null) {
-			yAxiss = new ArrayList<HcYAxis>();
+			yAxiss = new ArrayList<>();
 		}
 		return yAxiss;
 	}

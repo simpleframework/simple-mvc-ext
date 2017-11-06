@@ -17,7 +17,7 @@ public class SyntaxHighlighterResourceProvider extends AbstractComponentResource
 
 	@Override
 	public String[] getCssPath(final PageParameter pp) {
-		final LinkedHashSet<String> l = new LinkedHashSet<String>();
+		final LinkedHashSet<String> l = new LinkedHashSet<>();
 		final String rPath = getCssResourceHomePath(pp);
 		l.add(rPath + "/shCore.css");
 		for (final AbstractComponentBean componentBean : pp.getComponentBeans().values()) {
