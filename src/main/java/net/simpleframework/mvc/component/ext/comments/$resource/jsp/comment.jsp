@@ -31,7 +31,9 @@
       if (vlen == 0) {
         ta.ltxt.innerHTML = "&nbsp;";
       } else {
-        ta.ltxt.innerHTML = "#(comment.jsp.0)<label>" + l + "</label>#(comment.jsp.1)";
+        ta.ltxt.innerHTML = "#(comment.jsp.0)<label>" 
+        		+ l 
+        		+ "</label>#(comment.jsp.1)";
       }
       
       if (vlen > maxlength) {
