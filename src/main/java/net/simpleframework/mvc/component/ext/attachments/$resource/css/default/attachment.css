@@ -120,7 +120,8 @@
 }
 
 .Comp_Attachment .l_attach .size {
-  padding-left: 4px;
+  display: inline-block;
+  margin-left: 4px;
   color: #999;
   font-size: 7.5pt;
   word-break: keep-all;
