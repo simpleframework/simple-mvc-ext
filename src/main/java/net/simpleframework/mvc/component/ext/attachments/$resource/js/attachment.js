@@ -125,7 +125,7 @@ var AttachmentUtils = {
               hide_player(au);
             }
           });
-          au.src = gpath(au, "/loading.png");
+          au.src = gpath(au, "/loading.gif");
           au.sound.play();
         } else {
           if (au.sound.playing()) {
