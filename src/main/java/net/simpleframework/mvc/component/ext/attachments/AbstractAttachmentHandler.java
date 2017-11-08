@@ -131,7 +131,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				continue;
 			}
 
-			final Map<String, ?> data = JsonUtils.toMap(cropper);
+			final Map<String, Object> data = JsonUtils.toMap(cropper);
 			final AttachmentFile af = e.getValue();
 			final File oFile = af.getAttachment();
 			final InputStream istream = new FileInputStream(oFile);
