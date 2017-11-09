@@ -3,6 +3,7 @@ package net.simpleframework.mvc.component.ext.attachments;
 import java.io.IOException;
 import java.util.Map;
 
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.ID;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
 import net.simpleframework.mvc.IMultipartFile;
@@ -139,4 +140,14 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @return
 	 */
 	String getTooltipPath(ComponentParameter cp);
+
+	/**
+	 * 查询历史附件记录
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	IDataQuery<?> queryAttachmentHistory(ComponentParameter cp);
+
+	Map<String, Object> getAttachmentHistoryRowData(ComponentParameter cp, Object dataObject);
 }

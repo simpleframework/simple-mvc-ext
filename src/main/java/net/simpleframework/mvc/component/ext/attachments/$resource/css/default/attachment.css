@@ -183,3 +183,15 @@
 .form_tbl .v .swfupload .queue {
   border-top: 0;
 }
+
+/*-------- AttachmentHistoryTbl ---------*/
+.AttachmentHistoryTbl .tablepager .tfilter,
+.AttachmentHistoryTbl .tablepager .tbody {
+  border-left: 0;
+  border-right: 0;
+}
+
+.AttachmentHistoryTbl .pager .pager_block_bottom {
+  border: 0;
+  background-color: #fff;
+}

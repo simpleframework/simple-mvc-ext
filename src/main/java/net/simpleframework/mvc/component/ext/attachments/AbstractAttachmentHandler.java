@@ -18,6 +18,7 @@ import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
 
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.FileUtils;
 import net.simpleframework.common.ID;
@@ -670,6 +671,18 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 
 		return new JavascriptForward(
 				JS.loc(DownloadUtils.getDownloadHref(new AttachmentFile(target), getClass())));
+	}
+
+	// AttachmentHistory
+	@Override
+	public IDataQuery<?> queryAttachmentHistory(final ComponentParameter cp) {
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getAttachmentHistoryRowData(final ComponentParameter cp,
+			final Object dataObject) {
+		return null;
 	}
 
 	// IDownloadHandler

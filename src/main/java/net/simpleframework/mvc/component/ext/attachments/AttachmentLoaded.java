@@ -34,7 +34,7 @@ import net.simpleframework.mvc.component.ui.tooltip.TipBean;
 import net.simpleframework.mvc.component.ui.tooltip.TipBean.HideOn;
 import net.simpleframework.mvc.component.ui.tooltip.TipBean.Hook;
 import net.simpleframework.mvc.component.ui.tooltip.TooltipBean;
-import net.simpleframework.mvc.component.ui.window.WindowBean;
+import net.simpleframework.mvc.component.ui.window.WindowBean;;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -133,6 +133,20 @@ public class AttachmentLoaded extends DefaultPageHandler {
 							.setAttr("$attachment", attachmentBean).setAttr("$swfupload", swfUpload);
 				}
 			}
+
+			// 历史纪录
+			if ((boolean) cp.getBeanProperty("historyUploadBtn")) {
+				final AjaxRequestBean ajaxRequest = pp
+						.addComponentBean(attachmentName + "_historyPage", AjaxRequestBean.class)
+						.setUrlForward(pp.getResourceHomePath(AttachmentLoaded.class)
+								+ "/jsp/attachment_history.jsp");
+				if (swfUpload != null) {
+					ajaxRequest.setSelector(swfUpload.getSelector());
+				}
+				pp.addComponentBean(attachmentName + "_historyWin", WindowBean.class)
+						.setContentRef(attachmentName + "_historyPage").setHeight(450).setWidth(360)
+						.setTitle($m("AttachmentLoaded.4"));
+			}
 		}
 
 		// 下载
@@ -191,7 +205,8 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			if ((boolean) nCP.getBeanProperty("historyUploadBtn")) {
 				sb.append(SpanElement.SPACE);
-				sb.append(LinkButton.corner("历史记录"));
+				sb.append(LinkButton.corner($m("AttachmentLoaded.4"))
+						.setOnclick("$Actions['" + nCP.getComponentName() + "_historyWin']();"));
 			}
 			return sb.toString();
 		}
