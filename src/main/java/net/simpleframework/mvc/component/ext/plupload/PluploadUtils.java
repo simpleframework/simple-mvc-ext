@@ -186,4 +186,8 @@ public abstract class PluploadUtils {
 			throws IOException {
 		return SwfUploadUtils.upload(get(request, response));
 	}
+
+	public static String genBtnsHTML(final ComponentParameter cp) {
+		return SwfUploadUtils.genBtnsHTML(cp);
+	}
 }

@@ -15,7 +15,9 @@ import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.TextForward;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.EElementEvent;
+import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
+import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentUtils;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
@@ -180,6 +182,18 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				final Map<String, Object> variables) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			((IAttachmentHandler) nCP.getComponentHandler()).upload(nCP, multipartFile, variables);
+		}
+
+		@Override
+		public String toBtnsHTML(final ComponentParameter cp) {
+			final StringBuilder sb = new StringBuilder();
+			sb.append(super.toBtnsHTML(cp));
+			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
+			if ((boolean) nCP.getBeanProperty("historyUploadBtn")) {
+				sb.append(SpanElement.SPACE);
+				sb.append(LinkButton.corner("历史记录"));
+			}
+			return sb.toString();
 		}
 	}
 

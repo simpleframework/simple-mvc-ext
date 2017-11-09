@@ -45,6 +45,9 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	private String cropperRatio = "16 / 10";
 
+	/* 历史记录按钮 */
+	private boolean historyUploadBtn = BeanDefaults.getBool(getClass(), "historyUploadBtn", false);
+
 	public int getAttachmentsLimit() {
 		return attachmentsLimit;
 	}
@@ -159,6 +162,15 @@ public class AttachmentBean extends AbstractContainerBean {
 
 	public AttachmentBean setCropperRatio(final String cropperRatio) {
 		this.cropperRatio = cropperRatio;
+		return this;
+	}
+
+	public boolean isHistoryUploadBtn() {
+		return historyUploadBtn;
+	}
+
+	public AttachmentBean setHistoryUploadBtn(final boolean historyUploadBtn) {
+		this.historyUploadBtn = historyUploadBtn;
 		return this;
 	}
 }
