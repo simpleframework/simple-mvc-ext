@@ -144,7 +144,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 					ajaxRequest.setSelector(swfUpload.getSelector());
 				}
 				pp.addComponentBean(attachmentName + "_historyWin", WindowBean.class)
-						.setContentRef(attachmentName + "_historyPage").setHeight(450).setWidth(360)
+						.setContentRef(attachmentName + "_historyPage").setHeight(500).setWidth(400)
 						.setTitle($m("AttachmentLoaded.4"));
 			}
 		}

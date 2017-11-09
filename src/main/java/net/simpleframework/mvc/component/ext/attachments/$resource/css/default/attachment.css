@@ -205,6 +205,24 @@
 .AttachmentHistoryTbl .tb {
   background-color: #f9f9f9;
   padding: 8px 8px;
+  text-align: right;
+}
+
+.AttachmentHistoryTbl .tb .checkbox_lbl {
+  margin-right: 10px;
+}
+
+.AttachmentHistoryTbl .titem .l1 {
+  font-weight: bolder;
+  padding-left: 4px;
+}
+
+.AttachmentHistoryTbl .titem .l2 {
+  font-size: 8.5pt;
+  color: #666;
+  margin-top: 12px;
+  line-height: 1.4;
+  padding-left: 4px;
 }
 
 .AttachmentHistoryTbl.jcc {
