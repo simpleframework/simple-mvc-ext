@@ -685,6 +685,10 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		return null;
 	}
 
+	@Override
+	public void doAttachmentHistorySelected(final ComponentParameter cp) throws IOException {
+	}
+
 	// IDownloadHandler
 	@Override
 	public void onDownloaded(final Object beanId, final long length, final String filetype,

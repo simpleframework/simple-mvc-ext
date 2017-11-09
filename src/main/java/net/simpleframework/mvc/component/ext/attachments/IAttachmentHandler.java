@@ -150,4 +150,6 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	IDataQuery<?> queryAttachmentHistory(ComponentParameter cp);
 
 	Map<String, Object> getAttachmentHistoryRowData(ComponentParameter cp, Object dataObject);
+
+	void doAttachmentHistorySelected(ComponentParameter cp) throws IOException;
 }
