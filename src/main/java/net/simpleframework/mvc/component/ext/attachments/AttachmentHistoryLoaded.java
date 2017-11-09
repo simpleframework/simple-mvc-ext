@@ -5,6 +5,9 @@ import java.util.Map;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
+import net.simpleframework.mvc.common.element.AbstractElement;
+import net.simpleframework.mvc.common.element.ButtonElement;
+import net.simpleframework.mvc.common.element.Checkbox;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.EPagerBarLayout;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
@@ -30,7 +33,8 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 
 		final TablePagerBean tablePager = (TablePagerBean) pp
 				.addComponentBean(componentName + "_tbl", TablePagerBean.class).setShowHead(false)
-				.setPagerBarLayout(EPagerBarLayout.bottom).setExportAction("false")
+				.setScrollHead(false).setShowEditPageItems(false)
+				.setPagerBarLayout(EPagerBarLayout.bottom).setExportAction("false").setNoResultDesc("")
 				.setContainerId("id" + componentName + "_tbl")
 				.setHandlerClass(AttachmentHistoryTbl.class).setAttr("$attachment", attachmentBean);
 		tablePager.addColumn(new TablePagerColumn("topic"));
@@ -38,10 +42,13 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 
 	public static String toHTML(final ComponentParameter cp) throws Exception {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<div class='AttachmentHistoryTbl'>");
-		sb.append(" <div class='tt'></div>");
+		sb.append("<div class='AttachmentHistoryTbl jcc'>");
+		sb.append(" <div class='tb clearfix'>");
+		sb.append(new Checkbox(null, null)
+				.setOnclick("$Actions['ExpertsMREditPage_tbl'].checkAll(this);"));
+		sb.append(new ButtonElement("选择").addClassName("right"));
+		sb.append(" </div>");
 		sb.append(" <div id='id").append(cp.getComponentName()).append("_tbl'></div>");
-		sb.append(" <div class='bb'></div>");
 		sb.append("</div>");
 		return sb.toString();
 	}
@@ -51,6 +58,11 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			return ((IAttachmentHandler) nCP.getComponentHandler()).queryAttachmentHistory(nCP);
+		}
+
+		@Override
+		protected AbstractElement<?> createHeadStatElement(final int count, final String pTitle) {
+			return super.createHeadStatElement(count, pTitle).addClassName("br");
 		}
 
 		@Override

@@ -195,3 +195,19 @@
   border: 0;
   background-color: #fff;
 }
+
+.AttachmentHistoryTbl .pager .pager_head .br {
+  display: block;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.AttachmentHistoryTbl .tb {
+  background-color: #f9f9f9;
+  padding: 8px 8px;
+}
+
+.AttachmentHistoryTbl.jcc {
+  min-width: auto;
+  width: auto;
+}
