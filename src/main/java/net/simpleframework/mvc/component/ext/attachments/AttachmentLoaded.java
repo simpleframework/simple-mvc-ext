@@ -2,6 +2,8 @@ package net.simpleframework.mvc.component.ext.attachments;
 
 import static net.simpleframework.common.I18n.$m;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import net.simpleframework.common.StringUtils;
@@ -207,8 +209,21 @@ public class AttachmentLoaded extends DefaultPageHandler {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			if ((boolean) nCP.getBeanProperty("historyUploadBtn")) {
 				sb.append(SpanElement.SPACE);
+				final List<String> l = new ArrayList<>();
+				for (final String s : StringUtils.split((String) cp.getBeanProperty("fileTypes"),
+						";")) {
+					if (StringUtils.hasText(s)) {
+						final int p = s.lastIndexOf(".");
+						if (p >= 0) {
+							l.add(s.substring(p + 1));
+						} else {
+							l.add(s);
+						}
+					}
+				}
 				sb.append(LinkButton.corner($m("AttachmentLoaded.4"))
-						.setOnclick("$Actions['" + nCP.getComponentName() + "_historyWin']();"));
+						.setOnclick("$Actions['" + nCP.getComponentName() + "_historyWin']('types="
+								+ StringUtils.join(l, ";") + "');"));
 			}
 			return sb.toString();
 		}
