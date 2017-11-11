@@ -27,6 +27,7 @@ import net.simpleframework.mvc.common.element.PhotoImage;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentHandlerEx;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
 import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
 
 /**
@@ -96,9 +97,28 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		sb.append(" <div class='l2'>").append(createTextarea(cp));
 		sb.append("  <input type='hidden' name='parentId' />");
 		sb.append(" </div>");
+		final boolean showSmiley = (Boolean) cp.getBeanProperty("showSmiley");
+		if (showSmiley && cp.isMobile()) {
+			sb.append("<div class='smiley' style='display: none;'>");
+			final String ipath = cp.getResourceHomePath(DictionaryBean.class) + "/smiley/";
+			sb.append(" <div>");
+			for (int i = 0; i < 45; i++) {
+				sb.append("<div class='iitem'>").append(
+						new ImageElement(ipath + i + ".gif").setOnclick("$COMMENT.insert_smiley(this);"))
+						.append("</div>");
+			}
+			sb.append(" </div>");
+			sb.append(" <div>");
+			for (int i = 45; i < 90; i++) {
+				sb.append("<div class='iitem'>").append(new ImageElement(ipath + i + ".gif")
+						.setOnclick("window.$COMMENT.insert_smiley(this);")).append("</div>");
+			}
+			sb.append(" </div>");
+			sb.append("</div>");
+		}
 		sb.append(" <div class='l3 clearfix'>");
 		sb.append("  <div class='left'>");
-		if ((Boolean) cp.getBeanProperty("showSmiley")) {
+		if (showSmiley) {
 			sb.append(createSmiley(cp));
 		}
 		sb.append("	  <span class='ltxt'>&nbsp;</span>");
@@ -114,8 +134,15 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
-		return LinkElement.style2($m("AbstractCommentHandler.3"))
-				.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
+		final LinkElement le = LinkElement.style2($m("AbstractCommentHandler.3"));
+		if (cp.isMobile()) {
+			le.setOnclick(
+					"var smiley = this.up('.l3').previous('.smiley'); if (smiley) { smiley.toggle(); }");
+		} else {
+			le.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
+		}
+		return le;
+
 	}
 
 	protected AbstractElement<?> createTextarea(final ComponentParameter cp) {

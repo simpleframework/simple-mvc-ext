@@ -52,14 +52,10 @@ public class CommentLoaded extends DefaultPageHandler {
 				.setHandlerMethod("addComment").setHandlerClass(CommentAction.class)
 				.setAttr("$comment", commentBean);
 
-		if ((Boolean) cp.getBeanProperty("showSmiley")) {
+		if ((Boolean) cp.getBeanProperty("showSmiley") && !pp.isMobile()) {
 			// 表情
-			final DictionaryBean dict = pp
-					.addComponentBean(commentName + "_smiley", DictionaryBean.class).setBindingId(idTa)
+			pp.addComponentBean(commentName + "_smiley", DictionaryBean.class).setBindingId(idTa)
 					.addSmiley(pp);
-			if (pp.isMobile()) {
-				dict.setPopup(false).setModal(false);
-			}
 		}
 
 		if ((Boolean) cp.getBeanProperty("showLike")) {

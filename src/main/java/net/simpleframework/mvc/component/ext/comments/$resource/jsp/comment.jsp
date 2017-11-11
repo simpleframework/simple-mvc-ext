@@ -46,6 +46,14 @@
     ta.observe("keyup", comment_ta_valchange);
   
     window.$COMMENT = {
+      insert_smiley : function(img) {
+        var s = img.src;
+        var j = s.substring(s.lastIndexOf('/') + 1, s.lastIndexOf('.'));
+        $Actions.setValue(ta, '[:em' + j + ']', true);
+        comment_ta_valchange();
+        ta.focus();
+      }, 
+    	
       reply : function(val, txt) {
         parent.value = val;
         reply.innerHTML = 

@@ -250,3 +250,24 @@
 .Comp_Comment .pager .pager_block_bottom {
   padding: 12px 8px;
 }
+
+.Comp_Comment .t1_head .smiley {
+  overflow-x: auto;
+  width: 100%;
+  padding: 3px 0;
+}
+
+.Comp_Comment .t1_head .smiley>div {
+  display: table;
+  padding: 3px 0;
+}
+
+.Comp_Comment .t1_head .smiley .iitem {
+  display: table-cell;
+  padding-right: 4px;
+}
+
+.Comp_Comment .t1_head .smiley img {
+  width: 24px;
+  height: 24px;
+}
