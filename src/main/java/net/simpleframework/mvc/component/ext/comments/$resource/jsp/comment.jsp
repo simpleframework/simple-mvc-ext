@@ -53,6 +53,18 @@
         comment_ta_valchange();
         ta.focus();
       }, 
+      
+      show_smiley : function(a) {
+        var smiley = a.up('.l3').previous('.smiley'); 
+        if (smiley) { 
+          if (smiley.visible()) {
+            smiley.hide();
+          } else {
+            smiley.show();
+            ta.focus();
+          }
+      	}
+      },
     	
       reply : function(val, txt) {
         parent.value = val;

@@ -110,8 +110,9 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append(" </div>");
 			sb.append(" <div>");
 			for (int i = 45; i < 90; i++) {
-				sb.append("<div class='iitem'>").append(new ImageElement(ipath + i + ".gif")
-						.setOnclick("window.$COMMENT.insert_smiley(this);")).append("</div>");
+				sb.append("<div class='iitem'>").append(
+						new ImageElement(ipath + i + ".gif").setOnclick("$COMMENT.insert_smiley(this);"))
+						.append("</div>");
 			}
 			sb.append(" </div>");
 			sb.append("</div>");
@@ -136,8 +137,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
 		final LinkElement le = LinkElement.style2($m("AbstractCommentHandler.3"));
 		if (cp.isMobile()) {
-			le.setOnclick(
-					"var smiley = this.up('.l3').previous('.smiley'); if (smiley) { smiley.toggle(); }");
+			le.setOnclick("$COMMENT.show_smiley(this);");
 		} else {
 			le.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
 		}
