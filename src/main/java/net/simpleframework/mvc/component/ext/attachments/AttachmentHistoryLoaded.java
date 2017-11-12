@@ -44,7 +44,7 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 				.setExportAction("false").setNoResultDesc("")
 				.setContainerId("id" + componentName + "_history_tbl")
 				.setHandlerClass(AttachmentHistoryTbl.class).setAttr("$attachment", attachmentBean);
-		tablePager.addColumn(new TablePagerColumn("topic")).addColumn(TablePagerColumn.OPE(50));
+		tablePager.addColumn(new TablePagerColumn("topic")).addColumn(TablePagerColumn.OPE(55));
 
 		// 选择
 		pp.addComponentBean(componentName + "_history_selected", AjaxRequestBean.class)
@@ -55,7 +55,7 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 	public static String toHTML(final ComponentParameter cp) throws Exception {
 		final StringBuilder sb = new StringBuilder();
 		final String componentName = cp.getComponentName();
-		sb.append("<div class='AttachmentHistoryTbl jcc'>");
+		sb.append("<div class='AttachmentHistoryTbl'>");
 		final String types = cp.getParameter("types");
 		if (!StringUtils.hasText(types)) {
 			sb.append(" <div class='tb'>");
