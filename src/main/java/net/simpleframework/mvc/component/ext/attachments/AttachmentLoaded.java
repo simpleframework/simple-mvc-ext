@@ -176,7 +176,7 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				tooltipPage.setSelector(swfUpload.getSelector());
 			}
 			final TooltipBean tooltip = pp.addComponentBean("AttachmentLoaded_Tip", TooltipBean.class);
-			tooltip.addTip(new TipBean(tooltip).setSelector("#" + attachmentListId + " a[params]")
+			tooltip.addTip(new TipBean(tooltip).setSelector("#" + attachmentListId + " .tip[params]")
 					.setContentRef("AttachmentLoaded_TipPage").setCache(true)
 					.setTitle($m("AttachmentLoaded.1")).setStem(ETipPosition.leftTop)
 					.setHook(new Hook(ETipPosition.rightTop, ETipPosition.topLeft))

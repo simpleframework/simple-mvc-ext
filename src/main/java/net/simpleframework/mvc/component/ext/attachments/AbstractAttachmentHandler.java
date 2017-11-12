@@ -445,7 +445,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		if (showlink && audio == null) {
 			sb.append(createAttachmentItem_topicLinkElement(cp, id, attachment, readonly, index));
 		} else {
-			sb.append(new SpanElement(HtmlEncoder.text(attachment.getTopic())));
+			sb.append(new SpanElement(HtmlEncoder.text(attachment.getTopic())).setClassName("tip")
+					.addAttribute("params", "id=" + id));
 		}
 		return sb.toString();
 	}
@@ -482,7 +483,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final int index) {
 		return new LinkElement(HtmlEncoder.text(attachment.getTopic()))
 				.setOnclick("$Actions['" + cp.getComponentName() + "_download']('id=" + id + "');")
-				.addAttribute("params", "id=" + id);
+				.setClassName("tip").addAttribute("params", "id=" + id);
 	}
 
 	protected String toAttachmentItem_fileInfoHTML(final ComponentParameter cp,
