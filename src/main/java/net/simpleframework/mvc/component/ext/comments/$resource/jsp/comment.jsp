@@ -34,6 +34,9 @@
         ta.ltxt.innerHTML = "#(comment.jsp.0)<label>" 
         		+ l 
         		+ "</label>#(comment.jsp.1)";
+        if (!isMobile.any()) {
+          ta.ltxt.innerHTML += "#(comment.jsp.2)";
+        }
       }
       
       if (vlen > maxlength) {
