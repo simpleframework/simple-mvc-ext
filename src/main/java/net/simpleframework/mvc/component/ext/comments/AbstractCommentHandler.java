@@ -101,20 +101,17 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		if (showSmiley && cp.isMobile()) {
 			sb.append("<div class='smiley' style='display: none;'>");
 			final String ipath = cp.getResourceHomePath(DictionaryBean.class) + "/smiley/";
-			sb.append(" <div>");
-			for (int i = 0; i < 45; i++) {
-				sb.append("<div class='iitem'>").append(
-						new ImageElement(ipath + i + ".gif").setOnclick("$COMMENT.insert_smiley(this);"))
-						.append("</div>");
+			int i = 0;
+			for (int j = 1; j <= 3; j++) {
+				sb.append(" <div>");
+				for (; i < j * 30; i++) {
+					sb.append("<div class='iitem'>");
+					sb.append(new ImageElement(ipath + i + ".gif")
+							.setOnclick("$COMMENT.insert_smiley(this);"));
+					sb.append("</div>");
+				}
+				sb.append(" </div>");
 			}
-			sb.append(" </div>");
-			sb.append(" <div>");
-			for (int i = 45; i < 90; i++) {
-				sb.append("<div class='iitem'>").append(
-						new ImageElement(ipath + i + ".gif").setOnclick("$COMMENT.insert_smiley(this);"))
-						.append("</div>");
-			}
-			sb.append(" </div>");
 			sb.append("</div>");
 		}
 		sb.append(" <div class='l3 clearfix'>");
