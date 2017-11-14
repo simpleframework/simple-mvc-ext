@@ -66,6 +66,16 @@ var AttachmentUtils = {
         };
       }
     };
+    
+    var play_next = function(au) {
+      var next = au.up('.fitem').next(".fitem");
+      if (next) {
+        var play = next.down(".play");
+        if (play) {
+          play.simulate("click");
+        }
+      }
+    };
 
     setInterval(
         function() {
@@ -123,6 +133,7 @@ var AttachmentUtils = {
             onend : function() {
               au.src = gpath(au, "/play.png");
               hide_player(au);
+              play_next(au);
             }
           });
           au.src = gpath(au, "/loading.gif");
