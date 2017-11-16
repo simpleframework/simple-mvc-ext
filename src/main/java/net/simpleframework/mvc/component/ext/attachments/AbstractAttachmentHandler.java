@@ -519,7 +519,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 						sb.append(img);
 					}
 				}
-			} catch (final Exception e) {
+			} catch (final Throwable e) {
 				log.warn(e);
 			}
 		}
