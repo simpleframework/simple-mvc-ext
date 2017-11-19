@@ -44,7 +44,7 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 				.setExportAction("false").setNoResultDesc("")
 				.setContainerId("id" + componentName + "_history_tbl")
 				.setHandlerClass(AttachmentHistoryTbl.class).setAttr("$attachment", attachmentBean);
-		tablePager.addColumn(new TablePagerColumn("topic")).addColumn(TablePagerColumn.OPE(55));
+		tablePager.addColumn(TablePagerColumn.TOPIC()).addColumn(TablePagerColumn.OPE(55));
 
 		// 选择
 		pp.addComponentBean(componentName + "_history_selected", AjaxRequestBean.class)
