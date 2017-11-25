@@ -318,7 +318,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		sb.append(" </div>");
 		sb.append(createAttachmentItem_Image_Btns(cp, id, attachment, readonly));
 		sb.append("</div>");
-		if (Convert.toBool(cp.getRequestAttr("_cropper"))) {
+		if (cp.getRequestBoolAttr("_cropper")) {
 			sb.append(InputElement.hidden("cropper_" + id));
 			if (getUploadCache(cp).containsKey(id)) {
 				final StringBuilder js = new StringBuilder();
