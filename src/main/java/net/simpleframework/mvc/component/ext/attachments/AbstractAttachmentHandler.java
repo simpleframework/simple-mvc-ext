@@ -158,7 +158,6 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				}
 			} finally {
 				istream.close();
-				oFile.delete();
 			}
 		}
 	}
