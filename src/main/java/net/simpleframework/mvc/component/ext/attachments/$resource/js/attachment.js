@@ -67,10 +67,11 @@ var AttachmentUtils = {
     }
   },
 
-  play_next : function(au) {
-    var next = au.up('.fitem').next(".fitem");
-    if (next) {
-      var play = next.down(".play");
+  play_next : function(au, pre) {
+    var fitem = au.up('.fitem');
+    var ele = pre ? fitem.previous(".fitem") : fitem.next(".fitem");
+    if (ele) {
+      var play = ele.down(".play");
       if (play) {
         play.simulate("click");
       }
