@@ -32,12 +32,12 @@ var AttachmentUtils = {
     if (player) {
       player.setStyle("bottom: " + (fitem.measure("bottom") - 1) + "px;");
       player.show();
+      window._player = player;
     }
   },
 
   init_player : function(au) {
-    var fitem = au.up('.fitem');
-    var player = fitem.down(".audio-player");
+    var player = window._player;
     if (!player || player._onclick) {
       return;
     }
@@ -61,7 +61,7 @@ var AttachmentUtils = {
   },
 
   hide_player : function(au) {
-    var player = au.up('.fitem').down(".audio-player");
+    var player = window._player;
     if (player) {
       player.hide();
     }
@@ -77,25 +77,37 @@ var AttachmentUtils = {
       }
     }
   },
-  
+
   gpath : function(au, path) {
     return au.src.substring(0, au.src.lastIndexOf('/')) + path;
   },
 
   doLoad : function(cc) {
     var gpath = this.gpath;
-    
+
     var show_player = this.show_player;
     var init_player = this.init_player;
     var hide_player = this.hide_player;
     var play_next = this.play_next;
 
+    var show_player_tip = function(au) {
+      var tip = au.up('.fitem').down('.tip');
+      if (tip) {
+        tip.setStyle("font-weight: bolder;");
+      }
+    };
+    var hide_player_tip = function(au) {
+      var tip = au.up('.fitem').down('.tip');
+      if (tip) {
+        tip.setStyle("font-weight: normal;");
+      }
+    };
+
     setInterval(
         function() {
           var au = window._au;
           if (au) {
-            var fitem = au.up('.fitem');
-            var player = fitem.down(".audio-player");
+            var player = window._player;
             if (player) {
               var dot = player.down('.dot');
               var time = au.sound.seek();
@@ -128,11 +140,15 @@ var AttachmentUtils = {
                   sound.stop();
                 }
                 hide_player(window._au);
+                hide_player_tip(window._au);
                 window._au = null;
               }
               window._au = au;
               au.src = gpath(au, "/pause.png");
+
               show_player(au);
+              show_player_tip(au);
+
               init_player(au);
             },
             onload : function() {
@@ -147,6 +163,7 @@ var AttachmentUtils = {
             onend : function() {
               au.src = gpath(au, "/play.png");
               hide_player(au);
+              hide_player_tip(au);
               play_next(au);
             }
           });
