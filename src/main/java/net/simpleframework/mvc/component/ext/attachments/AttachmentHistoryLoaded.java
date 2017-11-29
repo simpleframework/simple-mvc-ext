@@ -11,6 +11,8 @@ import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
+import net.simpleframework.mvc.common.element.ButtonElement;
+import net.simpleframework.mvc.common.element.Checkbox;
 import net.simpleframework.mvc.common.element.Radio;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
@@ -39,7 +41,7 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 
 		final TablePagerBean tablePager = (TablePagerBean) pp
 				.addComponentBean(componentName + "_history_tbl", TablePagerBean.class)
-				.setShowCheckbox(false).setShowHead(false).setScrollHead(false)
+				.setShowCheckbox(true).setShowHead(false).setScrollHead(false)
 				.setShowEditPageItems(false).setPagerBarLayout(EPagerBarLayout.bottom)
 				.setExportAction("false").setNoResultDesc("")
 				.setContainerId("id" + componentName + "_history_tbl")
@@ -55,12 +57,21 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 	public static String toHTML(final ComponentParameter cp) throws Exception {
 		final StringBuilder sb = new StringBuilder();
 		final String componentName = cp.getComponentName();
+		final String act = "$Actions['" + componentName + "_history_tbl']";
 		sb.append("<div class='AttachmentHistoryTbl'>");
+		sb.append(" <div class='tb2 clearfix'>");
+		sb.append("  <div class='left'>")
+				.append(new Checkbox(null, null).setOnclick(act + ".checkAll(this);")).append("</div>");
+		sb.append("  <div class='right'>")
+				.append(new ButtonElement($m("AttachmentHistoryLoaded.5"))
+						.setOnclick("$Actions['" + cp.getComponentName()
+								+ "_history_selected']('attachId=' + " + act + ".checkParams());"))
+				.append("</div>");
+		sb.append(" </div>");
 		final String types = cp.getParameter("types");
 		if (!StringUtils.hasText(types)) {
 			sb.append(" <div class='tb'>");
 			final String rname = componentName + "_radio";
-			final String act = "$Actions['" + componentName + "_history_tbl']";
 			sb.append(new Radio("id" + componentName + "_radio0", $m("AttachmentHistoryLoaded.0"))
 					.setOnclick(act + "('types=');").setChecked(true).setName(rname));
 			sb.append(new Radio("id" + componentName + "_radio1", $m("AttachmentHistoryLoaded.1"))
