@@ -32,12 +32,12 @@ var AttachmentUtils = {
     if (player) {
       player.setStyle("bottom: " + (fitem.measure("bottom") - 1) + "px;");
       player.show();
-      window._player = player;
+      au._player = player;
     }
   },
 
   init_player : function(au) {
-    var player = window._player;
+    var player = au._player;
     if (!player || player._onclick) {
       return;
     }
@@ -61,7 +61,7 @@ var AttachmentUtils = {
   },
 
   hide_player : function(au) {
-    var player = window._player;
+    var player = au._player;
     if (player) {
       player.hide();
     }
@@ -107,7 +107,7 @@ var AttachmentUtils = {
         function() {
           var au = window._au;
           if (au) {
-            var player = window._player;
+            var player = au._player;
             if (player) {
               var dot = player.down('.dot');
               var time = au.sound.seek();
