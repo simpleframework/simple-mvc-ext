@@ -61,7 +61,10 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 		sb.append("<div class='AttachmentHistoryTbl'>");
 		sb.append(" <div class='tb2 clearfix'>");
 		sb.append("  <div class='left'>")
-				.append(new Checkbox(null, null).setOnclick(act + ".checkAll(this);")).append("</div>");
+				.append(
+						new Checkbox("id" + componentName + "_checkAll", $m("AttachmentHistoryLoaded.6"))
+								.setOnclick(act + ".checkAll(this);"))
+				.append("</div>");
 		sb.append("  <div class='right'>")
 				.append(new ButtonElement($m("AttachmentHistoryLoaded.5"))
 						.setOnclick("$Actions['" + cp.getComponentName()
