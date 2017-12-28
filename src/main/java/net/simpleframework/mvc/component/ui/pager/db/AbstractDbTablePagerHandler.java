@@ -49,7 +49,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 			final TablePagerColumns columns = super.getTablePagerColumns(cp);
 			IDataQuery<?> dQuery;
 			if (columns.size() == 0
-					&& (dQuery = getRawDataQuery(getDataObjectQuery(cp))) instanceof DbDataQuery) {
+					&& (dQuery = getRawDataQuery(_getDataObjectQuery(cp))) instanceof DbDataQuery) {
 				((DbDataQuery<?>) dQuery).doResultSetMetaData(new ResultSetMetaDataCallback() {
 
 					@Override
@@ -172,7 +172,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 
 	@Override
 	protected List<?> getData(final ComponentParameter cp, final int start) {
-		final IDataQuery<?> dataQuery = getRawDataQuery(getDataObjectQuery(cp));
+		final IDataQuery<?> dataQuery = getRawDataQuery(_getDataObjectQuery(cp));
 		if (dataQuery instanceof DbDataQuery) {
 			doSortSQL(cp, (DbDataQuery<?>) dataQuery);
 		}
