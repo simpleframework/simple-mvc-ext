@@ -70,12 +70,11 @@
     m.className = "login_icon_" + type;
   }
 
-  function _save_cookie() {
-    document.setCookie("_account_name", encodeURIComponent($F("_accountName")),
-        24 * 365);
+  function _save_cookie(user, pwd) {
+    document.setCookie("_account_name", encodeURIComponent(user), 24 * 365);
     var _autoLogin = $("_autoLogin");
     if (_autoLogin && $F(_autoLogin) == "true") {
-      document.setCookie("_account_pwd", Base64.encode($F("_passwordName")), 24 * 14);
+      document.setCookie("_account_pwd", pwd, 24 * 14);
     }
   }
 
