@@ -1,6 +1,6 @@
 ﻿/**
- * Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/terms-of-use/#open-source-licences
  */
 
 // This file contains style definitions that can be used by CKEditor plugins.
@@ -13,7 +13,7 @@
 // ignore it. Otherwise it is strongly recommended to customize this file to match your
 // website requirements and design properly.
 //
-// For more information refer to: http://docs.ckeditor.com/#!/guide/dev_styles-section-style-rules
+// For more information refer to: https://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_styles-section-style-rules
 
 CKEDITOR.stylesSet.add( 'default', [
 	/* Block styles */
@@ -33,17 +33,37 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Address',			element: 'address' },
 	*/
 
-	{ name: 'Italic Title',		element: 'h2', styles: { 'font-style': 'italic' } },
+	{ name: '标题2（斜体）',		element: 'h2', styles: { 'font-style': 'italic' } },
 	{ name: 'Subtitle',			element: 'h3', styles: { 'color': '#aaa', 'font-style': 'italic' } },
-	{
-		name: 'Special Container',
-		element: 'div',
-		styles: {
-			padding: '5px 10px',
-			background: '#eee',
-			border: '1px solid #ccc'
+ 	{
+		name : '边框（样式1）',
+		element : 'div',
+		styles : {
+			'background-color' : '#f9f9f9',
+			'padding' : '8px 10px',
+			'border' : '1px solid #ddd'
 		}
-	},
+ 	}, 
+ 	{
+		name : '边框（样式2）',
+		element : 'div',
+		styles : {
+			'background-color' : '#fff',
+			'padding' : '8px 10px',
+			'border-top' : '3px solid #406c8f',
+			'box-shadow' : '1px 1px 10px #ccc'
+		}
+ 	}, 
+ 	{
+		name : '边框（样式3）',
+		element : 'div',
+		styles : {
+			'background-color' : '#fff5f5',
+			'padding' : '8px 10px',
+			'border-left' : '3px solid #e33',
+			'border-right' : '3px solid #e33'
+		}
+ 	},
 
 	/* Inline styles */
 
@@ -59,7 +79,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Superscript',		element: 'sup' },
 	*/
 
-	{ name: 'Marker',			element: 'span', styles: { 'background-color': 'Yellow' } },
+	{ name: 'Marker',			element: 'span', attributes: { 'class': 'marker' } },
 
 	{ name: 'Big',				element: 'big' },
 	{ name: 'Small',			element: 'small' },
@@ -75,10 +95,10 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Cited Work',		element: 'cite' },
 	{ name: 'Inline Quotation',	element: 'q' },
-	/*
+
 	{ name: 'Language: RTL',	element: 'span', attributes: { 'dir': 'rtl' } },
 	{ name: 'Language: LTR',	element: 'span', attributes: { 'dir': 'ltr' } },
-	 */
+
 	/* Object styles */
 
 	{
@@ -109,9 +129,9 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Borderless Table',		element: 'table',	styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
 	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } },
-	
+
 	/* Widget styles */
-	/*
+
 	{ name: 'Clean Image', type: 'widget', widget: 'image', attributes: { 'class': 'image-clean' } },
 	{ name: 'Grayscale Image', type: 'widget', widget: 'image', attributes: { 'class': 'image-grayscale' } },
 
@@ -119,19 +139,19 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Featured Formula', type: 'widget', widget: 'mathjax', attributes: { 'class': 'math-featured' } },
 
-	{ name: '240p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-240p' } },
-	{ name: '360p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-360p' } },
-	{ name: '480p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-480p' } },
-	{ name: '720p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-720p' } },
-	{ name: '1080p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-1080p' } },
+	{ name: '240p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-240p' }, group: 'size' },
+	{ name: '360p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-360p' }, group: 'size' },
+	{ name: '480p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-480p' }, group: 'size' },
+	{ name: '720p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-720p' }, group: 'size' },
+	{ name: '1080p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-1080p' }, group: 'size' },
 
 	// Adding space after the style name is an intended workaround. For now, there
-	// is no option to create two styles with the same name for different widget types. See #16664.
-	{ name: '240p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-240p' } },
-	{ name: '360p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-360p' } },
-	{ name: '480p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-480p' } },
-	{ name: '720p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-720p' } },
-	{ name: '1080p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-1080p' } }
-  */
+	// is no option to create two styles with the same name for different widget types. See https://dev.ckeditor.com/ticket/16664.
+	{ name: '240p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-240p' }, group: 'size' },
+	{ name: '360p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-360p' }, group: 'size' },
+	{ name: '480p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-480p' }, group: 'size' },
+	{ name: '720p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-720p' }, group: 'size' },
+	{ name: '1080p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-1080p' }, group: 'size' }
+
 ] );
 

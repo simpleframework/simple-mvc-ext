@@ -207,7 +207,7 @@ body[contenteditable="false"] *,
 
 .cke_editable img, 
 .cke_editable table {
-  max-width: 100%;
+  max-width: 100% !important;
 }
 
 .cke_editable table td, 
