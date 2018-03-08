@@ -176,21 +176,36 @@ a>img {
 }
 
 /* ckan77 */
+html {
+  background-color: #f8f8f8;
+}
+
+body[contenteditable] {
+  background-color: #fff;
+  margin: 20px auto;
+  padding: 10px 15px;
+  max-width: 480px;
+  min-height: 800px;
+  box-shadow: 0 0 10px #ddd;
+}
+
+.cke_editable {
+  text-align: justify;
+  font-size: 10.5pt;
+  line-height: 1.7;
+}
+
 body[contenteditable="false"] *, 
 .cke_editable[contenteditable="false"] * {
   color: #888 !important;
 }
 
-body {
-  margin: 8px;
+img,
+table {
+  max-width: 100%;
 }
 
 table td,
 table th {
   padding: 4px;
-}
-
-img,
-table {
-  max-width: 100%;
 }
