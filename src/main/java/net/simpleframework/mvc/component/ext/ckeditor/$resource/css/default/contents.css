@@ -180,19 +180,8 @@ html {
   background-color: #f8f8f8;
 }
 
-body[contenteditable] {
-  background-color: #fff;
-  margin: 20px auto;
-  padding: 10px 15px;
-  max-width: 480px;
-  min-height: 800px;
-  box-shadow: 0 0 10px #ddd;
-}
-
-.cke_editable {
-  text-align: justify;
-  font-size: 10.5pt;
-  line-height: 1.7;
+a:focus {
+  outline: none !important;
 }
 
 body[contenteditable="false"] *, 
@@ -200,12 +189,28 @@ body[contenteditable="false"] *,
   color: #888 !important;
 }
 
-img,
-table {
+.cke_editable {
+  background-color: #fff;
+  margin: 20px auto;
+  padding: 10px 15px;
+  max-width: 480px;
+  min-height: 800px;
+  box-shadow: 0 0 10px #ddd;
+  font-size: 10.5pt;
+  line-height: 1.7;
+}
+
+.cke_editable div,
+.cke_editable p {
+  text-align: justify;
+}
+
+.cke_editable img, 
+.cke_editable table {
   max-width: 100%;
 }
 
-table td,
-table th {
+.cke_editable table td, 
+.cke_editable table th {
   padding: 4px;
 }
