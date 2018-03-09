@@ -41,39 +41,39 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: '边框3',   element: 'p', attributes: { 'class' : 'html-editor-border3' } },
 	
 	{ name: '强调1',   element: 'span', attributes: { 'class' : 'html-editor-strong1' } },
-  { name: '强调2',   element: 'span', attributes: { 'class' : 'html-editor-strong2' } },
-  { name: '强调3',   element: 'span', attributes: { 'class' : 'html-editor-strong3' } },
-  { name: '强调4',   element: 'span', attributes: { 'class' : 'html-editor-strong4' } },
+	{ name: '强调2',   element: 'span', attributes: { 'class' : 'html-editor-strong2' } },
+	{ name: '强调3',   element: 'span', attributes: { 'class' : 'html-editor-strong3' } },
+	{ name: '强调4',   element: 'span', attributes: { 'class' : 'html-editor-strong4' } },
   
-  { name: '引用',    element: 'q' },
-  { name: '删除',    element: 'del' },
-  { name: '插入',    element: 'ins' },
+	{ name: '引用',    element: 'q' },
+	{ name: '删除',    element: 'del' },
+	{ name: '插入',    element: 'ins' },
   
-  { name: '图片居左',  element: 'img',  attributes: { 'class': 'left' } },
-  { name: '图片居右',  element: 'img',  attributes: { 'class': 'right' } },
+	{ name: '图片居左',  element: 'img',  attributes: { 'class': 'html-editor-img-left' } },
+	{ name: '图片居右',  element: 'img',  attributes: { 'class': 'html-editor-img-right' } },
   
-  {
-    name: '带边框表格',
-    element: 'table',
-    attributes: {
-      align: 'center',
-      cellpadding: '5',
-      cellspacing: '0',
-      border: '1',
-      bordercolor: '#ccc'
-    },
-    styles: {
-      'border-collapse': 'collapse'
-    }
-  },
-  { 
-    name: '无边框表格',   
-    element: 'table', 
-    styles: { 
-      'border-style': 'hidden', 
-      'background-color': '#E6E6FA' 
-    } 
-  },
+	{
+	    name: '带边框表格',
+	    element: 'table',
+	    attributes: {
+	      align: 'center',
+	      cellpadding: '5',
+	      cellspacing: '0',
+	      border: '1',
+	      bordercolor: '#ccc'
+	    },
+	    styles: {
+	      'border-collapse': 'collapse'
+	    }
+	},
+	{ 
+	    name: '无边框表格',   
+	    element: 'table', 
+	    styles: { 
+	      'border-style': 'hidden', 
+	      'background-color': '#E6E6FA' 
+	    } 
+	},
   
 	/*
 	{ name: '',   element: 'div', attributes: { 'class' : 'html-editor-line1' } },
@@ -114,7 +114,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	*/
 	
 	/* Object styles */
-  { name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } },
+	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } },
 
 	/* Widget styles */
 	/*

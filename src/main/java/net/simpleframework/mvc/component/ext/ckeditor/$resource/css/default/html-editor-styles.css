@@ -4,24 +4,29 @@
   color: #555 !important;
   font-weight: bolder !important;
   vertical-align: middle;
+  position: relative;
+  display: table;
+  margin: 18px auto;
 }
 
 .html-editor-topic1:before, 
 .html-editor-topic1:after {
-  content: " ";
+  content: "";
   display: inline-block;
   width: 30px;
   height: 2px;
   background-color: #a16;
   vertical-align: middle;
+  position: absolute;
+  top: 50%;
 }
 
 .html-editor-topic1:before {
-  margin-right: 8px;
+  left: -40px;
 }
 
 .html-editor-topic1:after {
-  margin-left: 8px;
+  right: -40px;
 }
 
 .html-editor-topic2 {
@@ -70,4 +75,18 @@
 
 .html-editor-strong4 {
   background-color: yellow;
+}
+
+.html-editor-img-right {
+  border: 1px solid #ccc;
+  float: right;
+  margin-left: 15px;
+  padding: 5px;
+}
+
+.html-editor-img-left {
+  border: 1px solid #ccc;
+  float: left;
+  margin-right: 15px;
+  padding: 5px;
 }
