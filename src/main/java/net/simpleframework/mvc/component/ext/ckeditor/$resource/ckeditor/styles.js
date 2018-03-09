@@ -32,39 +32,53 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Preformatted Text',element: 'pre' },
 	{ name: 'Address',			element: 'address' },
 	*/
-
-	{ name: '标题2（斜体）',		element: 'h2', styles: { 'font-style': 'italic' } },
-	{ name: 'Subtitle',			element: 'h3', styles: { 'color': '#aaa', 'font-style': 'italic' } },
- 	{
-		name : '边框（样式1）',
-		element : 'div',
-		styles : {
-			'background-color' : '#f9f9f9',
-			'padding' : '8px 10px',
-			'border' : '1px solid #ddd'
-		}
- 	}, 
- 	{
-		name : '边框（样式2）',
-		element : 'div',
-		styles : {
-			'background-color' : '#fff',
-			'padding' : '8px 10px',
-			'border-top' : '3px solid #406c8f',
-			'box-shadow' : '1px 1px 10px #ccc'
-		}
- 	}, 
- 	{
-		name : '边框（样式3）',
-		element : 'div',
-		styles : {
-			'background-color' : '#fff5f5',
-			'padding' : '8px 10px',
-			'border-left' : '3px solid #e33',
-			'border-right' : '3px solid #e33'
-		}
- 	},
-
+  
+	{ name: '标题1',   element: 'p', attributes: { 'class' : 'html-editor-topic1' } },
+	{ name: '标题2',   element: 'p', attributes: { 'class' : 'html-editor-topic2' } },
+ 
+	{ name: '边框1',   element: 'p', attributes: { 'class' : 'html-editor-border1' } },
+	{ name: '边框2',   element: 'p', attributes: { 'class' : 'html-editor-border2' } },
+	{ name: '边框3',   element: 'p', attributes: { 'class' : 'html-editor-border3' } },
+	
+	{ name: '强调1',   element: 'span', attributes: { 'class' : 'html-editor-strong1' } },
+  { name: '强调2',   element: 'span', attributes: { 'class' : 'html-editor-strong2' } },
+  { name: '强调3',   element: 'span', attributes: { 'class' : 'html-editor-strong3' } },
+  { name: '强调4',   element: 'span', attributes: { 'class' : 'html-editor-strong4' } },
+  
+  { name: '引用',    element: 'q' },
+  { name: '删除',    element: 'del' },
+  { name: '插入',    element: 'ins' },
+  
+  { name: '图片居左',  element: 'img',  attributes: { 'class': 'left' } },
+  { name: '图片居右',  element: 'img',  attributes: { 'class': 'right' } },
+  
+  {
+    name: '带边框表格',
+    element: 'table',
+    attributes: {
+      align: 'center',
+      cellpadding: '5',
+      cellspacing: '0',
+      border: '1',
+      bordercolor: '#ccc'
+    },
+    styles: {
+      'border-collapse': 'collapse'
+    }
+  },
+  { 
+    name: '无边框表格',   
+    element: 'table', 
+    styles: { 
+      'border-style': 'hidden', 
+      'background-color': '#E6E6FA' 
+    } 
+  },
+  
+	/*
+	{ name: '',   element: 'div', attributes: { 'class' : 'html-editor-line1' } },
+	{ name: '',   element: 'div', attributes: { 'class' : 'html-editor-line2' } },
+	  */
 	/* Inline styles */
 
 	// These are core styles available as toolbar buttons. You may opt enabling
@@ -77,10 +91,9 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Strikethrough',	element: 'strike' },
 	{ name: 'Subscript',		element: 'sub' },
 	{ name: 'Superscript',		element: 'sup' },
-	*/
-
+	
 	{ name: 'Marker',			element: 'span', attributes: { 'class': 'marker' } },
-
+	
 	{ name: 'Big',				element: 'big' },
 	{ name: 'Small',			element: 'small' },
 	{ name: 'Typewriter',		element: 'tt' },
@@ -98,40 +111,13 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Language: RTL',	element: 'span', attributes: { 'dir': 'rtl' } },
 	{ name: 'Language: LTR',	element: 'span', attributes: { 'dir': 'ltr' } },
-
+	*/
+	
 	/* Object styles */
-
-	{
-		name: 'Styled Image (left)',
-		element: 'img',
-		attributes: { 'class': 'left' }
-	},
-
-	{
-		name: 'Styled Image (right)',
-		element: 'img',
-		attributes: { 'class': 'right' }
-	},
-
-	{
-		name: 'Compact Table',
-		element: 'table',
-		attributes: {
-			cellpadding: '5',
-			cellspacing: '0',
-			border: '1',
-			bordercolor: '#ccc'
-		},
-		styles: {
-			'border-collapse': 'collapse'
-		}
-	},
-
-	{ name: 'Borderless Table',		element: 'table',	styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
-	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } },
+  { name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } },
 
 	/* Widget styles */
-
+	/*
 	{ name: 'Clean Image', type: 'widget', widget: 'image', attributes: { 'class': 'image-clean' } },
 	{ name: 'Grayscale Image', type: 'widget', widget: 'image', attributes: { 'class': 'image-grayscale' } },
 
@@ -152,6 +138,6 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: '480p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-480p' }, group: 'size' },
 	{ name: '720p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-720p' }, group: 'size' },
 	{ name: '1080p ', type: 'widget', widget: 'embed', attributes: { 'class': 'embed-1080p' }, group: 'size' }
-
+  */
 ] );
 
