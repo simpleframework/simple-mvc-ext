@@ -35,6 +35,7 @@ CKEDITOR.stylesSet.add( 'default', [
   
 	{ name: '标题1',   element: 'p', attributes: { 'class' : 'html-editor-topic1' } },
 	{ name: '标题2',   element: 'p', attributes: { 'class' : 'html-editor-topic2' } },
+	{ name: '标题3',   element: 'p', attributes: { 'class' : 'html-editor-topic3' } },
 	
 	{ name: '边框1',   element: 'p', attributes: { 'class' : 'html-editor-border1' } },
 	{ name: '边框2',   element: 'p', attributes: { 'class' : 'html-editor-border2' } },
