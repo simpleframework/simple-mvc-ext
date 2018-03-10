@@ -58,6 +58,37 @@
   border-radius: 6px;
 }
 
+.html-editor-border4 {
+	border-left: 4px solid #975;
+	background-color: #f6f6f6;
+	padding: 10px;
+}
+
+.html-editor-button1, 
+.html-editor-button2 {
+	display: inline-block;
+	text-align: center;
+	line-height: 1.1;
+	font-size: 11.5pt;
+}
+
+.html-editor-button1 {
+	background-color: #2a7;
+	color: #fff;
+	padding: 8px 25px;
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+	border-radius: 40px;
+}
+
+.html-editor-button2 {
+	border: 2px solid #555;
+	padding: 8px 20px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
 .html-editor-strong1 {
   font-weight: bolder;
   color: #38c;

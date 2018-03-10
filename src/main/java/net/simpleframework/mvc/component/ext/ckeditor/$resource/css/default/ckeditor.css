@@ -41,3 +41,7 @@
 .cke_button__code_label {
   display: none !important;
 }
+
+.cke_combopanel {
+	height: 280px !important;	
+}

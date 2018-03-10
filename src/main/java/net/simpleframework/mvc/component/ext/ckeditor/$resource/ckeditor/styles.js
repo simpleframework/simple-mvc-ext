@@ -35,10 +35,14 @@ CKEDITOR.stylesSet.add( 'default', [
   
 	{ name: '标题1',   element: 'p', attributes: { 'class' : 'html-editor-topic1' } },
 	{ name: '标题2',   element: 'p', attributes: { 'class' : 'html-editor-topic2' } },
- 
+	
 	{ name: '边框1',   element: 'p', attributes: { 'class' : 'html-editor-border1' } },
 	{ name: '边框2',   element: 'p', attributes: { 'class' : 'html-editor-border2' } },
 	{ name: '边框3',   element: 'p', attributes: { 'class' : 'html-editor-border3' } },
+	{ name: '边框4',   element: 'p', attributes: { 'class' : 'html-editor-border4' } },
+	
+	{ name: '按钮1',   element: 'span', attributes: { 'class' : 'html-editor-button1' } },
+	{ name: '按钮2',   element: 'span', attributes: { 'class' : 'html-editor-button2' } },
 	
 	{ name: '强调1',   element: 'span', attributes: { 'class' : 'html-editor-strong1' } },
 	{ name: '强调2',   element: 'span', attributes: { 'class' : 'html-editor-strong2' } },
