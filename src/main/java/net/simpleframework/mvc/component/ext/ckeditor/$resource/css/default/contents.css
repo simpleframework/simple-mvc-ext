@@ -182,10 +182,6 @@ html {
   background-color: #f8f8f8;
 }
 
-a:focus {
-  outline: none !important;
-}
-
 body[contenteditable="false"] *, 
 .cke_editable[contenteditable="false"] * {
   color: #888 !important;
