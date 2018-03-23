@@ -197,18 +197,3 @@ body[contenteditable="false"] *,
   font-size: 10.5pt;
   line-height: 1.7;
 }
-
-.cke_editable div,
-.cke_editable p {
-  text-align: justify;
-}
-
-.cke_editable img, 
-.cke_editable table {
-  max-width: 100% !important;
-}
-
-.cke_editable table td, 
-.cke_editable table th {
-  padding: 4px;
-}
