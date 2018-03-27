@@ -156,6 +156,7 @@
   max-width: 100% !important;
   text-align: justify;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .cke_editable img, 
