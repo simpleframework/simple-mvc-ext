@@ -41,6 +41,11 @@
   height: 96px;
 }
 
+.Comp_Attachment .imgc .iitem img.move {
+  width: 12px;
+  margin: 0 4px;
+}
+
 .Comp_Attachment .imgc img.status { 
   vertical-align: middle;
   margin-left: 3px;

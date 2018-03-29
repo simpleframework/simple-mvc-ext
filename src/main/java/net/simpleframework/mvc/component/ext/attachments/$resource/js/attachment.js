@@ -25,6 +25,16 @@ var AttachmentUtils = {
     }
     $Actions[act]('rowIds=' + arr.join(";"));
   },
+  
+  doMove_imgMode : function(item, attachmentName, next) {
+    var iitem = item.up('.iitem');
+    var id = iitem.getAttribute('rowid');
+    var iitem2 = next ? iitem.next() : iitem.previous();
+    if (iitem2) {
+      var rowid = iitem2.getAttribute('rowid');
+      $Actions[attachmentName + '_move2']('rowIds=' + rowid + ';' + id);
+    }
+  },
 
   show_player : function(au) {
     var fitem = au.up('.fitem');

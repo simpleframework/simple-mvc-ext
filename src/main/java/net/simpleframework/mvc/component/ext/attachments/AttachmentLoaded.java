@@ -121,6 +121,13 @@ public class AttachmentLoaded extends DefaultPageHandler {
 								"AttachmentUtils.doMove2(item, '" + moveAct + "');"));
 			}
 
+			// 图像模式
+			if ((Boolean) cp.getBeanProperty("imagesMode")) {
+				pp.addComponentBean(attachmentName + "_move2", AjaxRequestBean.class)
+						.setHandlerMethod("doMove").setHandlerClass(AttachmentAction.class)
+						.setAttr("$attachment", attachmentBean);
+			}
+
 			// 选取
 			final String insertTextarea = (String) cp.getBeanProperty("insertTextarea");
 			if (StringUtils.hasText(insertTextarea)) {

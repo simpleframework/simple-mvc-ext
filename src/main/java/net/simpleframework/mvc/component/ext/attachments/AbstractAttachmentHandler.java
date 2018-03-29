@@ -312,7 +312,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final AttachmentFile attachment, final int index) throws IOException {
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<div class='iitem'>");
+		sb.append("<div class='iitem' rowid='").append(id).append("'>");
 		sb.append(" <div id='attach_").append(id).append("' class='i_attach'>");
 		sb.append(createAttachmentItem_Image(cp, id, attachment));
 		sb.append(" </div>");
@@ -363,6 +363,13 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				sb.append(img);
 			}
 			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
+			final String ipath = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
+					+ "/images";
+			final String attachmentName = cp.getComponentName();
+			sb.append(new ImageElement(ipath + "/up.png").setClassName("move")
+					.setOnclick("AttachmentUtils.doMove_imgMode(this, '" + attachmentName + "');"));
+			sb.append(new ImageElement(ipath + "/down.png").setClassName("move").setOnclick(
+					"AttachmentUtils.doMove_imgMode(this, '" + attachmentName + "', true);"));
 		}
 		return sb.toString();
 	}
