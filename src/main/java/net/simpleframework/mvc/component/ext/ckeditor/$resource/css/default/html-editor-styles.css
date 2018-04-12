@@ -140,15 +140,18 @@
 }
 
 /*---------------| cke_editable |--------------*/
-.cke_editable video::-internal-media-controls-download-button {
+.cke_editable video::-internal-media-controls-download-button,
+.cke_editable audio::-internal-media-controls-download-button {
   display: none;
 }
 
-.cke_editable video::-webkit-media-controls-enclosure {
+.cke_editable video::-webkit-media-controls-enclosure,
+.cke_editable audio::-webkit-media-controls-enclosure {
   overflow: hidden;
 }
 
-.cke_editable video::-webkit-media-controls-panel {
+.cke_editable video::-webkit-media-controls-panel,
+.cke_editable audio::-webkit-media-controls-panel {
   width: calc(100% + 30px);
 }
 
