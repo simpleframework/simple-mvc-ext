@@ -195,7 +195,7 @@
 /*---------------| html-editor-resource |--------------*/
 .html-editor-resource {
   background-color: #f9f9f9;
-  padding: 0 15px;
+  padding: 12px 0;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -203,7 +203,11 @@
 
 .html-editor-resource .he-item {
   border-bottom: 1px solid #eee;
-  padding: 10px 0;
+  padding: 10px 15px;
+}
+
+.html-editor-resource .he-item:hover {
+  background-color: #eee;
 }
 
 .html-editor-resource .he-item:last-child {
