@@ -12,11 +12,11 @@
   
   var sh_comp = {
     insert : function() {
-      var script = ('<pre class=\"brush: ' + $F('sh_window_lang').toLowerCase()
-          + '; gutter: ' + $('sh_window_opt1').checked + '; html-script: '
-          + $('sh_window_opt2').checked + ';\">'
-          + $F('sh_window_textarea').escapeHTML() + '</pre>').makeElement();
-          
+      var script = ('<pre class=\"brush:' + $F('sh_window_lang').toLowerCase()
+          + ';gutter:' + $('sh_window_opt1').checked + ';html-script:'
+          + $('sh_window_opt2').checked + ';\"></pre>').makeElement();
+      script.innerHTML = $F('sh_window_textarea');
+      
       var act = $Actions['<%=nCP.getComponentName()%>'];    
       if (act.jsSelectedCallback) {
         if (act.jsSelectedCallback(script))
