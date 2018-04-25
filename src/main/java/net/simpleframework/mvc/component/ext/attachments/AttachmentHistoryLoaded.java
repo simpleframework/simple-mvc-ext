@@ -80,7 +80,7 @@ public class AttachmentHistoryLoaded extends DefaultPageHandler {
 			sb.append(new Radio("id" + componentName + "_radio1", $m("AttachmentHistoryLoaded.1"))
 					.setOnclick(act + "('types=doc;docx;pdf');").setVal("doc").setName(rname));
 			sb.append(new Radio("id" + componentName + "_radio2", $m("AttachmentHistoryLoaded.2"))
-					.setOnclick(act + "('types=png;jpg;jpeg;bmp');").setVal("pic").setName(rname));
+					.setOnclick(act + "('types=png;jpg;jpeg;bmp;webp');").setVal("pic").setName(rname));
 			sb.append(new Radio("id" + componentName + "_radio3", $m("AttachmentHistoryLoaded.3"))
 					.setOnclick(act + "('types=mp3;m4a;wav');").setVal("audio").setName(rname));
 			sb.append(new Radio("id" + componentName + "_radio4", $m("AttachmentHistoryLoaded.4"))
