@@ -42,5 +42,5 @@ CKEDITOR.editorConfig = function(config) {
 
   config.removePlugins = 'elementspath';
   // 扩展插件
-  config.extraPlugins = '_syntaxhighlight,_attach';
+  config.extraPlugins = '_syntaxhighlight,_attach,tableresize';
 };

@@ -88,13 +88,14 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 		}
 
 		sb.append("on: {");
-		sb.append("  instanceReady: function(ev) { CKEDITOR['_loading_").append(componentName)
-				.append("'] = false; ");
+		sb.append(" instanceReady: function(ev) { ");
+		// sb.append(" var editor = ev.editor;");
+		sb.append("  CKEDITOR['_loading_").append(componentName).append("'] = false; ");
 		final String jsLoadedCallback = (String) cp.getBeanProperty("jsLoadedCallback");
 		if (StringUtils.hasText(jsLoadedCallback)) {
 			sb.append(jsLoadedCallback);
 		}
-		sb.append("  }");
+		sb.append(" }");
 		sb.append("}");
 		sb.append("});");
 
