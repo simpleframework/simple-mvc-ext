@@ -42,7 +42,7 @@ CKEDITOR.editorConfig = function(config) {
 
 	config.removePlugins = 'elementspath';
 	// 扩展插件
-	config.extraPlugins = '_syntaxhighlight,_attach,tableresize';
+	config.extraPlugins = '_syntaxhighlight,_attach,tableresize,image';
 
 	CKEDITOR.on('dialogDefinition', function(ev) {
 		var dialogName = ev.data.name;
