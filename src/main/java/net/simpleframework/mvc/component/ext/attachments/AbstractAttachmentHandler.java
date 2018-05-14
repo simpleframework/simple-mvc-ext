@@ -143,15 +143,15 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				final int srcY = Convert.toInt(data.get("y"));
 				final BufferedImage bi = ImageUtils.clip(istream, width, height, srcX, srcY);
 
-				String path = oFile.getAbsolutePath();
+				final String path = oFile.getAbsolutePath();
 				final int index = path.lastIndexOf('.');
-				if (-1 != index) {
-					path = path.substring(0, index);
-				}
-				final File nFile = new File(path + "_.png");
+				final boolean dot = index > -1;
+				final String filename = dot ? path.substring(0, index) : path;
+				final String ext = dot ? path.substring(index + 1) : "png";
+				final File nFile = new File(filename + "_." + ext);
 				final FileOutputStream ostream = new FileOutputStream(nFile);
 				try {
-					ImageIO.write(bi, "png", ostream);
+					ImageIO.write(bi, ext, ostream);
 					e.setValue(af.setAttachment(nFile));
 				} finally {
 					ostream.close();
