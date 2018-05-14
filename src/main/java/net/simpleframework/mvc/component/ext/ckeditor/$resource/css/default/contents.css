@@ -197,3 +197,8 @@ body[contenteditable="false"] *,
   font-size: 10.5pt;
   line-height: 1.7;
 }
+
+.cke_image_resizer {
+  bottom: 0 !important;
+  right: 0 !important;
+}

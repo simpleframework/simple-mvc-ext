@@ -2,21 +2,18 @@ package net.simpleframework.mvc.component.ext.attachments;
 
 import static net.simpleframework.common.I18n.$m;
 
-import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipOutputStream;
-
-import javax.imageio.ImageIO;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.Convert;
@@ -135,30 +132,21 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			final Map<String, Object> data = JsonUtils.toMap(cropper);
 			final AttachmentFile af = e.getValue();
 			final File oFile = af.getAttachment();
-			final InputStream istream = new FileInputStream(oFile);
-			try {
-				final int width = Convert.toInt(data.get("width"));
-				final int height = Convert.toInt(data.get("height"));
-				final int srcX = Convert.toInt(data.get("x"));
-				final int srcY = Convert.toInt(data.get("y"));
-				final BufferedImage bi = ImageUtils.clip(istream, width, height, srcX, srcY);
+			final int width = Convert.toInt(data.get("width"));
+			final int height = Convert.toInt(data.get("height"));
+			final int srcX = Convert.toInt(data.get("x"));
+			final int srcY = Convert.toInt(data.get("y"));
 
-				final String path = oFile.getAbsolutePath();
-				final int index = path.lastIndexOf('.');
-				final boolean dot = index > -1;
-				final String filename = dot ? path.substring(0, index) : path;
-				final String ext = dot ? path.substring(index + 1) : "png";
-				final File nFile = new File(filename + "_." + ext);
-				final FileOutputStream ostream = new FileOutputStream(nFile);
-				try {
-					ImageIO.write(bi, ext, ostream);
-					e.setValue(af.setAttachment(nFile));
-				} finally {
-					ostream.close();
-				}
-			} finally {
-				istream.close();
-			}
+			final String path = oFile.getAbsolutePath();
+			final int index = path.lastIndexOf('.');
+			final boolean dot = index > -1;
+			final String filename = dot ? path.substring(0, index) : path;
+			final String ext = dot ? path.substring(index + 1).toLowerCase() : "png";
+			final File nFile = new File(filename + "_." + ext);
+
+			ImageUtils.clip(new FileInputStream(oFile), new FileOutputStream(nFile),
+					new Rectangle(srcX, srcY, width, height), ext);
+			e.setValue(af.setAttachment(nFile));
 		}
 	}
 
