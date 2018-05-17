@@ -22,6 +22,7 @@ body {
   word-wrap: break-word;
 }
 
+/* ckan77
 blockquote {
   font-style: italic;
   font-family: Georgia, Times, "Times New Roman", serif;
@@ -42,6 +43,7 @@ blockquote {
   padding-right: 20px;
   border-right-width: 5px;
 }
+*/
 
 a {
   color: #0782C1;

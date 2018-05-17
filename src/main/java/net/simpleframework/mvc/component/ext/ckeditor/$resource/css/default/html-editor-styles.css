@@ -247,3 +247,26 @@
   font-size: 9pt;
   padding-top: 6px;
 }
+
+/*---------------| common |--------------*/
+blockquote {
+  position: relative;
+  color: #222;
+  background: #f9f9f9;
+  margin: 20px 0 !important;
+  padding: 16px 24px !important;
+  font-size: 10.5pt !important;
+  border-left: 3px solid #aaa !important;
+}
+
+blockquote:before {
+  font-size: 24px;
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  display: inline-block;
+  width: 13px;
+  height: 9px;
+  content: '';
+  background-image: url(images/icon-quotation.svg);
+}
