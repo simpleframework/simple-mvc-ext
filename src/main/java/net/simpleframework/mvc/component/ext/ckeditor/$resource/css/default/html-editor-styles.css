@@ -1,3 +1,8 @@
+hr {
+  border-top: 3px dotted #777 !important;
+  margin: 30px auto;
+}
+
 .html-editor-chapter {
   background-color: #c84;
   color: #fff;

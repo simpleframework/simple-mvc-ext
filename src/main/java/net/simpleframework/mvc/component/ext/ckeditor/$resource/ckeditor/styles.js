@@ -42,7 +42,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: '边框2',   element: 'p', attributes: { 'class' : 'html-editor-border2' } },
 	{ name: '边框3',   element: 'p', attributes: { 'class' : 'html-editor-border3' } },
 	{ name: '边框4',   element: 'p', attributes: { 'class' : 'html-editor-border4' } },
-	
+	  
 	{ name: '按钮1',   element: 'span', attributes: { 'class' : 'html-editor-button1' } },
 	{ name: '按钮2',   element: 'span', attributes: { 'class' : 'html-editor-button2' } },
 	
