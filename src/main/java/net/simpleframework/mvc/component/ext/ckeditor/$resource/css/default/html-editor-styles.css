@@ -1,3 +1,15 @@
+.html-editor-chapter {
+  background-color: #c84;
+  color: #fff;
+  text-align: center !important;
+  padding: 8px 0;
+  margin: 30px auto;
+  font-style: italic;
+  font-size: 13pt;
+  border-top: 5px solid #975;
+  border-bottom: 5px solid #975;
+}
+
 .html-editor-topic1 {
   text-align: center !important;
   font-size: 11.5pt !important;
@@ -6,7 +18,7 @@
   vertical-align: middle;
   position: relative;
   display: table;
-  margin: 18px auto;
+  margin: 30px auto;
 }
 
 .html-editor-topic1:before, 
@@ -48,7 +60,7 @@
 	border-bottom: 2px solid #579;
 	border-top: 2px solid #579;
 	display: table;
-	margin: 18px auto;
+	margin: 30px auto;
 	padding: 4px;
 }
 

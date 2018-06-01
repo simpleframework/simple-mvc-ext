@@ -32,6 +32,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Preformatted Text',element: 'pre' },
 	{ name: 'Address',			element: 'address' },
 	*/
+  { name: '章节分割',   element: 'p', attributes: { 'class' : 'html-editor-chapter' } },
   
 	{ name: '标题1',   element: 'p', attributes: { 'class' : 'html-editor-topic1' } },
 	{ name: '标题2',   element: 'p', attributes: { 'class' : 'html-editor-topic2' } },
