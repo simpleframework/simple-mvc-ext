@@ -58,13 +58,6 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return BeanUtils.getProperty(o, name);
 	}
 
-	protected String toEditorHTML_tright(final ComponentParameter cp, final int count) {
-		final StringBuilder sb = new StringBuilder();
-		sb.append($m("AbstractCommentHandler.0")).append("<span class='num'>").append(count)
-				.append("</span>").append($m("AbstractCommentHandler.1"));
-		return sb.toString();
-	}
-
 	@Override
 	public String toEditorHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
@@ -83,17 +76,31 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return sb.toString();
 	}
 
+	protected String toEditor_head_l1HTML(final ComponentParameter cp) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<div class='l1 clearfix'>");
+		sb.append(" <div class='left'>");
+		sb.append("  <span class='icon'></span>");
+		sb.append("  <span class='reply'></span>");
+		sb.append(" </div>");
+		sb.append(" <div class='right'>");
+		sb.append(toEditorHTML_tright(cp, comments(cp).getCount()));
+		sb.append(" </div>");
+		sb.append("</div>");
+		return sb.toString();
+	}
+
+	protected String toEditorHTML_tright(final ComponentParameter cp, final int count) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append($m("AbstractCommentHandler.0")).append("<span class='num'>").append(count)
+				.append("</span>").append($m("AbstractCommentHandler.1"));
+		return sb.toString();
+	}
+
 	protected String toEditor_headHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<div class='t1_head'>");
-		sb.append(" <div class='l1 clearfix'>");
-		sb.append("  <div class='left'>");
-		sb.append("   <span class='icon'></span>");
-		sb.append("   <span class='reply'></span>");
-		sb.append("  </div>");
-		sb.append("  <div class='right'>").append(toEditorHTML_tright(cp, comments(cp).getCount()))
-				.append("</div>");
-		sb.append(" </div>");
+		sb.append(toEditor_head_l1HTML(cp));
 		sb.append(" <div class='l2'>").append(createTextarea(cp));
 		sb.append("  <input type='hidden' name='parentId' />");
 		sb.append(" </div>");
