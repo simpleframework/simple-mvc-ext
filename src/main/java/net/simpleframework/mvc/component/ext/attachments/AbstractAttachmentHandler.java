@@ -130,13 +130,16 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			}
 
 			final Map<String, Object> data = JsonUtils.toMap(cropper);
-			final AttachmentFile af = e.getValue();
-			final File oFile = af.getAttachment();
 			final int width = Convert.toInt(data.get("width"));
 			final int height = Convert.toInt(data.get("height"));
+			if (width == 0 || height == 0) {
+				continue;
+			}
 			final int srcX = Convert.toInt(data.get("x"));
 			final int srcY = Convert.toInt(data.get("y"));
 
+			final AttachmentFile af = e.getValue();
+			final File oFile = af.getAttachment();
 			final String path = oFile.getAbsolutePath();
 			final int index = path.lastIndexOf('.');
 			final boolean dot = index > -1;
@@ -314,7 +317,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				js.append("var img = $('#attach_").append(id).append(" img');");
 				js.append("var cropper = new Cropper(img, {");
 				js.append(" dragMode : 'move',");
-				js.append(" movable : false,");
+				js.append(" movable : true,");
 				js.append(" viewMode : 3,");
 				js.append(" zoomable : false,");
 				js.append(" aspectRatio : ").append(cp.getBeanProperty("cropperRatio")).append(",");
@@ -322,10 +325,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				js.append("  data.value = JSON.stringify(cropper.getData());");
 				js.append(" }");
 				js.append("});");
+				js.append("img.up('.iitem').observe('dblclick', function(ev) { cropper.clear(); });");
 				sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
 			}
 		}
 		return sb.toString();
+
 	}
 
 	protected ImageElement createAttachmentItem_Image(final PageParameter pp, final String id,
