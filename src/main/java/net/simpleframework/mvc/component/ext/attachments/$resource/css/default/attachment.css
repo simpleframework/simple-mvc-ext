@@ -20,7 +20,7 @@
 
 .Comp_Attachment .imgc .iitem {
   float: left;
-  border: 1px solid #bbb;
+  border: 1px solid #ccc;
   margin: 4px;
 }
 
@@ -42,17 +42,33 @@
 }
 
 .Comp_Attachment .imgc .iitem img.move {
+  vertical-align: middle;
   width: 12px;
   margin: 0 4px;
 }
 
 .Comp_Attachment .imgc img.status { 
   vertical-align: middle;
-  margin-left: 3px;
+  margin-left: 4px;
 }
 
 .Comp_Attachment .imgc .iitem a {
-  margin: 1px 3px 3px;
+  vertical-align: middle;
+  margin: 4px;
+  display: inline-block;
+  background-color: #988;
+  color: #fff;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  padding: 3px 6px;
+  line-height: 1.1;
+  font-size: 8.5pt;
+}
+
+.Comp_Attachment .imgc .iitem a:hover {
+  border-color: transparent;
+  background-color: #a99;
 }
 
 .Comp_Attachment .imgc .iitem img.image {
