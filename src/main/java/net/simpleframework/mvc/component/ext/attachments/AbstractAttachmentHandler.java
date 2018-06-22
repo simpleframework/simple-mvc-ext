@@ -339,7 +339,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		try {
 			final File iFile = attachmentFile.getAttachment();
 			if (ImageUtils.isImage(iFile)) {
-				return image.setSrc(new ImageCache().getPath(pp, attachmentFile));
+				return image.setSrc(ImageCache.getInstance().getPath(pp, attachmentFile));
 			}
 		} catch (final IOException e) {
 			getLog().warn(e);
