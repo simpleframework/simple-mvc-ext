@@ -245,7 +245,13 @@
 .AttachmentHistoryTbl .titem .l2 {
   font-size: 8.5pt;
   color: #666;
-  margin-top: 12px;
+  margin-top: 4px;
   line-height: 1.4;
   padding-left: 4px;
+}
+
+.AttachmentHistoryTbl .titem .l2 .right img {
+  width: 72px;
+  height: 54px;
+  object-fit: cover;
 }
