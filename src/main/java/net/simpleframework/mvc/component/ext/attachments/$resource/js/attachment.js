@@ -2,7 +2,7 @@ var AttachmentUtils = {
   doMove : function(item, act, up) {
     item = $Target(item);
     var row = item.up(".fitem");
-    var row2 = up ? row.previous() : row.next();
+    var row2 = up ? row.previous(".iitem") : row.next(".iitem");
     if (!row2) {
       alert($MessageConst["Error.Move"]);
       return;
