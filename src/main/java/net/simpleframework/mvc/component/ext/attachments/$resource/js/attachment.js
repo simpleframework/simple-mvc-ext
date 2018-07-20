@@ -2,7 +2,7 @@ var AttachmentUtils = {
   doMove : function(item, act, up) {
     item = $Target(item);
     var row = item.up(".fitem");
-    var row2 = up ? row.previous(".iitem") : row.next(".iitem");
+    var row2 = up ? row.previous() : row.next();
     if (!row2) {
       alert($MessageConst["Error.Move"]);
       return;
@@ -29,7 +29,7 @@ var AttachmentUtils = {
   doMove_imgMode : function(item, attachmentName, next) {
     var iitem = item.up('.iitem');
     var id = iitem.getAttribute('rowid');
-    var iitem2 = next ? iitem.next() : iitem.previous();
+    var iitem2 = next ? iitem.next(".iitem") : iitem.previous(".iitem");
     if (iitem2) {
       var rowid = iitem2.getAttribute('rowid');
       $Actions[attachmentName + '_move2']('rowIds=' + rowid + ';' + id);
