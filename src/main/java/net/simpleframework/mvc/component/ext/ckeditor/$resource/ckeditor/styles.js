@@ -37,6 +37,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: '标题1',   element: 'p', attributes: { 'class' : 'html-editor-topic1' } },
 	{ name: '标题2',   element: 'p', attributes: { 'class' : 'html-editor-topic2' } },
 	{ name: '标题3',   element: 'p', attributes: { 'class' : 'html-editor-topic3' } },
+	{ name: '标题4',   element: 'p', attributes: { 'class' : 'html-editor-topic4' } },
 	
 	{ name: '边框1',   element: 'p', attributes: { 'class' : 'html-editor-border1' } },
 	{ name: '边框2',   element: 'p', attributes: { 'class' : 'html-editor-border2' } },
@@ -45,6 +46,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	  
 	{ name: '按钮1',   element: 'span', attributes: { 'class' : 'html-editor-button1' } },
 	{ name: '按钮2',   element: 'span', attributes: { 'class' : 'html-editor-button2' } },
+	{ name: '按钮3',   element: 'span', attributes: { 'class' : 'html-editor-button3' } },
 	
 	{ name: '强调1',   element: 'span', attributes: { 'class' : 'html-editor-strong1' } },
 	{ name: '强调2',   element: 'span', attributes: { 'class' : 'html-editor-strong2' } },

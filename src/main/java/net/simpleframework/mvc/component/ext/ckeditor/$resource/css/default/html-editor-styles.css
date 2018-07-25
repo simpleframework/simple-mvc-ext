@@ -44,23 +44,24 @@ hr:after {
 .html-editor-topic1:after {
   content: "";
   display: inline-block;
-  width: 20px;
-  height: 2px;
+  width: 6px;
+  height: 6px;
   background-color: #a16;
   vertical-align: middle;
   position: absolute;
-  top: 50%;
+  top: 40%;
+  top: calc(50% - 3px);
   -moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
   border-radius: 50%;
 }
 
 .html-editor-topic1:before {
-  left: -30px;
+  left: -12px;
 }
 
 .html-editor-topic1:after {
-  right: -30px;
+  right: -12px;
 }
 
 .html-editor-topic2 {
@@ -81,6 +82,40 @@ hr:after {
 	display: table;
 	margin: 30px auto;
 	padding: 4px;
+}
+
+.html-editor-topic4 {
+	text-align: center !important;
+	font-size: 11.5pt !important;
+	color: #555 !important;
+	font-weight: bolder !important;
+	vertical-align: middle;
+	position: relative;
+	display: table;
+	margin: 30px auto;
+}
+
+.html-editor-topic4::after, 
+.html-editor-topic4::before {
+	content: "";
+	display: inline-block;
+	width: 20%;
+	height: 100%;
+	position: absolute;
+}
+
+.html-editor-topic4::after {
+	border-top: 2px solid #090;
+	border-right: 2px solid #090;
+	top: -5px;
+	right: -12px;
+}
+
+.html-editor-topic4::before {
+	border-bottom: 2px solid #090;
+	border-left: 2px solid #090;
+	bottom: -5px;
+	left: -12px;
 }
 
 .html-editor-border1 {
@@ -113,7 +148,8 @@ hr:after {
 }
 
 .html-editor-button1, 
-.html-editor-button2 {
+.html-editor-button2,
+.html-editor-button3 {
 	display: inline-block;
 	text-align: center;
 	line-height: 1.1;
@@ -135,6 +171,12 @@ hr:after {
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
   border-radius: 4px;
+}
+
+.html-editor-button3 {
+	padding: 7px 24px;
+	background-color: #15a;
+	color: #fff;
 }
 
 .html-editor-strong1 {
