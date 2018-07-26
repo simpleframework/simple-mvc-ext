@@ -97,7 +97,7 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 				if (coll.size() == 0) {
 					continue;
 				}
-				final ExpressionValue ev = createFilterExpressionValue(qs, oCol, coll);
+				final ExpressionValue ev = createFilterExpressionValue(cp, qs, oCol, coll);
 				if (ev != null) {
 					qs.addCondition(ev);
 				}
@@ -105,8 +105,8 @@ public abstract class AbstractDbTablePagerHandler extends AbstractTablePagerHand
 		}
 	}
 
-	protected ExpressionValue createFilterExpressionValue(final DbDataQuery<?> qs,
-			final TablePagerColumn oCol, final Collection<FilterItem> coll) {
+	protected ExpressionValue createFilterExpressionValue(final ComponentParameter cp,
+			final DbDataQuery<?> qs, final TablePagerColumn oCol, final Collection<FilterItem> coll) {
 		final ArrayList<Object> params = new ArrayList<>();
 		final StringBuilder sb = new StringBuilder();
 		final String columnAlias = oCol.getColumnAlias();

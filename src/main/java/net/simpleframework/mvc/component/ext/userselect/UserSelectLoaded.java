@@ -96,18 +96,19 @@ public class UserSelectLoaded extends DefaultPageHandler {
 			implements IGroupTablePagerHandler {
 
 		@Override
-		protected ExpressionValue createFilterExpressionValue(final DbDataQuery<?> qs,
-				final TablePagerColumn oCol, final Collection<FilterItem> coll) {
+		protected ExpressionValue createFilterExpressionValue(final ComponentParameter cp,
+				final DbDataQuery<?> qs, final TablePagerColumn oCol,
+				final Collection<FilterItem> coll) {
 			final String col = oCol.getColumnName();
 			if ("text".equals(col)) {
-				final ExpressionValue ev = super.createFilterExpressionValue(qs, oCol, coll);
-				final ExpressionValue ev2 = super.createFilterExpressionValue(qs,
+				final ExpressionValue ev = super.createFilterExpressionValue(cp, qs, oCol, coll);
+				final ExpressionValue ev2 = super.createFilterExpressionValue(cp, qs,
 						new TablePagerColumn("py"), coll);
 				ev.setExpression("((" + ev.getExpression() + ") or (" + ev2.getExpression() + "))");
 				ev.addValues(ev2.getValues());
 				return ev;
 			}
-			return super.createFilterExpressionValue(qs, oCol, coll);
+			return super.createFilterExpressionValue(cp, qs, oCol, coll);
 		}
 
 		@Override
