@@ -39,10 +39,13 @@ CKEDITOR.editorConfig = function(config) {
   config.resize_enabled = true;
   // 是否开启 图片和表格 的改变大小的功能
   config.disableObjectResizing = false;
+  
+  // 行高
+  config.line_height="1;1.1;1.2;1.3;1.4;1.5;1.6;1.8;2.0;2.1;2.4;2.8;3.0";
 
   config.removePlugins = 'elementspath';
   // 扩展插件
-  config.extraPlugins = '_syntaxhighlight,_attach,balloontoolbar,balloonpanel,image2,tableresize,html5audio,html5video';
+  config.extraPlugins = '_syntaxhighlight,_attach,lineheight,balloontoolbar,balloonpanel,image2,tableresize,html5audio,html5video';
 
   CKEDITOR.on('dialogDefinition', function(ev) {
     var dialogName = ev.data.name;

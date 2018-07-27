@@ -45,3 +45,7 @@
 .cke_combopanel {
 	height: 280px !important;	
 }
+
+.cke_combo_text {
+  width: 35px !important;
+}
