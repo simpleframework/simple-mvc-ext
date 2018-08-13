@@ -51,7 +51,7 @@ public abstract class AttachmentUtils {
 		} else {
 			sb.append("<div id=\"attachment_").append(beanId).append("\"></div>");
 		}
-		sb.append("<div id='attachment_list_").append(beanId).append("'>");
+		sb.append("<div class='attach-list' id='attachment_list_").append(beanId).append("'>");
 		sb.append(aHandle.toAttachmentListHTML(cp));
 		sb.append("</div>");
 		sb.append(aHandle.toBottomHTML(cp));

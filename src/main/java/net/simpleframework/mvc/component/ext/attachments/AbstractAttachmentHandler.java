@@ -594,6 +594,19 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		js.append(" };");
 		js.append(" AttachmentUtils.doOk(cc, ").append(insertTextarea).append(", '")
 				.append(cp.getComponentName()).append("', msg);");
+		// window resize
+		js.append("var bb = $('.Comp_Attachment .b_attach');");
+		js.append("var w = $win(bb); if (!w) return;");
+		js.append("w.content.setStyle('overflow:hidden;');");
+		js.append("bb.addClassName('win');");
+		js.append("var list = bb.previous('.attach-list');");
+		js.append("var s = function() {");
+		js.append(" var h = w.getSize(true).height;");
+		js.append(" bb.setStyle('bottom: -42px;');");
+		js.append(" list.setStyle('height: ' + (h - 80) + 'px;');");
+		js.append("};");
+		js.append("s();");
+		js.append("w.observe('resize:ended', s);");
 		sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
 		return sb.toString();
 	}

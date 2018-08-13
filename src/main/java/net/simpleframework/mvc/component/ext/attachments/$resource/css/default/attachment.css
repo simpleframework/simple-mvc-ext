@@ -160,9 +160,21 @@
   cursor: pointer;
 }
 
+.Comp_Attachment .attach-list {
+  overflow: auto;
+}
+
 .Comp_Attachment .b_attach {
+  background-color: #f9f9f9;
   padding: 8px;
   overflow: hidden;
+}
+
+.Comp_Attachment .b_attach.win {
+  position: absolute;  
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 
 .Comp_Attachment .b_attach .rbtn {
