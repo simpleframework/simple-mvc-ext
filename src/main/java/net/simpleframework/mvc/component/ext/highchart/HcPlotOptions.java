@@ -155,6 +155,8 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 
 		private HcOptMarker marker;
 
+		private EStacking stacking;
+
 		public HcOptSeries() {
 		}
 
@@ -167,6 +169,15 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 			return this;
 		}
 
+		public EStacking getStacking() {
+			return stacking;
+		}
+
+		public HcOptSeries setStacking(final EStacking stacking) {
+			this.stacking = stacking;
+			return this;
+		}
+
 		@Override
 		protected KVMap toMap() {
 			final KVMap kv = super.toMap();
@@ -174,7 +185,25 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 			if ((val = getMarker()) != null) {
 				kv.put("marker", ((HcOptMarker) val).toMap());
 			}
+			if (getStacking() != null) {
+				kv.put("stacking", stacking.name());
+			}
 			return kv;
+		}
+
+		public static enum EStacking {
+			normal {
+				@Override
+				public String toString() {
+					return "普通堆叠";
+				}
+			},
+			precent {
+				@Override
+				public String toString() {
+					return "百分比堆叠";
+				}
+			}
 		}
 	}
 
