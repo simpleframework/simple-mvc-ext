@@ -13,6 +13,7 @@ import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.IComponentHandler;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
+import net.simpleframework.mvc.component.ui.window.WindowBean;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -81,8 +82,8 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param description
 	 * @throws Exception
 	 */
-	void doSave(ComponentParameter cp, String id, String topic, int attachtype, String description)
-			throws Exception;
+	void doTopicSave(ComponentParameter cp, String id, String topic, int attachtype,
+			String description) throws Exception;
 
 	/**
 	 * 删除上传的附件
@@ -132,6 +133,22 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @return
 	 */
 	String toBottomHTML(ComponentParameter cp) throws IOException;
+
+	/**
+	 * 标题修改dialog
+	 * 
+	 * @param cp
+	 * @return
+	 * @throws Exception
+	 */
+	String toAttachFormHTML(ComponentParameter cp) throws Exception;
+
+	/**
+	 * 额外设置WindowBean的属性
+	 * 
+	 * @param window
+	 */
+	void setEditWindowBean(WindowBean window);
 
 	/**
 	 * 获取tooltip的路径

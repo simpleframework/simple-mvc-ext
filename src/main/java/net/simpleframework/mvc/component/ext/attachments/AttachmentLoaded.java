@@ -97,9 +97,11 @@ public class AttachmentLoaded extends DefaultPageHandler {
 				}
 
 				final int height = aHandler.getAttachTypes() == null ? 240 : 280;
-				pp.addComponentBean(attachmentName + "_editWin", WindowBean.class)
+				final WindowBean windowBean = pp
+						.addComponentBean(attachmentName + "_editWin", WindowBean.class)
 						.setContentRef(attachmentName + "_editPage").setResizable(false).setHeight(height)
 						.setWidth(420).setTitle($m("AttachmentLoaded.3"));
+				aHandler.setEditWindowBean(windowBean);
 			}
 
 			// 菜单

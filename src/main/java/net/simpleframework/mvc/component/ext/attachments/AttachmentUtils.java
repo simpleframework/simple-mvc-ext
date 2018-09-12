@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.simpleframework.mvc.PageRequestResponse;
-import net.simpleframework.mvc.common.element.InputElement;
-import net.simpleframework.mvc.common.element.Option;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ComponentRenderUtils;
 
@@ -59,37 +57,8 @@ public abstract class AttachmentUtils {
 		return sb.toString();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public static String toAttachFormHTML(final ComponentParameter cp) {
-		final StringBuilder sb = new StringBuilder();
-		sb.append("<table class='form_tbl'><tr>");
-		sb.append(" <td class='l'>#(attachment_edit.0)</td>");
-		sb.append(" <td class='v'>").append(InputElement.hidden("attach_id"))
-				.append(new InputElement("attach_topic")).append("</td>");
-		sb.append("</tr></table>");
-
+	public static String toAttachFormHTML(final ComponentParameter cp) throws Exception {
 		final IAttachmentHandler aHandle = (IAttachmentHandler) cp.getComponentHandler();
-		final Enum[] arr = aHandle.getAttachTypes();
-		int size;
-		if (arr != null && (size = arr.length) > 0) {
-			final InputElement select = InputElement.select("attach_type");
-			for (int i = 0; i < size; i++) {
-				final Enum<?> e = arr[i];
-				if (e != null) {
-					select.addElements(new Option(e.ordinal(), e.toString()));
-				}
-			}
-			sb.append("<table class='form_tbl'><tr>");
-			sb.append(" <td class='l'>#(attachment_edit.2)</td>");
-			sb.append(" <td class='v'>").append(select).append("</td>");
-			sb.append("</tr></table>");
-		}
-
-		sb.append("<table class='form_tbl'><tr>");
-		sb.append(" <td class='l'>#(attachment_edit.1)</td>");
-		sb.append(" <td class='v'>").append(InputElement.textarea("attach_desc").setRows(4))
-				.append("</td>");
-		sb.append("</tr></table>");
-		return sb.toString();
+		return aHandle.toAttachFormHTML(cp);
 	}
 }

@@ -60,9 +60,9 @@ public class AttachmentEditLoaded extends DefaultPageHandler {
 		public IForward ajaxProcess(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = ComponentParameter.getByAttri(cp, "$attachment");
 			final String attachmentName = nCP.getComponentName();
-			((IAttachmentHandler) nCP.getComponentHandler()).doSave(nCP, cp.getParameter("attach_id"),
-					cp.getParameter("attach_topic"), cp.getIntParameter("attach_type"),
-					cp.getParameter("attach_desc"));
+			((IAttachmentHandler) nCP.getComponentHandler()).doTopicSave(nCP,
+					cp.getParameter("attach_id"), cp.getParameter("attach_topic"),
+					cp.getIntParameter("attach_type"), cp.getParameter("attach_desc"));
 			return new JavascriptForward("$Actions['").append(attachmentName)
 					.append("_editWin'].close();$Actions['").append(attachmentName).append("_list']();");
 		}

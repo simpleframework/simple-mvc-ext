@@ -44,11 +44,13 @@ import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.JS;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
+import net.simpleframework.mvc.common.element.Option;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentHandlerEx;
 import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
+import net.simpleframework.mvc.component.ui.window.WindowBean;
 import net.simpleframework.mvc.impl.DefaultPageResourceProvider;
 
 /**
@@ -158,7 +160,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	}
 
 	@Override
-	public void doSave(final ComponentParameter cp, final String id, final String topic,
+	public void doTopicSave(final ComponentParameter cp, final String id, final String topic,
 			final int attachtype, final String description) throws Exception {
 		final AttachmentFile af = getAttachmentById(cp, id);
 		if (af != null) {
@@ -609,6 +611,45 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		js.append("w.observe('resize:ended', s);");
 		sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
 		return sb.toString();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public String toAttachFormHTML(final ComponentParameter cp) throws Exception {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<table class='form_tbl'><tr>");
+		sb.append(" <td class='l'>#(attachment_edit.0)</td>");
+		sb.append(" <td class='v'>").append(InputElement.hidden("attach_id"))
+				.append(new InputElement("attach_topic")).append("</td>");
+		sb.append("</tr></table>");
+
+		final IAttachmentHandler aHandle = (IAttachmentHandler) cp.getComponentHandler();
+		final Enum[] arr = aHandle.getAttachTypes();
+		int size;
+		if (arr != null && (size = arr.length) > 0) {
+			final InputElement select = InputElement.select("attach_type");
+			for (int i = 0; i < size; i++) {
+				final Enum<?> e = arr[i];
+				if (e != null) {
+					select.addElements(new Option(e.ordinal(), e.toString()));
+				}
+			}
+			sb.append("<table class='form_tbl'><tr>");
+			sb.append(" <td class='l'>#(attachment_edit.2)</td>");
+			sb.append(" <td class='v'>").append(select).append("</td>");
+			sb.append("</tr></table>");
+		}
+
+		sb.append("<table class='form_tbl'><tr>");
+		sb.append(" <td class='l'>#(attachment_edit.1)</td>");
+		sb.append(" <td class='v'>").append(InputElement.textarea("attach_desc").setRows(4))
+				.append("</td>");
+		sb.append("</tr></table>");
+		return sb.toString();
+	}
+
+	@Override
+	public void setEditWindowBean(final WindowBean window) {
 	}
 
 	@Override
