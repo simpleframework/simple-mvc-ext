@@ -7,6 +7,7 @@ import net.simpleframework.common.ID;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.IComponentHandler;
+import net.simpleframework.mvc.component.ui.pager.PagerBean;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -100,4 +101,6 @@ public interface ICommentHandler extends IComponentHandler {
 	 * 
 	 */
 	String toEditorHTML(ComponentParameter cp);
+
+	void setPagerBean(PagerBean pager);
 }

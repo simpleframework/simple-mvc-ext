@@ -37,6 +37,7 @@ public class CommentLoaded extends DefaultPageHandler {
 		super.onBeforeComponentRender(pp);
 
 		final ComponentParameter cp = CommentUtils.get(pp);
+		final ICommentHandler cHandler = (ICommentHandler) cp.getComponentHandler();
 		final CommentBean commentBean = (CommentBean) cp.componentBean;
 		final String commentName = cp.getComponentName();
 
@@ -69,10 +70,12 @@ public class CommentLoaded extends DefaultPageHandler {
 				.setHandlerClass(CommentAction.class).setAttr("$comment", commentBean);
 
 		// pager
-		pp.addComponentBean(commentName + "_pager", PagerBean.class)
+		final PagerBean pagerBean = (PagerBean) pp
+				.addComponentBean(commentName + "_pager", PagerBean.class)
 				.setPagerBarLayout(EPagerBarLayout.bottom).setShowEditPageItems(false)
 				.setNoResultDesc($m("CommentLoaded.1")).setContainerId("id" + commentName + "_pager")
 				.setHandlerClass(CommentList.class).setAttr("$comment", commentBean);
+		cHandler.setPagerBean(pagerBean);
 	}
 
 	public static class CommentAction extends DefaultAjaxRequestHandler {

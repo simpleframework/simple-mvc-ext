@@ -28,6 +28,7 @@ import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentHandlerEx;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
+import net.simpleframework.mvc.component.ui.pager.PagerBean;
 import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
 
 /**
@@ -56,6 +57,10 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	@Override
 	public Object getProperty(final ComponentParameter cp, final Object o, final String name) {
 		return BeanUtils.getProperty(o, name);
+	}
+
+	@Override
+	public void setPagerBean(final PagerBean pager) {
 	}
 
 	@Override
