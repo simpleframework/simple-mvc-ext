@@ -341,7 +341,12 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		try {
 			final File iFile = attachmentFile.getAttachment();
 			if (ImageUtils.isImage(iFile)) {
-				return image.setSrc(ImageCache.getInstance().getPath(pp, attachmentFile));
+				final String src = ImageCache.getInstance().getPath(pp, attachmentFile);
+				image.setSrc(src);
+				if (!pp.isMobile()) {
+					image.setOnclick(JS.loc(src, true));
+				}
+				return image;
 			}
 		} catch (final IOException e) {
 			getLog().warn(e);
@@ -358,13 +363,15 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				sb.append(img);
 			}
 			sb.append(createAttachmentItem_DelBtn(cp, id, attachment));
-			final String ipath = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
-					+ "/images";
-			final String attachmentName = cp.getComponentName();
-			sb.append(new ImageElement(ipath + "/up.png").setClassName("move")
-					.setOnclick("AttachmentUtils.doMove_imgMode(this, '" + attachmentName + "');"));
-			sb.append(new ImageElement(ipath + "/down.png").setClassName("move").setOnclick(
-					"AttachmentUtils.doMove_imgMode(this, '" + attachmentName + "', true);"));
+			if (!getUploadCache(cp).containsKey(id)) {
+				final String ipath = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
+						+ "/images";
+				final String attachmentName = cp.getComponentName();
+				sb.append(new ImageElement(ipath + "/up.png").setClassName("move")
+						.setOnclick("AttachmentUtils.doMove_imgMode(this, '" + attachmentName + "');"));
+				sb.append(new ImageElement(ipath + "/down.png").setClassName("move").setOnclick(
+						"AttachmentUtils.doMove_imgMode(this, '" + attachmentName + "', true);"));
+			}
 		}
 		return sb.toString();
 	}
