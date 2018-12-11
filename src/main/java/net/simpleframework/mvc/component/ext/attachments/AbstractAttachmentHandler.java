@@ -477,7 +477,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 
 	protected AbstractElement<?> createAttachmentItem_menu(final ComponentParameter cp,
 			final String id, final AttachmentFile attachment, final int index) {
-		String style = "float: right; margin-top: 3px;";
+		String style = "float: right; margin-top: 1px;";
 		if (getUploadCache(cp).containsKey(attachment.getId())) {
 			style += "display: none;";
 		}
