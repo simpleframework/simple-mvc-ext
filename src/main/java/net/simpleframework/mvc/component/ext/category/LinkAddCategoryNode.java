@@ -13,4 +13,6 @@ public class LinkAddCategoryNode extends LinkAddTreeNode {
 	public LinkAddCategoryNode() {
 		super("$category_action(this).add();");
 	}
+
+	private static final long serialVersionUID = -6419738862733318035L;
 }
