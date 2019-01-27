@@ -80,10 +80,10 @@ public abstract class PluploadUtils {
 		sb.append("    <table width='100%' cellpadding='0' cellspacing='0'>");
 		sb.append("      <tr><td>");
 		sb.append("        <table width='100%' cellpadding='0' cellspacing='0'><tr>");
-		sb.append("          <td><span>\" + file.name + \"<\\/span>");
+		sb.append("          <td><span class='fn'>\" + file.name + \"<\\/span>");
 		sb.append(
 				"            <span class='fs'>\" + (osize ? osize.toFileString() : '') + \"<\\/span><\\/td>");
-		sb.append("          <td width='30px;' align='center'>");
+		sb.append("          <td width='30px;' align='right'>");
 		sb.append("            <div class='delete_image'><\\/div>");
 		sb.append("          <\\/td>");
 		sb.append("        <\\/tr><\\/table>");
