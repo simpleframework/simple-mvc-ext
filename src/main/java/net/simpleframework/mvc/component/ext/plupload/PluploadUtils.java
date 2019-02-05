@@ -144,6 +144,11 @@ public abstract class PluploadUtils {
 		sb.append("  act.jsCompleteCallback.delay(0.1, hasQueued);");
 		sb.append("},");
 
+		// Init
+		sb.append("Init: function(up) {");
+		sb.append("	if (act.onInit) act.onInit(up);");
+		sb.append("},");
+
 		// Error
 		sb.append("Error: function(up, errObject) {");
 		sb.append(" var msgc = $(\"message_").append(beanId).append("\");");
