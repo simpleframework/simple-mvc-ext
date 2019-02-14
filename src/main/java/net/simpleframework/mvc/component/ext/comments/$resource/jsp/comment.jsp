@@ -60,7 +60,6 @@
         var j = s.substring(s.lastIndexOf('/') + 1, s.lastIndexOf('.'));
         $Actions.setValue(ta, '[:em' + j + ']', true);
         comment_ta_valchange();
-        ta.focus();
       }, 
       
       show_smiley : function(a) {
