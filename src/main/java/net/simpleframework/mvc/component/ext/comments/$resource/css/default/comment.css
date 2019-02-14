@@ -21,6 +21,13 @@
   padding: 6px 0;
 }
 
+.Comp_Comment .t1_head .l3 .smiley-btn {
+	width: 21px;
+	height: 21px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
 .Comp_Comment .t1_head .reply {
   margin-left: 40px;
 }

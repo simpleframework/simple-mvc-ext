@@ -47,6 +47,12 @@
     var ltxt = h.down(".ltxt");
     ta.ltxt = ltxt;
     ta.observe("keyup", comment_ta_valchange);
+    ta.observe("focus", function(ev) {
+    	var smiley = h.down('.smiley'); 
+    	if (smiley.visible()) {
+    		smiley.hide();
+    	}
+    });
   
     window.$COMMENT = {
       insert_smiley : function(img) {
@@ -64,7 +70,6 @@
             smiley.hide();
           } else {
             smiley.show();
-            ta.focus();
           }
       	}
       },

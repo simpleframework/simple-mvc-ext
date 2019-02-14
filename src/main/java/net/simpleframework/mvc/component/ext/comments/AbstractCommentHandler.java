@@ -129,7 +129,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		sb.append(" <div class='l3 clearfix'>");
 		sb.append("  <div class='left'>");
 		if (showSmiley) {
-			sb.append(createSmiley(cp));
+			sb.append(createSmiley(cp).addClassName("smiley-btn"));
 		}
 		sb.append("	  <span class='ltxt'>&nbsp;</span>");
 		sb.append("  </div>");
@@ -144,14 +144,15 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
-		final LinkElement le = LinkElement.style2($m("AbstractCommentHandler.3"));
+		final ImageElement img = new ImageElement(
+				cp.getCssResourceHomePath(AbstractCommentHandler.class) + "/images/smiley.png")
+						.setTitle($m("AbstractCommentHandler.3"));
 		if (cp.isMobile()) {
-			le.setOnclick("$COMMENT.show_smiley(this);");
+			img.setOnclick("$COMMENT.show_smiley(this);");
 		} else {
-			le.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
+			img.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
 		}
-		return le;
-
+		return img;
 	}
 
 	protected AbstractElement<?> createTextarea(final ComponentParameter cp) {
