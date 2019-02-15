@@ -22,8 +22,8 @@
 }
 
 .Comp_Comment .t1_head .l3 .smiley-btn {
-	width: 21px;
-	height: 21px;
+	width: 23px;
+	height: 23px;
 	vertical-align: middle;
 	cursor: pointer;
 }
@@ -95,11 +95,10 @@
 }
 
 .Comp_Comment .t1_head .l2 textarea {
-  background: #c99;
+  background: #fff;
   border: 0;
   width: 100%;
   font-size: 11.5pt;
-  
 }
 
 .Comp_Comment .t1_head .l3 .left {
