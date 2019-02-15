@@ -95,9 +95,11 @@
 }
 
 .Comp_Comment .t1_head .l2 textarea {
-  background: #fff;
+  background: #c99;
   border: 0;
   width: 100%;
+  font-size: 11.5pt;
+  
 }
 
 .Comp_Comment .t1_head .l3 .left {
@@ -272,12 +274,12 @@
 
 .Comp_Comment .t1_head .smiley>div {
   display: table;
-  padding: 3px 0;
+  padding: 6px 0;
 }
 
 .Comp_Comment .t1_head .smiley .iitem {
   display: table-cell;
-  padding-right: 4px;
+  padding-right: 12px;
 }
 
 .Comp_Comment .t1_head .smiley img {
