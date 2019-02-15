@@ -225,7 +225,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	protected LinkElement createViewReplies(final ComponentParameter cp, final Object parent,
 			final int count) {
-		return new LinkElement("查看全部" + count + "条回复 &raquo;");
+		return new LinkElement($m("AbstractCommentHandler.4", count) + "&raquo;");
 	}
 
 	protected String toCommenTDHTML_children(final ComponentParameter cp, final Object o,
@@ -250,28 +250,30 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<div class='desc'>");
 		sb.append(Convert.toDateTimeString(createDate));
+		final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
 		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
 			sb.append(SpanElement.SPACE);
-			sb.append(LinkElement.style2($m("CommentList.0"))
+			sb.append(new ImageElement(ipath + "reply.png").setClassName("act")
+					.setTitle($m("CommentList.0"))
 					.setOnclick("$COMMENT.reply('" + id + "', '" + permission.getUser(userId) + "');"));
 		}
-		if (mgr || ObjectUtils.objectEquals(cp.getLoginId(), userId)) {
-			sb.append(SpanElement.SPACE);
-			sb.append(LinkElement.style2($m("Delete"))
-					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
-		}
 		if ((Boolean) cp.getBeanProperty("showLike")) {
-			sb.append("<div class='right'>");
+			sb.append("<div class='like'>");
 			final int likes = ((Number) getProperty(cp, o, ATTRI_LIKES)).intValue();
 			final SpanElement le = new SpanElement();
 			if (likes > 0) {
 				le.setText(likes);
 			}
 			sb.append(le);
-			final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
 			sb.append(new ImageElement(ipath + (isLike(cp, o) ? "like2.png" : "like.png"))
 					.setOnclick("$Actions['" + cp.getComponentName() + "_like']('id=" + id + "');"));
 			sb.append("</div>");
+		}
+
+		if (mgr || ObjectUtils.objectEquals(cp.getLoginId(), userId)) {
+			sb.append("<br>");
+			sb.append(new LinkElement($m("Delete"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
 		}
 		sb.append("</div>");
 		return sb.toString();
