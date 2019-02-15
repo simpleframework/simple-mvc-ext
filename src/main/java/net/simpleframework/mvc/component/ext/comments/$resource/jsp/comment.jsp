@@ -115,6 +115,7 @@
       doCallback : function(n) {
         ta.clear();
         ta.next().clear();
+        inputEvent();
         
         reply.innerHTML = "";
         num.innerHTML = n ? n : parseInt(num.innerHTML) + 1;
