@@ -77,6 +77,7 @@
         var s = img.src;
         var j = s.substring(s.lastIndexOf('/') + 1, s.lastIndexOf('.'));
         $Actions.setValue(ta, '[:em' + j + ']', true);
+        inputEvent();
         comment_ta_valchange();
       }, 
       
