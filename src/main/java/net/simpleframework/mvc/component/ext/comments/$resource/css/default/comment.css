@@ -99,6 +99,7 @@
   border: 0;
   width: 100%;
   font-size: 11.5pt;
+  max-height: 150px;
 }
 
 .Comp_Comment .t1_head .l3 .left {
@@ -118,6 +119,11 @@
   font-size: 10.5pt;
   font-style: italic;
   margin: 0 3px;
+}
+
+.Comp_Comment .t1_head .l3 .right a.simple_btn.disabled {
+	color: #aaa;
+	background-color: #eee;
 }
   
 .Comp_Comment .t1_comments {

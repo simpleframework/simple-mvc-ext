@@ -166,7 +166,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final String submitText = (String) cp.getBeanProperty("submitText");
 		return LinkButton.corner(submitText != null ? submitText : $m("AbstractCommentHandler.2"))
 				.setId("id" + commentName + "_submit")
-				.setOnclick("$Actions['" + commentName + "_submit']($Form(this.up('.t1_head')));");
+				.setOnclick("$COMMENT.submit('" + commentName + "');");
 	}
 
 	@Override
@@ -251,12 +251,6 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		sb.append("<div class='desc'>");
 		sb.append(Convert.toDateTimeString(createDate));
 		final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
-		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
-			sb.append(SpanElement.SPACE);
-			sb.append(new ImageElement(ipath + "reply.png").setClassName("act")
-					.setTitle($m("CommentList.0"))
-					.setOnclick("$COMMENT.reply('" + id + "', '" + permission.getUser(userId) + "');"));
-		}
 		if ((Boolean) cp.getBeanProperty("showLike")) {
 			sb.append("<div class='like'>");
 			final int likes = ((Number) getProperty(cp, o, ATTRI_LIKES)).intValue();
@@ -318,7 +312,14 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	protected String toIconTDHTML(final ComponentParameter cp, final Object o) {
 		final StringBuilder sb = new StringBuilder();
 		final Object userId = getProperty(cp, o, ATTRI_USERID);
-		sb.append(new PhotoImage(permission.getPhotoUrl(cp, userId)));
+		final PhotoImage pImg = new PhotoImage(permission.getPhotoUrl(cp, userId));
+		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
+			final Object id = getProperty(cp, o, ATTRI_ID);
+			pImg.setOnclick("$COMMENT.reply('" + id + "', '"
+					+ ($m("CommentList.0") + permission.getUser(userId)) + "');");
+		}
+		sb.append(pImg);
 		final Object oUser = permission.getUser(userId);
 		sb.append("<div class='icon_d'>").append(MobileUtils.replaceAllSMobile(oUser.toString()))
 				.append("</div>");

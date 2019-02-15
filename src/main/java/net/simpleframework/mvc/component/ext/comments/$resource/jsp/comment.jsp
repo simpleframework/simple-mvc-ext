@@ -19,6 +19,7 @@
     if (!ta)
       return;
     
+    var _placeholder = ta.getAttribute("placeholder");
     var h = ta.up(".t1_head");
     var parent = ta.next();
     var reply = h.down(".reply");
@@ -47,13 +48,30 @@
     var ltxt = h.down(".ltxt");
     ta.ltxt = ltxt;
     ta.observe("keyup", comment_ta_valchange);
+    
+    var submit_btn = ta.up('.l2').next('.l3').down('.simple_btn');
+    var inputEvent = function(ev) {
+    	if (ta.value.trim() == '') {
+    		submit_btn.addClassName("disabled");
+    	} else {
+    		submit_btn.removeClassName("disabled");
+    	}
+    };
+    ta.observe("input", inputEvent);
+    inputEvent();
+    
     ta.observe("focus", function(ev) {
     	var smiley = h.down('.smiley'); 
-    	if (smiley.visible()) {
+    	if (smiley.visible()) 
     		smiley.hide();
-    	}
     });
   
+    var clearReply = function(evn) {
+    	ta.setAttribute("placeholder", _placeholder);
+    	parent.value = "";
+    	reply.innerHTML = "";
+    };
+    
     window.$COMMENT = {
       insert_smiley : function(img) {
         var s = img.src;
@@ -65,25 +83,32 @@
       show_smiley : function(a) {
         var smiley = a.up('.l3').previous('.smiley'); 
         if (smiley) { 
-          if (smiley.visible()) {
+          if (smiley.visible())
             smiley.hide();
-          } else {
+          else
             smiley.show();
-          }
       	}
       },
     	
       reply : function(val, txt) {
-        parent.value = val;
-        reply.innerHTML = 
-              "<span class='reply_1'>" + txt +
+      	if (ta.getAttribute("placeholder") == txt) {
+      		clearReply();
+      	} else {
+      		parent.value = val;
+          reply.innerHTML = 
+                "<span class='reply_1'>" + txt +
                 "<img src='<%=ipath%>/images/del.png' class='del' />" +
-              "</span>";
-        reply.down(".del").observe("click", function(evn) {
-          reply.innerHTML = "";
-          parent.value = "";
-        });
-        ta.focus();
+                "</span>";
+          reply.down(".del").observe("click", clearReply);
+          ta.setAttribute("placeholder", txt);
+      	}
+      },
+      
+      submit : function(commentName) {
+      	if (submit_btn.hasClassName("disabled")) {
+      		return;
+      	}
+      	$Actions[commentName + '_submit']($Form(h));
       },
       
       doCallback : function(n) {
@@ -91,11 +116,7 @@
         ta.next().clear();
         
         reply.innerHTML = "";
-        if (n) {
-          num.innerHTML = n;
-        } else {
-          num.innerHTML = parseInt(num.innerHTML) + 1;
-        }
+        num.innerHTML = n ? n : parseInt(num.innerHTML) + 1;
         
         ta.ltxt.innerHTML = "&nbsp;";
         
