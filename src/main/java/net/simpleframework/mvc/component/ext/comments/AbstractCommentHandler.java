@@ -242,6 +242,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return sb.toString();
 	}
 
+	@SuppressWarnings("deprecation")
 	protected String toCommenTDHTML_desc(final ComponentParameter cp, final Object o,
 			final boolean mgr, final boolean readonly) {
 		final Object id = getProperty(cp, o, ATTRI_ID);
@@ -249,8 +250,25 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final Object userId = getProperty(cp, o, ATTRI_USERID);
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<div class='desc'>");
-		sb.append(Convert.toDateTimeString(createDate));
+		if (createDate.getYear() == new Date().getYear()) {
+			sb.append(Convert.toDateString(createDate, "MM-dd HH:mm"));
+		} else {
+			sb.append(Convert.toDateTimeString(createDate));
+		}
+
 		final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
+		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
+			final String txt = $m("CommentList.0");
+			sb.append("&nbsp;&bull;&nbsp;");
+			sb.append(new LinkElement(txt).setOnclick(
+					"$COMMENT.reply('" + id + "', '" + (txt + permission.getUser(userId)) + "');"));
+		}
+		if (mgr || ObjectUtils.objectEquals(cp.getLoginId(), userId)) {
+			sb.append("&nbsp;&bull;&nbsp;");
+			sb.append(new LinkElement($m("Delete"))
+					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
+		}
+
 		if ((Boolean) cp.getBeanProperty("showLike")) {
 			sb.append("<div class='like'>");
 			final int likes = ((Number) getProperty(cp, o, ATTRI_LIKES)).intValue();
@@ -262,12 +280,6 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			sb.append(new ImageElement(ipath + (isLike(cp, o) ? "like2.png" : "like.png"))
 					.setOnclick("$Actions['" + cp.getComponentName() + "_like']('id=" + id + "');"));
 			sb.append("</div>");
-		}
-
-		if (mgr || ObjectUtils.objectEquals(cp.getLoginId(), userId)) {
-			sb.append("<br>");
-			sb.append(new LinkElement($m("Delete"))
-					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
 		}
 		sb.append("</div>");
 		return sb.toString();
@@ -312,14 +324,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	protected String toIconTDHTML(final ComponentParameter cp, final Object o) {
 		final StringBuilder sb = new StringBuilder();
 		final Object userId = getProperty(cp, o, ATTRI_USERID);
-		final PhotoImage pImg = new PhotoImage(permission.getPhotoUrl(cp, userId));
-		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
-		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
-			final Object id = getProperty(cp, o, ATTRI_ID);
-			pImg.setOnclick("$COMMENT.reply('" + id + "', '"
-					+ ($m("CommentList.0") + permission.getUser(userId)) + "');");
-		}
-		sb.append(pImg);
+		sb.append(new PhotoImage(permission.getPhotoUrl(cp, userId)));
 		final Object oUser = permission.getUser(userId);
 		sb.append("<div class='icon_d'>").append(MobileUtils.replaceAllSMobile(oUser.toString()))
 				.append("</div>");

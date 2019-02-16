@@ -137,7 +137,7 @@
 	padding: 10px 12px 10px 6px;
 }
 
-.Comp_Comment .t1_comments .oitem:hover {
+.Comp_Comment .t1_comments .oitem:active {
 	background: #fcfcfc;
 }
 
@@ -172,15 +172,21 @@
 }
 
 .Comp_Comment .t1_comments .oitem .mc {
-  font-size: 10.5pt;
-  line-height: 1.6;
+  font-size: 11pt;
+  line-height: 1.5;
   padding-bottom: 8px;
   padding-right: 10px;
   text-align: justify;
 }
+
+.Comp_Comment .t1_comments .oitem .mc img,
+.Comp_Comment .t1_comments .oitem .rc img {
+	width: 18px;
+	height: 18px;
+}
 	
 .Comp_Comment .t1_comments .oitem .rc {
-  border-left: 3px solid #eee;
+  border-left: 2px solid #e9e9e9;
   color: #888;
   font-size: 8.5pt;
   font-style: italic;
@@ -195,8 +201,13 @@
 }
 
 .Comp_Comment .t1_comments .oitem .rr {
-  font-size: 9.5pt;
+  font-size: 9pt;
   margin-top: 8px;
+  background-color: #eee;
+  display: inline-block;
+  padding: 2px 6px;
+  line-height: 1.5;
+  border-radius: 0 6px 6px 6px;
 }
 
 .Comp_Comment .t1_comments .oitem .rr a {
@@ -208,6 +219,14 @@
 	color: #999;
 	font-size: 8.5pt;
 	position: relative;
+}
+
+.Comp_Comment .t1_comments .oitem .desc a {
+	color: #666;
+}
+
+.Comp_Comment .t1_comments .oitem .desc a:active {
+	font-weight: bolder;
 }
 
 .Comp_Comment .t1_comments .oitem .desc .plus {
@@ -237,20 +256,12 @@
   top: 4px;
 }
 
-.Comp_Comment .t1_comments .oitem .desc img {
-  vertical-align: middle;
-  cursor: pointer;
-}
-
-.Comp_Comment .t1_comments .oitem .desc img.act {
-  width: 28px;
-  height: 28px;
-}
-
 .Comp_Comment .t1_comments .oitem .desc .like img {
+	vertical-align: middle;
+  cursor: pointer;
+  margin-left: 3px;
   width: 16px;
   height: 16px;
-  margin-left: 3px;
 }
 
 .Comp_Comment .t1_comments .oitem .desc span {
@@ -284,10 +295,15 @@
 
 .Comp_Comment .t1_head .smiley .iitem {
   display: table-cell;
-  padding-right: 12px;
+  padding: 0 10px;
+  border-right: 1px dashed #ddd;
+}
+
+.Comp_Comment .t1_head .smiley .iitem:last-child {
+	border-right: 0px;
 }
 
 .Comp_Comment .t1_head .smiley img {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }

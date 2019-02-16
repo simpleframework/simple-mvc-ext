@@ -93,9 +93,7 @@
       },
     	
       reply : function(val, txt) {
-      	if (ta.getAttribute("placeholder") == txt) {
-      		clearReply();
-      	} else {
+      	if (ta.getAttribute("placeholder") != txt) {
       		parent.value = val;
           reply.innerHTML = 
                 "<span class='reply_1'>" + txt +
@@ -104,6 +102,7 @@
           reply.down(".del").observe("click", clearReply);
           ta.setAttribute("placeholder", txt);
       	}
+      	ta.focus();
       },
       
       submit : function(commentName) {
