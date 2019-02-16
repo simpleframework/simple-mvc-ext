@@ -60,11 +60,12 @@
     ta.observe("input", inputEvent);
     inputEvent();
     
-    ta.observe("focus", function(ev) {
+    var hideSmiley = function(ev) {
     	var smiley = h.down('.smiley'); 
     	if (smiley.visible()) 
     		smiley.hide();
-    });
+    }
+    ta.observe("focus", hideSmiley);
   
     var clearReply = function(evn) {
     	ta.setAttribute("placeholder", _placeholder);
@@ -115,6 +116,7 @@
       doCallback : function(n) {
         ta.clear();
         ta.next().clear();
+        hideSmiley();
         inputEvent();
         
         reply.innerHTML = "";
