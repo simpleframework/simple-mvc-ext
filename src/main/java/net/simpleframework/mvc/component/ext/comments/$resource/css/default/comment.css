@@ -158,9 +158,9 @@
   padding: 0; 
   height: 38px;
   width: 38px; 
-  -moz-border-radius : 12px; 
-  -webkit-border-radius : 12px;
-  border-radius: 12px;
+  -moz-border-radius : 5px; 
+  -webkit-border-radius : 5px;
+  border-radius: 5px;
 }
 
 .Comp_Comment .t1_comments .oitem .icon_d {
