@@ -734,6 +734,11 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				JS.loc(DownloadUtils.getDownloadHref(new AttachmentFile(target), getClass())));
 	}
 
+	@Override
+	public boolean isSwfbtns_bottom(final ComponentParameter cp) {
+		return cp.isMobile() && (Boolean) cp.getBeanProperty("imagesMode");
+	}
+
 	// AttachmentHistory
 	@Override
 	public IDataQuery<?> queryAttachmentHistory(final ComponentParameter cp) {

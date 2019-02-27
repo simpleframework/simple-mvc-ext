@@ -159,6 +159,14 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	String getTooltipPath(ComponentParameter cp);
 
 	/**
+	 * Swfbtns放在底部
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	boolean isSwfbtns_bottom(ComponentParameter cp);
+
+	/**
 	 * 查询历史附件记录
 	 * 
 	 * @param cp

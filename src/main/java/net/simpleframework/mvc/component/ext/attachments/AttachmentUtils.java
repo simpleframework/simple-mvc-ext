@@ -44,14 +44,21 @@ public abstract class AttachmentUtils {
 			sb.append(" readonly");
 		}
 		sb.append("'>");
+
+		final int l = sb.length();
 		if (readonly) {
 			sb.append(ComponentRenderUtils.genParameters(cp));
 		} else {
 			sb.append("<div id=\"attachment_").append(beanId).append("\"></div>");
 		}
-		sb.append("<div class='attach-list' id='attachment_list_").append(beanId).append("'>");
-		sb.append(aHandle.toAttachmentListHTML(cp));
-		sb.append("</div>");
+		final StringBuilder sb2 = new StringBuilder()
+				.append("<div class='attach-list' id='attachment_list_").append(beanId).append("'>")
+				.append(aHandle.toAttachmentListHTML(cp)).append("</div>");
+		if (aHandle.isSwfbtns_bottom(cp)) {
+			sb.insert(l, sb2);
+		} else {
+			sb.append(sb2);
+		}
 		sb.append(aHandle.toBottomHTML(cp));
 		sb.append("</div>");
 		return sb.toString();
