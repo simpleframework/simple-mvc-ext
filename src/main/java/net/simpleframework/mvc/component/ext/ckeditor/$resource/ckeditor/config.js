@@ -71,4 +71,9 @@ CKEDITOR.editorConfig = function(config) {
 //      priority : CKEDITOR.plugins.balloontoolbar.PRIORITY.HIGH
     });
   });
+  
+  // Mobile
+  if (isMobile.any()) {
+    config.enableContextMenu = false;
+  }
 };

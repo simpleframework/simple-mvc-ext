@@ -1,0 +1,20 @@
+.cke_editable {
+  margin: 8px auto;
+  padding: 2px 10px;
+  max-width: calc(100% - 36px);
+  box-shadow: none;
+}
+
+html {
+  background-color: #eee;
+}
+
+*::-webkit-scrollbar {
+  width: 2px;
+  background-color: #eee;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}

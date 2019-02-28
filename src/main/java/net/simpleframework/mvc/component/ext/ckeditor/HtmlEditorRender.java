@@ -39,9 +39,13 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 					.append(ComponentRenderUtils.VAR_CONTAINER).append(", {");
 		}
 
+		final String hpath = cp.getCssResourceHomePath();
 		sb.append("contentsCss: [\"").append(cp.getPageResourceProvider().getCssResourceHomePath(cp))
-				.append("/default-base.css\", \"").append(cp.getCssResourceHomePath())
-				.append("/contents.css\"],");
+				.append("/default-base.css\", \"").append(hpath).append("/contents.css\"");
+		if (cp.isMobile()) {
+			sb.append(", \"").append(hpath).append("/contents-m.css\"");
+		}
+		sb.append("],");
 		sb.append("smiley_path: \"").append(ComponentUtils.getResourceHomePath(DictionaryBean.class))
 				.append("/smiley/\",");
 
