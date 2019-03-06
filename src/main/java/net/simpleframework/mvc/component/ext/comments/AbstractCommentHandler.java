@@ -259,12 +259,12 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final String ipath = cp.getCssResourceHomePath(CommentBean.class) + "/images/";
 		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
 			final String txt = $m("CommentList.0");
-			sb.append("&nbsp;&bull;&nbsp;");
+			sb.append("&nbsp;&middot;&nbsp;");
 			sb.append(new LinkElement(txt).setOnclick(
 					"$COMMENT.reply('" + id + "', '" + (txt + permission.getUser(userId)) + "');"));
 		}
 		if (mgr || ObjectUtils.objectEquals(cp.getLoginId(), userId)) {
-			sb.append("&nbsp;&bull;&nbsp;");
+			sb.append("&nbsp;&middot;&nbsp;");
 			sb.append(new LinkElement($m("Delete"))
 					.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');"));
 		}
