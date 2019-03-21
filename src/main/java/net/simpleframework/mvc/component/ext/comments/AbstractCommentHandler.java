@@ -215,7 +215,9 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 				sb.append(Convert.toDateTimeString(createDate2)).append(SpanElement.SPACE)
 						.append(new SpanElement(permission.getUser(userId2)));
 				sb.append("</div>");
-				sb.append(CommentUtils.replace(reply, true));
+				if (reply != null && !reply.startsWith("#blob:")) {
+					sb.append(CommentUtils.replace(reply, true));
+				}
 				sb.append("</div>");
 			}
 		}
