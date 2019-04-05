@@ -98,7 +98,13 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	@Override
 	public JavascriptForward doSave(final ComponentParameter cp,
 			final IAttachmentSaveCallback callback) throws Exception {
-		final Map<String, AttachmentFile> uploads = new LinkedHashMap<>(getUploadCache(cp));
+		final Map<String, AttachmentFile> uploads = new LinkedHashMap<>();
+		for (final Map.Entry<String, AttachmentFile> e : getUploadCache(cp).entrySet()) {
+			final AttachmentFile aFile = e.getValue();
+			if (aFile.getAttachment().exists()) {
+				uploads.put(e.getKey(), aFile);
+			}
+		}
 		final Set<String> deletes = new LinkedHashSet<>(getDeleteCache(cp));
 		if (callback != null) {
 			try {
