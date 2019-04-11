@@ -47,10 +47,12 @@ public class CommentLoaded extends DefaultPageHandler {
 				.setTriggerSelector("#id" + commentName + "_submit").setWarnType(EWarnType.insertAfter)
 				.addValidators(new Validator(EValidatorMethod.min_length, "#" + idTa, 4)
 						.setMessage($m("CommentLoaded.0")));
-		pp.addComponentBean(commentName + "_submit", AjaxRequestBean.class)
+		final AjaxRequestBean submit = (AjaxRequestBean) pp
+				.addComponentBean(commentName + "_submit", AjaxRequestBean.class)
 				.setRole(PermissionConst.ROLE_ALL_ACCOUNT).setConfirmMessage($m("Confirm.Post"))
 				.setHandlerMethod("addComment").setHandlerClass(CommentAction.class)
 				.setAttr("$comment", commentBean);
+		cHandler.setSubmitBean(submit);
 
 		if ((Boolean) cp.getBeanProperty("showSmiley") && !pp.isMobile()) {
 			// 表情

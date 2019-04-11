@@ -27,6 +27,7 @@ import net.simpleframework.mvc.common.element.PhotoImage;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentHandlerEx;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.dictionary.DictionaryBean;
 import net.simpleframework.mvc.component.ui.pager.PagerBean;
 import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
@@ -61,6 +62,10 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	@Override
 	public void setPagerBean(final PagerBean pager) {
+	}
+
+	@Override
+	public void setSubmitBean(final AjaxRequestBean submit) {
 	}
 
 	@Override

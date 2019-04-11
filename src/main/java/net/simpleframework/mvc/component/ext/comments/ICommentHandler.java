@@ -7,6 +7,7 @@ import net.simpleframework.common.ID;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.IComponentHandler;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.pager.PagerBean;
 
 /**
@@ -103,4 +104,6 @@ public interface ICommentHandler extends IComponentHandler {
 	String toEditorHTML(ComponentParameter cp);
 
 	void setPagerBean(PagerBean pager);
+
+	void setSubmitBean(AjaxRequestBean submit);
 }
