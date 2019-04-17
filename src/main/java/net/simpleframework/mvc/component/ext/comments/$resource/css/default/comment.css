@@ -177,6 +177,7 @@
   padding-bottom: 8px;
   padding-right: 10px;
   text-align: justify;
+  word-break: break-all;
 }
 
 .Comp_Comment .t1_comments .oitem .mc img,
