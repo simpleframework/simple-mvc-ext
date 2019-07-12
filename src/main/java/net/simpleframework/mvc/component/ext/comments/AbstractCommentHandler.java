@@ -35,23 +35,22 @@ import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public abstract class AbstractCommentHandler extends ComponentHandlerEx implements ICommentHandler {
 
 	@Override
 	public JavascriptForward addComment(final ComponentParameter cp) {
-		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(")
-				.append(comments(cp).getCount()).append(");");
+		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(").append(comments(cp).getCount())
+				.append(");");
 		return js;
 	}
 
 	@Override
 	public JavascriptForward deleteComment(final ComponentParameter cp, final Object id) {
-		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(")
-				.append(comments(cp).getCount()).append(");");
+		final JavascriptForward js = new JavascriptForward("$COMMENT.doCallback(").append(comments(cp).getCount())
+				.append(");");
 		return js;
 	}
 
@@ -102,8 +101,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	protected String toEditorHTML_tright(final ComponentParameter cp, final int count) {
 		final StringBuilder sb = new StringBuilder();
-		sb.append($m("AbstractCommentHandler.0")).append("<span class='num'>").append(count)
-				.append("</span>").append($m("AbstractCommentHandler.1"));
+		sb.append($m("AbstractCommentHandler.0")).append("<span class='num'>").append(count).append("</span>")
+				.append($m("AbstractCommentHandler.1"));
 		return sb.toString();
 	}
 
@@ -123,8 +122,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 				sb.append(" <div>");
 				for (; i < j * 30; i++) {
 					sb.append("<div class='iitem'>");
-					sb.append(new ImageElement(ipath + i + ".gif")
-							.setOnclick("$COMMENT.insert_smiley(this);"));
+					sb.append(new ImageElement(ipath + i + ".gif").setOnclick("$COMMENT.insert_smiley(this);"));
 					sb.append("</div>");
 				}
 				sb.append(" </div>");
@@ -136,12 +134,18 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		if (showSmiley) {
 			sb.append(createSmiley(cp).addClassName("smiley-btn"));
 		}
-		sb.append("	  <span class='ltxt'>&nbsp;</span>");
+		sb.append(StringUtils.blank(toLeftBtnsHtml(cp)));
+//		sb.append("	  <span class='ltxt'>&nbsp;</span>");
 		sb.append("  </div>");
 		sb.append("  <div class='right'>").append(createSubmit(cp)).append("</div>");
 		sb.append(" </div>");
 		sb.append("</div>");
 		return sb.toString();
+	}
+
+	// 和表情并排的按钮图标扩展
+	protected String toLeftBtnsHtml(final ComponentParameter cp) {
+		return null;
 	}
 
 	protected String toEditorHTML_tlogin(final ComponentParameter cp) {
@@ -150,7 +154,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	protected AbstractElement<?> createSmiley(final ComponentParameter cp) {
 		final ImageElement img = new ImageElement(
-				cp.getCssResourceHomePath(AbstractCommentHandler.class) + "/images/smiley.png")
+				cp.getCssResourceHomePath(AbstractCommentHandler.class) + "/images/icon-smiley.png")
 						.setTitle($m("AbstractCommentHandler.3"));
 		if (cp.isMobile()) {
 			img.setOnclick("$COMMENT.show_smiley(this);");
@@ -161,17 +165,15 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	protected AbstractElement<?> createTextarea(final ComponentParameter cp) {
-		return InputElement.textarea("id" + cp.getComponentName() + "_textarea").setName("ccomment")
-				.setAutoRows(true).setRows(5)
-				.addAttribute("maxlength", cp.getBeanProperty("maxlength"));
+		return InputElement.textarea("id" + cp.getComponentName() + "_textarea").setName("ccomment").setAutoRows(true)
+				.setRows(5).addAttribute("maxlength", cp.getBeanProperty("maxlength"));
 	}
 
 	protected AbstractElement<?> createSubmit(final ComponentParameter cp) {
 		final String commentName = cp.getComponentName();
 		final String submitText = (String) cp.getBeanProperty("submitText");
 		return LinkButton.corner(submitText != null ? submitText : $m("AbstractCommentHandler.2"))
-				.setId("id" + commentName + "_submit")
-				.setOnclick("$COMMENT.submit('" + commentName + "');");
+				.setId("id" + commentName + "_submit").setOnclick("$COMMENT.submit('" + commentName + "');");
 	}
 
 	@Override
@@ -230,13 +232,12 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return sb.toString();
 	}
 
-	protected LinkElement createViewReplies(final ComponentParameter cp, final Object parent,
-			final int count) {
+	protected LinkElement createViewReplies(final ComponentParameter cp, final Object parent, final int count) {
 		return new LinkElement($m("AbstractCommentHandler.4", count) + "&raquo;");
 	}
 
-	protected String toCommenTDHTML_children(final ComponentParameter cp, final Object o,
-			final boolean mgr, final boolean readonly) {
+	protected String toCommenTDHTML_children(final ComponentParameter cp, final Object o, final boolean mgr,
+			final boolean readonly) {
 		final StringBuilder sb = new StringBuilder();
 		final IDataQuery<?> dq = children(cp, getProperty(cp, o, ATTRI_ID));
 		int count;
@@ -250,8 +251,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	@SuppressWarnings("deprecation")
-	protected String toCommenTDHTML_desc(final ComponentParameter cp, final Object o,
-			final boolean mgr, final boolean readonly) {
+	protected String toCommenTDHTML_desc(final ComponentParameter cp, final Object o, final boolean mgr,
+			final boolean readonly) {
 		final Object id = getProperty(cp, o, ATTRI_ID);
 		final Date createDate = (Date) getProperty(cp, o, ATTRI_CREATEDATE);
 		final Object userId = getProperty(cp, o, ATTRI_USERID);
@@ -267,8 +268,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		if (!readonly && (Boolean) cp.getBeanProperty("canReply")) {
 			final String txt = $m("CommentList.0");
 			sb.append("&nbsp;&middot;&nbsp;");
-			sb.append(new LinkElement(txt).setOnclick(
-					"$COMMENT.reply('" + id + "', '" + (txt + permission.getUser(userId)) + "');"));
+			sb.append(new LinkElement(txt)
+					.setOnclick("$COMMENT.reply('" + id + "', '" + (txt + permission.getUser(userId)) + "');"));
 		}
 		if (mgr || ObjectUtils.objectEquals(cp.getLoginId(), userId)) {
 			sb.append("&nbsp;&middot;&nbsp;");
@@ -301,8 +302,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		throw NotImplementedException.of(getClass(), "likeComment");
 	}
 
-	protected JavascriptForward toLikeCallback(final ComponentParameter cp, final int likes,
-			final String image) {
+	protected JavascriptForward toLikeCallback(final ComponentParameter cp, final int likes, final String image) {
 		final JavascriptForward js = new JavascriptForward(
 				"var img = $Actions['" + cp.getComponentName() + "_like'].trigger;");
 		js.append("var l = img.previous();");
@@ -311,8 +311,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		} else {
 			js.append("l.update('');");
 		}
-		js.append("img.src = '").append(cp.getCssResourceHomePath(CommentBean.class))
-				.append("/images/").append(image).append("';");
+		js.append("img.src = '").append(cp.getCssResourceHomePath(CommentBean.class)).append("/images/").append(image)
+				.append("';");
 		js.append("var desc = img.up('.desc');");
 		js.append("var plus = desc.down('.plus');");
 		js.append("if (plus) { plus.remove(); }");
@@ -333,8 +333,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final Object userId = getProperty(cp, o, ATTRI_USERID);
 		sb.append(new PhotoImage(permission.getPhotoUrl(cp, userId)));
 		final Object oUser = permission.getUser(userId);
-		sb.append("<div class='icon_d'>").append(MobileUtils.replaceAllSMobile(oUser.toString()))
-				.append("</div>");
+		sb.append("<div class='icon_d'>").append(MobileUtils.replaceAllSMobile(oUser.toString())).append("</div>");
 		return sb.toString();
 	}
 
@@ -358,8 +357,8 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		}
 
 		protected CommentBean addCommentBean(final PageParameter pp) {
-			return (CommentBean) addComponentBean(pp, "ViewRepliesPage_comment", CommentBean.class)
-					.setShowLike(true).setReadonly(true).setContainerId("idViewRepliesPage_comment");
+			return (CommentBean) addComponentBean(pp, "ViewRepliesPage_comment", CommentBean.class).setShowLike(true)
+					.setReadonly(true).setContainerId("idViewRepliesPage_comment");
 		}
 
 		@Override
