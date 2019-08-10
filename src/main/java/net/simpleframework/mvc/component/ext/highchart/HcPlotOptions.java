@@ -9,8 +9,7 @@ import net.simpleframework.mvc.component.ext.highchart.EChart.EHcDashStyle;
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
@@ -21,6 +20,8 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	private HcOptPie pie;
 
 	private HcOptColumn column;
+
+	private HcOptSolidgauge solidgauge;
 
 	private HcOptSeries series;
 
@@ -54,6 +55,14 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 		return this;
 	}
 
+	public HcOptSolidgauge getSolidgauge() {
+		return solidgauge;
+	}
+
+	public void setSolidgauge(final HcOptSolidgauge solidgauge) {
+		this.solidgauge = solidgauge;
+	}
+
 	public HcOptSeries getSeries() {
 		return series;
 	}
@@ -77,6 +86,9 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 		}
 		if (series != null) {
 			kv.add("series", series.toMap());
+		}
+		if (solidgauge != null) {
+			kv.add("solidgauge", solidgauge.toMap());
 		}
 		return kv;
 	}
@@ -110,6 +122,14 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 		private static final long serialVersionUID = -6860850197830390650L;
 
 		public HcOptPie() {
+		}
+	}
+
+	public static class HcOptSolidgauge extends HcPlotOption<HcOptSolidgauge> {
+
+		private static final long serialVersionUID = -83520070526979759L;
+
+		public HcOptSolidgauge() {
 		}
 	}
 
@@ -377,8 +397,7 @@ public class HcPlotOptions extends AbstractHcElement<HcPlotOptions> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private abstract static class _HcOptMarkerBase<T extends _HcOptMarkerBase<T>>
-			extends AbstractHcElement<T> {
+	private abstract static class _HcOptMarkerBase<T extends _HcOptMarkerBase<T>> extends AbstractHcElement<T> {
 		private static final long serialVersionUID = 1255714806998095354L;
 
 		private Boolean enabled;

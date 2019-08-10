@@ -15,8 +15,7 @@ import net.simpleframework.mvc.component.ComponentRenderUtils;
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HighchartRender extends ComponentJavascriptRender {
@@ -47,9 +46,7 @@ public class HighchartRender extends ComponentJavascriptRender {
 			sb.append("colors: ").append(JsonUtils.toJSON(ArrayUtils.asList(colors))).append(",");
 		}
 		final HcTitle title = (HcTitle) cp.getBeanProperty("title");
-		if (title != null) {
-			sb.append("title: ").append(title).append(",");
-		}
+		sb.append("title: ").append(title).append(",");
 		final HcSubtitle subtitle = (HcSubtitle) cp.getBeanProperty("subtitle");
 		if (subtitle != null) {
 			sb.append("subtitle: ").append(subtitle).append(",");
@@ -57,6 +54,10 @@ public class HighchartRender extends ComponentJavascriptRender {
 		final HcPlotOptions plotOptions = (HcPlotOptions) cp.getBeanProperty("plotOptions");
 		if (plotOptions != null) {
 			sb.append("plotOptions: ").append(plotOptions).append(",");
+		}
+		final HcPane pane = (HcPane) cp.getBeanProperty("pane");
+		if (pane != null) {
+			sb.append("pane:").append(pane).append(",");
 		}
 		final HcXAxis xAxis = (HcXAxis) cp.getBeanProperty("xAxis");
 		if (xAxis != null) {

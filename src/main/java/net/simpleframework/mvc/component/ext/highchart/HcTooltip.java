@@ -8,14 +8,13 @@ import net.simpleframework.mvc.component.ext.highchart.AbstractHcClass.AbstractH
  * 
  * www.highcharts.com/license
  * 
- * @author 陈侃(cknet@126.com, 13910090885)
- *         https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class HcTooltip extends AbstractHcElement<HcTooltip> {
 	private static final long serialVersionUID = -6941740359756098363L;
 
-	private Boolean shared, useHTML;
+	private Boolean shared, useHTML, enable = true;
 
 	private String headerFormat, pointFormat, footerFormat;
 
@@ -41,6 +40,15 @@ public class HcTooltip extends AbstractHcElement<HcTooltip> {
 
 	public HcTooltip setUseHTML(final Boolean useHTML) {
 		this.useHTML = useHTML;
+		return this;
+	}
+
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public HcTooltip setEnable(final Boolean enable) {
+		this.enable = enable;
 		return this;
 	}
 
@@ -126,6 +134,7 @@ public class HcTooltip extends AbstractHcElement<HcTooltip> {
 		if ((val = getValueSuffix()) != null) {
 			kv.put("valueSuffix", val);
 		}
+		kv.put("enable", getEnable());
 		return kv;
 	}
 }

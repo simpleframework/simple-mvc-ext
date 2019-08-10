@@ -19,8 +19,7 @@ import net.simpleframework.mvc.component.ext.highchart.EChart.EAxisType;
 public abstract class AbstractHcClass {
 
 	@SuppressWarnings("serial")
-	public static abstract class AbstractHcElement<T extends AbstractHcElement<T>>
-			extends AbstractElementBean {
+	public static abstract class AbstractHcElement<T extends AbstractHcElement<T>> extends AbstractElementBean {
 
 		protected AbstractElementBean parent;
 
@@ -60,14 +59,13 @@ public abstract class AbstractHcClass {
 	}
 
 	@SuppressWarnings("serial")
-	public static abstract class AbstractAxis<T extends AbstractAxis<T>>
-			extends AbstractHcElement<T> {
+	public static abstract class AbstractAxis<T extends AbstractAxis<T>> extends AbstractHcElement<T> {
 
 		private String[] categories;
 
 		private AxisTitle title;
 
-		private Integer max, min;
+		private Number max, min;
 
 		private EAxisType type;
 
@@ -101,20 +99,20 @@ public abstract class AbstractHcClass {
 			return new AxisTitle().setText(text);
 		}
 
-		public Integer getMax() {
+		public Number getMax() {
 			return max;
 		}
 
-		public T setMax(final Integer max) {
+		public T setMax(final Number max) {
 			this.max = max;
 			return (T) this;
 		}
 
-		public Integer getMin() {
+		public Number getMin() {
 			return min;
 		}
 
-		public T setMin(final Integer min) {
+		public T setMin(final Number min) {
 			this.min = min;
 			return (T) this;
 		}
@@ -176,14 +174,47 @@ public abstract class AbstractHcClass {
 
 		public static class AxisTitle extends AbstractHcText<AxisTitle> {
 
+			private int x;
+			private int y;
+
+			public int getX() {
+				return x;
+			}
+
+			public AxisTitle setX(final int x) {
+				this.x = x;
+				return this;
+			}
+
+			public int getY() {
+				return y;
+			}
+
+			public AxisTitle setY(final int y) {
+				this.y = y;
+				return this;
+			}
+
 			public AxisTitle() {
+			}
+
+			@Override
+			protected KVMap toMap() {
+				final KVMap kv = super.toMap();
+				int val;
+				if ((val = getX()) != 0) {
+					kv.put("x", val);
+				}
+				if ((val = getY()) != 0) {
+					kv.put("y", val);
+				}
+				return kv;
 			}
 		}
 	}
 
 	@SuppressWarnings("serial")
-	public static class AbstractHcLabels<T extends AbstractHcLabels<T>>
-			extends AbstractHcElement<T> {
+	public static class AbstractHcLabels<T extends AbstractHcLabels<T>> extends AbstractHcElement<T> {
 		private Boolean enabled;
 
 		private Integer x, y;
@@ -229,17 +260,16 @@ public abstract class AbstractHcClass {
 		}
 
 		/**
-		 * this.percentage Stacked series and pies only. The point's percentage of
-		 * the total.
+		 * this.percentage Stacked series and pies only. The point's percentage of the
+		 * total.
 		 * 
-		 * this.point The point object. The point name, if defined, is available
-		 * through this.point.name.
+		 * this.point The point object. The point name, if defined, is available through
+		 * this.point.name.
 		 * 
 		 * this.series: The series object. The series name is available through
 		 * this.series.name.
 		 * 
-		 * this.total Stacked series only. The total value at this point's x
-		 * value.
+		 * this.total Stacked series only. The total value at this point's x value.
 		 * 
 		 * this.x: The x value.
 		 * 
@@ -292,8 +322,7 @@ public abstract class AbstractHcClass {
 	}
 
 	@SuppressWarnings("serial")
-	public static abstract class AbstractHcText<T extends AbstractHcText<T>>
-			extends AbstractHcElement<T> {
+	public static abstract class AbstractHcText<T extends AbstractHcText<T>> extends AbstractHcElement<T> {
 
 		private String text;
 
@@ -397,8 +426,7 @@ public abstract class AbstractHcClass {
 	}
 
 	@SuppressWarnings("serial")
-	public static abstract class AbstractMarker<T extends AbstractMarker<T>>
-			extends AbstractHcElement<T> {
+	public static abstract class AbstractMarker<T extends AbstractMarker<T>> extends AbstractHcElement<T> {
 		private Boolean enabled;
 
 		private String lineColor;

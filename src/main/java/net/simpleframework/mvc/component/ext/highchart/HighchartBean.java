@@ -26,6 +26,8 @@ public class HighchartBean extends AbstractContainerBean {
 
 	private HcPlotOptions plotOptions;
 
+	private HcPane pane;
+
 	private HcXAxis xAxis;
 
 	private HcYAxis yAxis;
@@ -80,6 +82,15 @@ public class HighchartBean extends AbstractContainerBean {
 
 	public HighchartBean setSubtitle(final String subtitle) {
 		return setSubtitle(new HcSubtitle().setText(subtitle));
+	}
+
+	public HcPane getPane() {
+		return pane;
+	}
+
+	public HighchartBean setPane(final HcPane pane) {
+		this.pane = pane;
+		return this;
 	}
 
 	public HcPlotOptions getPlotOptions() {

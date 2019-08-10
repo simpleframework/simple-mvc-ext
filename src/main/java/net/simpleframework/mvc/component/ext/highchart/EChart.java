@@ -28,7 +28,11 @@ public class EChart {
 		/**
 		 * 横条
 		 */
-		bar
+		bar,
+		/**
+		 * 仪表盘
+		 */
+		solidgauge
 	}
 
 	public static enum EHcDashStyle {
