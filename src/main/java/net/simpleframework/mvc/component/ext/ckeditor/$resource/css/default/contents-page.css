@@ -1,0 +1,11 @@
+.cke_editable {
+  margin: 20px auto;
+  padding: 10px 15px;
+  box-shadow: 0 0 10px #ddd;
+  max-width: 480px;
+  min-height: 800px;
+}
+
+html {
+  background-color: #f8f8f8;
+}

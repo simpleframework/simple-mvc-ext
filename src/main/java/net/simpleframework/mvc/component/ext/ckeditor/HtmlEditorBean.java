@@ -28,6 +28,8 @@ public class HtmlEditorBean extends AbstractContainerBean {
 
 	private String htmlContent;
 
+	private boolean contentPageStyle;
+
 	private String textarea;
 
 	private Toolbar toolbar;
@@ -150,6 +152,15 @@ public class HtmlEditorBean extends AbstractContainerBean {
 
 	public HtmlEditorBean setHtmlContent(final String htmlContent) {
 		this.htmlContent = htmlContent;
+		return this;
+	}
+
+	public boolean isContentPageStyle() {
+		return contentPageStyle;
+	}
+
+	public HtmlEditorBean setContentPageStyle(final boolean contentPageStyle) {
+		this.contentPageStyle = contentPageStyle;
 		return this;
 	}
 

@@ -181,10 +181,6 @@ a>img {
 }
 
 /* ckan77 */
-html {
-  background-color: #f8f8f8;
-}
-
 body[contenteditable="false"] *, 
 .cke_editable[contenteditable="false"] * {
   color: #888 !important;
@@ -192,11 +188,6 @@ body[contenteditable="false"] *,
 
 .cke_editable {
   background-color: #fff;
-  margin: 20px auto;
-  padding: 10px 15px;
-  max-width: 480px;
-  min-height: 800px;
-  box-shadow: 0 0 10px #ddd;
   font-size: 10.5pt;
   line-height: 1.7;
 }
