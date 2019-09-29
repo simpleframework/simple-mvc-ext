@@ -29,8 +29,6 @@ import net.simpleframework.common.web.HttpUtils;
 import net.simpleframework.common.web.JavascriptUtils;
 import net.simpleframework.common.web.html.HtmlEncoder;
 import net.simpleframework.ctx.common.bean.AttachmentFile;
-import net.simpleframework.lib.it.sauronsoftware.jave.Encoder;
-import net.simpleframework.lib.it.sauronsoftware.jave.MultimediaInfo;
 import net.simpleframework.mvc.IMultipartFile;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
@@ -52,6 +50,8 @@ import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
 import net.simpleframework.mvc.component.ui.window.WindowBean;
 import net.simpleframework.mvc.impl.DefaultPageResourceProvider;
+import ws.schild.jave.MultimediaInfo;
+import ws.schild.jave.MultimediaObject;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -513,9 +513,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		}
 
 		if (canplay) {
-			final Encoder encoder = new Encoder();
 			try {
-				final MultimediaInfo info = encoder.getInfo(attachment.getAttachment());
+				final MultimediaInfo info = new MultimediaObject(attachment.getAttachment()).getInfo();
 				ImageElement img = null;
 				final String src = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
 						+ "/images/play.png";
