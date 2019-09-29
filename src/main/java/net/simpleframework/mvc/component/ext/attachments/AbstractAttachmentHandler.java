@@ -50,8 +50,10 @@ import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.swfupload.SwfUploadBean;
 import net.simpleframework.mvc.component.ui.window.WindowBean;
 import net.simpleframework.mvc.impl.DefaultPageResourceProvider;
+import ws.schild.jave.AudioInfo;
 import ws.schild.jave.MultimediaInfo;
 import ws.schild.jave.MultimediaObject;
+import ws.schild.jave.VideoInfo;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -518,8 +520,10 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				ImageElement img = null;
 				final String src = cp.getCssResourceHomePath(AbstractAttachmentHandler.class)
 						+ "/images/play.png";
-				if (info.getVideo() != null) {
-				} else if (info.getAudio() != null) {
+				VideoInfo vInfo;
+				AudioInfo aInfo;
+				if ((vInfo = info.getVideo()) != null && vInfo.getBitRate() > 0) {
+				} else if ((aInfo = info.getAudio()) != null && aInfo.getBitRate() > 0) {
 					img = new ImageElement(src).addClassName("play audio");
 					cp.setAttr("_audio_" + attachment.getId(), Boolean.TRUE);
 				}
