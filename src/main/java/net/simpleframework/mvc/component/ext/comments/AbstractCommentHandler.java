@@ -114,7 +114,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		sb.append("  <input type='hidden' name='parentId' />");
 		sb.append(" </div>");
 		final boolean showSmiley = (Boolean) cp.getBeanProperty("showSmiley");
-		if (showSmiley && cp.isMobile()) {
+		if (showSmiley && cp.isMobile(true)) {
 			sb.append("<div class='smiley' style='display: none;'>");
 			final String ipath = cp.getResourceHomePath(DictionaryBean.class) + "/smiley/";
 			int i = 0;
