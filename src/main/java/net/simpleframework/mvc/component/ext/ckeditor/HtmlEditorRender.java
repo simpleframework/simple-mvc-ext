@@ -43,7 +43,7 @@ public class HtmlEditorRender extends ComponentJavascriptRender {
 		sb.append("contentsCss: [\"").append(cp.getPageResourceProvider().getCssResourceHomePath(cp))
 				.append("/default-base.css\", \"").append(hpath).append("/contents.css\"");
 		if ((Boolean) cp.getBeanProperty("contentPageStyle")) {
-			if (cp.isMobile()) {
+			if (cp.isMobile(true)) {
 				sb.append(", \"").append(hpath).append("/contents-page-m.css\"");
 			} else {
 				sb.append(", \"").append(hpath).append("/contents-page.css\"");

@@ -745,7 +745,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 
 	@Override
 	public boolean isSwfbtns_bottom(final ComponentParameter cp) {
-		return cp.isMobile() && (Boolean) cp.getBeanProperty("imagesMode");
+		return cp.isMobile(true) && (Boolean) cp.getBeanProperty("imagesMode");
 	}
 
 	// AttachmentHistory

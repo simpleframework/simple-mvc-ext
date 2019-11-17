@@ -159,7 +159,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		final ImageElement img = new ImageElement(
 				cp.getCssResourceHomePath(AbstractCommentHandler.class) + "/images/icon-smiley.png")
 						.setTitle($m("AbstractCommentHandler.3"));
-		if (cp.isMobile()) {
+		if (cp.isMobile(true)) {
 			img.setOnclick("$COMMENT.show_smiley(this);");
 		} else {
 			img.setOnclick("$Actions['" + cp.getComponentName() + "_smiley']();");
