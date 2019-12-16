@@ -19,7 +19,7 @@
 }
 
 .Comp_Attachment .imgc .iitem {
-  float: left;
+  display: inline-block;
   border: 1px solid #ccc;
   margin: 4px;
 }
