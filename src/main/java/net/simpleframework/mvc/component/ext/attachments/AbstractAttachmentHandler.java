@@ -330,6 +330,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				js.append(" movable : true,");
 				js.append(" viewMode : 3,");
 				js.append(" zoomable : false,");
+				js.append(" minContainerWidth: 100,");
 				js.append(" aspectRatio : ").append(cp.getBeanProperty("cropperRatio")).append(",");
 				js.append(" crop: function(e) {");
 				js.append("  data.value = JSON.stringify(cropper.getData());");
