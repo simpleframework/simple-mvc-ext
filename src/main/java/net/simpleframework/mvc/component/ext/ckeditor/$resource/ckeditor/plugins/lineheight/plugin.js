@@ -64,10 +64,10 @@
 	}
 	CKEDITOR.plugins.add( 'lineheight', {
 		requires: 'richcombo',
-		lang: 'zh-cn,en,fr,es',
+		lang: 'ar,de,en,es,fr,ko,pt',
 		init: function( editor ) {
 			var config = editor.config;
-			addCombo( editor, 'lineheight', 'size', editor.lang.lineheight.title, config.line_height, editor.lang.lineheight.title, config.lineHeight_style, 20 );
+			addCombo( editor, 'lineheight', 'size', editor.lang.lineheight.title, config.line_height, editor.lang.lineheight.title, config.lineHeight_style, 40 );
 		}
 	} );
 } )();
