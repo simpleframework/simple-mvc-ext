@@ -62,7 +62,7 @@
     
     var hideSmiley = function(ev) {
     	var smiley = h.down('.smiley'); 
-    	if (smiley.visible()) 
+    	if (smiley && smiley.visible()) 
     		smiley.hide();
     }
     ta.observe("focus", hideSmiley);
