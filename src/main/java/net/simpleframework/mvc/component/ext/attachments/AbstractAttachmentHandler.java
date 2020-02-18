@@ -346,8 +346,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 
 	protected ImageElement createAttachmentItem_Image(final PageParameter pp, final String id,
 			final AttachmentFile attachmentFile) {
-		final ImageElement image = new ImageElement().setClassName("image")
-				.addAttribute("data-zoomable"); // data-zoomable medium-zoom.js处理
+		// zoomable：medium-zoom.js处理
+		final ImageElement image = new ImageElement().setClassName("image").zoomable();
 		try {
 			final File iFile = attachmentFile.getAttachment();
 			if (ImageUtils.isImage(iFile)) {
