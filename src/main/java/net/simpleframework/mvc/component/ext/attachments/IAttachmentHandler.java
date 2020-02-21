@@ -82,7 +82,7 @@ public interface IAttachmentHandler extends IComponentHandler, IDownloadHandler 
 	 * @param description
 	 * @throws Exception
 	 */
-	void doTopicSave(ComponentParameter cp, String id, String topic, int attachtype,
+	JavascriptForward doTopicSave(ComponentParameter cp, String id, String topic, int attachtype,
 			String description) throws Exception;
 
 	/**

@@ -168,8 +168,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 	}
 
 	@Override
-	public void doTopicSave(final ComponentParameter cp, final String id, final String topic,
-			final int attachtype, final String description) throws Exception {
+	public JavascriptForward doTopicSave(final ComponentParameter cp, final String id,
+			final String topic, final int attachtype, final String description) throws Exception {
 		final AttachmentFile af = getAttachmentById(cp, id);
 		if (af != null) {
 			af.setTopic(topic);
@@ -178,6 +178,7 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 			}
 			af.setDescription(description);
 		}
+		return null;
 	}
 
 	protected void clearCache(final ComponentParameter cp, final Set<String> add,

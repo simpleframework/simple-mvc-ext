@@ -7,7 +7,7 @@
 	final String beanId = cp.hashId();
 	final String attachmentName = (String) cp.getComponentName();
 %>
-<div class="attachment_edit">
+<div class="attachment_edit simple_window_tcb">
   <div class="c" id="af_<%=beanId%>">
     <%=AttachmentUtils.toAttachFormHTML(cp)%>
   </div>
