@@ -151,17 +151,23 @@ public abstract class PluploadUtils {
 
 		// Error
 		sb.append("Error: function(up, errObject) {");
-		sb.append(" var msgc = $(\"message_").append(beanId).append("\");");
 		sb.append(" var errorCode = errObject.code;");
 		sb.append(" var file = errObject.file;");
+		sb.append(" var _msg;");
 		sb.append(" if (errorCode == plupload.FILE_SIZE_ERROR) {");
-		sb.append("  msgc.update('\"' + file.name + '\" ")
-				.append(SwfUploadUtils.msg("SwfUploadUtils.2", fileSizeLimit)).append("');");
+		sb.append("  _msg = '\"' + file.name + '\" ")
+				.append(SwfUploadUtils.msg("SwfUploadUtils.2", fileSizeLimit)).append("';");
 		sb.append(" } else {");
-		sb.append("  msgc.update(errObject.message);");
+		sb.append("  _msg = errObject.message;");
 		sb.append(" }");
-		sb.append(" $Effect.shake(msgc);");
-		sb.append(" (function() { msgc.update(\"\"); }).delay(2);");
+		if ((Boolean) cp.getBeanProperty("alertError")) {
+			sb.append(" alert(_msg);");
+		} else {
+			sb.append(" var msgc = $(\"message_").append(beanId).append("\");");
+			sb.append(" msgc.update(_msg);");
+			sb.append(" $Effect.shake(msgc);");
+			sb.append(" (function() { msgc.update(\"\"); }).delay(2);");
+		}
 		sb.append("},");
 
 		sb.append(" }");
