@@ -141,7 +141,7 @@ public abstract class PluploadUtils {
 		sb.append("	   var fo = up.getFile(item.id.substring(5));");
 		sb.append("    return fo && fo.status == plupload.QUEUED;");
 		sb.append("  });");
-		sb.append("  act.jsCompleteCallback.delay(0.1, hasQueued);");
+		sb.append("  act.jsCompleteCallback.delay(0.1, hasQueued, up, file, serverData);");
 		sb.append("},");
 
 		// Init
@@ -181,7 +181,7 @@ public abstract class PluploadUtils {
 		sb.append("  });");
 		sb.append("};");
 
-		sb.append("act.jsCompleteCallback = function(hasQueued) {");
+		sb.append("act.jsCompleteCallback = function(hasQueued, up, file, serverData) {");
 		sb.append(StringUtils.blank(cp.getBeanProperty("jsCompleteCallback")));
 		sb.append("};");
 		return JavascriptUtils.wrapWhenReady(sb.toString());
