@@ -160,8 +160,10 @@ public abstract class PluploadUtils {
 		sb.append(" } else {");
 		sb.append("  _msg = errObject.message;");
 		sb.append(" }");
-		if ((Boolean) cp.getBeanProperty("alertError")) {
+		final boolean alertMode = (Boolean) cp.getBeanProperty("alertMode");
+		if (alertMode) {
 			sb.append(" alert(_msg);");
+			sb.append(" act.remove_loading();");
 		} else {
 			sb.append(" var msgc = $(\"message_").append(beanId).append("\");");
 			sb.append(" msgc.update(_msg);");
@@ -175,6 +177,14 @@ public abstract class PluploadUtils {
 		sb.append("uploader.init();");
 
 		sb.append("act.startUpload = function() {");
+		if (alertMode) {
+			sb.append("if (isMobile.any()) {");
+			sb.append(" var loading = $('idSwfUpload_loading');");
+			sb.append(" if (!loading) $(document.body).insert(")
+					.append("\"<div id='idSwfUpload_loading' class='loading_m_ajax2'>")
+					.append($m("SwfUploadUtils.8")).append("</div>\");");
+			sb.append("}");
+		}
 		sb.append("var params = \"\".addSelectorParameter(\"");
 		sb.append(cp.getBeanProperty("selector")).append("\");");
 		sb.append("uploader.setOption('multipart_params', params.toQueryParams());");
@@ -187,7 +197,17 @@ public abstract class PluploadUtils {
 		sb.append("  });");
 		sb.append("};");
 
+		sb.append("act.remove_loading = function() {");
+		sb.append(" if (isMobile.any()) {");
+		sb.append("  var loading = $('idSwfUpload_loading');");
+		sb.append("  if (loading) loading.remove();");
+		sb.append(" }");
+		sb.append("};");
+
 		sb.append("act.jsCompleteCallback = function(hasQueued, up, file, serverData) {");
+		if (alertMode) {
+			sb.append("act.remove_loading();");
+		}
 		sb.append(StringUtils.blank(cp.getBeanProperty("jsCompleteCallback")));
 		sb.append("};");
 		return JavascriptUtils.wrapWhenReady(sb.toString());
