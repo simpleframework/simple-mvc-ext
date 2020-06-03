@@ -502,19 +502,22 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 				.setClassName("tip").addAttribute("params", "id=" + id);
 	}
 
+	protected boolean canPlay(final AttachmentFile attachment) {
+		boolean _play = false;
+		final String ext = attachment.getExt();
+		if (StringUtils.hasText(ext)) {
+			final String mimeType = MimeTypes.getMimeType(ext.toLowerCase());
+			_play = mimeType.startsWith("audio/"); // ||mimeType.startsWith("video/")
+		}
+		return _play;
+	}
+
 	protected String toAttachmentItem_fileInfoHTML(final ComponentParameter cp,
 			final AttachmentFile attachment, final boolean readonly) throws IOException {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(new SpanElement("(" + FileUtils.toFileSize(attachment.getSize()) + ")", "size"));
 		// 是否可播放
-		boolean canplay = true;
-		final String ext = attachment.getExt();
-		if (StringUtils.hasText(ext)) {
-			final String mimeType = MimeTypes.getMimeType(ext.toLowerCase());
-			canplay = mimeType.startsWith("audio/") || mimeType.startsWith("video/");
-		}
-
-		if (canplay) {
+		if (canPlay(attachment)) {
 			try {
 				final MultimediaInfo info = new MultimediaObject(attachment.getAttachment()).getInfo();
 				ImageElement img = null;
