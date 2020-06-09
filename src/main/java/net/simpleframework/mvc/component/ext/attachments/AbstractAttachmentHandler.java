@@ -564,7 +564,8 @@ public abstract class AbstractAttachmentHandler extends ComponentHandlerEx
 		} else {
 			del = createAttachmentItem_Btn($m("Delete"));
 		}
-		return del.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');");
+		return del.setEventStopped(true)
+				.setOnclick("$Actions['" + cp.getComponentName() + "_delete']('id=" + id + "');");
 	}
 
 	protected AbstractElement<?> createAttachmentItem_EditBtn(final ComponentParameter cp,
