@@ -134,19 +134,24 @@
 
 .Comp_Comment .t1_comments .oitem {
 	border-bottom: 1px solid #eee;
-	padding: 10px 12px 10px 6px;
+	padding: 12px 12px 12px 6px;
 }
 
 .Comp_Comment .t1_comments .oitem:active {
 	background: #fcfcfc;
 }
 
-.Comp_Comment .t1_comments .oitem table {
+.Comp_Comment .t1_comments .oitem .w {
+	display: table;
 	width: 100%;
-	border-spacing: 0;
 }
 
-.Comp_Comment .t1_comments .oitem td.icon {
+.Comp_Comment .t1_comments .oitem .w>div {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.Comp_Comment .t1_comments .oitem .icon {
 	text-align: center;
 	width: 90px;
 	max-width: 90px;

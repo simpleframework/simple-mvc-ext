@@ -183,18 +183,24 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 
 	@Override
 	public String toListHTML(final ComponentParameter cp, final List<?> data) {
-		final boolean mgr = cp.isLmember(cp.getBeanProperty("role"));
-		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		final StringBuilder sb = new StringBuilder();
 		for (final Object o : data) {
-			sb.append("<div class='oitem'><table><tr>");
-			sb.append("<td class='icon'>");
-			sb.append(toIconTDHTML(cp, o));
-			sb.append("</td><td>");
-			sb.append(toCommenTDHTML(cp, o, mgr, readonly));
-			sb.append("</td>");
-			sb.append("</tr></table></div>");
+			sb.append(toOitemHTML(cp, o));
 		}
+		return sb.toString();
+	}
+
+	protected String toOitemHTML(final ComponentParameter cp, final Object o) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<div class='oitem'><div class='w'>");
+		sb.append(" <div class='icon'>");
+		sb.append(toIconTDHTML(cp, o));
+		sb.append(" </div><div>");
+		final boolean mgr = cp.isLmember(cp.getBeanProperty("role"));
+		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
+		sb.append(toCommentTDHTML(cp, o, mgr, readonly));
+		sb.append(" </div>");
+		sb.append("</div></div>");
 		return sb.toString();
 	}
 
@@ -202,20 +208,20 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return true;
 	}
 
-	protected String toCommenTDHTML_content(final ComponentParameter cp, final String content) {
+	protected String toCommentTDHTML_content(final ComponentParameter cp, final String content) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(CommentUtils.replace(content, true));
 		return sb.toString();
 	}
 
-	protected String toCommenTDHTML(final ComponentParameter cp, final Object o, final boolean mgr,
+	protected String toCommentTDHTML(final ComponentParameter cp, final Object o, final boolean mgr,
 			final boolean readonly) {
 		final StringBuilder sb = new StringBuilder();
 		final String content = Convert.toString(getProperty(cp, o, ATTRI_COMMENT));
 		sb.append("<div class='mc'>");
-		sb.append(toCommenTDHTML_content(cp, StringUtils.blank(content)));
+		sb.append(toCommentTDHTML_content(cp, StringUtils.blank(content)));
 		sb.append("</div>");
-		sb.append(toCommenTDHTML_desc(cp, o, mgr, readonly));
+		sb.append(toCommentTDHTML_desc(cp, o, mgr, readonly));
 		if (isShowRef(cp)) {
 			final Object p = getCommentById(cp, getProperty(cp, o, ATTRI_PARENTID));
 			if (p != null) {
@@ -233,7 +239,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 				sb.append("</div>");
 			}
 		}
-		sb.append(toCommenTDHTML_children(cp, o, mgr, readonly));
+		sb.append(toCommentTDHTML_children(cp, o, mgr, readonly));
 		return sb.toString();
 	}
 
@@ -242,7 +248,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 		return new LinkElement($m("AbstractCommentHandler.4", count) + "&raquo;");
 	}
 
-	protected String toCommenTDHTML_children(final ComponentParameter cp, final Object o,
+	protected String toCommentTDHTML_children(final ComponentParameter cp, final Object o,
 			final boolean mgr, final boolean readonly) {
 		final StringBuilder sb = new StringBuilder();
 		final IDataQuery<?> dq = children(cp, getProperty(cp, o, ATTRI_ID));
@@ -257,7 +263,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	@SuppressWarnings("deprecation")
-	protected String toCommenTDHTML_desc(final ComponentParameter cp, final Object o,
+	protected String toCommentTDHTML_desc(final ComponentParameter cp, final Object o,
 			final boolean mgr, final boolean readonly) {
 		final Object id = getProperty(cp, o, ATTRI_ID);
 		final Date createDate = (Date) getProperty(cp, o, ATTRI_CREATEDATE);
