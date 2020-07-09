@@ -309,7 +309,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 	}
 
 	protected JavascriptForward toLikeCallback(final ComponentParameter cp, final int likes,
-			final String image) {
+			final boolean like) {
 		final JavascriptForward js = new JavascriptForward(
 				"var img = $Actions['" + cp.getComponentName() + "_like'].trigger;");
 		js.append("var l = img.previous();");
@@ -319,7 +319,7 @@ public abstract class AbstractCommentHandler extends ComponentHandlerEx implemen
 			js.append("l.update('');");
 		}
 		js.append("img.src = '").append(cp.getCssResourceHomePath(CommentBean.class))
-				.append("/images/").append(image).append("';");
+				.append("/images/").append(like ? "like.png" : "like2.png").append("';");
 		js.append("var desc = img.up('.desc');");
 		js.append("var plus = desc.down('.plus');");
 		js.append("if (plus) { plus.remove(); }");
