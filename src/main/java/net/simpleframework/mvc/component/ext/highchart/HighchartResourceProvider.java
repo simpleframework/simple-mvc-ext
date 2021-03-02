@@ -17,6 +17,6 @@ public class HighchartResourceProvider extends AbstractComponentResourceProvider
 	public String[] getJavascriptPath(final PageParameter pp) {
 		// rPath + "/js/prototype-adapter.js?v=3.0.1",
 		final String rPath = getResourceHomePath();
-		return new String[] { rPath + "/js/highcharts.js?v=7.1.2" };
+		return new String[] { rPath + "/js/highcharts.js?v=9.0.0" };
 	}
 }
