@@ -61,9 +61,9 @@ public class AttachmentLoaded extends DefaultPageHandler {
 		final boolean readonly = (Boolean) cp.getBeanProperty("readonly");
 		if (!readonly) {
 			final boolean plupload = (Boolean) cp.getBeanProperty("plupload");
-			swfUpload = (SwfUploadBean) pp
-					.addComponentBean(attachmentName + "_swfUpload",
-							plupload ? PluploadBean.class : SwfUploadBean.class)
+			final Class<? extends SwfUploadBean> beanClass = plupload ? PluploadBean.class
+					: SwfUploadBean.class;
+			swfUpload = (SwfUploadBean) pp.addComponentBean(attachmentName + "_swfUpload", beanClass)
 					.setJsCompleteCallback("$Actions['" + attachmentName + "_list']();")
 					.setContainerId("attachment_" + attachmentBean.hashId())
 					.setHandlerClass(SwfUploadAction.class).setAttr("$attachment", attachmentBean);
